@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fbfaf7">
-<meta name="description" content="Try Fronesa's decision API — a demo of the v3 sentiment model, or call the live /decide endpoint with your API key. Decisions, confidence, escalation.">
+<meta name="description" content="Try Fronesa's decision API — a demo of the v3 sentiment model, or call the live /decide endpoint right in your browser — no key needed. Decisions, confidence, escalation.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fronesa">
 <meta property="og:title" content="Fronesa — try the model">
-<meta property="og:description" content="Try Fronesa&#x27;s decision API — a demo of the v3 sentiment model, or call the live /decide endpoint with your API key. Decisions, confidence, escalation.">
+<meta property="og:description" content="Try Fronesa&#x27;s decision API — a demo of the v3 sentiment model, or call the live /decide endpoint right in your browser — no key needed. Decisions, confidence, escalation.">
 <meta property="og:url" content="https://suretyai.github.io/try-it.html">
 <link rel="canonical" href="https://suretyai.github.io/try-it.html">
 <meta property="og:image" content="https://suretyai.github.io/assets/og-fronesa.png">
@@ -179,16 +179,15 @@
   </div>
 
   <div class="group-label">Live &mdash; call the real API</div>
-  <p class="group-note">Send your own text to the live <span class="mono">/decide</span> endpoint and get a real decision back. It needs your API key (write to <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a> for access). First request after idle can take up to ~90&thinsp;s &mdash; the page will tell you honestly instead of pretending it's broken.</p>
+  <p class="group-note">Send your own text to the live <span class="mono">/decide</span> endpoint and get a real decision back. No API key needed — just type and hit Decide. First request after idle can take up to ~90&thinsp;s &mdash; the page will tell you honestly instead of pretending it's broken.</p>
 
   <div class="live" id="live">
     <label for="live-text">Message to decide on</label>
     <textarea id="live-text" rows="3" placeholder="Absolutely loved it &mdash; best night ever!"></textarea>
     <div class="live-row">
-      <input id="live-key" type="password" placeholder="API key (fr_&hellip;)" autocomplete="off" aria-label="API key">
       <button id="live-btn" class="btn-inline">Decide</button>
     </div>
-    <p class="live-note">Your key stays in this tab. It's sent only to the API, never stored. Text you submit is covered by our data-handling policy &mdash; never used for training without your written consent (full policy available on request).</p>
+    <p class="live-note">No key, no signup. Text you submit is covered by our data-handling policy &mdash; never used for training without your written consent (full policy available on request).</p>
     <div class="live-status" id="live-status" aria-live="polite"></div>
     <div class="wake" id="live-wake" hidden>
       <div class="wake-head">The free tier is waking up.</div>
@@ -275,7 +274,6 @@ if (DATA.length) show(0);
   const COLD_START_CLAIM_S = 45;      // requests slower than this get the cold-start note
 
   const txt = document.getElementById('live-text');
-  const key = document.getElementById('live-key');
   const btn = document.getElementById('live-btn');
   const status = document.getElementById('live-status');
   const wake = document.getElementById('live-wake');
@@ -318,9 +316,7 @@ if (DATA.length) show(0);
 
   btn.addEventListener('click', async () => {
     const text = txt.value.trim();
-    const apiKey = key.value.trim();
     if (!text) { setStatus('Type or paste a message first.', true); return; }
-    if (!apiKey) { setStatus('Paste your API key first \u2014 see \u201Cgetting started\u201D.', true); return; }
 
     btn.disabled = true;
     result.hidden = true;
@@ -345,7 +341,7 @@ if (DATA.length) show(0);
     try {
       const res = await fetch(API + '/decide', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text }),
         signal: ctrl.signal
       });
