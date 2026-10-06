@@ -3,109 +3,280 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fronesa — Decisions that learn.</title>
+<meta name="theme-color" content="#fbfaf7">
+<title>Fronesa — Decisions that learn</title>
+<meta name="description" content="A fast decision model that gets smarter every week. Every escalation becomes training data.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Fronesa — Decisions that learn">
+<meta property="og:description" content="A fast decision model that gets smarter every week. Every escalation becomes training data.">
+<meta property="og:url" content="https://suretyai.github.io/">
+<link rel="canonical" href="https://suretyai.github.io/">
+<meta property="og:image" content="https://suretyai.github.io/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <style>
-  :root{--ink:#16181d;--blue:#2563eb;--red:#dc2626;--green:#059669;--paper:#f4f5f7;--mut:#5b6472}
+  /* Self-hosted Fraunces (latin, weights 500-600) — zero third-party requests */
+  @font-face{
+    font-family:'Fraunces';font-style:normal;font-weight:500 600;font-display:swap;
+    src:url('assets/fonts/fraunces-latin.woff2') format('woff2');
+  }
+  :root{
+    --paper:#fbfaf7;
+    --ink:#16150f;
+    --mut:#5c5a50;
+    --faint:#6f6c60;
+    --line:#e3e0d5;
+    --green:#0f5132;
+    --green-soft:#e8f0ea;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
-  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
-  header{padding:28px 0;display:flex;justify-content:space-between;align-items:center}
-  .logo{font-size:24px;font-weight:800;letter-spacing:-.5px}
-  .logo span{color:var(--blue)}
-  .cta{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
-  .hero{padding:72px 0 56px;text-align:center}
-  .hero h1{font-size:52px;letter-spacing:-1.5px;line-height:1.1;margin-bottom:18px}
-  .hero h1 span{color:var(--blue)}
-  .hero p{font-size:19px;color:var(--mut);max-width:640px;margin:0 auto 30px}
-  .badge{display:inline-block;background:#e3ecff;color:var(--blue);font-weight:700;font-size:13px;border-radius:20px;padding:6px 16px;margin-bottom:20px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:40px 0}
-  .card{background:#fff;border-radius:14px;padding:26px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-  .card h3{font-size:17px;margin-bottom:8px}
-  .card p{font-size:15px;color:var(--mut)}
-  .step{display:flex;gap:16px;margin:18px 0;align-items:flex-start}
-  .n{background:var(--ink);color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
-  .proof{background:var(--ink);color:#fff;border-radius:16px;padding:40px;margin:48px 0}
-  .proof h2{margin-bottom:6px}
-  .proof .sub{color:#9aa3b2;font-size:14px;margin-bottom:26px}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
-  .stat .big{font-size:40px;font-weight:800;color:#7aa5ff}
-  .stat .lbl{color:#9aa3b2;font-size:14px}
-  .fine{font-size:12.5px;color:#9aa3b2;margin-top:24px}
-  section{padding:20px 0}
-  h2.sec{font-size:30px;letter-spacing:-.8px;margin-bottom:14px}
-  footer{padding:40px 0 60px;color:var(--mut);font-size:13px;text-align:center}
-  .not{border-left:4px solid var(--red);padding:4px 0 4px 16px;margin:12px 0;color:var(--mut)}
-  @media(max-width:600px){.hero h1{font-size:36px}}
-</style>
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);
+    padding:10px 18px;border-radius:0 0 8px 0;font-size:14px;font-weight:600;
+    text-decoration:none;z-index:100}
+  .skip:focus{left:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:var(--paper);color:var(--ink);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:#d9e8dd}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
+  .serif{font-family:'Fraunces',Georgia,serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:96px 0 64px}
+  .kicker{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(46px,7.5vw,76px);line-height:1.06;letter-spacing:-.015em;margin-bottom:26px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:18px;color:var(--mut);max-width:560px;line-height:1.7}
+  .hero p strong{color:var(--ink);font-weight:600}
+  .hero-ctas{display:flex;gap:22px;margin-top:36px;align-items:center;flex-wrap:wrap}
+  .btn-solid{background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
+    font-size:15px;border-radius:8px;padding:13px 28px}
+  .btn-solid:hover{background:var(--green)}
+  .link-arrow{color:var(--green);font-weight:600;font-size:15px;text-decoration:none}
+  .link-arrow:hover{text-decoration:underline}
+
+  .codeblock{margin:64px 0 0;border:1px solid var(--line);border-radius:10px;
+    background:#fff;overflow:hidden}
+  .codeblock .cap{padding:11px 20px;border-bottom:1px solid var(--line);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:var(--faint);
+    display:flex;justify-content:space-between}
+  .codeblock pre{padding:22px 24px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13px;line-height:1.8;overflow-x:auto;color:var(--ink)}
+  .codeblock .c{color:var(--faint)}
+  .codeblock .k{color:var(--green)}
+  .codeblock .s{color:#8a5a00}
+
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  .secnum{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.18em;
+    color:var(--faint);margin-bottom:16px;text-transform:uppercase}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(30px,4.5vw,42px);line-height:1.15;margin-bottom:18px}
+  h2 em{font-style:italic;color:var(--green)}
+  .lede{font-size:17px;color:var(--mut);line-height:1.75;max-width:600px}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  .steps{margin-top:40px}
+  .step{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:22px 0;
+    border-bottom:1px solid var(--line)}
+  .step:first-child{border-top:1px solid var(--line)}
+  .step .n{font-family:'Fraunces',Georgia,serif;font-size:20px;color:var(--green);font-style:italic}
+  .step h3{font-size:17px;font-weight:600;margin-bottom:4px}
+  .step p{color:var(--mut);font-size:15px}
+
+  .figures{margin-top:44px}
+  .fig{padding:30px 0;border-bottom:1px solid var(--line)}
+  .fig:first-child{border-top:1px solid var(--line)}
+  .fig .num{font-family:'Fraunces',Georgia,serif;font-size:clamp(44px,6vw,64px);
+    font-weight:500;letter-spacing:-.02em;line-height:1;color:var(--ink);margin-bottom:10px}
+  .fig .num small{font-size:.45em;color:var(--faint);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-weight:400}
+  .fig p{color:var(--mut);font-size:15px;max-width:560px}
+  .fig p strong{color:var(--ink)}
+  .caveat{margin-top:36px;padding:22px 26px;background:var(--green-soft);
+    border-radius:10px;font-size:14px;color:var(--mut);line-height:1.7}
+  .caveat strong{color:var(--ink)}
+
+  .papers{margin-top:40px}
+  .paper{padding:26px 0;border-bottom:1px solid var(--line)}
+  .paper:first-child{border-top:1px solid var(--line)}
+  .paper .ref{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.14em;
+    color:var(--green);text-transform:uppercase;margin-bottom:10px}
+  .paper h3{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:500;margin-bottom:8px}
+  .paper p{color:var(--mut);font-size:15px;line-height:1.7}
+  .paper p strong{color:var(--ink)}
+  .limit-note{margin-top:8px;padding:18px 22px;border-left:3px solid var(--green);
+    background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
+  .limit-note strong{color:var(--ink)}
+
+  .nots{margin-top:36px}
+  .not{padding:20px 0;border-bottom:1px solid var(--line);display:grid;
+    grid-template-columns:28px 1fr;gap:10px}
+  .not:first-child{border-top:1px solid var(--line)}
+  .not .mark{font-family:'Fraunces',Georgia,serif;font-style:italic;color:var(--faint);font-size:18px}
+  .not p{font-size:15.5px;color:var(--mut)}
+  .not p strong{color:var(--ink)}
+
+  .close{padding:96px 0;text-align:left;border-top:1px solid var(--line)}
+  .close h2{font-size:clamp(36px,6vw,56px);margin-bottom:20px}
+  .close p{color:var(--mut);font-size:18px;margin-bottom:36px}
+
+  .migr{margin:64px 0 0;padding:26px 30px;border:1px solid var(--line);
+    border-radius:10px;background:#fff;display:flex;justify-content:space-between;
+    align-items:center;gap:20px;flex-wrap:wrap}
+  .migr h2{font-size:24px;margin-bottom:6px}
+  .migr p{font-size:14px;color:var(--mut);margin:0;max-width:480px}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint)}
+  footer .fl{display:flex;gap:22px}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:64px 0 48px}
+    section{padding:52px 0}
+    .nav-links a:not(.talk){display:none}
+    .step{grid-template-columns:32px 1fr}
+  }
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
 </head>
-<body>
-<div class="wrap">
-  <header>
-    <div class="logo">Fronesa<span>.</span></div>
-    <a class="cta" href="mailto:surety.ai@proton.me?subject=Fronesa%20early%20access">Request early access</a>
-  </header>
+<body><a class="skip-link" href="#main">Skip to content</a>
 
+<a class="skip" href="#main">Skip to content</a>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a class="talk" href="mailto:surety.ai@proton.me">Talk to us</a>
+  </div>
+</div></nav>
+
+<main class="wrap" id="main">
   <div class="hero">
-    <div class="badge">v0 &mdash; compounding loop proven</div>
-    <h1>Decisions that <span>learn.</span></h1>
-    <p>A fast decision model that gets smarter every week. Every escalation becomes training data, so your model compounds on <em>your</em> data &mdash; instead of staying frozen like everyone else's.</p>
-    <a class="cta" href="mailto:surety.ai@proton.me?subject=Fronesa%20early%20access">Request early access</a>
+    <div class="kicker">Fronesa &mdash; early access</div>
+    <h1>Decisions that <em>learn.</em></h1>
+    <p>Your reviewers are already labeling every edge case. Fronesa learns from those labels, so escalation falls instead of compounding &mdash; in one lab run, from 15.1% to 12.2%. Measured, not promised.</p>
+    <div class="hero-ctas">
+      <a class="btn-solid" href="mailto:surety.ai@proton.me">Talk to us</a>
+      <a class="link-arrow" href="try-it.html">Try the demo &rarr;</a>
+    </div>
+
+    <div class="codeblock">
+      <div class="cap"><span>POST /decide — illustrative example</span><span>21 ms median, measured in the lab</span></div>
+<pre><span class="c">$</span> curl -X POST https://fronsea-api.onrender.com/decide \
+  -H <span class="s">"Authorization: Bearer $FRONESA_KEY"</span> \
+  -d <span class="s">'{"text": "Free prizes, claim now!"}'</span>
+
+{
+  <span class="k">"decision"</span>: <span class="s">"spam"</span>,
+  <span class="k">"confidence"</span>: <span class="s">0.95</span>,
+  <span class="k">"escalated"</span>: <span class="k">false</span>
+}</pre>
+      <div class="cap" style="border-top:1px solid var(--line);border-bottom:0"><span><em>Illustrative — the public demo runs on our pilot endpoint; ask us for access.</em></span><span></span></div>
+    </div>
+
+    <!-- R5 migration-guide placement slot (hero/copy audit 2026-10-06):
+         Guide publishes mid-Oct; link target TBD until then. No placeholder link,
+         so nothing resolves to a missing page. -->
+    <div class="migr">
+      <div>
+        <h2 class="serif">Migrating off Perspective?</h2>
+        <p>Attribute-by-attribute migration mapping, with the honest limits included. Drafting now &mdash; coming mid-October.</p>
+      </div>
+    </div>
   </div>
 
-  <section>
-    <h2 class="sec">The problem</h2>
-    <p style="color:var(--mut);max-width:680px">Fast decision models are one-size-fits-all: the same frozen weights for every customer. They never learn <em>your</em> data. Every correction your team makes is thrown away &mdash; the model is exactly as capable on day 500 as day 1.</p>
+  <section id="problem">
+    <div class="secnum">1 &mdash; The problem</div>
+    <h2>Your model is exactly as capable on day 500 as day 1.</h2>
+    <p class="lede">Fast decision models are one-size-fits-all: the same frozen weights for every customer. They never learn <strong>your</strong> data. Every correction your team makes is thrown away.</p>
   </section>
 
-  <section>
-    <h2 class="sec">How it works</h2>
-    <div class="step"><div class="n">1</div><div><strong>Decide</strong> &mdash; typed answer + confidence, in milliseconds.</div></div>
-    <div class="step"><div class="n">2</div><div><strong>Escalate</strong> &mdash; the doubtful ones go to a human or a bigger model.</div></div>
-    <div class="step"><div class="n">3</div><div><strong>Learn</strong> &mdash; every escalation becomes a labeled lesson.</div></div>
-    <div class="step"><div class="n">4</div><div><strong>Retrain</strong> &mdash; your own private version, rebuilt on your lessons.</div></div>
-    <div class="step"><div class="n">5</div><div><strong>Gate</strong> &mdash; a new version ships only if it measures better. Repeat.</div></div>
-  </section>
-
-  <div class="proof">
-    <h2>Measured, not promised.</h2>
-    <div class="sub">Three experiments, same loop. v0/v1: SMS spam (5,574 messages, 6 simulated weeks, novel spam campaign appears week 3). v3: TweetEval sentiment (3-class, ~60k tweets, sports-topic drift).</div>
-    <div class="stats">
-      <div class="stat"><div class="big">0.38%</div><div class="lbl">error after six simulated weeks, vs 1.71% for a frozen model (v0, SMS spam)</div></div>
-      <div class="stat"><div class="big">21ms</div><div class="lbl">median per decision on GPU, v1 (p95 23ms)</div></div>
-      <div class="stat"><div class="big">15% &rarr; 12%</div><div class="lbl">escalation falling on the hard 3-class task, v3 — beating a frozen model on error too</div></div>
+  <section id="how">
+    <div class="secnum">2 &mdash; The method</div>
+    <h2>A loop, <em>not</em> a model.</h2>
+    <p class="lede">Five steps, repeating weekly. The model is the part that changes.</p>
+    <div class="steps">
+      <div class="step"><div class="n">i.</div><div><h3>Decide</h3><p>Typed answer plus confidence (well-calibrated on SMS-style inputs), in milliseconds on a warm container.</p></div></div>
+      <div class="step"><div class="n">ii.</div><div><h3>Escalate</h3><p>The doubtful ones go to a human reviewer or a bigger model.</p></div></div>
+      <div class="step"><div class="n">iii.</div><div><h3>Learn</h3><p>Every resolved escalation becomes a labeled lesson.</p></div></div>
+      <div class="step"><div class="n">iv.</div><div><h3>Retrain</h3><p>Your own private version, rebuilt on your lessons.</p></div></div>
+      <div class="step"><div class="n">v.</div><div><h3>Gate</h3><p>A new version ships only if it measures better. Repeat.</p></div></div>
     </div>
-    <div class="fine">Synthetic-drift experiments on public data, documented in the repo — including v2, where a fixed threshold broke down (87% escalation) and taught us escalation must be budget-based. Not customer results. We publish measured rates &mdash; we don't promise them.</div>
+  </section>
+
+  <section id="proof">
+    <div class="secnum">3 &mdash; The evidence</div>
+    <h2>Measured, <em>not</em> promised.</h2>
+    <p class="lede">Three experiments, same loop. v0/v1: SMS spam (5,574 messages, 6 simulated weeks, novel spam campaign appears week 3). v3: TweetEval sentiment (3-class, ~60k tweets, sports-topic drift).</p>
+    <div class="figures">
+      <div class="fig"><div class="num">0.38<small>%</small></div><p><strong>Error vs a frozen model</strong> &mdash; 0.38% vs 1.71% (v0).</p></div>
+      <div class="fig"><div class="num">21<small> ms</small></div><p><strong>Median latency</strong> per decision on GPU, p95 22.6ms (v1).</p></div>
+      <div class="fig"><div class="num">15&rarr;12<small> %</small></div><p><strong>Escalation falling</strong> on the hard 3-class task &mdash; beating frozen on error too (v3).</p></div>
+    </div>
+    <div class="caveat"><strong>How to read this.</strong> Synthetic-drift experiments on public data, documented in our lab notes &mdash; available on request &mdash; including v2, where a fixed threshold broke down (87% escalation) and taught us escalation must be budget-based. Not customer results. We publish measured rates &mdash; we don't promise them.</div>
+  </section>
+
+  <section id="research">
+    <div class="secnum">4 &mdash; Research</div>
+    <h2>Run in the lab before it's sold.</h2>
+    <p class="lede">Every experiment pre-registers its success criteria. Every number below is measured on public data with synthetic drift &mdash; not customer traffic, not promises.</p>
+    <div class="papers">
+      <div class="paper"><div class="ref">Experiment v0</div><h3>Compounding proof</h3><p><strong>Lower error</strong> than a frozen model: 0.38% vs 1.71%; escalation 10.9% &rarr; 10.0%. SMS spam, six simulated weeks, a novel spam campaign injected mid-run.</p></div>
+      <div class="paper"><div class="ref">Experiment v1</div><h3>A real transformer</h3><p><strong>21ms median</strong> per decision (p95 22.6ms) on ModernBERT-base + LoRA; calibration error 0.012. Escalation 1.83% &rarr; 0.65%.</p></div>
+      <div class="paper"><div class="ref">Experiment v5</div><h3>Survives noisy judges</h3><p>With <strong>10% of judge labels flipped</strong>, the loop still beats frozen (0.65% vs 1.69%). Graceful, not brittle.</p></div>
+      <div class="paper"><div class="ref">Experiment v6</div><h3>The long run</h3><p>Twelve weeks: within-loop error fell from 4.52% to 0.22% (week 3 to week 12 &mdash; not vs a frozen baseline, not a universal guarantee) and stayed there.</p></div>
+    </div>
+    <div class="limit-note" style="margin-top:28px"><strong>Limit, stated plainly:</strong> escalation follows stream novelty. The loop has collapsed error in every lab run so far — not <em>cost</em> collapse &mdash; if your stream keeps throwing genuinely new patterns at the model, escalation stays elevated. &ldquo;Gets more accurate, measurably&rdquo; is the claim; &ldquo;gets cheaper forever&rdquo; never was.</div>
+    <div class="limit-note"><strong>Limit, stated plainly:</strong> per-customer adapters are a data-isolation story, not an accuracy moat. Personal beat pooled by ~1 point on small samples &mdash; not statistically convincing. For regulated buyers, isolation is the feature.</div>
+    <p class="lede" style="margin-top:28px;font-size:15px">Full writeup &mdash; &ldquo;Your model should get smarter every time a human corrects it,&rdquo; with a claims-vs-proof appendix mapping every number to its experiment &mdash; available on request.</p>
+  </section>
+
+  <section>
+    <div class="secnum">5 &mdash; What Fronesa is not</div>
+    <h2>No fine print. Just the truth.</h2>
+    <div class="nots">
+      <div class="not"><div class="mark">&times;</div><p><strong>Not a foundation model.</strong> Day-one quality comes from open weights plus light tuning &mdash; the moat is the loop, not the starting line.</p></div>
+      <div class="not"><div class="mark">&times;</div><p><strong>Not a guaranteed error rate.</strong> We show you measured numbers; we don't sell promises.</p></div>
+      <div class="not"><div class="mark">&times;</div><p><strong>Not for tiny volumes.</strong> The loop needs decisions to learn from.</p></div>
+    </div>
+  </section>
+
+  <div class="close">
+    <h2 class="serif">Your model should be smarter<br><em>next month</em> than today.</h2>
+    <p>Everyone else's stays frozen. Ours compounds.</p>
+    <div class="hero-ctas">
+      <a class="btn-solid" href="mailto:surety.ai@proton.me">Talk to us</a>
+      <a class="link-arrow" href="try-it.html">Try the demo &rarr;</a>
+    </div>
   </div>
+</main>
 
-  <section>
-    <h2 class="sec">Research</h2>
-    <p style="color:var(--mut);max-width:680px;margin-bottom:14px">We run the loop in the lab before we sell it. Every experiment pre-registers its success criteria; every number below is measured on public data with synthetic drift &mdash; not customer traffic, not promises.</p>
-    <p style="color:var(--mut);max-width:680px;margin-bottom:6px"><strong style="color:var(--ink)">The loop, in one paragraph:</strong> a fast model returns typed decisions with calibrated probabilities; doubt below a threshold escalates to a human reviewer; every resolved escalation becomes labeled training data; a LoRA adapter retrains on seed data plus accumulated lessons; a version gate ships the candidate only if it beats the incumbent on held-out eval. Repeat.</p>
-    <div class="grid">
-      <div class="card"><h3>v0 &mdash; compounding proof</h3><p>Error <strong>0.38% vs 1.71%</strong> against a frozen model, escalation 10.9% &rarr; 10.0%. SMS spam, six simulated weeks, a novel spam campaign injected mid-run.</p></div>
-      <div class="card"><h3>v1 &mdash; real transformer</h3><p><strong>21ms median</strong> per decision (p95 22.56ms) on ModernBERT-base + LoRA, calibration error 0.012. Escalation 1.83% &rarr; 0.65%.</p></div>
-      <div class="card"><h3>v5 &mdash; survives noisy judges</h3><p>With <strong>10% of judge labels flipped</strong> &mdash; the noise level at which earlier published adaptive approaches degraded sharply &mdash; the loop's error was <strong>0.65% vs 1.69%</strong> for the frozen model. Graceful, not brittle.</p></div>
-      <div class="card"><h3>v6 &mdash; the long run</h3><p>Twelve weeks: error fell from <strong>4.52% to 0.22%</strong> and stayed there.</p></div>
-    </div>
-    <div class="not"><strong>Honest limit 1:</strong> escalation follows stream novelty. The loop guarantees <em>error</em> collapse, not <em>cost</em> collapse &mdash; if your stream keeps throwing genuinely new patterns at the model, escalation stays elevated. &ldquo;Gets more accurate, measurably&rdquo; is the claim; &ldquo;gets cheaper forever&rdquo; never was.</div>
-    <div class="not"><strong>Honest limit 2:</strong> per-customer adapters are a data-isolation story, not an accuracy moat. Personal beat pooled by ~1 point on small samples &mdash; not statistically convincing. For regulated buyers, isolation is the feature.</div>
-    <p style="color:var(--mut);font-size:14px;margin-top:16px">Full writeup &mdash; &ldquo;Your model should get smarter every time a human corrects it,&rdquo; with a claims-vs-proof appendix mapping every number to its experiment: Surety engineering blog.</p>
-  </section>
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
 
-  <section>
-    <h2 class="sec">What Fronesa is not</h2>
-    <div class="not">Not a foundation model. Day-one quality comes from open weights + light tuning &mdash; the moat is the loop, not the starting line.</div>
-    <div class="not">Not a guaranteed error rate. We show you measured numbers; we don't sell promises.</div>
-    <div class="not">Not for tiny volumes. The loop needs decisions to learn from.</div>
-  </section>
-
-  <section style="text-align:center;padding:48px 0">
-    <h2 class="sec">Your model should be smarter<br>next month than today.</h2>
-    <p style="color:var(--mut);margin-bottom:24px">Everyone else's stays frozen. Ours compounds.</p>
-    <a class="cta" href="mailto:surety.ai@proton.me?subject=Fronesa%20early%20access">Request early access</a>
-  </section>
-
-  <footer>Fronesa &mdash; decisions that learn. &copy; 2026</footer>
-</div>
 </body>
 </html>
