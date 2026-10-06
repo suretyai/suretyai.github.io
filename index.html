@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — Decisions that learn.</title>
+<style>
+  :root{--ink:#16181d;--blue:#2563eb;--red:#dc2626;--green:#059669;--paper:#f4f5f7;--mut:#5b6472}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  header{padding:28px 0;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-size:24px;font-weight:800;letter-spacing:-.5px}
+  .logo span{color:var(--blue)}
+  .cta{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+  .hero{padding:72px 0 56px;text-align:center}
+  .hero h1{font-size:52px;letter-spacing:-1.5px;line-height:1.1;margin-bottom:18px}
+  .hero h1 span{color:var(--blue)}
+  .hero p{font-size:19px;color:var(--mut);max-width:640px;margin:0 auto 30px}
+  .badge{display:inline-block;background:#e3ecff;color:var(--blue);font-weight:700;font-size:13px;border-radius:20px;padding:6px 16px;margin-bottom:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:40px 0}
+  .card{background:#fff;border-radius:14px;padding:26px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+  .card h3{font-size:17px;margin-bottom:8px}
+  .card p{font-size:15px;color:var(--mut)}
+  .step{display:flex;gap:16px;margin:18px 0;align-items:flex-start}
+  .n{background:var(--ink);color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+  .proof{background:var(--ink);color:#fff;border-radius:16px;padding:40px;margin:48px 0}
+  .proof h2{margin-bottom:6px}
+  .proof .sub{color:#9aa3b2;font-size:14px;margin-bottom:26px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+  .stat .big{font-size:40px;font-weight:800;color:#7aa5ff}
+  .stat .lbl{color:#9aa3b2;font-size:14px}
+  .fine{font-size:12.5px;color:#9aa3b2;margin-top:24px}
+  section{padding:20px 0}
+  h2.sec{font-size:30px;letter-spacing:-.8px;margin-bottom:14px}
+  footer{padding:40px 0 60px;color:var(--mut);font-size:13px;text-align:center}
+  .not{border-left:4px solid var(--red);padding:4px 0 4px 16px;margin:12px 0;color:var(--mut)}
+  @media(max-width:600px){.hero h1{font-size:36px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">Fronesa<span>.</span></div>
+    <a class="cta" href="mailto:surety.ai@proton.me?subject=Fronesa%20early%20access">Request early access</a>
+  </header>
+
+  <div class="hero">
+    <div class="badge">v0 &mdash; compounding loop proven</div>
+    <h1>Decisions that <span>learn.</span></h1>
+    <p>A fast decision model that gets smarter every week. Every escalation becomes training data, so your model compounds on <em>your</em> data &mdash; instead of staying frozen like everyone else's.</p>
+    <a class="cta" href="mailto:surety.ai@proton.me?subject=Fronesa%20early%20access">Request early access</a>
+  </div>
+
+  <section>
+    <h2 class="sec">The problem</h2>
+    <p style="color:var(--mut);max-width:680px">Fast decision models are one-size-fits-all: the same frozen weights for every customer. They never learn <em>your</em> data. Every correction your team makes is thrown away &mdash; the model is exactly as capable on day 500 as day 1.</p>
+  </section>
+
+  <section>
+    <h2 class="sec">How it works</h2>
+    <div class="step"><div class="n">1</div><div><strong>Decide</strong> &mdash; typed answer + confidence, in milliseconds.</div></div>
+    <div class="step"><div class="n">2</div><div><strong>Escalate</strong> &mdash; the doubtful ones go to a human or a bigger model.</div></div>
+    <div class="step"><div class="n">3</div><div><strong>Learn</strong> &mdash; every escalation becomes a labeled lesson.</div></div>
+    <div class="step"><div class="n">4</div><div><strong>Retrain</strong> &mdash; your own private version, rebuilt on your lessons.</div></div>
+    <div class="step"><div class="n">5</div><div><strong>Gate</strong> &mdash; a new version ships only if it measures better. Repeat.</div></div>
+  </section>
+
+  <div class="proof">
+    <h2>Measured, not promised.</h2>
+    <div class="sub">Three experiments, same loop. v0/v1: SMS spam (5,574 messages, 6 simulated weeks, novel spam campaign appears week 3). v3: TweetEval sentiment (3-class, ~60k tweets, sports-topic drift).</div>
+    <div class="stats">
+      <div class="stat"><div class="big">0.38%</div><div class="lbl">error after six simulated weeks, vs 1.71% for a frozen model (v0, SMS spam)</div></div>
+      <div class="stat"><div class="big">21ms</div><div class="lbl">median per decision on GPU, v1 (p95 23ms)</div></div>
+      <div class="stat"><div class="big">15% &rarr; 12%</div><div class="lbl">escalation falling on the hard 3-class task, v3 — beating a frozen model on error too</div></div>
+    </div>
+    <div class="fine">Synthetic-drift experiments on public data, documented in the repo — including v2, where a fixed threshold broke down (87% escalation) and taught us escalation must be budget-based. Not customer results. We publish measured rates &mdash; we don't promise them.</div>
+  </div>
+
+  <section>
+    <h2 class="sec">Research</h2>
+    <p style="color:var(--mut);max-width:680px;margin-bottom:14px">We run the loop in the lab before we sell it. Every experiment pre-registers its success criteria; every number below is measured on public data with synthetic drift &mdash; not customer traffic, not promises.</p>
+    <p style="color:var(--mut);max-width:680px;margin-bottom:6px"><strong style="color:var(--ink)">The loop, in one paragraph:</strong> a fast model returns typed decisions with calibrated probabilities; doubt below a threshold escalates to a human reviewer; every resolved escalation becomes labeled training data; a LoRA adapter retrains on seed data plus accumulated lessons; a version gate ships the candidate only if it beats the incumbent on held-out eval. Repeat.</p>
+    <div class="grid">
+      <div class="card"><h3>v0 &mdash; compounding proof</h3><p>Error <strong>0.38% vs 1.71%</strong> against a frozen model, escalation 10.9% &rarr; 10.0%. SMS spam, six simulated weeks, a novel spam campaign injected mid-run.</p></div>
+      <div class="card"><h3>v1 &mdash; real transformer</h3><p><strong>21ms median</strong> per decision (p95 22.56ms) on ModernBERT-base + LoRA, calibration error 0.012. Escalation 1.83% &rarr; 0.65%.</p></div>
+      <div class="card"><h3>v5 &mdash; survives noisy judges</h3><p>With <strong>10% of judge labels flipped</strong> &mdash; the noise level at which earlier published adaptive approaches degraded sharply &mdash; the loop's error was <strong>0.65% vs 1.69%</strong> for the frozen model. Graceful, not brittle.</p></div>
+      <div class="card"><h3>v6 &mdash; the long run</h3><p>Twelve weeks: error fell from <strong>4.52% to 0.22%</strong> and stayed there.</p></div>
+    </div>
+    <div class="not"><strong>Honest limit 1:</strong> escalation follows stream novelty. The loop guarantees <em>error</em> collapse, not <em>cost</em> collapse &mdash; if your stream keeps throwing genuinely new patterns at the model, escalation stays elevated. &ldquo;Gets more accurate, measurably&rdquo; is the claim; &ldquo;gets cheaper forever&rdquo; never was.</div>
+    <div class="not"><strong>Honest limit 2:</strong> per-customer adapters are a data-isolation story, not an accuracy moat. Personal beat pooled by ~1 point on small samples &mdash; not statistically convincing. For regulated buyers, isolation is the feature.</div>
+    <p style="color:var(--mut);font-size:14px;margin-top:16px">Full writeup &mdash; &ldquo;Your model should get smarter every time a human corrects it,&rdquo; with a claims-vs-proof appendix mapping every number to its experiment: Surety engineering blog.</p>
+  </section>
+
+  <section>
+    <h2 class="sec">What Fronesa is not</h2>
+    <div class="not">Not a foundation model. Day-one quality comes from open weights + light tuning &mdash; the moat is the loop, not the starting line.</div>
+    <div class="not">Not a guaranteed error rate. We show you measured numbers; we don't sell promises.</div>
+    <div class="not">Not for tiny volumes. The loop needs decisions to learn from.</div>
+  </section>
+
+  <section style="text-align:center;padding:48px 0">
+    <h2 class="sec">Your model should be smarter<br>next month than today.</h2>
+    <p style="color:var(--mut);margin-bottom:24px">Everyone else's stays frozen. Ours compounds.</p>
+    <a class="cta" href="mailto:surety.ai@proton.me?subject=Fronesa%20early%20access">Request early access</a>
+  </section>
+
+  <footer>Fronesa &mdash; decisions that learn. &copy; 2026</footer>
+</div>
+</body>
+</html>

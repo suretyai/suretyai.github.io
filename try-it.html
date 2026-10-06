@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — try the model</title>
+<style>
+  :root{--ink:#16181d;--blue:#2563eb;--paper:#f4f5f7;--mut:#5b6472;--green:#059669;--red:#dc2626;--amber:#d97706}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  header{padding:24px 0;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-size:22px;font-weight:800}.logo span{color:var(--blue)}
+  .note{font-size:12.5px;color:var(--mut);background:#eef2ff;border-radius:10px;padding:10px 14px;margin:8px 0 20px}
+  h1{font-size:30px;letter-spacing:-.6px;margin:10px 0 6px}
+  .sub{color:var(--mut);margin-bottom:18px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px}
+  .chip{background:#fff;border:1px solid #dfe3ea;border-radius:20px;padding:8px 14px;font-size:13.5px;cursor:pointer}
+  .chip:hover{border-color:var(--blue)}
+  .card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin:14px 0;display:none}
+  .card.show{display:block}
+  .tweet{font-size:17px;margin-bottom:14px}
+  .row{display:flex;gap:10px;align-items:center;margin:10px 0;flex-wrap:wrap}
+  .pill{border-radius:20px;padding:6px 16px;font-weight:700;font-size:14px;color:#fff}
+  .neg{background:var(--red)}.neu{background:var(--mut)}.pos{background:var(--green)}
+  .conf{font-size:14px;color:var(--mut)}
+  .bar{height:10px;background:#edf0f4;border-radius:6px;overflow:hidden;margin:6px 0}
+  .bar i{display:block;height:100%;border-radius:6px}
+  .esc{border-radius:10px;padding:10px 14px;font-size:14px;margin-top:12px}
+  .esc.yes{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+  .esc.no{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+  .prow{display:flex;justify-content:space-between;font-size:13px;color:var(--mut)}
+  footer{padding:30px 0 50px;color:var(--mut);font-size:12.5px;text-align:center}
+  .thr{font-size:12.5px;color:var(--mut);margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="logo">Fronesa<span>.</span></div></header>
+  <h1>Try the model.</h1>
+  <p class="sub">Real outputs from the v3 model (ModernBERT + LoRA, trained by the compounding loop). Tap any tweet.</p>
+  <div class="note">Decisions below the 0.49 confidence line get <b>escalated</b> to a human — and the human's answer becomes training data. That's the loop.</div>
+  <div class="chips" id="chips"></div>
+  <div class="card" id="card">
+    <div class="tweet" id="tweet"></div>
+    <div class="row"><span class="pill" id="pill"></span><span class="conf" id="conf"></span></div>
+    <div id="probs"></div>
+    <div class="esc" id="esc"></div>
+    <div class="thr">Escalation threshold 0.49 — tuned once for a 15% budget, then fixed.</div>
+  </div>
+  <footer>Fronesa v3 adapter &middot; outputs pre-computed, not simulated &middot; 2026</footer>
+</div>
+<script>
+const DATA = [
+ {
+  "text": "Absolutely loved the concert last night, best show ever!",
+  "decision": "positive",
+  "confidence": 0.993,
+  "probs": {
+   "negative": 0.002,
+   "neutral": 0.005,
+   "positive": 0.993
+  },
+  "escalated": false
+ },
+ {
+  "text": "This new album is incredible, on repeat all day",
+  "decision": "positive",
+  "confidence": 0.898,
+  "probs": {
+   "negative": 0.04,
+   "neutral": 0.062,
+   "positive": 0.898
+  },
+  "escalated": false
+ },
+ {
+  "text": "Terrible service, waited an hour and they got my order wrong",
+  "decision": "negative",
+  "confidence": 0.875,
+  "probs": {
+   "negative": 0.875,
+   "neutral": 0.087,
+   "positive": 0.037
+  },
+  "escalated": false
+ },
+ {
+  "text": "I hate this movie, complete waste of time and money",
+  "decision": "negative",
+  "confidence": 0.93,
+  "probs": {
+   "negative": 0.93,
+   "neutral": 0.049,
+   "positive": 0.021
+  },
+  "escalated": false
+ },
+ {
+  "text": "The meeting is scheduled for 3pm tomorrow in room 4",
+  "decision": "neutral",
+  "confidence": 0.96,
+  "probs": {
+   "negative": 0.015,
+   "neutral": 0.96,
+   "positive": 0.025
+  },
+  "escalated": false
+ },
+ {
+  "text": "Package arrived on Tuesday as expected",
+  "decision": "neutral",
+  "confidence": 0.59,
+  "probs": {
+   "negative": 0.109,
+   "neutral": 0.59,
+   "positive": 0.301
+  },
+  "escalated": false
+ },
+ {
+  "text": "What a sick catch in the final seconds of the game!",
+  "decision": "positive",
+  "confidence": 0.405,
+  "probs": {
+   "negative": 0.277,
+   "neutral": 0.318,
+   "positive": 0.405
+  },
+  "escalated": true
+ },
+ {
+  "text": "The coach made a terrible call and it cost them the season",
+  "decision": "negative",
+  "confidence": 0.84,
+  "probs": {
+   "negative": 0.84,
+   "neutral": 0.133,
+   "positive": 0.027
+  },
+  "escalated": false
+ },
+ {
+  "text": "Our team destroyed them 5-0, unbelievable match",
+  "decision": "positive",
+  "confidence": 0.384,
+  "probs": {
+   "negative": 0.248,
+   "neutral": 0.368,
+   "positive": 0.384
+  },
+  "escalated": true
+ },
+ {
+  "text": "Well that was... interesting. Not sure how I feel about it",
+  "decision": "neutral",
+  "confidence": 0.573,
+  "probs": {
+   "negative": 0.209,
+   "neutral": 0.573,
+   "positive": 0.218
+  },
+  "escalated": false
+ },
+ {
+  "text": "It's fine I guess, could be worse could be better",
+  "decision": "positive",
+  "confidence": 0.533,
+  "probs": {
+   "negative": 0.084,
+   "neutral": 0.383,
+   "positive": 0.533
+  },
+  "escalated": false
+ },
+ {
+  "text": "lol okay sure",
+  "decision": "neutral",
+  "confidence": 0.414,
+  "probs": {
+   "negative": 0.28,
+   "neutral": 0.414,
+   "positive": 0.306
+  },
+  "escalated": true
+ },
+ {
+  "text": "Yeah right, like that's ever going to happen \ud83d\ude44",
+  "decision": "neutral",
+  "confidence": 0.479,
+  "probs": {
+   "negative": 0.372,
+   "neutral": 0.479,
+   "positive": 0.15
+  },
+  "escalated": true
+ },
+ {
+  "text": "Great, another Monday. Just what I needed.",
+  "decision": "positive",
+  "confidence": 0.891,
+  "probs": {
+   "negative": 0.025,
+   "neutral": 0.084,
+   "positive": 0.891
+  },
+  "escalated": false
+ },
+ {
+  "text": "Not bad, actually pretty good once you get used to it",
+  "decision": "positive",
+  "confidence": 0.549,
+  "probs": {
+   "negative": 0.103,
+   "neutral": 0.349,
+   "positive": 0.549
+  },
+  "escalated": false
+ },
+ {
+  "text": "The food was amazing but the waiter was rude",
+  "decision": "negative",
+  "confidence": 0.472,
+  "probs": {
+   "negative": 0.472,
+   "neutral": 0.303,
+   "positive": 0.225
+  },
+  "escalated": true
+ },
+ {
+  "text": "this slaps fr",
+  "decision": "negative",
+  "confidence": 0.491,
+  "probs": {
+   "negative": 0.491,
+   "neutral": 0.396,
+   "positive": 0.114
+  },
+  "escalated": false
+ },
+ {
+  "text": "mid af tbh",
+  "decision": "neutral",
+  "confidence": 0.702,
+  "probs": {
+   "negative": 0.203,
+   "neutral": 0.702,
+   "positive": 0.095
+  },
+  "escalated": false
+ },
+ {
+  "text": "LMAO that's hilarious",
+  "decision": "positive",
+  "confidence": 0.454,
+  "probs": {
+   "negative": 0.331,
+   "neutral": 0.215,
+   "positive": 0.454
+  },
+  "escalated": true
+ },
+ {
+  "text": "smh people really be like that",
+  "decision": "negative",
+  "confidence": 0.474,
+  "probs": {
+   "negative": 0.474,
+   "neutral": 0.445,
+   "positive": 0.081
+  },
+  "escalated": true
+ }
+][];
+const chips = document.getElementById('chips');
+const card = document.getElementById('card');
+DATA.forEach((d, i) => {
+  const c = document.createElement('button');
+  c.className = 'chip';
+  c.textContent = (d.text.length > 42 ? d.text.slice(0, 42) + '…' : d.text);
+  c.onclick = () => show(i);
+  chips.appendChild(c);
+});
+function show(i) {
+  const d = DATA[i];
+  document.getElementById('tweet').textContent = '“' + d.text + '”';
+  const pill = document.getElementById('pill');
+  pill.textContent = d.decision.toUpperCase();
+  pill.className = 'pill ' + (d.decision === 'positive' ? 'pos' : d.decision === 'negative' ? 'neg' : 'neu');
+  document.getElementById('conf').textContent = 'confidence ' + d.confidence.toFixed(2);
+  const colors = {negative: 'var(--red)', neutral: 'var(--mut)', positive: 'var(--green)'};
+  document.getElementById('probs').innerHTML = Object.entries(d.probs).map(([k, v]) =>
+    `<div class="prow"><span>${k}</span><span>${v.toFixed(2)}</span></div>
+     <div class="bar"><i style="width:${(v * 100).toFixed(0)}%;background:${colors[k]}"></i></div>`).join('');
+  const esc = document.getElementById('esc');
+  esc.className = 'esc ' + (d.escalated ? 'yes' : 'no');
+  esc.innerHTML = d.escalated
+    ? '⚠️ <b>Escalated.</b> Confidence is below the line — a human (or bigger model) decides, and the answer trains the next version.'
+    : '✅ <b>Auto-decided.</b> Confident enough — no human needed.';
+  card.classList.add('show');
+  card.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+}
+if (DATA.length) show(0);
+</script>
+</body>
+</html>
