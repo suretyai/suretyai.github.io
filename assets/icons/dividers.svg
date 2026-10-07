@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fronesa section dividers">
+  <title>Fronesa section dividers — print ornaments</title>
+  <defs>
+    <!-- double rule with center diamond -->
+    <symbol id="div-rule-diamond" viewBox="0 0 400 24">
+      <line x1="0" y1="9" x2="178" y2="9" stroke="#1b1813" stroke-width="1.5"/>
+      <line x1="0" y1="15" x2="178" y2="15" stroke="#1b1813" stroke-width="1"/>
+      <line x1="222" y1="9" x2="400" y2="9" stroke="#1b1813" stroke-width="1.5"/>
+      <line x1="222" y1="15" x2="400" y2="15" stroke="#1b1813" stroke-width="1"/>
+      <rect x="194" y="6" width="12" height="12" transform="rotate(45 200 12)" fill="#0f5132"/>
+    </symbol>
+    <!-- triple dot -->
+    <symbol id="div-dots" viewBox="0 0 120 24">
+      <circle cx="48" cy="12" r="3" fill="#1b1813"/>
+      <circle cx="60" cy="12" r="3" fill="#1b1813"/>
+      <circle cx="72" cy="12" r="3" fill="#1b1813"/>
+    </symbol>
+    <!-- section mark -->
+    <symbol id="div-section" viewBox="0 0 400 32">
+      <line x1="0" y1="16" x2="170" y2="16" stroke="#d9d3bf" stroke-width="1"/>
+      <line x1="230" y1="16" x2="400" y2="16" stroke="#d9d3bf" stroke-width="1"/>
+      <text x="200" y="23" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="22" fill="#0f5132">§</text>
+    </symbol>
+  </defs>
+</svg>
