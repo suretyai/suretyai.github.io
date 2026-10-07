@@ -169,6 +169,15 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
 .foot nav a{font-size:14px;color:var(--muted);text-decoration:none}
 .foot nav a:hover{color:var(--ink)}
 
+/* ---------- figures (viz-02) ---------- */
+.fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px 40px;margin:8px 0 10px}
+.fig-grid svg{width:100%;height:auto;display:block}
+.loopfig{margin-top:46px}
+.loopfig .loop-h{display:block;width:100%;height:auto}
+.loopfig .loop-v{display:none;width:100%;height:auto}
+.slopefig{max-width:360px;margin:36px 0 6px}
+.slopefig svg{width:100%;height:auto;display:block}
+
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .cols{grid-template-columns:1fr;gap:36px}
@@ -182,6 +191,9 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
   table.measure td.method{display:block}
   .status-box dl{grid-template-columns:1fr;gap:2px}
   .status-box dd{margin-bottom:8px}
+  .fig-grid{grid-template-columns:1fr}
+  .loopfig .loop-h{display:none}
+  .loopfig .loop-v{display:block;max-width:340px;margin:0 auto}
 }
 </style>
 </head>
@@ -280,6 +292,87 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
         <p class="figcap">Five steps, repeating weekly. The usual model does step one and stops.</p>
       </div>
     </div>
+    <div class="wrap">
+      <div class="loopfig">
+        <svg class="loop-h" viewBox="0 0 1060 210" role="img" aria-label="Loop diagram: Decide, Escalate, Learn, Retrain, Gate, repeating weekly. Learn is highlighted: the step a frozen model skips.">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#16150F"/>
+            </marker>
+          </defs>
+          <g>
+            <rect x="50" y="36" width="160" height="84" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="130" y="70" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="18" fill="#16150F">Decide</text>
+            <text x="130" y="93" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">label + confidence</text>
+          </g>
+          <g>
+            <rect x="250" y="36" width="160" height="84" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="330" y="70" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="18" fill="#16150F">Escalate</text>
+            <text x="330" y="93" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">low confidence → human</text>
+          </g>
+          <g>
+            <rect x="450" y="36" width="160" height="84" rx="6" fill="#0F5132"/>
+            <text x="530" y="70" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="18" fill="#fbfaf7">Learn</text>
+            <text x="530" y="93" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#d8d5c8">labels train the model</text>
+          </g>
+          <g>
+            <rect x="650" y="36" width="160" height="84" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="730" y="70" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="18" fill="#16150F">Retrain</text>
+            <text x="730" y="93" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">weekly, versioned</text>
+          </g>
+          <g>
+            <rect x="850" y="36" width="160" height="84" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="930" y="70" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="18" fill="#16150F">Gate</text>
+            <text x="930" y="93" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">held-out eval</text>
+          </g>
+          <line x1="210" y1="78" x2="250" y2="78" stroke="#16150F" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="410" y1="78" x2="450" y2="78" stroke="#16150F" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="610" y1="78" x2="650" y2="78" stroke="#16150F" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="810" y1="78" x2="850" y2="78" stroke="#16150F" stroke-width="1.5" marker-end="url(#arr)"/>
+          <path d="M 930 120 L 930 168 L 130 168 L 130 120" fill="none" stroke="#e3ded1" stroke-width="1.5"/>
+          <text x="530" y="160" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#6e695c">repeats weekly</text>
+        </svg>
+        <svg class="loop-v" viewBox="0 0 360 640" role="img" aria-label="Loop diagram, vertical: Decide, Escalate, Learn, Retrain, Gate, repeating weekly">
+          <defs>
+            <marker id="arrv" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,0 L5,10 z" fill="#16150F"/>
+            </marker>
+          </defs>
+          <g>
+            <rect x="15" y="24" width="230" height="62" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="130" y="51" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="17" fill="#16150F">Decide</text>
+            <text x="130" y="70" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6e695c">label + confidence</text>
+          </g>
+          <g>
+            <rect x="15" y="122" width="230" height="62" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="130" y="149" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="17" fill="#16150F">Escalate</text>
+            <text x="130" y="168" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6e695c">low confidence → human</text>
+          </g>
+          <g>
+            <rect x="15" y="220" width="230" height="62" rx="6" fill="#0F5132"/>
+            <text x="130" y="247" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="17" fill="#fbfaf7">Learn</text>
+            <text x="130" y="266" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#d8d5c8">labels train the model</text>
+          </g>
+          <g>
+            <rect x="15" y="318" width="230" height="62" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="130" y="345" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="17" fill="#16150F">Retrain</text>
+            <text x="130" y="364" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6e695c">weekly, versioned</text>
+          </g>
+          <g>
+            <rect x="15" y="416" width="230" height="62" rx="6" fill="#fbfaf7" stroke="#e3ded1" stroke-width="1.5"/>
+            <text x="130" y="443" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="17" fill="#16150F">Gate</text>
+            <text x="130" y="462" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6e695c">held-out eval</text>
+          </g>
+          <line x1="130" y1="86" x2="130" y2="122" stroke="#16150F" stroke-width="1.5" marker-end="url(#arrv)"/>
+          <line x1="130" y1="184" x2="130" y2="220" stroke="#16150F" stroke-width="1.5" marker-end="url(#arrv)"/>
+          <line x1="130" y1="282" x2="130" y2="318" stroke="#16150F" stroke-width="1.5" marker-end="url(#arrv)"/>
+          <line x1="130" y1="380" x2="130" y2="416" stroke="#16150F" stroke-width="1.5" marker-end="url(#arrv)"/>
+          <path d="M 245 447 L 302 447 L 302 55 L 245 55" fill="none" stroke="#e3ded1" stroke-width="1.5"/>
+          <text x="312" y="255" transform="rotate(-90 312 255)" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">weekly</text>
+        </svg>
+        <p class="figcap">The five-step loop, repeating weekly. Learn is green — the step a frozen model skips.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ============ 02 measurements ============ -->
@@ -288,6 +381,60 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
       <p class="kicker"><span class="n">02</span> · Measurements</p>
       <h2>What the lab recorded.</h2>
       <p class="lede" style="margin-bottom:34px">What the lab runs recorded. Same harness, same data, frozen baseline — no cherry-picked benchmarks.</p>
+      <div class="fig-grid" role="group" aria-label="Four lab measurements">
+        <svg viewBox="0 0 520 215" role="img" aria-label="Error rate: Fronesa loop 0.38 percent versus frozen model 1.71 percent, v0 lab run on synthetic drift">
+          <text x="0" y="30" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="21" fill="#16150F">Error rate</text>
+          <text x="138" y="79" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6e695c">Fronesa loop</text>
+          <rect x="150" y="62" width="61" height="24" fill="#0F5132"/>
+          <text x="221" y="79" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13.5" fill="#16150F">0.38%</text>
+          <text x="138" y="123" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6e695c">Frozen model</text>
+          <rect x="150" y="106" width="274" height="24" fill="#c9c2b2"/>
+          <text x="434" y="123" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13.5" fill="#16150F">1.71%</text>
+          <line x1="150" y1="146" x2="470" y2="146" stroke="#e3ded1" stroke-width="1"/>
+          <text x="150" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">0</text>
+          <text x="470" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">2%</text>
+          <text x="0" y="198" font-family="-apple-system, Segoe UI, Inter, sans-serif" font-size="12.5" fill="#6e695c">v0 lab run · synthetic drift</text>
+        </svg>
+        <svg viewBox="0 0 520 215" role="img" aria-label="Median latency 21 milliseconds per decision, v1 on CPU">
+          <text x="0" y="30" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="21" fill="#16150F">Median latency</text>
+          <rect x="150" y="70" width="168" height="24" fill="#0F5132"/>
+          <text x="328" y="87" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13.5" fill="#16150F">21 ms</text>
+          <line x1="150" y1="110" x2="470" y2="110" stroke="#e3ded1" stroke-width="1"/>
+          <text x="150" y="128" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">0</text>
+          <text x="230" y="128" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">10</text>
+          <text x="310" y="128" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">20</text>
+          <text x="390" y="128" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">30</text>
+          <text x="470" y="128" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">40 ms</text>
+          <text x="0" y="162" font-family="-apple-system, Segoe UI, Inter, sans-serif" font-size="12.5" fill="#6e695c">v1 · CPU · per decision</text>
+        </svg>
+        <svg viewBox="0 0 520 215" role="img" aria-label="Escalation rate: 15.1 percent first week versus 12.2 percent last week, v3 lab run">
+          <text x="0" y="30" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="21" fill="#16150F">Escalation rate</text>
+          <text x="138" y="79" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6e695c">First week</text>
+          <rect x="150" y="62" width="302" height="24" fill="#c9c2b2"/>
+          <text x="462" y="79" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13.5" fill="#16150F">15.1%</text>
+          <text x="138" y="123" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6e695c">Last week</text>
+          <rect x="150" y="106" width="244" height="24" fill="#0F5132"/>
+          <text x="404" y="123" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13.5" fill="#16150F">12.2%</text>
+          <line x1="150" y1="146" x2="470" y2="146" stroke="#e3ded1" stroke-width="1"/>
+          <text x="150" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">0</text>
+          <text x="470" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">16%</text>
+          <text x="0" y="198" font-family="-apple-system, Segoe UI, Inter, sans-serif" font-size="12.5" fill="#6e695c">v3 · share of traffic sent to a human</text>
+        </svg>
+        <svg viewBox="0 0 520 215" role="img" aria-label="Twelve-week error: 4.52 percent at week 3 versus 0.22 percent at week 12, v6 within-loop error">
+          <text x="0" y="30" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="21" fill="#16150F">Twelve-week error</text>
+          <text x="138" y="79" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6e695c">Week 3</text>
+          <rect x="150" y="62" width="289" height="24" fill="#c9c2b2"/>
+          <text x="449" y="79" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13.5" fill="#16150F">4.52%</text>
+          <text x="138" y="123" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6e695c">Week 12</text>
+          <rect x="150" y="106" width="14" height="24" fill="#0F5132"/>
+          <text x="174" y="123" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13.5" fill="#16150F">0.22%</text>
+          <line x1="150" y1="146" x2="470" y2="146" stroke="#e3ded1" stroke-width="1"/>
+          <text x="150" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">0</text>
+          <text x="470" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">5%</text>
+          <text x="0" y="198" font-family="-apple-system, Segoe UI, Inter, sans-serif" font-size="12.5" fill="#6e695c">v6 · within-loop error</text>
+        </svg>
+      </div>
+      <p class="figcap" style="margin-bottom:30px">Four lab numbers, each on an honest scale from zero. Methods printed with each panel — lab measurements on synthetic drift, not promises.</p>
       <table class="measure">
         <thead>
           <tr><th>Measurement</th><th>Result</th><th class="method">Method</th></tr>
@@ -315,6 +462,28 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
           </tr>
         </tbody>
       </table>
+      <div class="slopefig">
+        <svg viewBox="0 0 360 230" role="img" aria-label="Escalation rate fell from 15.1 percent in the first week to 12.2 percent in the last week, v3 lab run">
+          <line x1="50" y1="190" x2="320" y2="190" stroke="#e3ded1" stroke-width="1"/>
+          <line x1="50" y1="146.5" x2="320" y2="146.5" stroke="#e3ded1" stroke-width="1"/>
+          <line x1="50" y1="103" x2="320" y2="103" stroke="#e3ded1" stroke-width="1"/>
+          <line x1="50" y1="59.5" x2="320" y2="59.5" stroke="#e3ded1" stroke-width="1"/>
+          <line x1="50" y1="16" x2="320" y2="16" stroke="#e3ded1" stroke-width="1"/>
+          <text x="42" y="194" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">0</text>
+          <text x="42" y="150.5" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">4</text>
+          <text x="42" y="107" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">8</text>
+          <text x="42" y="63.5" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">12</text>
+          <text x="42" y="20" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6e695c">16%</text>
+          <line x1="110" y1="26" x2="260" y2="57" stroke="#0F5132" stroke-width="2.5"/>
+          <circle cx="110" cy="26" r="4.5" fill="#0F5132"/>
+          <circle cx="260" cy="57" r="4.5" fill="#0F5132"/>
+          <text x="110" y="14" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#16150F">15.1%</text>
+          <text x="260" y="45" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#16150F">12.2%</text>
+          <text x="110" y="210" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#6e695c">first week</text>
+          <text x="260" y="210" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#6e695c">last week</text>
+        </svg>
+        <p class="figcap">Fewer humans needed over time: share of traffic sent to a reviewer, first week → last. v3 lab run, synthetic drift.</p>
+      </div>
       <p class="fineprint"><strong>All figures are lab measurements on synthetic drift.</strong> They describe what we measured, not what we promise. Production traffic, your data distribution, and your review budget will move these numbers — the demo and the receipts exist so you can check us.</p>
       <p style="margin-top:14px"><a class="quiet-link" href="https://suretyai.github.io/try-it.html">Try the demo and check us →</a></p>
     </div>
