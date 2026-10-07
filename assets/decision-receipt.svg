@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="dr-t dr-d">
+  <title>Decision receipt</title>
+  <desc>Every Fronesa decision carries a receipt: ID, timestamp, label, confidence, model version, escalation status.</desc>
+  <title id="dr-t">Every decision carries its receipt</title>
+  <desc id="dr-d">Illustration of a Fronesa decision receipt: decision ID, timestamp, label, confidence, model version, reviewer note.</desc>
+
+  <rect width="800" height="560" fill="#f4f1e8"/>
+
+  <text x="60" y="70" font-family="Fraunces, Georgia, serif" font-size="36" fill="#1b1813">Every decision carries its receipt.</text>
+  <text x="60" y="102" font-family="Georgia, serif" font-size="18" font-style="italic" fill="#57534a">Not a black box. A paper trail.</text>
+
+  <!-- Receipt -->
+  <g>
+    <rect x="60" y="140" width="680" height="360" fill="#ffffff" stroke="#1b1813" stroke-width="2"/>
+    <!-- Perforated top edge -->
+    <line x1="60" y1="184" x2="740" y2="184" stroke="#d9d3bf" stroke-width="1" stroke-dasharray="8 6"/>
+
+    <text x="90" y="172" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" letter-spacing="3" fill="#1b1813">FRONESA · DECISION RECEIPT</text>
+
+    <!-- Receipt rows -->
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15">
+      <text x="90" y="228" fill="#7d7869">decision id</text>
+      <text x="710" y="228" text-anchor="end" fill="#1b1813">d_8f3a2b1c</text>
+
+      <text x="90" y="262" fill="#7d7869">timestamp</text>
+      <text x="710" y="262" text-anchor="end" fill="#1b1813">2026-10-06 13:32:17 +03</text>
+
+      <text x="90" y="296" fill="#7d7869">label</text>
+      <text x="710" y="296" text-anchor="end" font-weight="bold" fill="#a83c24">SPAM</text>
+
+      <text x="90" y="330" fill="#7d7869">confidence</text>
+      <text x="710" y="330" text-anchor="end" fill="#1b1813">0.95</text>
+
+      <text x="90" y="364" fill="#7d7869">model</text>
+      <text x="710" y="364" text-anchor="end" fill="#1b1813">fronesa-v1</text>
+
+      <text x="90" y="398" fill="#7d7869">escalated</text>
+      <text x="710" y="398" text-anchor="end" fill="#1b1813">false</text>
+
+      <text x="90" y="432" fill="#7d7869">reviewer</text>
+      <text x="710" y="432" text-anchor="end" fill="#1b1813">—</text>
+    </g>
+
+    <!-- Bottom rule -->
+    <line x1="90" y1="458" x2="710" y2="458" stroke="#1b1813" stroke-width="1"/>
+    <text x="90" y="482" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">audit this decision: /decisions/d_8f3a2b1c</text>
+  </g>
+
+  <text x="60" y="532" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#7d7869">If we can't show the receipt, we don't claim the decision.</text>
+</svg>

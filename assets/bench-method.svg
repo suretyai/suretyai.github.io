@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="bm-t bm-d">
+  <title>Benchmark methodology</title>
+  <desc>How the benchmark was run: method, data, controls.</desc>
+  <title id="bm-t">How the bench works: frozen model vs learning loop</title>
+  <desc id="bm-d">Two panels. Frozen model: error rate stays flat across v0 and v5 because corrections are discarded. Learning loop: corrections feed back through retrain, and the error rate falls. Endpoints only, same inputs, same harness.</desc>
+
+  <rect width="1200" height="700" fill="#f4f1e8"/>
+
+  <!-- Figure label -->
+  <text x="60" y="60" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#7d7869">FIG. — BENCH METHOD</text>
+
+  <text x="60" y="110" font-family="Fraunces, Georgia, serif" font-size="42" fill="#1b1813">How the bench works</text>
+  <text x="60" y="148" font-family="Georgia, serif" font-size="19" font-style="italic" fill="#57534a">Same inputs, same harness. The only difference: corrections are kept or thrown away.</text>
+
+  <!-- PANEL A: frozen -->
+  <g>
+    <rect x="60" y="190" width="520" height="360" fill="#ffffff" stroke="#a83c24" stroke-width="2"/>
+    <text x="90" y="232" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#a83c24">FROZEN MODEL</text>
+    <text x="90" y="260" font-family="Georgia, serif" font-size="16" fill="#57534a">Corrections fall into a bin. The model never changes.</text>
+
+    <text x="90" y="310" font-family="ui-monospace, monospace" font-size="15" fill="#1b1813">v0 error</text>
+    <rect x="90" y="322" width="400" height="26" fill="#f4f1e8" stroke="#1b1813" stroke-width="1"/>
+    <rect x="90" y="322" width="342" height="26" fill="#a83c24"/>
+    <text x="502" y="342" font-family="ui-monospace, monospace" font-size="17" fill="#1b1813">1.71%</text>
+
+    <text x="90" y="390" font-family="ui-monospace, monospace" font-size="15" fill="#1b1813">v5 error</text>
+    <rect x="90" y="402" width="400" height="26" fill="#f4f1e8" stroke="#1b1813" stroke-width="1"/>
+    <rect x="90" y="402" width="338" height="26" fill="#a83c24"/>
+    <text x="502" y="422" font-family="ui-monospace, monospace" font-size="17" fill="#1b1813">1.69%</text>
+
+    <text x="90" y="480" font-family="Georgia, serif" font-size="17" fill="#1b1813">Flat. Five versions later, the same</text>
+    <text x="90" y="506" font-family="Georgia, serif" font-size="17" fill="#1b1813">mistakes still ship.</text>
+    <text x="90" y="536" font-family="ui-monospace, monospace" font-size="12" fill="#7d7869">Scale 0–2%. Endpoints only.</text>
+  </g>
+
+  <!-- PANEL B: learning loop -->
+  <g>
+    <rect x="620" y="190" width="520" height="360" fill="#ffffff" stroke="#0f5132" stroke-width="2"/>
+    <text x="650" y="232" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#0f5132">LEARNING LOOP (FRONESA)</text>
+    <text x="650" y="260" font-family="Georgia, serif" font-size="16" fill="#57534a">Corrections feed back through retrain. The model moves.</text>
+
+    <text x="650" y="310" font-family="ui-monospace, monospace" font-size="15" fill="#1b1813">v0 error</text>
+    <rect x="650" y="322" width="400" height="26" fill="#e8f0ea" stroke="#1b1813" stroke-width="1"/>
+    <rect x="650" y="322" width="76" height="26" fill="#0f5132"/>
+    <text x="1062" y="342" font-family="ui-monospace, monospace" font-size="17" fill="#1b1813">0.38%</text>
+
+    <text x="650" y="390" font-family="ui-monospace, monospace" font-size="15" fill="#1b1813">v5 error</text>
+    <rect x="650" y="402" width="400" height="26" fill="#e8f0ea" stroke="#1b1813" stroke-width="1"/>
+    <rect x="650" y="402" width="130" height="26" fill="#0f5132"/>
+    <text x="1062" y="422" font-family="ui-monospace, monospace" font-size="17" fill="#1b1813">0.65%</text>
+
+    <text x="650" y="480" font-family="Georgia, serif" font-size="17" fill="#1b1813">The loop decides, the reviewers correct,</text>
+    <text x="650" y="506" font-family="Georgia, serif" font-size="17" fill="#1b1813">the model retrains. Measured per version.</text>
+    <text x="650" y="536" font-family="ui-monospace, monospace" font-size="12" fill="#7d7869">Scale 0–2%. Endpoints only.</text>
+  </g>
+
+  <!-- Loop arrow between panels -->
+  <g>
+    <line x1="590" y1="370" x2="612" y2="370" stroke="#1b1813" stroke-width="2"/>
+    <polygon points="612,362 624,370 612,378" fill="#1b1813"/>
+  </g>
+
+  <text x="60" y="600" font-family="Georgia, serif" font-size="17" font-style="italic" fill="#1b1813">The bench does not reward confidence. It rewards what happens after a correction.</text>
+  <text x="60" y="640" font-family="ui-monospace, monospace" font-size="13" fill="#7d7869">Claimed measured rates (same as option-c Fig. 3). For the try-it methodology section — wire behind &lt;details&gt;.</text>
+</svg>

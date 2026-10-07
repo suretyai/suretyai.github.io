@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="ep-title ep-desc">
+  <title>Escalation path</title>
+  <desc>When the model is not sure: the HELD path from low confidence to human review to retraining.</desc>
+  <title id="ep-title">The held path — what happens below the confidence dial</title>
+  <desc id="ep-desc">A branching diagram. A message enters and is scored. At or above the 0.90 dial, the label is applied and a receipt issued. Below the dial, the message is held: it waits in a human review queue, the reviewer's correction is recorded, and that correction feeds the next retrain — closing the learning loop. One illustrated sample at 0.80 takes the held path.</desc>
+
+  <rect width="1200" height="660" fill="#f4f1e8"/>
+  <rect x="24" y="24" width="1152" height="612" fill="none" stroke="#1b1813" stroke-width="2"/>
+  <rect x="30" y="30" width="1140" height="600" fill="none" stroke="#1b1813" stroke-width="0.75"/>
+
+  <!-- Masthead -->
+  <text x="80" y="100" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" letter-spacing="6" fill="#1b1813">FRONESA · LAB NOTES</text>
+  <text x="1120" y="100" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">FIG. — THE HELD PATH</text>
+  <line x1="80" y1="122" x2="1120" y2="122" stroke="#1b1813" stroke-width="1.5"/>
+  <line x1="80" y1="128" x2="1120" y2="128" stroke="#1b1813" stroke-width="0.75"/>
+
+  <!-- Title -->
+  <text x="80" y="200" font-family="Fraunces, Georgia, serif" font-size="54" fill="#1b1813">When the model isn&#8217;t sure.</text>
+  <text x="80" y="244" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#57534a">The held path is a feature, not a failure.</text>
+
+  <!-- Incoming message -->
+  <g>
+    <rect x="80" y="300" width="180" height="120" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="170" y="334" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" font-weight="bold" fill="#1b1813">MESSAGE IN</text>
+    <text x="170" y="362" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-style="italic" fill="#57534a">“illustrated</text>
+    <text x="170" y="384" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-style="italic" fill="#57534a">sample text”</text>
+  </g>
+  <line x1="260" y1="360" x2="300" y2="360" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="300,360 292,354 292,366" fill="#1b1813"/>
+
+  <!-- Scored -->
+  <g>
+    <rect x="304" y="300" width="180" height="120" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="394" y="334" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" font-weight="bold" fill="#1b1813">SCORED</text>
+    <text x="394" y="368" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="26" fill="#1b1813">0.80</text>
+    <text x="394" y="394" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#57534a">confidence</text>
+  </g>
+
+  <!-- Branch: above dial (green, up) -->
+  <line x1="484" y1="330" x2="560" y2="330" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="560,330 552,324 552,336" fill="#1b1813"/>
+  <text x="522" y="318" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#0f5132">0.90+</text>
+  <g>
+    <rect x="564" y="280" width="200" height="100" fill="#d9e8dd" stroke="#0f5132" stroke-width="1.5"/>
+    <text x="664" y="314" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#0f5132">LABEL APPLIED</text>
+    <text x="664" y="342" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">receipt issued,</text>
+    <text x="664" y="364" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">decision logged</text>
+  </g>
+
+  <!-- Branch: below dial (amber, down) — the held path -->
+  <line x1="484" y1="390" x2="560" y2="390" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="560,390 552,384 552,396" fill="#1b1813"/>
+  <text x="522" y="414" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#8a5a00">&lt; 0.90</text>
+  <g>
+    <rect x="564" y="360" width="200" height="120" fill="#f7ecd4" stroke="#8a5a00" stroke-width="1.5"/>
+    <text x="664" y="396" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#8a5a00">HELD</text>
+    <text x="664" y="422" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">no label, no guess —</text>
+    <text x="664" y="444" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">waits for a human</text>
+  </g>
+
+  <!-- Human review -->
+  <line x1="764" y1="420" x2="810" y2="420" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="810,420 802,414 802,426" fill="#1b1813"/>
+  <g>
+    <rect x="814" y="360" width="200" height="120" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="914" y="396" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#1b1813">HUMAN REVIEW</text>
+    <text x="914" y="422" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">reviewer decides,</text>
+    <text x="914" y="444" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">correction recorded</text>
+  </g>
+
+  <!-- Retrain loop (green, closing the loop) -->
+  <path d="M 914 480 L 914 540 L 394 540 L 394 424" fill="none" stroke="#0f5132" stroke-width="2" stroke-dasharray="8 5"/>
+  <polygon points="394,424 388,436 400,436" fill="#0f5132"/>
+  <text x="654" y="566" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#0f5132">corrections feed the next retrain — the loop that learns</text>
+
+  <!-- Caption -->
+  <line x1="80" y1="596" x2="1120" y2="596" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="80" y="622" font-family="Georgia, serif" font-size="17" font-style="italic" fill="#57534a">Abstaining is the honest move. A held message is never a wrong label — and every correction makes the dial smarter.</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="gm-title gm-desc">
+  <title>24-hour gate methodology</title>
+  <desc>The dry-run gate pipeline: firehose, classifier, ledger, watchdog, supervisor.</desc>
+  <title id="gm-title">The 24-hour gate — how the dry run is watched</title>
+  <desc id="gm-desc">A five-stage pipeline diagram: the Bluesky firehose feeds the classifier, which scores every message against the 0.90 confidence dial; every decision — including empty labels — is written to the JSONL log; a watchdog checks log freshness and a supervisor restarts the daemon if it dies. Below, the 24-hour window and the four things we monitor: daemon alive, log fresh, no message text stored, zero public labels emitted.</desc>
+
+  <rect width="1200" height="660" fill="#f4f1e8"/>
+  <rect x="24" y="24" width="1152" height="612" fill="none" stroke="#1b1813" stroke-width="2"/>
+  <rect x="30" y="30" width="1140" height="600" fill="none" stroke="#1b1813" stroke-width="0.75"/>
+
+  <!-- Masthead -->
+  <text x="80" y="100" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" letter-spacing="6" fill="#1b1813">FRONESA · LAB NOTES</text>
+  <text x="1120" y="100" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">FIG. — THE GATE</text>
+  <line x1="80" y1="122" x2="1120" y2="122" stroke="#1b1813" stroke-width="1.5"/>
+  <line x1="80" y1="128" x2="1120" y2="128" stroke="#1b1813" stroke-width="0.75"/>
+
+  <!-- Title -->
+  <text x="80" y="200" font-family="Fraunces, Georgia, serif" font-size="54" fill="#1b1813">The 24-hour gate.</text>
+  <text x="80" y="244" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#57534a">What we watch, and what counts as a pass.</text>
+
+  <!-- Pipeline: 5 stages, boxes 176 wide, gaps 36, y 300..400 -->
+  <!-- Stage 1: Firehose -->
+  <g>
+    <rect x="80" y="300" width="176" height="100" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="168" y="332" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#1b1813">1 · FIREHOSE</text>
+    <text x="168" y="358" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">Bluesky stream</text>
+    <text x="168" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">of messages</text>
+  </g>
+  <!-- arrow -->
+  <line x1="256" y1="350" x2="288" y2="350" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="288,350 280,344 280,356" fill="#1b1813"/>
+
+  <!-- Stage 2: Classifier -->
+  <g>
+    <rect x="292" y="300" width="176" height="100" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="380" y="332" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#1b1813">2 · CLASSIFIER</text>
+    <text x="380" y="358" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">scores each one</text>
+    <text x="380" y="380" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#0f5132">dial: 0.90</text>
+  </g>
+  <line x1="468" y1="350" x2="500" y2="350" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="500,350 492,344 492,356" fill="#1b1813"/>
+
+  <!-- Stage 3: JSONL log -->
+  <g>
+    <rect x="504" y="300" width="176" height="100" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="592" y="332" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#1b1813">3 · LEDGER</text>
+    <text x="592" y="358" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">every decision</text>
+    <text x="592" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">logged — even blanks</text>
+  </g>
+  <line x1="680" y1="350" x2="712" y2="350" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="712,350 704,344 704,356" fill="#1b1813"/>
+
+  <!-- Stage 4: Watchdog -->
+  <g>
+    <rect x="716" y="300" width="176" height="100" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="804" y="332" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#1b1813">4 · WATCHDOG</text>
+    <text x="804" y="358" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">checks the ledger</text>
+    <text x="804" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">is still fresh</text>
+  </g>
+  <line x1="892" y1="350" x2="924" y2="350" stroke="#1b1813" stroke-width="1.5"/>
+  <polygon points="924,350 916,344 916,356" fill="#1b1813"/>
+
+  <!-- Stage 5: Supervisor -->
+  <g>
+    <rect x="928" y="300" width="192" height="100" fill="#d9e8dd" stroke="#0f5132" stroke-width="1.5"/>
+    <text x="1024" y="332" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="bold" fill="#0f5132">5 · SUPERVISOR</text>
+    <text x="1024" y="358" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">restarts the daemon</text>
+    <text x="1024" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#57534a">if it dies</text>
+  </g>
+
+  <!-- 24h window bar -->
+  <text x="80" y="470" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" letter-spacing="3" fill="#1b1813">THE WINDOW</text>
+  <rect x="80" y="486" width="1040" height="34" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <rect x="80" y="486" width="1040" height="34" fill="none" stroke="#1b1813" stroke-width="1.5"/>
+  <line x1="80" y1="486" x2="80" y2="520" stroke="#1b1813" stroke-width="3"/>
+  <line x1="1120" y1="486" x2="1120" y2="520" stroke="#1b1813" stroke-width="3"/>
+  <text x="88" y="510" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">anchor: daemon restart</text>
+  <text x="1112" y="510" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">+24 h</text>
+  <text x="600" y="510" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-style="italic" fill="#57534a">uninterrupted, or the clock resets</text>
+
+  <!-- Four things we monitor -->
+  <g font-family="Georgia, serif" font-size="17" fill="#57534a">
+    <text x="80" y="566">We monitor four things:</text>
+  </g>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">
+    <text x="80" y="596">[1] daemon alive</text>
+    <text x="330" y="596">[2] ledger fresh (rows seconds old)</text>
+    <text x="700" y="596">[3] no message text stored</text>
+  </g>
+  <g>
+    <rect x="80" y="606" width="380" height="26" fill="#f4f1e8" stroke="#a83c24" stroke-width="1"/>
+    <text x="92" y="624" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#a83c24">[4] public labels emitted: 0 — always</text>
+  </g>
+
+  <!-- Caption -->
+  <line x1="80" y1="646" x2="1120" y2="646" stroke="#d9d3bf" stroke-width="1"/>
+</svg>

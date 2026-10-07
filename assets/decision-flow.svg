@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="df-title df-desc">
+  <title>Decision flow diagram</title>
+  <desc>How Fronesa makes a decision: message in, features, model scores, confidence gate, label or abstain, with the learning feedback loop.</desc>
+  <title id="df-title">How a Fronesa decision is made</title>
+  <desc id="df-desc">Flow diagram: an incoming message is turned into features, scored by the model, checked against a confidence gate, then labeled or abstained; human reviews feed back into the model.</desc>
+
+  <rect width="1200" height="680" fill="#f4f1e8"/>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1b1813"/>
+    </marker>
+    <marker id="arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f5132"/>
+    </marker>
+    <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a5a00"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="60" y="72" font-family="Fraunces, Georgia, serif" font-size="42" fill="#1b1813">How a decision is made</text>
+  <text x="60" y="104" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#7d7869">One message in. One auditable decision out.</text>
+
+  <!-- Step 1 -->
+  <rect x="60" y="215" width="180" height="90" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="150" y="252" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">incoming message</text>
+  <text x="150" y="276" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#7d7869">email · post · text</text>
+  <text x="150" y="330" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">whatever you need judged</text>
+
+  <!-- Step 2 -->
+  <rect x="300" y="215" width="180" height="90" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="390" y="252" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">features</text>
+  <text x="390" y="276" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#7d7869">signals, not vibes</text>
+  <text x="390" y="330" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">extracted the same way, every time</text>
+
+  <!-- Step 3 -->
+  <rect x="540" y="215" width="180" height="90" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="630" y="252" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">model scores</text>
+  <text x="630" y="276" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#7d7869">per-class probabilities</text>
+  <text x="630" y="330" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">calibrated, not just ranked</text>
+
+  <!-- Gate diamond -->
+  <polygon points="770,260 830,198 890,260 830,322" fill="#e8f0ea" stroke="#0f5132" stroke-width="2"/>
+  <text x="830" y="254" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#0f5132">confidence</text>
+  <text x="830" y="272" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#0f5132">gate</text>
+  <text x="830" y="348" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">sure enough to decide?</text>
+
+  <!-- Step 5: label -->
+  <rect x="980" y="215" width="160" height="90" fill="#0f5132" stroke="#0f5132" stroke-width="1.5"/>
+  <text x="1060" y="252" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#ffffff">label</text>
+  <text x="1060" y="276" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#d9e8dd">+ confidence + id</text>
+  <text x="1060" y="330" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">every decision carries its receipt</text>
+
+  <!-- Arrows top row -->
+  <line x1="240" y1="260" x2="292" y2="260" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="480" y1="260" x2="532" y2="260" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="720" y1="260" x2="762" y2="260" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="890" y1="260" x2="972" y2="260" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Abstain branch -->
+  <line x1="830" y1="322" x2="830" y2="400" stroke="#8a5a00" stroke-width="1.5" marker-end="url(#arr-a)"/>
+  <text x="842" y="368" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8a5a00">not sure</text>
+  <rect x="740" y="400" width="180" height="90" fill="#ffffff" stroke="#8a5a00" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="830" y="437" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">abstain</text>
+  <text x="830" y="461" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#7d7869">+ reason code</text>
+  <text x="830" y="515" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">when unsure, it says so — no guessing</text>
+
+  <!-- Learning loop: routed around the right edge so it never strikes through captions -->
+  <line x1="1140" y1="260" x2="1170" y2="260" stroke="#0f5132" stroke-width="1.5"/>
+  <line x1="1170" y1="260" x2="1170" y2="580" stroke="#0f5132" stroke-width="1.5"/>
+  <line x1="1170" y1="580" x2="630" y2="580" stroke="#0f5132" stroke-width="1.5"/>
+  <line x1="630" y1="580" x2="630" y2="313" stroke="#0f5132" stroke-width="1.5" marker-end="url(#arr-g)"/>
+  <rect x="830" y="548" width="180" height="64" fill="#f4f1e8" stroke="#0f5132" stroke-width="1.5"/>
+  <text x="920" y="574" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#0f5132">human review</text>
+  <text x="920" y="594" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#7d7869">labels feed back in</text>
+  <text x="420" y="566" font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic" fill="#0f5132">decisions that learn</text>
+
+  <!-- Footnote -->
+  <line x1="60" y1="640" x2="1140" y2="640" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="60" y="662" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">Every step is logged with a decision ID. Nothing is a black box you have to take on faith.</text>
+</svg>

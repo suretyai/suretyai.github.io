@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" font-family="Georgia, 'Times New Roman', serif">
+  <title>Gate status — stable but not valid</title>
+  <desc>Honest gate status as of 2026-10-06 14:52 +03: daemon stable 140+ min, threshold 0.90 emits zero spam labels, gate not valid until recalibration.</desc>
+
+  <!-- Paper -->
+  <rect x="0" y="0" width="1200" height="680" fill="#f4f1e8"/>
+  <rect x="24" y="24" width="1152" height="632" fill="none" stroke="#1b1813" stroke-width="2"/>
+  <rect x="32" y="32" width="1136" height="616" fill="none" stroke="#1b1813" stroke-width="0.75"/>
+
+  <!-- Masthead -->
+  <text x="600" y="78" text-anchor="middle" font-size="22" letter-spacing="6" fill="#7d7869">FRONESA · LAB NOTES</text>
+  <text x="600" y="112" text-anchor="middle" font-size="15" letter-spacing="3" fill="#7d7869">GATE STATUS</text>
+
+  <!-- Title -->
+  <text x="600" y="162" text-anchor="middle" font-size="38" fill="#1b1813">The gate is stable.</text>
+  <text x="600" y="208" text-anchor="middle" font-size="38" fill="#1b1813">The gate is not valid.</text>
+
+  <!-- Rule -->
+  <line x1="120" y1="240" x2="1080" y2="240" stroke="#1b1813" stroke-width="1"/>
+  <line x1="120" y1="246" x2="1080" y2="246" stroke="#1b1813" stroke-width="0.5"/>
+
+  <!-- Panel 1: Stability -->
+  <rect x="80" y="280" width="320" height="240" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="240" y="318" text-anchor="middle" font-size="16" letter-spacing="2" fill="#7d7869">STABILITY</text>
+  <text x="240" y="372" text-anchor="middle" font-size="52" fill="#0f5132">140+ min</text>
+  <text x="240" y="408" text-anchor="middle" font-size="17" fill="#1b1813">daemon uptime, no restarts</text>
+  <text x="240" y="436" text-anchor="middle" font-size="15" fill="#7d7869">longest stable run today</text>
+  <text x="240" y="464" text-anchor="middle" font-size="15" fill="#7d7869">restart anchor 12:32:35 +03</text>
+  <!-- green check -->
+  <circle cx="240" cy="492" r="10" fill="none" stroke="#0f5132" stroke-width="2"/>
+  <text x="240" y="497" text-anchor="middle" font-size="13" fill="#0f5132">✓</text>
+
+  <!-- Panel 2: Threshold -->
+  <rect x="440" y="280" width="320" height="240" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="600" y="318" text-anchor="middle" font-size="16" letter-spacing="2" fill="#7d7869">THRESHOLD</text>
+  <text x="600" y="372" text-anchor="middle" font-size="52" fill="#a83c24">0.90</text>
+  <text x="600" y="408" text-anchor="middle" font-size="17" fill="#1b1813">SPAM_CONFIDENCE</text>
+  <text x="600" y="436" text-anchor="middle" font-size="15" fill="#7d7869">emits zero spam labels</text>
+  <text x="600" y="464" text-anchor="middle" font-size="15" fill="#7d7869">max true-spam P = 0.7970</text>
+  <!-- brick cross -->
+  <circle cx="600" cy="492" r="10" fill="none" stroke="#a83c24" stroke-width="2"/>
+  <text x="600" y="497" text-anchor="middle" font-size="13" fill="#a83c24">✗</text>
+
+  <!-- Panel 3: Gate -->
+  <rect x="800" y="280" width="320" height="240" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="960" y="318" text-anchor="middle" font-size="16" letter-spacing="2" fill="#7d7869">24-HOUR GATE</text>
+  <text x="960" y="372" text-anchor="middle" font-size="44" fill="#a83c24">NOT VALID</text>
+  <text x="960" y="408" text-anchor="middle" font-size="17" fill="#1b1813">recalibration required</text>
+  <text x="960" y="436" text-anchor="middle" font-size="15" fill="#7d7869">clock starts after the fix,</text>
+  <text x="960" y="464" text-anchor="middle" font-size="15" fill="#7d7869">not before</text>
+  <!-- brick cross -->
+  <circle cx="960" cy="492" r="10" fill="none" stroke="#a83c24" stroke-width="2"/>
+  <text x="960" y="497" text-anchor="middle" font-size="13" fill="#a83c24">✗</text>
+
+  <!-- The rule -->
+  <text x="600" y="570" text-anchor="middle" font-size="18" font-style="italic" fill="#1b1813">Stability without a working threshold measures uptime, not the gate.</text>
+
+  <!-- Footer -->
+  <line x1="120" y1="600" x2="1080" y2="600" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="600" y="626" text-anchor="middle" font-size="13" fill="#7d7869">Measured 2026-10-06 14:23 +03 · config.js:29 · daemon PID 5309 · DRAFT ONLY</text>
+</svg>

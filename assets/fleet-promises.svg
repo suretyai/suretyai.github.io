@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="fl-title fl-desc">
+  <title>Fleet Promises</title>
+  <desc>Fronesa visual asset: Fleet Promises.</desc>
+  <title id="fl-title">The fleet: every model carries a written promise</title>
+  <desc id="fl-desc">Diagram of a model fleet: three models each with a promise card stating its task, accuracy floor, latency ceiling and abstain policy, joined by a router to one API.</desc>
+
+  <rect width="1000" height="560" fill="#f4f1e8"/>
+
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1b1813"/>
+    </marker>
+  </defs>
+
+  <text x="60" y="70" font-family="Fraunces, Georgia, serif" font-size="38" fill="#1b1813">One API. A fleet behind it.</text>
+  <text x="60" y="102" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" fill="#7d7869">Every model carries a written promise — what it's for, and what it won't do.</text>
+
+  <!-- Model cards -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <rect x="60" y="150" width="240" height="200" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="84" y="186" font-size="15" fill="#1b1813">model · classifier</text>
+    <line x1="60" y1="202" x2="300" y2="202" stroke="#d9d3bf" stroke-width="1"/>
+    <text x="84" y="232" font-size="13" fill="#7d7869">task: spam / ham</text>
+    <text x="84" y="258" font-size="13" fill="#7d7869">floor: measured recall</text>
+    <text x="84" y="284" font-size="13" fill="#7d7869">abstain: when unsure</text>
+    <text x="84" y="322" font-size="13" fill="#0f5132">promise · signed</text>
+
+    <rect x="380" y="150" width="240" height="200" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="404" y="186" font-size="15" fill="#1b1813">model · reviewer</text>
+    <line x1="380" y1="202" x2="620" y2="202" stroke="#d9d3bf" stroke-width="1"/>
+    <text x="404" y="232" font-size="13" fill="#7d7869">task: borderline calls</text>
+    <text x="404" y="258" font-size="13" fill="#7d7869">floor: human agreement</text>
+    <text x="404" y="284" font-size="13" fill="#7d7869">abstain: never — escalates</text>
+    <text x="404" y="322" font-size="13" fill="#0f5132">promise · signed</text>
+
+    <rect x="700" y="150" width="240" height="200" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="724" y="186" font-size="15" fill="#1b1813">model · fallback</text>
+    <line x1="700" y1="202" x2="940" y2="202" stroke="#d9d3bf" stroke-width="1"/>
+    <text x="724" y="232" font-size="13" fill="#7d7869">task: safe default</text>
+    <text x="724" y="258" font-size="13" fill="#7d7869">floor: never worse</text>
+    <text x="724" y="284" font-size="13" fill="#7d7869">abstain: always honest</text>
+    <text x="724" y="322" font-size="13" fill="#0f5132">promise · signed</text>
+  </g>
+
+  <!-- Router: all three models feed in -->
+  <line x1="180" y1="350" x2="400" y2="404" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <line x1="500" y1="350" x2="500" y2="402" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <line x1="820" y1="350" x2="600" y2="404" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <rect x="380" y="410" width="240" height="70" fill="#0f5132" stroke="#0f5132" stroke-width="1.5"/>
+  <text x="500" y="438" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#ffffff">fleet router</text>
+  <text x="500" y="460" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#d9e8dd">picks by promise, not hype</text>
+
+  <text x="500" y="524" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#7d7869">Promises are versioned. Break one, and the fleet tells you — that's the whole point.</text>
+</svg>

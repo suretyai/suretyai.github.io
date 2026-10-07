@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="fl-t fl-d">
+  <title>Frozen model vs learning loop</title>
+  <desc>Side-by-side: a frozen model discards corrections while Fronesa retrains on them.</desc>
+  <title id="fl-t">Frozen model vs learning system</title>
+  <desc id="fl-d">Side-by-side diagram: a frozen model discards corrections; Fronesa feeds corrections back through retraining.</desc>
+
+  <rect width="1200" height="600" fill="#f4f1e8"/>
+
+  <text x="60" y="70" font-family="Fraunces, Georgia, serif" font-size="40" fill="#1b1813">What happens to a correction?</text>
+  <text x="60" y="104" font-family="Georgia, serif" font-size="19" font-style="italic" fill="#57534a">The difference between a frozen model and a learning system.</text>
+
+  <!-- LEFT: Frozen -->
+  <g>
+    <rect x="60" y="140" width="520" height="380" fill="#ffffff" stroke="#a83c24" stroke-width="2"/>
+    <text x="90" y="182" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#a83c24">FROZEN MODEL</text>
+    
+    <!-- Correction in -->
+    <rect x="90" y="210" width="200" height="60" fill="#f4f1e8" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="190" y="246" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" fill="#1b1813">correction</text>
+    
+    <!-- Arrow to bin -->
+    <line x1="290" y1="240" x2="340" y2="240" stroke="#1b1813" stroke-width="2"/>
+    <polygon points="340,232 356,240 340,248" fill="#1b1813"/>
+    
+    <!-- Bin -->
+    <rect x="360" y="210" width="160" height="60" fill="#f4f1e8" stroke="#a83c24" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="440" y="246" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" fill="#a83c24">discarded</text>
+    
+    <text x="90" y="330" font-family="Georgia, serif" font-size="18" fill="#57534a">The model never sees it again.</text>
+    <text x="90" y="360" font-family="Georgia, serif" font-size="18" fill="#57534a">Same mistake, next week.</text>
+    <text x="90" y="410" font-family="ui-monospace, monospace" font-size="14" fill="#a83c24">error rate: flat</text>
+    
+    <!-- Flat line -->
+    <line x1="90" y1="450" x2="550" y2="450" stroke="#a83c24" stroke-width="3"/>
+  </g>
+
+  <!-- RIGHT: Learning -->
+  <g>
+    <rect x="620" y="140" width="520" height="380" fill="#ffffff" stroke="#0f5132" stroke-width="2"/>
+    <text x="650" y="182" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#0f5132">FRONESA</text>
+    
+    <!-- Correction in -->
+    <rect x="650" y="210" width="200" height="60" fill="#f4f1e8" stroke="#1b1813" stroke-width="1.5"/>
+    <text x="750" y="246" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" fill="#1b1813">correction</text>
+    
+    <!-- Arrow to retrain -->
+    <line x1="850" y1="240" x2="900" y2="240" stroke="#0f5132" stroke-width="2"/>
+    <polygon points="900,232 916,240 900,248" fill="#0f5132"/>
+    
+    <!-- Retrain -->
+    <rect x="920" y="210" width="160" height="60" fill="#e8f0ea" stroke="#0f5132" stroke-width="1.5"/>
+    <text x="1000" y="246" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" fill="#0f5132">retrain</text>
+    
+    <!-- Loop back arrow -->
+    <path d="M 1000 270 L 1000 330 L 750 330 L 750 278" fill="none" stroke="#0f5132" stroke-width="2"/>
+    <polygon points="742,278 750,262 758,278" fill="#0f5132"/>
+    
+    <text x="650" y="380" font-family="Georgia, serif" font-size="18" fill="#57534a">The correction becomes training data.</text>
+    <text x="650" y="410" font-family="Georgia, serif" font-size="18" fill="#57534a">The model improves. Measured.</text>
+    <text x="650" y="440" font-family="ui-monospace, monospace" font-size="14" fill="#0f5132">error rate: 4.52% to 0.22%</text>
+    
+    <!-- Declining line -->
+    <line x1="650" y1="480" x2="1110" y2="430" stroke="#0f5132" stroke-width="3"/>
+  </g>
+
+  <text x="60" y="560" font-family="-apple-system, sans-serif" font-size="14" fill="#7d7869">v6 twelve-week error collapse. Honestly measured, not projected.</text>
+</svg>

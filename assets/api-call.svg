@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" role="img" aria-labelledby="api-title api-desc">
+  <title>API request/response example</title>
+  <desc>Example POST /decide request and response showing decision, confidence, probabilities, and escalation status.</desc>
+  <title id="api-title">A Fronesa API call</title>
+  <desc id="api-desc">Request and response mockup of the label endpoint, including the low-confidence escalation case.</desc>
+
+  <rect width="900" height="640" fill="#f4f1e8"/>
+
+  <text x="60" y="70" font-family="Fraunces, Georgia, serif" font-size="38" fill="#1b1813">One call. The whole story.</text>
+  <text x="60" y="102" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" fill="#7d7869">POST /decide — every response carries its confidence and its receipt.</text>
+
+  <!-- Request card -->
+  <rect x="60" y="140" width="780" height="180" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <rect x="60" y="140" width="780" height="44" fill="#1b1813"/>
+  <text x="84" y="168" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#ffffff">> request</text>
+  <text x="84" y="216" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">{</text>
+  <text x="108" y="242" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">"text": "Absolutely loved the concert last night,</text>
+  <text x="180" y="266" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">best show ever!"</text>
+  <text x="84" y="292" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">}</text>
+
+  <!-- Response card -->
+  <rect x="60" y="350" width="780" height="200" fill="#ffffff" stroke="#0f5132" stroke-width="2"/>
+  <rect x="60" y="350" width="780" height="44" fill="#0f5132"/>
+  <text x="84" y="378" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#ffffff">&lt; response</text>
+  <text x="84" y="422" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">{</text>
+  <text x="108" y="448" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">"decision": "positive",  "confidence": 0.993,</text>
+  <text x="108" y="474" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">"probs": {"positive": 0.993, …},  "escalated": false</text>
+  <text x="84" y="500" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">}</text>
+  <text x="84" y="530" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#0f5132">Sure call — decided by the model, logged with a decision ID.</text>
+
+  <!-- Escalation note -->
+  <rect x="60" y="566" width="780" height="44" fill="#f4f1e8" stroke="#8a5a00" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="84" y="594" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8a5a00">Confidence 0.41? Then "escalated": true — a human decides instead. No silent guessing.</text>
+</svg>

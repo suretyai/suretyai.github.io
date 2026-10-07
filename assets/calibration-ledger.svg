@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="cl-t cl-d">
+  <title>Calibration ledger</title>
+  <desc>Model calibration tracked over time.</desc>
+  <title id="cl-t">Calibration ledger: in-distribution vs out-of-distribution</title>
+  <desc id="cl-d">Two measured ECE values: 0.0448 in-distribution (well calibrated) and 0.211 out-of-distribution (degrades). Honest about limits.</desc>
+
+  <rect width="1200" height="700" fill="#f4f1e8"/>
+
+  <!-- Figure label -->
+  <text x="60" y="60" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#7d7869">FIG. — CALIBRATION LEDGER</text>
+
+  <text x="60" y="110" font-family="Fraunces, Georgia, serif" font-size="42" fill="#1b1813">How wrong is the confidence?</text>
+  <text x="60" y="148" font-family="Georgia, serif" font-size="19" font-style="italic" fill="#57534a">Expected Calibration Error. Lower is better. Measured, not claimed.</text>
+
+  <!-- IN-DIST -->
+  <g>
+    <rect x="60" y="190" width="1080" height="200" fill="#ffffff" stroke="#0f5132" stroke-width="2"/>
+    <text x="90" y="232" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#0f5132">IN-DISTRIBUTION</text>
+    <text x="90" y="262" font-family="Georgia, serif" font-size="16" fill="#57534a">Same distribution as training. SMSSpamCollection, n=1,116 held out.</text>
+
+    <!-- Bar: 0.0448 out of 0.25 scale -->
+    <rect x="90" y="290" width="800" height="24" fill="#e8f0ea" stroke="#1b1813" stroke-width="1"/>
+    <rect x="90" y="290" width="143" height="24" fill="#0f5132"/>
+    <text x="910" y="309" font-family="ui-monospace, monospace" font-size="20" fill="#1b1813">ECE 0.0448</text>
+
+    <text x="90" y="350" font-family="Georgia, serif" font-size="17" fill="#1b1813">Well calibrated. When it says 90% confident, it's right ~90% of the time.</text>
+    <text x="90" y="378" font-family="ui-monospace, monospace" font-size="13" fill="#7d7869">Source: experiments/spam_v1_bootstrap_eval.json (ece_10bin 0.0457)</text>
+  </g>
+
+  <!-- OOD -->
+  <g>
+    <rect x="60" y="420" width="1080" height="200" fill="#ffffff" stroke="#8a5a00" stroke-width="2"/>
+    <text x="90" y="462" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#8a5a00">OUT-OF-DISTRIBUTION</text>
+    <text x="90" y="492" font-family="Georgia, serif" font-size="16" fill="#57534a">Different distribution than training. The honest stress test.</text>
+
+    <!-- Bar: 0.211 out of 0.25 scale -->
+    <rect x="90" y="520" width="800" height="24" fill="#f7ecd4" stroke="#1b1813" stroke-width="1"/>
+    <rect x="90" y="520" width="675" height="24" fill="#8a5a00"/>
+    <text x="910" y="539" font-family="ui-monospace, monospace" font-size="20" fill="#1b1813">ECE 0.211</text>
+
+    <text x="90" y="580" font-family="Georgia, serif" font-size="17" fill="#1b1813">Degrades. Confidence is less trustworthy on unfamiliar input.</text>
+    <text x="90" y="608" font-family="ui-monospace, monospace" font-size="13" fill="#7d7869">Yasmin measured. This is why every decision carries its confidence —</text>
+  </g>
+
+  <text x="60" y="660" font-family="Georgia, serif" font-size="17" font-style="italic" fill="#1b1813">so you know when not to trust it. Calibration isn't a claim. It's a measurement with limits.</text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="ev-title ev-desc">
+  <title>Held-out evaluation results</title>
+  <desc>Honest chart: recall 0.5625, specificity 0.875, accuracy 0.719 on held-out data, with 2 false positives called out.</desc>
+  <title id="ev-title">Measured performance, v4 held-out evaluation</title>
+  <desc id="ev-desc">Horizontal bar chart: recall 0.5625, specificity 0.875, accuracy 0.719, measured on a 32-item held-out set.</desc>
+
+  <rect width="900" height="560" fill="#f4f1e8"/>
+
+  <text x="60" y="70" font-family="Fraunces, Georgia, serif" font-size="38" fill="#1b1813">Measured, not marketed.</text>
+  <text x="60" y="102" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" fill="#7d7869">v4 held-out evaluation · n = 32 (16 spam / 16 ham) · never seen during development</text>
+
+  <!-- Recall -->
+  <text x="60" y="172" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">recall</text>
+  <text x="60" y="194" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">spam caught</text>
+  <rect x="220" y="150" width="620" height="26" fill="#e8f0ea"/>
+  <rect x="220" y="150" width="348.75" height="26" fill="#0f5132"/>
+  <text x="860" y="170" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">0.5625</text>
+
+  <!-- Specificity -->
+  <text x="60" y="262" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">specificity</text>
+  <text x="60" y="284" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">ham left alone</text>
+  <rect x="220" y="240" width="620" height="26" fill="#e8f0ea"/>
+  <rect x="220" y="240" width="542.5" height="26" fill="#0f5132"/>
+  <text x="860" y="260" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">0.875</text>
+
+  <!-- Accuracy -->
+  <text x="60" y="352" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813">accuracy</text>
+  <text x="60" y="374" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">overall</text>
+  <rect x="220" y="330" width="620" height="26" fill="#e8f0ea"/>
+  <rect x="220" y="330" width="445.78" height="26" fill="#0f5132"/>
+  <text x="860" y="350" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">0.719</text>
+
+  <!-- False positives callout -->
+  <rect x="60" y="410" width="780" height="64" fill="#ffffff" stroke="#8a5a00" stroke-width="1.5"/>
+  <text x="84" y="438" font-family="Fraunces, Georgia, serif" font-size="20" fill="#1b1813">2 false positives.</text>
+  <text x="84" y="462" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#7d7869">We print the misses next to the wins. Blind reviewer agreement: 32/32.</text>
+
+  <!-- Footnote -->
+  <line x1="60" y1="510" x2="840" y2="510" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="60" y="532" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">Small sample, honestly reported. We publish the full ledger methodology — no cherry-picked benchmarks.</text>
+</svg>
