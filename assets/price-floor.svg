@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="pf-t pf-d">
+  <title>Price floor</title>
+  <desc>Pricing floor illustration.</desc>
+  <title id="pf-t">The price floor, acknowledged</title>
+  <desc id="pf-d">Cost comparison: a commodity classification call costs $0.00004. What it doesn't include is the evidence layer.</desc>
+
+  <rect width="1200" height="700" fill="#f4f1e8"/>
+
+  <text x="60" y="60" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#7d7869">FIG. — THE PRICE FLOOR</text>
+
+  <text x="60" y="110" font-family="Fraunces, Georgia, serif" font-size="42" fill="#1b1813">The call is $0.00004. We're not selling the call.</text>
+  <text x="60" y="148" font-family="Georgia, serif" font-size="19" font-style="italic" fill="#57534a">Named and refused: the commodity price, and why it doesn't matter.</text>
+
+  <!-- LEFT: The commodity -->
+  <g>
+    <rect x="60" y="190" width="520" height="380" fill="#ffffff" stroke="#1b1813" stroke-width="2"/>
+    <text x="90" y="232" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#57534a">COMMODITY CLASSIFICATION</text>
+
+    <text x="90" y="300" font-family="ui-monospace, monospace" font-size="56" fill="#1b1813">$0.00004</text>
+    <text x="90" y="332" font-family="ui-monospace, monospace" font-size="16" fill="#57534a">per decision (Jev, $0.042/M input)</text>
+
+    <text x="90" y="380" font-family="Georgia, serif" font-size="17" fill="#1b1813">What you get:</text>
+    <text x="90" y="410" font-family="ui-monospace, monospace" font-size="15" fill="#57534a">· a label</text>
+    <text x="90" y="436" font-family="ui-monospace, monospace" font-size="15" fill="#57534a">· a confidence number</text>
+
+    <text x="90" y="486" font-family="Georgia, serif" font-size="17" fill="#a83c24">What you don't get:</text>
+    <text x="90" y="516" font-family="ui-monospace, monospace" font-size="15" fill="#a83c24">· calibration evidence</text>
+    <text x="90" y="542" font-family="ui-monospace, monospace" font-size="15" fill="#a83c24">· decision ledger</text>
+    <text x="90" y="568" font-family="ui-monospace, monospace" font-size="15" fill="#a83c24">· human-review workflow</text>
+  </g>
+
+  <!-- RIGHT: The evidence layer -->
+  <g>
+    <rect x="620" y="190" width="520" height="380" fill="#ffffff" stroke="#0f5132" stroke-width="2"/>
+    <text x="650" y="232" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#0f5132">FRONESA EVIDENCE LAYER</text>
+
+    <text x="650" y="300" font-family="Georgia, serif" font-size="28" fill="#1b1813">Priced separately.</text>
+    <text x="650" y="332" font-family="ui-monospace, monospace" font-size="16" fill="#57534a">Because it's a different product.</text>
+
+    <text x="650" y="380" font-family="Georgia, serif" font-size="17" fill="#1b1813">What it is:</text>
+    <text x="650" y="410" font-family="ui-monospace, monospace" font-size="15" fill="#0f5132">· measured calibration (ECE 0.0448)</text>
+    <text x="650" y="436" font-family="ui-monospace, monospace" font-size="15" fill="#0f5132">· every decision logged + receipted</text>
+    <text x="650" y="462" font-family="ui-monospace, monospace" font-size="15" fill="#0f5132">· corrections feed retraining</text>
+    <text x="650" y="488" font-family="ui-monospace, monospace" font-size="15" fill="#0f5132">· audit trail a regulator accepts</text>
+
+    <text x="650" y="536" font-family="Georgia, serif" font-size="17" font-style="italic" fill="#57534a">The $0.00004 call doesn't include</text>
+    <text x="650" y="562" font-family="Georgia, serif" font-size="17" font-style="italic" fill="#57534a">any of this. That's the product.</text>
+  </g>
+
+  <text x="60" y="630" font-family="ui-monospace, monospace" font-size="13" fill="#7d7869">Prices as-reported (Jev $0.042/M, pplx $0.04/M), not independently verified. See growth/decision_call_pricing_snapshot_2026-10-06.md</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="ti-t ti-d">
+  <title>Try-it header instrument</title>
+  <desc>Header illustration: message in, confidence meter, decision stamp.</desc>
+  <title id="ti-t">Try the decision instrument</title>
+  <desc id="ti-d">Header illustration for the try-it page: a message enters the instrument, confidence meter fills, stamp comes down with a label.</desc>
+
+  <rect width="1200" height="420" fill="#f4f1e8"/>
+
+  <!-- Masthead strip -->
+  <text x="60" y="70" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" letter-spacing="4" fill="#1b1813">FRONESA · LAB NOTES</text>
+  <text x="1140" y="70" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#7d7869">BENCH A/B</text>
+  <line x1="60" y1="92" x2="1140" y2="92" stroke="#1b1813" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="60" y="160" font-family="Fraunces, Georgia, serif" font-size="52" fill="#1b1813">Try the instrument.</text>
+  <text x="60" y="200" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#57534a">Type a message. Watch a decision get made — confidence, receipt, and all.</text>
+
+  <!-- Instrument schematic: message in > meter > stamp -->
+  <!-- Message card -->
+  <rect x="60" y="240" width="300" height="120" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="80" y="270" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#7d7869">you type:</text>
+  <text x="80" y="300" font-family="Georgia, serif" font-size="18" fill="#1b1813">"Free money!!! Click</text>
+  <text x="80" y="326" font-family="Georgia, serif" font-size="18" fill="#1b1813">now to claim!!!"</text>
+
+  <!-- Arrow -->
+  <line x1="360" y1="300" x2="400" y2="300" stroke="#1b1813" stroke-width="2" marker-end="url(#arrT)"/>
+  <defs>
+    <marker id="arrT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1b1813"/>
+    </marker>
+  </defs>
+
+  <!-- Confidence meter -->
+  <rect x="420" y="240" width="300" height="120" fill="#ffffff" stroke="#1b1813" stroke-width="1.5"/>
+  <text x="440" y="270" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#7d7869">confidence</text>
+  <rect x="440" y="288" width="260" height="24" fill="#e8f0ea" stroke="#1b1813" stroke-width="1"/>
+  <rect x="440" y="288" width="247" height="24" fill="#0f5132"/>
+  <text x="700" y="306" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#1b1813">0.95</text>
+  <text x="440" y="340" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#57534a">above the gate: decide</text>
+
+  <!-- Arrow -->
+  <line x1="720" y1="300" x2="760" y2="300" stroke="#1b1813" stroke-width="2" marker-end="url(#arrT)"/>
+
+  <!-- Stamp -->
+  <g transform="translate(940,300) rotate(-8)">
+    <rect x="-90" y="-50" width="180" height="100" fill="none" stroke="#a83c24" stroke-width="4"/>
+    <rect x="-78" y="-38" width="156" height="76" fill="none" stroke="#a83c24" stroke-width="1.5"/>
+    <text y="12" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="28" font-weight="bold" fill="#a83c24">SPAM</text>
+  </g>
+  <text x="940" y="390" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">+ decision ID · logged</text>
+
+  <!-- Footer rule -->
+  <line x1="60" y1="396" x2="1140" y2="396" stroke="#d9d3bf" stroke-width="1"/>
+</svg>

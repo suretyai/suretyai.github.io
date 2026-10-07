@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="lr-t lr-d">
+  <title>Ledger Row Real</title>
+  <desc>Fronesa visual asset: Ledger Row Real.</desc>
+  <title id="lr-t">One real ledger row</title>
+  <desc id="lr-d">A real decision from the dry-run ledger: timestamp, decision, confidence, escalation status. URI redacted.</desc>
+
+  <rect width="1200" height="520" fill="#f4f1e8"/>
+
+  <text x="60" y="60" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#7d7869">FIG. — ONE REAL ROW</text>
+
+  <text x="60" y="110" font-family="Fraunces, Georgia, serif" font-size="42" fill="#1b1813">This is what a decision looks like.</text>
+  <text x="60" y="148" font-family="Georgia, serif" font-size="19" font-style="italic" fill="#57534a">One row from the dry-run ledger. Real data, URI redacted.</text>
+
+  <!-- Ledger row -->
+  <g>
+    <rect x="60" y="190" width="1080" height="240" fill="#ffffff" stroke="#1b1813" stroke-width="2"/>
+    <rect x="60" y="190" width="1080" height="48" fill="#1b1813"/>
+    <text x="90" y="220" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#f4f1e8">dryrun-labels.jsonl · row 404 · 2026-10-06</text>
+
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16">
+      <text x="90" y="280" fill="#7d7869">timestamp</text>
+      <text x="1110" y="280" text-anchor="end" fill="#1b1813">2026-10-06T10:50:23.990Z</text>
+
+      <text x="90" y="316" fill="#7d7869">decision</text>
+      <text x="1110" y="316" text-anchor="end" font-weight="bold" fill="#0f5132">ham</text>
+
+      <text x="90" y="352" fill="#7d7869">confidence</text>
+      <text x="1110" y="352" text-anchor="end" fill="#1b1813">0.9491</text>
+
+      <text x="90" y="388" fill="#7d7869">labels</text>
+      <text x="1110" y="388" text-anchor="end" fill="#1b1813">[]</text>
+
+      <text x="90" y="424" fill="#7d7869">escalated</text>
+      <text x="1110" y="424" text-anchor="end" fill="#1b1813">false</text>
+    </g>
+  </g>
+
+  <text x="60" y="470" font-family="Georgia, serif" font-size="16" fill="#57534a">404 rows logged. Zero text fields stored. Every decision gets one of these.</text>
+  <text x="60" y="496" font-family="ui-monospace, monospace" font-size="13" fill="#7d7869">Source: labeler/dryrun-labels.jsonl (tail). URI redacted for privacy.</text>
+</svg>

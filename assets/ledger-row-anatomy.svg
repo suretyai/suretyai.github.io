@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="lr-title lr-desc">
+  <title>Ledger row anatomy</title>
+  <desc>Annotated dry-run ledger row showing what is stored (and that no text is stored).</desc>
+  <title id="lr-title">Anatomy of a ledger row</title>
+  <desc id="lr-desc">Annotated ledger row with six fields: timestamp, URI pointer, labels, decision, confidence, escalated. No raw text field is stored.</desc>
+  <rect width="1200" height="760" fill="#f4f1e8"/>
+  <text x="80" y="90" font-family="Fraunces, Georgia, serif" font-size="38" font-weight="bold" fill="#1b1813">What we store. What we don’t.</text>
+  <text x="80" y="120" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" fill="#7d7869">One dry-run ledger row, annotated · identifiers redacted · schema verified 2026-10-06</text>
+  <rect x="80" y="150" width="1040" height="410" fill="#ffffff" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="116" y="186" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#1b1813">ts</text>
+  <text x="360" y="186" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">"2026-10-06T11:18:54.179Z"</text>
+  <text x="116" y="216" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#7d7869">when the decision was made</text>
+  <line x1="116" y1="240" x2="1084" y2="240" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="116" y="248" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#1b1813">uri</text>
+  <text x="360" y="248" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">"at://did:plc:…/app.bsky.feed.post/…"</text>
+  <text x="116" y="278" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#7d7869">which post — pointer, not content</text>
+  <line x1="116" y1="302" x2="1084" y2="302" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="116" y="310" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#1b1813">labels</text>
+  <text x="360" y="310" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">[]</text>
+  <text x="116" y="340" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#7d7869">public labels emitted: none (dry run)</text>
+  <line x1="116" y1="364" x2="1084" y2="364" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="116" y="372" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#1b1813">decision</text>
+  <text x="360" y="372" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">"ham"</text>
+  <text x="116" y="402" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#7d7869">the model’s call</text>
+  <line x1="116" y1="426" x2="1084" y2="426" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="116" y="434" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#1b1813">confidence</text>
+  <text x="360" y="434" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">0.9535</text>
+  <text x="116" y="464" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#7d7869">how sure — printed, not rounded away</text>
+  <line x1="116" y1="488" x2="1084" y2="488" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="116" y="496" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#1b1813">escalated</text>
+  <text x="360" y="496" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">false</text>
+  <text x="116" y="526" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#7d7869">no human review needed</text>
+  <rect x="80" y="590" width="1040" height="78" fill="#ffffff" stroke="#a83c24" stroke-width="2"/>
+  <text x="116" y="622" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#a83c24">No “text” field.</text>
+  <text x="116" y="650" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#1b1813">R1 minimization: raw post text is never written to the ledger. Pointers in, text stays out.</text>
+  <line x1="80" y1="700" x2="1120" y2="700" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="80" y="724" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">Schema: ts, uri, labels, decision, confidence, escalated — six fields, nothing else. Backend R1 verified 2026-10-06 ~10:10 +03 (120/120 rows text-free).</text>
+</svg>

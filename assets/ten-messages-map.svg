@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="tmm-title tmm-desc">
+<title id="tmm-title">Ten messages. Ten calls.</title>
+<desc id="tmm-desc">Dot plot of the ten real pre-computed demo confidences from the try-it page: four clear calls above the line, five borderline calls below the 0.49 escalation line, and one confident call later corrected.</desc>
+<rect width="1200" height="760" fill="#f4f1e8"/>
+<text x="80" y="72" font-family="Fraunces, Georgia, serif" font-size="36" fill="#1b1813">Ten messages. Ten calls.</text>
+<text x="80" y="104" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" fill="#7d7869">Pre-computed demo · v3 sentiment model (ModernBERT + LoRA) · hand-picked examples, not a measured eval</text>
+<rect x="120" y="200" width="470.4" height="340" fill="#8a5a00" opacity="0.07"/>
+<rect x="590.4" y="200" width="489.6" height="340" fill="#0f5132" opacity="0.07"/>
+<line x1="120.0" y1="330" x2="120.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<text x="120.0" y="360" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">0.0</text>
+<line x1="216.0" y1="330" x2="216.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<line x1="312.0" y1="330" x2="312.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<text x="312.0" y="360" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">0.2</text>
+<line x1="408.0" y1="330" x2="408.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<line x1="504.0" y1="330" x2="504.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<text x="504.0" y="360" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">0.4</text>
+<line x1="600.0" y1="330" x2="600.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<line x1="696.0" y1="330" x2="696.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<text x="696.0" y="360" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">0.6</text>
+<line x1="792.0" y1="330" x2="792.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<line x1="888.0" y1="330" x2="888.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<text x="888.0" y="360" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">0.8</text>
+<line x1="984.0" y1="330" x2="984.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<line x1="1080.0" y1="330" x2="1080.0" y2="338" stroke="#7d7869" stroke-width="1"/>
+<text x="1080.0" y="360" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">1.0</text>
+<line x1="120" y1="330" x2="1080" y2="330" stroke="#1b1813" stroke-width="1.5"/>
+<text x="840" y="352" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">model confidence</text>
+<line x1="590.4" y1="200" x2="590.4" y2="540" stroke="#8a5a00" stroke-width="2.5" stroke-dasharray="8 5"/>
+<text x="580.4" y="192" text-anchor="end" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8a5a00">0.49 escalation line — tuned once for a 15% budget, then fixed</text>
+<text x="130" y="530" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8a5a00">below the line: held for a human</text>
+<text x="1070" y="530" text-anchor="end" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#0f5132">above the line: decided — but not always right (see №10)</text>
+<text x="126" y="222" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#0f5132">CLEAR — decided</text>
+<text x="150" y="352" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8a5a00">BORDER — escalated</text>
+<text x="126" y="462" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#a83c24">WRONG — corrected</text>
+<circle cx="1073.3" cy="235" r="13" fill="#0f5132" stroke="#f4f1e8" stroke-width="2"/>
+<text x="1073.3" y="239" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">1</text>
+<text x="1073.3" y="218" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#0f5132">0.993</text>
+<circle cx="1012.8" cy="275" r="13" fill="#0f5132" stroke="#f4f1e8" stroke-width="2"/>
+<text x="1012.8" y="279" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">2</text>
+<text x="1012.8" y="302" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#0f5132">0.930</text>
+<circle cx="1041.6" cy="255" r="13" fill="#0f5132" stroke="#f4f1e8" stroke-width="2"/>
+<text x="1041.6" y="259" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">3</text>
+<text x="1041.6" y="238" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#0f5132">0.960</text>
+<circle cx="982.1" cy="250" r="13" fill="#0f5132" stroke="#f4f1e8" stroke-width="2"/>
+<text x="982.1" y="254" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">4</text>
+<text x="982.1" y="233" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#0f5132">0.898</text>
+<circle cx="508.8" cy="362" r="13" fill="#8a5a00" stroke="#f4f1e8" stroke-width="2"/>
+<text x="508.8" y="366" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">5</text>
+<text x="508.8" y="345" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#8a5a00">0.405</text>
+<circle cx="488.6" cy="380" r="13" fill="#8a5a00" stroke="#f4f1e8" stroke-width="2"/>
+<text x="488.6" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">6</text>
+<text x="488.6" y="406" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#8a5a00">0.384</text>
+<circle cx="579.8" cy="398" r="13" fill="#8a5a00" stroke="#f4f1e8" stroke-width="2"/>
+<text x="579.8" y="402" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">7</text>
+<text x="579.8" y="424" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#8a5a00">0.479</text>
+<circle cx="573.1" cy="362" r="13" fill="#8a5a00" stroke="#f4f1e8" stroke-width="2"/>
+<text x="573.1" y="366" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">8</text>
+<text x="573.1" y="345" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#8a5a00">0.472</text>
+<circle cx="517.4" cy="398" r="13" fill="#8a5a00" stroke="#f4f1e8" stroke-width="2"/>
+<text x="517.4" y="402" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#f4f1e8">9</text>
+<text x="517.4" y="424" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#8a5a00">0.414</text>
+<circle cx="975.4" cy="480" r="13" fill="#a83c24" stroke="#f4f1e8" stroke-width="2"/>
+<text x="975.4" y="484" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#f4f1e8">10</text>
+<text x="975.4" y="463" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#a83c24">0.891</text>
+<line x1="80" y1="562" x2="1120" y2="562" stroke="#d9d3bf" stroke-width="1"/>
+<circle cx="80" cy="584" r="8" fill="#0f5132"/>
+<text x="80" y="588" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">1</text>
+<text x="98" y="588" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“Absolutely loved the concert…” · 0.993 · positive · decided</text>
+<circle cx="80" cy="610" r="8" fill="#0f5132"/>
+<text x="80" y="614" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">2</text>
+<text x="98" y="614" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“I hate this movie, complete…” · 0.930 · negative · decided</text>
+<circle cx="80" cy="636" r="8" fill="#0f5132"/>
+<text x="80" y="640" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">3</text>
+<text x="98" y="640" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“The meeting is scheduled for…” · 0.960 · neutral · decided</text>
+<circle cx="80" cy="662" r="8" fill="#0f5132"/>
+<text x="80" y="666" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">4</text>
+<text x="98" y="666" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“This new album is incredible…” · 0.898 · positive · decided</text>
+<circle cx="80" cy="688" r="8" fill="#8a5a00"/>
+<text x="80" y="692" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">5</text>
+<text x="98" y="692" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“What a sick catch in the…” · 0.405 · positive · escalated</text>
+<circle cx="620" cy="584" r="8" fill="#8a5a00"/>
+<text x="620" y="588" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">6</text>
+<text x="638" y="588" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“Our team destroyed them 5-0…” · 0.384 · positive · escalated</text>
+<circle cx="620" cy="610" r="8" fill="#8a5a00"/>
+<text x="620" y="614" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">7</text>
+<text x="638" y="614" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“Yeah right, like that’s ever going…” · 0.479 · neutral · escalated</text>
+<circle cx="620" cy="636" r="8" fill="#8a5a00"/>
+<text x="620" y="640" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">8</text>
+<text x="638" y="640" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“The food was amazing but…” · 0.472 · negative · escalated</text>
+<circle cx="620" cy="662" r="8" fill="#8a5a00"/>
+<text x="620" y="666" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">9</text>
+<text x="638" y="666" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“lol okay sure” · 0.414 · neutral · escalated</text>
+<circle cx="620" cy="688" r="8" fill="#a83c24"/>
+<text x="620" y="692" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10" fill="#f4f1e8">10</text>
+<text x="638" y="692" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#1b1813">“Great, another Monday. Just…” · 0.891 · positive · marked wrong later</text>
+<line x1="80" y1="706" x2="1120" y2="706" stroke="#d9d3bf" stroke-width="1"/>
+<text x="80" y="730" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#7d7869">Values verbatim from option-c/try-it.html Bench A DATA (2026-10-06). Ten hand-picked examples — they illustrate the mechanism, not measured performance.</text>
+</svg>

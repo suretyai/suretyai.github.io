@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="td-title td-desc">
+  <title>Confidence threshold dial</title>
+  <desc>The SPAM_CONFIDENCE dial at 0.90, showing HELD vs LABEL zones.</desc>
+  <title id="td-title">The confidence threshold — Fronesa's only dial</title>
+  <desc id="td-desc">A confidence scale from 0.00 to 1.00. The configured dial SPAM_CONFIDENCE sits at 0.90. At or above it, the label is applied and a receipt is issued. Below it, Fronesa abstains and the message is held for human review. One illustrated sample at 0.80 is held. Footnote (graphic18, 2026-10-06 ~14:33 +03 [corrected]): Yasmin's threshold sweep (n=32) measured max true-spam P(spam)=0.7970 — at 0.90 the LABEL zone stays empty until recalibration lands.</desc>
+
+  <rect width="1200" height="660" fill="#f4f1e8"/>
+  <rect x="24" y="24" width="1152" height="612" fill="none" stroke="#1b1813" stroke-width="2"/>
+  <rect x="30" y="30" width="1140" height="600" fill="none" stroke="#1b1813" stroke-width="0.75"/>
+
+  <!-- Masthead -->
+  <text x="80" y="100" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" letter-spacing="6" fill="#1b1813">FRONESA · LAB NOTES</text>
+  <text x="1120" y="100" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" fill="#7d7869">FIG. — THE DIAL</text>
+  <line x1="80" y1="122" x2="1120" y2="122" stroke="#1b1813" stroke-width="1.5"/>
+  <line x1="80" y1="128" x2="1120" y2="128" stroke="#1b1813" stroke-width="0.75"/>
+
+  <!-- Title -->
+  <text x="80" y="200" font-family="Fraunces, Georgia, serif" font-size="54" fill="#1b1813">The only dial.</text>
+  <text x="80" y="244" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#57534a">One configured number decides: label it, or hold it.</text>
+
+  <!-- Scale geometry: x = 120 + v*960. Dial at 0.90 -> x=984. Sample at 0.80 -> x=888. -->
+  <!-- HELD zone (amber): 120..984 -->
+  <rect x="120" y="330" width="864" height="64" fill="#f7ecd4" stroke="#8a5a00" stroke-width="1"/>
+  <!-- LABEL zone (green): 984..1080 -->
+  <rect x="984" y="330" width="96" height="64" fill="#d9e8dd" stroke="#0f5132" stroke-width="1"/>
+  <!-- base line -->
+  <line x1="120" y1="394" x2="1080" y2="394" stroke="#1b1813" stroke-width="2"/>
+
+  <!-- ticks -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#57534a" text-anchor="middle">
+    <line x1="120" y1="394" x2="120" y2="408" stroke="#1b1813" stroke-width="1.5"/><text x="120" y="430">0.00</text>
+    <line x1="216" y1="394" x2="216" y2="404" stroke="#57534a" stroke-width="1"/><text x="216" y="430">0.10</text>
+    <line x1="312" y1="394" x2="312" y2="404" stroke="#57534a" stroke-width="1"/><text x="312" y="430">0.20</text>
+    <line x1="408" y1="394" x2="408" y2="404" stroke="#57534a" stroke-width="1"/><text x="408" y="430">0.30</text>
+    <line x1="504" y1="394" x2="504" y2="404" stroke="#57534a" stroke-width="1"/><text x="504" y="430">0.40</text>
+    <line x1="600" y1="394" x2="600" y2="404" stroke="#57534a" stroke-width="1"/><text x="600" y="430">0.50</text>
+    <line x1="696" y1="394" x2="696" y2="404" stroke="#57534a" stroke-width="1"/><text x="696" y="430">0.60</text>
+    <line x1="792" y1="394" x2="792" y2="404" stroke="#57534a" stroke-width="1"/><text x="792" y="430">0.70</text>
+    <line x1="888" y1="394" x2="888" y2="404" stroke="#57534a" stroke-width="1"/><text x="888" y="430">0.80</text>
+    <line x1="984" y1="394" x2="984" y2="408" stroke="#1b1813" stroke-width="2"/>
+    <line x1="1080" y1="394" x2="1080" y2="408" stroke="#1b1813" stroke-width="1.5"/><text x="1080" y="430">1.00</text>
+  </g>
+
+  <!-- zone labels -->
+  <text x="552" y="368" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" font-weight="bold" fill="#8a5a00">HELD — abstain, queued for review</text>
+  <text x="1032" y="360" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="17" font-weight="bold" fill="#0f5132">LABEL</text>
+  <text x="1032" y="380" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#0f5132">receipt issued</text>
+
+  <!-- The dial at 0.90 (x=984) -->
+  <g>
+    <line x1="984" y1="300" x2="984" y2="394" stroke="#1b1813" stroke-width="3"/>
+    <circle cx="984" cy="290" r="14" fill="#1b1813"/>
+    <circle cx="984" cy="290" r="5" fill="#f4f1e8"/>
+    <text x="984" y="290" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#1b1813" dx="-22">SPAM_CONFIDENCE</text>
+    <text x="984" y="308" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#57534a" dx="-22">(configured)</text>
+    <text x="984" y="448" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" font-weight="bold" fill="#1b1813">0.90</text>
+  </g>
+
+  <!-- Illustrated sample at 0.80 (x=888) -->
+  <g>
+    <circle cx="888" cy="330" r="10" fill="#1b1813"/>
+    <line x1="888" y1="340" x2="888" y2="478" stroke="#1b1813" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <rect x="768" y="478" width="240" height="56" fill="#ffffff" stroke="#8a5a00" stroke-width="1.5"/>
+    <text x="888" y="501" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#8a5a00">0.80 = HELD</text>
+    <text x="888" y="522" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#7d7869">illustrated sample</text>
+  </g>
+
+  <!-- Caption -->
+  <line x1="80" y1="576" x2="1120" y2="576" stroke="#d9d3bf" stroke-width="1"/>
+  <text x="80" y="604" font-family="Georgia, serif" font-size="17" font-style="italic" fill="#57534a">Below the dial, Fronesa abstains — the held message waits for a human, and the review feeds the next retrain.</text>
+  <!-- Measured footnote — added 2026-10-06 ~14:33 +03 [corrected] (graphic18): the dial mechanism is correct; the footnote records what the mechanism does at the current setting. Reversible: remove these two lines. -->
+  <text x="80" y="622" font-family="Georgia, serif" font-size="15" font-style="italic" fill="#a83c24">Measured (threshold sweep, n=32): max true-spam score 0.7970 — at 0.90 the LABEL zone stays empty until recalibration lands.</text>
+</svg>

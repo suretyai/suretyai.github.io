@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="sc-t sc-d">
+  <title>October 2026 scorecard</title>
+  <desc>Honest scoreboard for October 2026.</desc>
+  <title id="sc-t">The honest scoreboard, October 2026</title>
+  <desc id="sc-d">A ruled ledger of Surety's actual company numbers: revenue zero, collected zero, spend zero, customers zero, contracts zero, public labels zero. Printed because it is true, not because it is impressive.</desc>
+
+  <rect width="1200" height="800" fill="#f4f1e8"/>
+
+  <!-- Figure label -->
+  <text x="60" y="60" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#7d7869">FIG. — COMPANY LEDGER · OCTOBER 2026</text>
+
+  <text x="60" y="110" font-family="Fraunces, Georgia, serif" font-size="42" fill="#1b1813">The honest scoreboard</text>
+  <text x="60" y="148" font-family="Georgia, serif" font-size="19" font-style="italic" fill="#57534a">Every number we have. Printed because it is true, not because it is impressive.</text>
+
+  <!-- Ledger table: double-rule header -->
+  <g>
+    <line x1="60" y1="190" x2="1140" y2="190" stroke="#1b1813" stroke-width="3"/>
+    <line x1="60" y1="196" x2="1140" y2="196" stroke="#1b1813" stroke-width="1"/>
+    <text x="90" y="232" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="17" fill="#7d7869">LINE ITEM</text>
+    <text x="900" y="232" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="17" fill="#7d7869">VALUE</text>
+    <line x1="60" y1="248" x2="1140" y2="248" stroke="#1b1813" stroke-width="1"/>
+
+    <g font-family="Georgia, serif" font-size="21" fill="#1b1813">
+      <text x="90" y="292">Revenue</text>
+      <text x="90" y="340">Collected</text>
+      <text x="90" y="388">Spend</text>
+      <text x="90" y="436">Customers</text>
+      <text x="90" y="484">Contracts signed</text>
+      <text x="90" y="532">Public labels emitted</text>
+      <text x="90" y="580">Live human labels</text>
+      <text x="90" y="628">Production model</text>
+      <text x="90" y="676">Legal entity</text>
+      <text x="90" y="724">Payment processor</text>
+    </g>
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="21" fill="#1b1813">
+      <text x="900" y="292">$0</text>
+      <text x="900" y="340">$0</text>
+      <text x="900" y="388">$0</text>
+      <text x="900" y="436">0</text>
+      <text x="900" y="484">0</text>
+      <text x="900" y="532">0</text>
+      <text x="900" y="580">0</text>
+      <text x="900" y="628">v1</text>
+      <text x="900" y="676">none</text>
+      <text x="900" y="724">none</text>
+    </g>
+    <line x1="60" y1="744" x2="1140" y2="744" stroke="#1b1813" stroke-width="1"/>
+    <line x1="60" y1="750" x2="1140" y2="750" stroke="#1b1813" stroke-width="3"/>
+  </g>
+
+  <!-- Rotated lab stamp -->
+  <g transform="rotate(-8 1050 120)">
+    <rect x="950" y="96" width="220" height="48" fill="none" stroke="#a83c24" stroke-width="2"/>
+    <text x="1060" y="127" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#a83c24">COUNTED, NOT HOPED</text>
+  </g>
+
+  <text x="60" y="790" font-family="Georgia, serif" font-size="16" font-style="italic" fill="#57534a">Updated 2026-10-06. When a row changes, the ledger changes. That is the whole point.</text>
+</svg>
