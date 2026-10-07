@@ -3,617 +3,387 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f4f1e8">
 <title>Fronesa — Decisions that learn</title>
-<meta name="description" content="A fast decision model that gets smarter every week. Every escalation becomes training data. Measured, not promised.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Fronesa">
-<meta property="og:title" content="Fronesa — Decisions that learn">
-<meta property="og:description" content="A fast decision model that gets smarter every week. Every escalation becomes training data.">
-<meta property="og:url" content="https://suretyai.github.io/">
-<link rel="canonical" href="https://suretyai.github.io/">
-<meta property="og:image" content="assets/og-fronesa.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="assets/og-fronesa.png">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<meta name="description" content="Fronesa is a decision API for content-moderation triage. Every call returns a decision and a receipt; the loop learns from reviewer labels.">
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
 <style>
-  @font-face{
-    font-family:'Fraunces';font-style:normal;font-weight:500 700;font-display:swap;
-    src:url('assets/fonts/fraunces-latin.woff2') format('woff2');
-  }
-  :root{
-    --paper:#f4f1e8;
-    --paper-2:#efeadd;
-    --card:#faf8f2;
-    --ink:#1b1813;
-    --mut:#57534a;
-    --faint:#7d7869;
-    --line:#d9d3bf;
-    --line-soft:#e5e0d0;
-    --green:#0f5132;
-    --green-deep:#0b3d26;
-    --brick:#a83c24;
-    --amber:#8a5a00;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  body{
-    font-family:Georgia,'Times New Roman',serif;
-    background:var(--paper);color:var(--ink);
-    line-height:1.6;-webkit-font-smoothing:antialiased;
-  }
-  ::selection{background:#d9e8dd}
-  a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:3px}
-  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);
-    padding:10px 18px;font-size:14px;font-weight:600;text-decoration:none;z-index:100;font-family:-apple-system,sans-serif}
-  .skip:focus{left:0}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
-  .serif{font-family:'Fraunces',Georgia,serif}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-  .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+@font-face{
+  font-family:"Fraunces";
+  src:url("assets/fonts/fraunces-latin.woff2") format("woff2");
+  font-weight:400 900;
+  font-display:swap;
+}
+:root{
+  --paper:#fbfaf7;
+  --paper-2:#f4f2ea;
+  --ink:#16150F;
+  --muted:#6e695c;
+  --hair:#e3ded1;
+  --green:#0F5132;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  font-size:16.5px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--green);color:var(--paper)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
 
-  /* ---------- masthead : journal, not hero ---------- */
-  .masthead{border-bottom:3px double var(--ink);padding:18px 0 14px}
-  .masthead .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
-  .masthead .brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:26px;letter-spacing:-.01em}
-  .masthead .brand a{color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:10px}
-  .masthead .brand img{display:block}
-  .masthead .meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--faint)}
-  .masthead .meta a{color:var(--green);text-decoration:none;font-weight:600}
-  .dateline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-    border-bottom:1px solid var(--line);padding:8px 0 22px;margin-bottom:6px;
-    font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--faint)}
+/* ---------- header ---------- */
+header.site{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  border-bottom:1px solid var(--hair);
+}
+.bar{display:flex;align-items:center;justify-content:space-between;height:66px;gap:24px}
+.brand img{display:block;height:30px;width:auto}
+nav.links{display:flex;gap:26px;align-items:center}
+nav.links a{
+  color:var(--muted);text-decoration:none;font-size:14.5px;
+}
+nav.links a:hover{color:var(--ink)}
+a.demo-link{
+  color:var(--green)!important;font-weight:600;
+  text-decoration:none;font-size:14.5px;white-space:nowrap;
+}
+a.demo-link:hover{text-decoration:underline}
 
-  /* ---------- opener : visual first ---------- */
-  .opener{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px;
-    padding:44px 0 8px;align-items:start}
-  .thesis{font-family:'Fraunces',Georgia,serif;font-size:clamp(30px,4vw,44px);
-    font-weight:500;line-height:1.12;letter-spacing:-.015em;margin-bottom:18px}
-  .thesis em{font-style:italic;color:var(--green)}
-  .dropcap::first-letter{font-family:'Fraunces',Georgia,serif;font-size:3.1em;float:left;
-    line-height:.86;padding:4px 10px 0 0;color:var(--green);font-weight:600}
-  .standfirst{font-size:16.5px;color:var(--mut);line-height:1.7;max-width:44ch}
-  .standfirst strong{color:var(--ink)}
-  .cta-row{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;align-items:center}
-  .btn{background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
-    font-size:14px;border-radius:6px;padding:11px 22px;font-family:-apple-system,sans-serif}
-  .btn:hover{background:var(--green)}
-  .btn.ghost{background:transparent;color:var(--green);border:1px solid var(--green)}
-  .btn.ghost:hover{background:var(--green);color:#fff}
+/* ---------- layout ---------- */
+section.block{padding:72px 0;border-top:1px solid var(--hair)}
+section.block:first-of-type{border-top:none}
+.kicker{
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;margin-bottom:18px;
+}
+.kicker .n{color:var(--green)}
+h1,h2{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;letter-spacing:-.01em;line-height:1.12;
+}
+h1{font-size:clamp(38px,4.6vw,56px);margin-bottom:20px}
+h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:14px}
+.lede{color:var(--muted);font-size:17.5px;max-width:34rem}
+.lede strong{color:var(--ink);font-weight:600}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.prose p{margin-bottom:16px;color:#3c392f}
+.prose p:last-child{margin-bottom:0}
+.inline-cta{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-block;background:var(--ink);color:var(--paper);
+  padding:11px 22px;border-radius:7px;text-decoration:none;
+  font-size:15px;font-weight:600;
+}
+.btn:hover{background:#000}
+.quiet-link{color:var(--green);font-weight:600;text-decoration:none;font-size:15px}
+.quiet-link:hover{text-decoration:underline}
 
-  /* ---------- plates : figures lead ---------- */
-  .plate{border-top:3px double var(--ink);margin:56px 0 0;padding:26px 0 8px}
-  .plate-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
-    flex-wrap:wrap;margin-bottom:6px}
-  .figno{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--green);font-weight:600}
-  .plate h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(24px,3vw,32px);
-    letter-spacing:-.01em;line-height:1.15;margin:8px 0 4px}
-  .plate .deck{color:var(--mut);font-size:15.5px;max-width:62ch;font-style:italic}
-  figure.fig{margin:26px 0 8px;background:var(--card);border:1px solid var(--line);
-    border-radius:4px;padding:30px 30px 22px}
-  figcaption{margin-top:18px;padding-top:12px;border-top:1px solid var(--line-soft);
-    font-size:13.5px;color:var(--mut);line-height:1.65}
-  figcaption strong{color:var(--ink)}
-  .figref{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.1em;
-    color:var(--green);font-weight:600}
+/* ---------- code ---------- */
+.codeblock{
+  background:var(--paper-2);
+  border:1px solid var(--hair);
+  border-radius:9px;
+  overflow:hidden;
+}
+.codeblock .cap{
+  padding:10px 18px;border-bottom:1px solid var(--hair);
+  font-size:12.5px;color:var(--muted);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  display:flex;justify-content:space-between;gap:12px;
+}
+.codeblock .cap .method{color:var(--green);font-weight:700}
+.codeblock pre{
+  padding:20px;overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13.5px;line-height:1.7;color:#3c392f;
+}
+.tok-k{color:var(--green)}
+.tok-s{color:var(--ink)}
+.tok-c{color:#9a9484}
+.tok-n{color:#8a6d1f}
+.figcap{
+  margin-top:12px;font-size:13.5px;color:var(--muted);
+}
 
-  /* ---------- the loop diagram ---------- */
-  .loop-stage{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:28px;align-items:center}
-  .loop-svg{width:100%;height:auto;display:block}
-  .loop-node{cursor:pointer}
-  .loop-node circle.face{fill:var(--card);stroke:var(--ink);stroke-width:1.5;transition:fill .25s,stroke .25s}
-  .loop-node text{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.06em;
-    fill:var(--ink);text-anchor:middle;font-weight:600}
-  .loop-node.active circle.face{fill:var(--green);stroke:var(--green-deep)}
-  .loop-node.active text{fill:#fff}
-  .loop-node:hover circle.face{stroke:var(--green);stroke-width:2.5}
-  .step-readout{border-left:3px solid var(--green);padding:6px 0 6px 20px;min-height:170px}
-  .step-readout .k{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--faint);margin-bottom:8px}
-  .step-readout h3{font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:600;margin-bottom:8px}
-  .step-readout p{font-size:15px;color:var(--mut);line-height:1.65}
-  .week-tick{margin-top:14px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--faint)}
-  .week-tick b{color:var(--green)}
+/* ---------- steps ---------- */
+ol.steps{list-style:none;counter-reset:step}
+ol.steps li{
+  counter-increment:step;
+  padding:22px 0 22px 0;
+  border-bottom:1px solid var(--hair);
+  display:grid;grid-template-columns:52px 1fr;gap:16px;
+}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li::before{
+  content:counter(step,decimal-leading-zero);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13px;color:var(--green);font-weight:700;padding-top:4px;
+}
+ol.steps h3{font-size:18px;font-weight:650;margin-bottom:6px}
+ol.steps p{color:#3c392f;font-size:15.5px}
 
-  /* ---------- charts ---------- */
-  .charts{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  .chart{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:24px 24px 16px}
-  .chart h3{font-family:'Fraunces',Georgia,serif;font-size:18px;font-weight:600;margin-bottom:2px}
-  .chart .sub{font-size:13px;color:var(--faint);margin-bottom:14px;font-style:italic}
-  .chart svg{width:100%;height:auto;display:block}
-  .chart .cap{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft);
-    font-size:12.5px;color:var(--mut);line-height:1.6}
-  .bar-loop{fill:var(--green)}
-  .bar-frozen{fill:var(--brick)}
-  .bar-before{fill:#b9b2a0}
-  .axis{stroke:var(--faint);stroke-width:1}
-  .tick{font-family:ui-monospace,Menlo,monospace;font-size:9.5px;fill:var(--faint)}
-  .vlabel{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:700}
-  .legend{display:flex;gap:18px;margin-top:10px;font-size:12px;color:var(--mut);font-family:-apple-system,sans-serif}
-  .sw{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:baseline}
+/* ---------- table ---------- */
+table.measure{width:100%;border-collapse:collapse;font-size:15.5px}
+table.measure th{
+  text-align:left;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;padding:10px 12px 10px 0;
+  border-bottom:2px solid var(--ink);
+}
+table.measure td{
+  padding:16px 12px 16px 0;border-bottom:1px solid var(--hair);
+  vertical-align:top;
+}
+table.measure td.num{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:14.5px;white-space:nowrap;
+}
+table.measure td.method{color:var(--muted);font-size:14px}
+table.measure tr:last-child td{border-bottom:none}
+.fineprint{margin-top:18px;font-size:14px;color:var(--muted);max-width:44rem}
+.fineprint strong{color:var(--ink)}
 
-  /* ---------- decision instrument ---------- */
-  .instrument{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px;align-items:start}
-  .chips{display:flex;flex-direction:column;gap:10px}
-  .chip{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:6px;
-    padding:13px 16px;font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--ink);
-    cursor:pointer;transition:border-color .2s}
-  .chip:hover{border-color:var(--green)}
-  .chip[aria-pressed="true"]{border:2px solid var(--green);background:#fff;padding:12px 15px}
-  .chip .tag{display:block;font-size:10.5px;letter-spacing:.12em;color:var(--faint);
-    text-transform:uppercase;margin-bottom:4px}
-  .dial{background:#fff;border:1px solid var(--line);border-radius:6px;padding:26px;position:relative;overflow:hidden}
-  .stamp{position:absolute;top:18px;right:20px;transform:rotate(8deg);
-    border:3px solid var(--green);color:var(--green);border-radius:6px;
-    font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:20px;letter-spacing:.14em;
-    padding:6px 14px;text-transform:uppercase;background:rgba(255,255,255,.85)}
-  .stamp.bad{border-color:var(--brick);color:var(--brick)}
-  .stamp.held{border-color:var(--amber);color:var(--amber)}
-  @keyframes stamp-in{0%{transform:rotate(8deg) scale(2.4);opacity:0}60%{transform:rotate(8deg) scale(.94);opacity:1}100%{transform:rotate(8deg) scale(1)}}
-  .stamp.hit{animation:stamp-in .38s cubic-bezier(.2,1.4,.4,1)}
-  .meter-row{margin:64px 0 18px}
-  .meter-row .lab{display:flex;justify-content:space-between;font-family:ui-monospace,Menlo,monospace;
-    font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
-  .meter-row .lab b{color:var(--ink);font-size:15px;letter-spacing:0}
-  .meter{height:14px;background:var(--paper-2);border:1px solid var(--line);border-radius:7px;overflow:hidden}
-  .meter i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;
-    transition:width .7s cubic-bezier(.25,1,.35,1)}
-  .kv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
-  .kv div{background:var(--paper);border:1px solid var(--line-soft);border-radius:6px;padding:10px 14px}
-  .kv .k{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--faint)}
-  .kv .v{font-family:ui-monospace,Menlo,monospace;font-size:15px;font-weight:600;margin-top:4px}
-  .escalated-yes{color:var(--amber)}
-  .escalated-no{color:var(--green)}
+/* ---------- status ---------- */
+.status-box{
+  border:1px solid var(--hair);
+  border-left:4px solid var(--green);
+  border-radius:0 9px 9px 0;
+  background:var(--paper-2);
+  padding:26px 30px;
+  max-width:46rem;
+}
+.status-box h3{font-size:17px;margin-bottom:10px;font-weight:650}
+.status-box dl{display:grid;grid-template-columns:130px 1fr;gap:6px 18px;font-size:15.5px}
+.status-box dt{color:var(--muted)}
+.status-box dd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14.5px}
 
-  /* ---------- problem visual : two lanes ---------- */
-  .lanes{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  .lane{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:22px}
-  .lane h3{font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:600;margin-bottom:2px}
-  .lane .sub{font-size:12.5px;color:var(--faint);font-style:italic;margin-bottom:12px}
-  .lane svg{width:100%;height:auto;display:block}
-  .lane .verdict{margin-top:12px;font-size:13.5px;color:var(--mut);border-top:1px solid var(--line-soft);padding-top:10px}
-  .lane .verdict strong{color:var(--ink)}
+/* ---------- footer ---------- */
+footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
+.foot{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.foot img{height:26px;width:auto;margin-bottom:10px}
+.foot p{font-size:13.5px;color:var(--muted)}
+.foot nav{display:flex;gap:22px}
+.foot nav a{font-size:14px;color:var(--muted);text-decoration:none}
+.foot nav a:hover{color:var(--ink)}
 
-  /* ---------- lab notebook table ---------- */
-  table.lab{width:100%;border-collapse:collapse;margin:24px 0 8px;font-size:14.5px}
-  table.lab th{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 12px;
-    border-bottom:2px solid var(--ink)}
-  table.lab td{padding:14px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top;line-height:1.6}
-  table.lab td.exp{font-family:ui-monospace,Menlo,monospace;font-weight:700;color:var(--green);white-space:nowrap}
-  table.lab td.measured{font-family:ui-monospace,Menlo,monospace;font-size:13px}
-  .failure-log{margin:20px 0 4px;padding:12px 16px;border:1px dashed var(--brick);border-radius:6px;
-    font-size:13px;color:var(--mut);line-height:1.6;background:var(--card)}
-  .failure-log b{color:var(--brick)}
-  .margin-note{border-left:3px solid var(--brick);padding:14px 18px;background:var(--card);
-    margin:18px 0;font-size:14px;color:var(--mut);line-height:1.65}
-  .margin-note strong{color:var(--ink)}
-  details{border:1px solid var(--line);border-radius:6px;margin:10px 0;background:var(--card)}
-  details summary{cursor:pointer;padding:13px 18px;font-family:-apple-system,sans-serif;
-    font-size:14px;font-weight:600;color:var(--green);list-style:none}
-  details summary::-webkit-details-marker{display:none}
-  details summary::before{content:"+ ";font-weight:700}
-  details[open] summary::before{content:"– "}
-  details .body{padding:0 18px 16px;font-size:14px;color:var(--mut);line-height:1.7}
-
-  /* ---------- ledger : what it is not ---------- */
-  .ledger{width:100%;border-collapse:collapse;margin:24px 0}
-  .ledger td{padding:16px 8px;border-bottom:1px solid var(--line);font-size:15.5px;vertical-align:top}
-  .ledger tr:first-child td{border-top:3px double var(--ink)}
-  .ledger .x{font-family:'Fraunces',Georgia,serif;font-style:italic;color:var(--brick);
-    font-size:22px;width:40px;text-align:center}
-  .ledger strong{font-family:'Fraunces',Georgia,serif}
-
-  /* ---------- measured stamp ---------- */
-  .mstamp{display:inline-block;transform:rotate(-4deg);border:2px solid var(--green);
-    color:var(--green);border-radius:4px;font-family:ui-monospace,Menlo,monospace;
-    font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-    padding:6px 12px;margin:6px 0}
-
-  footer{border-top:3px double var(--ink);margin-top:64px;padding:26px 0 54px}
-  footer .frow{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:baseline}
-  footer .wordmark{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
-  footer p,footer a{font-size:13px;color:var(--faint);font-family:-apple-system,sans-serif}
-  footer a{text-decoration:none;margin-left:20px}
-  footer a:hover{color:var(--ink)}
-
-  @media(max-width:860px){
-    .opener,.loop-stage,.instrument{grid-template-columns:1fr}
-    .charts,.lanes{grid-template-columns:1fr}
-    .step-readout{min-height:0}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .meter i{transition:none}
-    .stamp.hit{animation:none}
-  }
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .cols{grid-template-columns:1fr;gap:36px}
+  nav.links a:not(.demo-link){display:none}
+  section.block{padding:52px 0}
+  ol.steps li{grid-template-columns:40px 1fr}
+  table.measure thead{display:none}
+  table.measure tr{display:block;padding:14px 0;border-bottom:1px solid var(--hair)}
+  table.measure tr:last-child{border-bottom:none}
+  table.measure td{display:block;border:none;padding:3px 12px 3px 0}
+  table.measure td.method{display:block}
+  .status-box dl{grid-template-columns:1fr;gap:2px}
+  .status-box dd{margin-bottom:8px}
+}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
 
-<header class="masthead"><div class="wrap">
-  <div class="row">
-    <div class="brand"><a href="index.html"><img src="assets/brand/fronesa-mark.svg" alt="Fronesa mark" width="26" height="26"><span>Fronesa</span></a></div>
-    <div class="meta">Lab notes · Vol. 1 · <a href="try-it.html">Try the demo</a> · <a href="mailto:surety.ai@proton.me">Talk to us</a></div>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="#" aria-label="Fronesa home"><img src="assets/wordmark.svg" alt="Fronesa."></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#measured">Measurements</a>
+      <a href="#api">API</a>
+      <a href="#status">Status</a>
+      <a class="demo-link" href="https://suretyai.github.io/try-it.html">Try the demo →</a>
+    </nav>
   </div>
-</div></header>
-<div class="wrap"><div class="dateline">
-  <span>October 2026 — Early access</span><span>Measured, not promised</span>
-</div></div>
+</header>
 
-<main class="wrap" id="main">
-
-  <!-- opener: thesis left, nothing centered -->
-  <div class="opener">
-    <div>
-      <h1 class="thesis">Decisions that <em>learn.</em></h1>
-      <p class="standfirst dropcap">Your reviewers already label every edge case. Fronesa feeds those labels back in — so the model compounds instead of freezing.</p>
-      <div class="cta-row">
-        <a class="btn" href="mailto:surety.ai@proton.me">Talk to us</a>
-        <a class="btn ghost" href="try-it.html">Try the demo</a>
-      </div>
-    </div>
-    <div>
-      <span class="mstamp">Fig. 1 — the loop, running</span>
-    </div>
-  </div>
-
-  <!-- ============ FIG 1 : THE LOOP ============ -->
-  <section class="plate" id="loop" aria-label="The learning loop">
-    <div class="plate-head">
-      <div><span class="figno">Fig. 1</span>
-      <h2>A loop, <em class="serif" style="color:var(--green)">not</em> a model.</h2></div>
-    </div>
-    <p class="deck">Five steps, repeating weekly.</p>
-    <figure class="fig">
-      <div class="loop-stage">
-        <svg class="loop-svg" viewBox="0 0 500 330" role="img" aria-label="Animated diagram of the five-step learning loop: Decide, Escalate, Learn, Retrain, Gate">
-          <defs>
-            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="#1b1813"></path>
-            </marker>
-          </defs>
-          <!-- orbit -->
-          <path id="orbit" d="M250,160 m-112,0 a112,112 0 1,1 224,0 a112,112 0 1,1 -224,0"
-                fill="none" stroke="#d9d3bf" stroke-width="1.5" stroke-dasharray="5 6"></path>
-          <!-- direction arrows on orbit -->
-          <path d="M250,48 l-9,-12 l14,2 z" fill="#1b1813"></path>
-          <path d="M362,160 l12,-9 l-2,14 z" fill="#1b1813"></path>
-          <path d="M250,272 l9,12 l-14,-2 z" fill="#1b1813"></path>
-          <path d="M138,160 l-12,9 l2,-14 z" fill="#1b1813"></path>
-          <!-- traveling decision -->
-          <circle id="traveler" r="7" fill="#0f5132" stroke="#fff" stroke-width="2">
-            <animateMotion dur="12s" repeatCount="indefinite" rotate="0">
-              <mpath href="#orbit"></mpath>
-            </animateMotion>
-          </circle>
-          <!-- nodes -->
-          <g class="loop-node" data-step="0" transform="translate(250,48)" tabindex="0" role="button" aria-label="Step 1: Decide">
-            <circle class="face" r="36"></circle><text y="-2">DECIDE</text><text y="12" style="font-size:9px;fill:#7d7869">i.</text>
-          </g>
-          <g class="loop-node" data-step="1" transform="translate(362,160)" tabindex="0" role="button" aria-label="Step 2: Escalate">
-            <circle class="face" r="36"></circle><text y="-2">ESCALATE</text><text y="12" style="font-size:9px;fill:#7d7869">ii.</text>
-          </g>
-          <g class="loop-node" data-step="2" transform="translate(319,262)" tabindex="0" role="button" aria-label="Step 3: Learn">
-            <circle class="face" r="36"></circle><text y="-2">LEARN</text><text y="12" style="font-size:9px;fill:#7d7869">iii.</text>
-          </g>
-          <g class="loop-node" data-step="3" transform="translate(181,262)" tabindex="0" role="button" aria-label="Step 4: Retrain">
-            <circle class="face" r="36"></circle><text y="-2">RETRAIN</text><text y="12" style="font-size:9px;fill:#7d7869">iv.</text>
-          </g>
-          <g class="loop-node" data-step="4" transform="translate(138,160)" tabindex="0" role="button" aria-label="Step 5: Gate">
-            <circle class="face" r="36"></circle><text y="-2">GATE</text><text y="12" style="font-size:9px;fill:#7d7869">v.</text>
-          </g>
-          <text x="250" y="160" text-anchor="middle" style="font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:15px;fill:#57534a">one message</text>
-          <text x="250" y="180" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace;font-size:10px;fill:#7d7869;letter-spacing:.1em">IN · AROUND · OUT</text>
-        </svg>
-        <div>
-          <div class="step-readout" aria-live="polite">
-            <div class="k" id="step-k">Step i — Decide</div>
-            <h3 id="step-h">The model answers.</h3>
-            <p id="step-p">A typed decision plus a confidence score, in milliseconds on a warm container.</p>
-          </div>
+<main>
+  <!-- ============ hero ============ -->
+  <section class="block">
+    <div class="wrap cols">
+      <div class="prose">
+        <p class="kicker">Fronesa · Content-moderation triage API</p>
+        <h1>Decisions that learn.</h1>
+        <p class="lede">Fronesa is a <strong>decision API for content-moderation triage</strong>. Every call returns a label, a confidence score, and a receipt you can audit. Edge cases route to your reviewers — their labels come back as training data, and the model retrains and re-gates on a weekly loop.</p>
+        <div class="inline-cta">
+          <a class="btn" href="https://suretyai.github.io/try-it.html">Try the live demo</a>
+          <a class="quiet-link" href="#how">How it works ↓</a>
         </div>
       </div>
-      <figcaption><span class="figref">FIG. 1 —</span> The actual pipeline, not a metaphor.</figcaption>
-    </figure>
-  </section>
+      <div>
+        <div class="codeblock">
+          <div class="cap"><span><span class="method">POST</span> /v1/decide</span><span>→ 200 OK</span></div>
+<pre><span class="tok-c"># request</span>
+{ <span class="tok-k">"text"</span>: <span class="tok-s">"Free prizes, claim now!"</span> }
 
-  <!-- ============ THE PROBLEM ============ -->
-  <section class="plate" id="problem" aria-label="The problem">
-    <div class="plate-head">
-      <div><span class="figno">Fig. 2</span>
-      <h2>Frozen models throw your labels away.</h2></div>
-    </div>
-    <figure class="fig">
-      <div class="lanes">
-        <div class="lane">
-          <h3>The usual model</h3>
-          <div class="sub">corrections go nowhere</div>
-          <svg viewBox="0 0 320 150" role="img" aria-label="Diagram: corrections discarded">
-            <rect x="14" y="52" width="86" height="46" rx="6" fill="#fff" stroke="#1b1813" stroke-width="1.5"></rect>
-            <text x="57" y="72" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;font-weight:700">MODEL</text>
-            <text x="57" y="88" text-anchor="middle" style="font-size:9px;font-family:ui-monospace,monospace;fill:#7d7869">frozen</text>
-            <line x1="100" y1="75" x2="180" y2="75" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr)"></line>
-            <rect x="188" y="52" width="86" height="46" rx="6" fill="#fff" stroke="#1b1813" stroke-width="1.5"></rect>
-            <text x="231" y="72" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;font-weight:700">REVIEWER</text>
-            <text x="231" y="88" text-anchor="middle" style="font-size:9px;font-family:ui-monospace,monospace;fill:#7d7869">labels it</text>
-            <path d="M231,98 L231,122 L120,122 L120,108" fill="none" stroke="#a83c24" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr)"></path>
-            <rect x="88" y="112" width="64" height="26" rx="3" fill="none" stroke="#a83c24" stroke-width="1.5" stroke-dasharray="4 3"></rect>
-            <text x="120" y="129" text-anchor="middle" style="font-size:10px;font-family:ui-monospace,monospace;fill:#a83c24;font-weight:700">BIN</text>
-            <circle r="5" fill="#a83c24"><animateMotion dur="3.2s" repeatCount="indefinite" path="M100,75 L180,75 L231,82 L231,98 L200,112"></animateMotion></circle>
-          </svg>
-          <p class="verdict"><strong>Day 500 = day 1.</strong> The label dies in a queue.</p>
+<span class="tok-c"># response — the decision receipt</span>
+{
+  <span class="tok-k">"decision_id"</span>: <span class="tok-s">"d_8f3a2b1c"</span>,
+  <span class="tok-k">"label"</span>:       <span class="tok-s">"spam"</span>,
+  <span class="tok-k">"confidence"</span>:  <span class="tok-n">0.95</span>,
+  <span class="tok-k">"escalated"</span>:   <span class="tok-n">false</span>,
+  <span class="tok-k">"model"</span>:       <span class="tok-s">"fronesa-v1"</span>,
+  <span class="tok-k">"timestamp"</span>:   <span class="tok-s">"2026-10-06T13:32:17+03:00"</span>
+}</pre>
         </div>
-        <div class="lane">
-          <h3>Fronesa</h3>
-          <div class="sub">corrections come back as training data</div>
-          <svg viewBox="0 0 320 150" role="img" aria-label="Diagram: corrections feed back into the model">
-            <rect x="14" y="52" width="86" height="46" rx="6" fill="#0f5132" stroke="#0b3d26" stroke-width="1.5"></rect>
-            <text x="57" y="72" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;font-weight:700;fill:#fff">MODEL</text>
-            <text x="57" y="88" text-anchor="middle" style="font-size:9px;font-family:ui-monospace,monospace;fill:#d9e8dd">learning</text>
-            <line x1="100" y1="75" x2="180" y2="75" stroke="#1b1813" stroke-width="1.5" marker-end="url(#arr)"></line>
-            <rect x="188" y="52" width="86" height="46" rx="6" fill="#fff" stroke="#1b1813" stroke-width="1.5"></rect>
-            <text x="231" y="72" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;font-weight:700">REVIEWER</text>
-            <text x="231" y="88" text-anchor="middle" style="font-size:9px;font-family:ui-monospace,monospace;fill:#7d7869">labels it</text>
-            <path id="feedback" d="M231,98 C231,132 120,132 100,104" fill="none" stroke="#0f5132" stroke-width="2" marker-end="url(#arr)"></path>
-            <text x="165" y="140" text-anchor="middle" style="font-size:10px;font-family:ui-monospace,monospace;fill:#0f5132;font-weight:700">retrain, weekly</text>
-            <circle r="5" fill="#0f5132"><animateMotion dur="3.2s" repeatCount="indefinite" path="M100,75 L180,75 L231,82 L231,98 C231,132 120,132 100,104"></animateMotion></circle>
-          </svg>
-          <p class="verdict"><strong>Next month &gt; today.</strong> The label becomes the model.</p>
-        </div>
+        <p class="figcap">Illustrative shape — the live demo is the source of truth. Every decision returns a receipt; if we can't show the receipt, we don't claim the decision.</p>
       </div>
-      <figcaption><span class="figref">FIG. 2 —</span> Two fates for one correction.</figcaption>
-    </figure>
-  </section>
-
-  <!-- ============ FIG 3 : THE EVIDENCE ============ -->
-  <section class="plate" id="evidence" aria-label="Measured evidence">
-    <div class="plate-head">
-      <div><span class="figno">Fig. 3</span>
-      <h2>Measured, <em class="serif" style="color:var(--green)">not</em> promised.</h2></div>
-      <span class="mstamp">lab runs · synthetic drift</span>
-    </div>
-    <div class="charts">
-      <div class="chart">
-        <h3>Error: loop vs. frozen</h3><div class="sub">lower is better · % misclassified</div>
-        <svg viewBox="0 0 320 215" role="img" aria-label="Bar chart: loop error 0.38 versus frozen 1.71 percent in v0; 0.65 versus 1.69 in v5">
-          <line x1="40" y1="170" x2="310" y2="170" class="axis"></line>
-          <g class="tick"><text x="34" y="173" text-anchor="end">0</text><text x="34" y="133" text-anchor="end">0.5</text><text x="34" y="93" text-anchor="end">1.0</text><text x="34" y="53" text-anchor="end">1.5</text><text x="34" y="13" text-anchor="end">2.0%</text></g>
-          <g opacity=".35"><line x1="40" y1="130" x2="310" y2="130" stroke="#d9d3bf"/><line x1="40" y1="90" x2="310" y2="90" stroke="#d9d3bf"/><line x1="40" y1="50" x2="310" y2="50" stroke="#d9d3bf"/></g>
-          <rect class="bar-loop" x="66" y="139.6" width="44" height="30.4" rx="2"></rect>
-          <rect class="bar-frozen" x="114" y="33.2" width="44" height="136.8" rx="2"></rect>
-          <rect class="bar-loop" x="196" y="118" width="44" height="52" rx="2"></rect>
-          <rect class="bar-frozen" x="244" y="34.8" width="44" height="135.2" rx="2"></rect>
-          <text class="vlabel" x="88" y="132" text-anchor="middle" fill="#0f5132">0.38</text>
-          <text class="vlabel" x="136" y="26" text-anchor="middle" fill="#a83c24">1.71</text>
-          <text class="vlabel" x="218" y="110" text-anchor="middle" fill="#0f5132">0.65</text>
-          <text class="vlabel" x="266" y="27" text-anchor="middle" fill="#a83c24">1.69</text>
-          <text x="112" y="190" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;fill:#57534a">v0 · SMS spam</text>
-          <text x="242" y="190" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;fill:#57534a">v5 · noisy judges</text>
-        </svg>
-        <div class="legend"><span><i class="sw" style="background:var(--green)"></i>Fronesa loop</span><span><i class="sw" style="background:var(--brick)"></i>frozen model</span></div>
-      </div>
-
-      <div class="chart">
-        <h3>Escalation falls</h3><div class="sub">% of traffic sent to a human · first → last week</div>
-        <svg viewBox="0 0 320 215" role="img" aria-label="Bar chart: escalation falling in three lab runs, 10.9 to 10.0, 1.83 to 0.65, and 15.1 to 12.2 percent">
-          <line x1="40" y1="170" x2="310" y2="170" class="axis"></line>
-          <g class="tick"><text x="34" y="173" text-anchor="end">0</text><text x="34" y="133" text-anchor="end">4</text><text x="34" y="93" text-anchor="end">8</text><text x="34" y="53" text-anchor="end">12</text><text x="34" y="13" text-anchor="end">16%</text></g>
-          <g opacity=".35"><line x1="40" y1="130" x2="310" y2="130" stroke="#d9d3bf"/><line x1="40" y1="90" x2="310" y2="90" stroke="#d9d3bf"/><line x1="40" y1="50" x2="310" y2="50" stroke="#d9d3bf"/></g>
-          <rect class="bar-before" x="52" y="61" width="34" height="109" rx="2"></rect>
-          <rect class="bar-loop" x="90" y="70" width="34" height="100" rx="2"></rect>
-          <rect class="bar-before" x="142" y="151.7" width="34" height="18.3" rx="2"></rect>
-          <rect class="bar-loop" x="180" y="163.5" width="34" height="6.5" rx="2"></rect>
-          <rect class="bar-before" x="232" y="19" width="34" height="151" rx="2"></rect>
-          <rect class="bar-loop" x="270" y="48" width="34" height="122" rx="2"></rect>
-          <text class="vlabel" x="69" y="54" text-anchor="middle" fill="#57534a" style="font-size:10px">10.9</text>
-          <text class="vlabel" x="107" y="63" text-anchor="middle" fill="#0f5132" style="font-size:10px">10.0</text>
-          <text class="vlabel" x="159" y="145" text-anchor="middle" fill="#57534a" style="font-size:10px">1.83</text>
-          <text class="vlabel" x="197" y="157" text-anchor="middle" fill="#0f5132" style="font-size:10px">0.65</text>
-          <text class="vlabel" x="249" y="12" text-anchor="middle" fill="#57534a" style="font-size:10px">15.1</text>
-          <text class="vlabel" x="287" y="41" text-anchor="middle" fill="#0f5132" style="font-size:10px">12.2</text>
-          <text x="88" y="190" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;fill:#57534a">v0</text>
-          <text x="178" y="190" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;fill:#57534a">v1</text>
-          <text x="268" y="190" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;fill:#57534a">3-class run</text>
-        </svg>
-        <div class="legend"><span><i class="sw" style="background:#b9b2a0"></i>first week</span><span><i class="sw" style="background:var(--green)"></i>last week</span></div>
-      </div>
-
-      <div class="chart">
-        <h3>Latency</h3><div class="sub">per decision · v1 on GPU</div>
-        <svg viewBox="0 0 320 120" role="img" aria-label="Horizontal bar: 21 milliseconds median latency, p95 at 22.6 milliseconds">
-          <line x1="40" y1="70" x2="300" y2="70" class="axis"></line>
-          <g class="tick"><text x="40" y="92" text-anchor="middle">0</text><text x="144" y="92" text-anchor="middle">10</text><text x="248" y="92" text-anchor="middle">20</text><text x="300" y="92" text-anchor="middle">25ms</text></g>
-          <rect class="bar-loop" x="40" y="52" width="218" height="18" rx="3"></rect>
-          <line x1="275" y1="44" x2="275" y2="78" stroke="#1b1813" stroke-width="2"></line>
-          <text class="vlabel" x="149" y="65" text-anchor="middle" fill="#fff">21 ms median</text>
-          <text x="275" y="36" text-anchor="middle" style="font-size:10.5px;font-family:ui-monospace,monospace;fill:#1b1813;font-weight:700">p95 22.6</text>
-        </svg>
-      </div>
-
-      <div class="chart">
-        <h3>The long run</h3><div class="sub">within-loop error · twelve weeks</div>
-        <svg viewBox="0 0 320 215" role="img" aria-label="Bar chart: within-loop error falling from 4.52 percent in week 3 to 0.22 percent in week 12">
-          <line x1="40" y1="170" x2="310" y2="170" class="axis"></line>
-          <g class="tick"><text x="34" y="173" text-anchor="end">0</text><text x="34" y="106" text-anchor="end">2</text><text x="34" y="42" text-anchor="end">4%</text></g>
-          <g opacity=".35"><line x1="40" y1="106" x2="310" y2="106" stroke="#d9d3bf"/><line x1="40" y1="42" x2="310" y2="42" stroke="#d9d3bf"/></g>
-          <rect class="bar-before" x="96" y="25.4" width="56" height="144.6" rx="2"></rect>
-          <rect class="bar-loop" x="208" y="163" width="56" height="7" rx="2"></rect>
-          <text class="vlabel" x="124" y="18" text-anchor="middle" fill="#57534a">4.52</text>
-          <text class="vlabel" x="236" y="156" text-anchor="middle" fill="#0f5132">0.22</text>
-          <text x="124" y="190" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;fill:#57534a">week 3</text>
-          <text x="236" y="190" text-anchor="middle" style="font-size:11px;font-family:ui-monospace,monospace;fill:#57534a">week 12</text>
-          <line x1="152" y1="60" x2="208" y2="120" stroke="#0f5132" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr)"></line>
-        </svg>
-        <p class="cap">Within-loop only — not vs frozen, not a guarantee.</p>
-      </div>
-    </div>
-    <figure class="fig">
-      <img src="assets/heldout-results.svg" alt="Held-out evaluation results: recall, specificity and accuracy bars" width="900" height="560" style="width:100%;height:auto">
-      <figcaption>Held-out results — measured on data the model never trained on.</figcaption>
-    </figure>
-    <figure class="fig">
-      <img src="assets/calibration-ledger.svg" alt="Calibration ledger: expected calibration error 0.0448 in-distribution vs 0.211 out-of-distribution" width="1200" height="700" style="width:100%;height:auto">
-      <figcaption>Calibration, honestly: tight on familiar inputs, looser on strange ones.</figcaption>
-    </figure>
-    <p class="failure-log mono"><b>v2</b> also ran — a fixed escalation threshold broke at 87%. Thresholds must be budget-based. The failures stay in the notebook.</p>
-  </section>
-
-  <!-- ============ FIG 4 : A DECISION, UP CLOSE ============ -->
-  <section class="plate" id="decision" aria-label="A decision up close">
-    <div class="plate-head">
-      <div><span class="figno">Fig. 4</span>
-      <h2>One decision, under the glass.</h2></div>
-    </div>
-    <p class="deck">Pick a message.</p>
-    <figure class="fig">
-      <div class="instrument">
-        <div class="chips" role="group" aria-label="Example messages">
-          <button class="chip" aria-pressed="true" data-d="spam" data-c="0.95" data-e="false" data-t="Free prizes, claim now!">
-            <span class="tag">Example 1 · obvious</span>&ldquo;Free prizes, claim now!&rdquo;
-          </button>
-          <button class="chip" aria-pressed="false" data-d="ham" data-c="0.98" data-e="false" data-t="Can we move lunch to 2pm?">
-            <span class="tag">Example 2 · obvious</span>&ldquo;Can we move lunch to 2pm?&rdquo;
-          </button>
-          <button class="chip" aria-pressed="false" data-d="held" data-c="0.61" data-e="true" data-t="Your invoice is attached — urgent wire needed">
-            <span class="tag">Example 3 · doubtful</span>&ldquo;Your invoice is attached — urgent wire needed&rdquo;
-          </button>
-        </div>
-        <div class="dial" aria-live="polite">
-          <div class="stamp" id="stamp">spam</div>
-          <div class="meter-row">
-            <div class="lab"><span>confidence</span><b id="conf-v">0.95</b></div>
-            <div class="meter"><i id="conf-bar" style="width:95%"></i></div>
-          </div>
-          <div class="kv">
-            <div><div class="k">decision</div><div class="v" id="dec-v">spam</div></div>
-            <div><div class="k">escalated</div><div class="v escalated-no" id="esc-v">no</div></div>
-          </div>
-          <p class="mono" id="msg-v" style="margin-top:16px;font-size:12.5px;color:var(--faint)">&ldquo;Free prizes, claim now!&rdquo;</p>
-        </div>
-      </div>
-      <figcaption><span class="figref">FIG. 4 —</span> <strong>Illustrated responses.</strong> The doubtful one goes to a human. Live version on the <a href="try-it.html" style="color:var(--green)">try-it page</a>.</figcaption>
-    </figure>
-    <figure class="fig">
-      <img src="assets/decision-receipt.svg" alt="An illustrated decision receipt: decision ID, timestamp, label, confidence, model, escalation status" width="800" height="560" style="width:100%;height:auto">
-      <figcaption>Every decision carries its receipt — what was decided, how sure, and whether a human stepped in.</figcaption>
-    </figure>
-    <figure class="fig">
-      <img src="assets/fleet-promises.svg" alt="One API with a fleet behind it: promise cards for the classifier, reviewer and fallback models" width="1000" height="560" style="width:100%;height:auto">
-      <figcaption>One API. A fleet behind it — the classifier, the reviewer, the fallback, each with its promise.</figcaption>
-    </figure>
-  </section>
-
-  <!-- ============ LEDGER : WHAT IT IS NOT ============ -->
-  <section class="plate" id="not" aria-label="What Fronesa is not">
-    <div class="plate-head">
-      <div><span class="figno">Ledger</span>
-      <h2>No fine print. Just the truth.</h2></div>
-    </div>
-    <table class="ledger">
-      <tr><td class="x">&times;</td><td><strong>Not a foundation model</strong> — open weights + light tuning. The moat is the loop.</td></tr>
-      <tr><td class="x">&times;</td><td><strong>Not a guaranteed error rate</strong> — measured numbers, not promises.</td></tr>
-      <tr><td class="x">&times;</td><td><strong>Not for tiny volumes</strong> — the loop needs decisions to learn from.</td></tr>
-      <tr><td class="x">&times;</td><td><strong>Not cost collapse</strong> — the loop cuts <em>error</em>; escalation follows stream novelty.</td></tr>
-      <tr><td class="x">&times;</td><td><strong>Not an accuracy moat</strong> — per-customer adapters are a data-isolation story.</td></tr>
-    </table>
-    <figure class="fig">
-      <img src="assets/ledger-row-anatomy.svg" alt="Ledger row anatomy: what we store and what we do not, identifiers redacted" width="1200" height="760" style="width:100%;height:auto">
-      <figcaption>What we store. What we don't. Every row minimized by design.</figcaption>
-    </figure>
-    <figure class="fig">
-      <img src="assets/ledger-row-real.svg" alt="One real ledger row: ham, 0.9491 confidence, identifiers redacted" width="1200" height="520" style="width:100%;height:auto">
-      <figcaption>A real row from the ledger — not a mockup. Identifiers redacted.</figcaption>
-    </figure>
-    <figure class="fig">
-      <img src="assets/price-floor.svg" alt="Price floor: a $0.00004 commodity call versus the Fronesa evidence layer" width="1200" height="700" style="width:100%;height:auto">
-      <figcaption>We're not cheaper per call. Here's why that doesn't matter.</figcaption>
-    </figure>
-    <figure class="fig">
-      <img src="assets/scorecard-oct2026.svg" alt="October 2026 scorecard: the honest company ledger" width="1200" height="800" style="width:100%;height:auto">
-      <figcaption>The honest scorecard. Every zero on the table.</figcaption>
-    </figure>
-    <div class="cta-row" style="margin-top:30px">
-      <a class="btn" href="mailto:surety.ai@proton.me">Talk to us</a>
-      <a class="btn ghost" href="try-it.html">Try the demo</a>
-      <span class="sans" style="font-size:13px;color:var(--faint)">Migrating off Perspective? Attribute mapping with honest limits — drafting now, mid-October.</span>
     </div>
   </section>
 
+  <!-- ============ 01 how it works ============ -->
+  <section class="block" id="how">
+    <div class="wrap cols">
+      <div>
+        <p class="kicker"><span class="n">01</span> · How it works</p>
+        <h2>The loop is the product.</h2>
+        <ol class="steps">
+          <li>
+            <div><h3>Decide</h3>
+            <p>The API classifies the content and returns a label with a confidence score — median 21&nbsp;ms per decision. Every response includes a receipt: what was decided, how sure, and which model version decided it.</p></div>
+          </li>
+          <li>
+            <div><h3>Escalate</h3>
+            <p>Low-confidence calls route to a human reviewer instead of guessing. Escalation is budget-based — you set how much review you can afford — not a fixed threshold that quietly breaks.</p></div>
+          </li>
+          <li>
+            <div><h3>Learn</h3>
+            <p>Reviewer labels are logged as training data. Nothing is thrown away: a correction feeds the next training set instead of dying in a queue.</p></div>
+          </li>
+          <li>
+            <div><h3>Retrain</h3>
+            <p>The model retrains on the accumulated labels each week. Corrected labels retrain your own model version by default — they never feed anyone else's without written consent.</p></div>
+          </li>
+          <li>
+            <div><h3>Gate</h3>
+            <p>A new version ships only if it beats the current one on held-out data it never trained on. If it doesn't beat it, it doesn't ship.</p></div>
+          </li>
+        </ol>
+      </div>
+      <div>
+        <div class="codeblock">
+          <div class="cap"><span>the loop, as configuration</span><span>conceptual</span></div>
+<pre><span class="tok-k">loop</span>:
+  <span class="tok-k">cadence</span>:   weekly
+  <span class="tok-k">decide</span>:    every call, ~21ms median
+  <span class="tok-k">escalate</span>:  budget-based, human review
+  <span class="tok-k">learn</span>:      reviewer labels → training set
+  <span class="tok-k">retrain</span>:   on accumulated labels
+  <span class="tok-k">gate</span>:       held-out eval before deploy
+
+<span class="tok-c"># frozen models skip four of these steps.
+# that is the whole difference.</span></pre>
+        </div>
+        <p class="figcap">Five steps, repeating weekly. The usual model does step one and stops.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 measurements ============ -->
+  <section class="block" id="measured">
+    <div class="wrap">
+      <p class="kicker"><span class="n">02</span> · Measurements</p>
+      <h2>What the lab recorded.</h2>
+      <p class="lede" style="margin-bottom:34px">What the lab runs recorded. Same harness, same data, frozen baseline — no cherry-picked benchmarks.</p>
+      <table class="measure">
+        <thead>
+          <tr><th>Measurement</th><th>Result</th><th class="method">Method</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Error rate vs. frozen model</td>
+            <td class="num">0.38% vs 1.71%</td>
+            <td class="method">v0 lab run, synthetic drift</td>
+          </tr>
+          <tr>
+            <td>Median latency</td>
+            <td class="num">21 ms per decision</td>
+            <td class="method">v1, CPU</td>
+          </tr>
+          <tr>
+            <td>Escalation rate</td>
+            <td class="num">15.1% → 12.2%</td>
+            <td class="method">v3, first week → last week</td>
+          </tr>
+          <tr>
+            <td>Error, twelve weeks</td>
+            <td class="num">4.52% → 0.22%</td>
+            <td class="method">v6 within-loop error</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="fineprint"><strong>All figures are lab measurements on synthetic drift.</strong> They describe what we measured, not what we promise. Production traffic, your data distribution, and your review budget will move these numbers — the demo and the receipts exist so you can check us.</p>
+      <p style="margin-top:14px"><a class="quiet-link" href="https://suretyai.github.io/try-it.html">Try the demo and check us →</a></p>
+    </div>
+  </section>
+
+  <!-- ============ 03 api ============ -->
+  <section class="block" id="api">
+    <div class="wrap cols">
+      <div class="prose">
+        <p class="kicker"><span class="n">03</span> · API reference</p>
+        <h2>One endpoint.<br>One receipt.</h2>
+        <p>Send content, get a decision. The response always includes the receipt — decision id, label, confidence, whether a human was involved, and the model version. Audit any decision later by its id.</p>
+        <p style="margin-top:18px"><a class="quiet-link" href="https://suretyai.github.io/try-it.html">Run it in the live demo →</a></p>
+      </div>
+      <div>
+        <div class="codeblock">
+          <div class="cap"><span><span class="method">POST</span> /v1/decide</span><span>base URL provided at onboarding</span></div>
+<pre><span class="tok-c"># parameters</span>
+<span class="tok-k">text</span>   string   required   <span class="tok-c">the content to classify</span>
+
+<span class="tok-c"># 200 — application/json</span>
+{
+  <span class="tok-k">"decision_id"</span>: <span class="tok-s">"d_8f3a2b1c"</span>,
+  <span class="tok-k">"label"</span>:       <span class="tok-s">"spam"</span>,
+  <span class="tok-k">"confidence"</span>:  <span class="tok-n">0.95</span>,
+  <span class="tok-k">"escalated"</span>:   <span class="tok-n">false</span>,
+  <span class="tok-k">"reviewer"</span>:    <span class="tok-n">null</span>,
+  <span class="tok-k">"model"</span>:       <span class="tok-s">"fronesa-v1"</span>,
+  <span class="tok-k">"timestamp"</span>:   <span class="tok-s">"2026-10-06T13:32:17+03:00"</span>
+}</pre>
+        </div>
+        <p class="figcap">Illustrative — endpoint shapes follow the live demo. No API key needed for the demo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 status ============ -->
+  <section class="block" id="status">
+    <div class="wrap">
+      <p class="kicker"><span class="n">04</span> · Status</p>
+      <h2 style="margin-bottom:26px">Where this stands.</h2>
+      <div class="status-box">
+        <h3>Pre-launch. The ledger is open.</h3>
+        <dl>
+          <dt>Revenue</dt><dd>$0</dd>
+          <dt>Customers</dt><dd>0</dd>
+          <dt>Production model</dt><dd>v1 (lab)</dd>
+          <dt>Demo</dt><dd>public, keyless — run it yourself</dd>
+        </dl>
+        <p style="margin-top:16px;font-size:15px;color:#3c392f">The measurements above come from our lab, not from production traffic. When a number changes, this page changes. That is the whole point.</p>
+        <p style="margin-top:10px;font-size:13.5px;color:var(--muted)">Last updated: October 2026.</p>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer><div class="wrap"><div class="frow">
-  <div><span class="wordmark"><img src="assets/brand/fronesa-mark.svg" alt="Fronesa mark" width="20" height="20"><span>Fronesa</span></span><p style="margin-top:6px">Decisions that learn. &copy; 2026</p></div>
-  <div><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
-</div></div></footer>
+<footer class="site">
+  <div class="wrap foot">
+    <div>
+      <img src="assets/wordmark.svg" alt="Fronesa.">
+      <p>Decisions that learn. © 2026 Fronesa.</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="https://suretyai.github.io/try-it.html">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#measured">Measurements</a>
+    </nav>
+  </div>
+</footer>
 
-<script>
-(function(){
-  "use strict";
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---- Fig.1 loop readout ---- */
-  var steps = [
-    {k:"Step i — Decide", h:"The model answers.", p:"A typed decision plus a confidence score, in milliseconds on a warm container."},
-    {k:"Step ii — Escalate", h:"The doubtful ones go to a human.", p:"Low confidence? A reviewer — or a bigger model — takes it from here."},
-    {k:"Step iii — Learn", h:"Every resolved escalation becomes a lesson.", p:"The human's label is logged as training data. Nothing is thrown away."},
-    {k:"Step iv — Retrain", h:"Your private version, rebuilt.", p:"Weekly: the model is retrained on your lessons. Your data never leaves your version."},
-    {k:"Step v — Gate", h:"Ships only if it measures better.", p:"The new version must beat the old on held-out data, or it doesn't ship. Repeat."}
-  ];
-  var nodes = Array.prototype.slice.call(document.querySelectorAll(".loop-node"));
-  var kEl = document.getElementById("step-k"), hEl = document.getElementById("step-h"),
-      pEl = document.getElementById("step-p");
-  var cur = 0, pinned = false;
-  function show(i){
-    cur = i;
-    nodes.forEach(function(n,j){ n.classList.toggle("active", j===i); });
-    kEl.textContent = steps[i].k; hEl.textContent = steps[i].h; pEl.textContent = steps[i].p;
-  }
-  nodes.forEach(function(n,i){
-    function pick(){ pinned = true; show(i); }
-    n.addEventListener("click", pick);
-    n.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(); } });
-  });
-  show(0);
-  if(!reduce){
-    setInterval(function(){ if(!pinned){ show((cur+1)%5); } }, 2400);
-    setInterval(function(){ pinned = false; }, 12000);
-  }
-
-  /* ---- Fig.4 decision instrument ---- */
-  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
-  var stamp = document.getElementById("stamp"), confV = document.getElementById("conf-v"),
-      confBar = document.getElementById("conf-bar"), decV = document.getElementById("dec-v"),
-      escV = document.getElementById("esc-v"), msgV = document.getElementById("msg-v");
-  var labels = {spam:"spam", ham:"ham", held:"held for review"};
-  chips.forEach(function(ch){
-    ch.addEventListener("click", function(){
-      chips.forEach(function(c){ c.setAttribute("aria-pressed","false"); });
-      ch.setAttribute("aria-pressed","true");
-      var d = ch.getAttribute("data-d"), c = parseFloat(ch.getAttribute("data-c")),
-          e = ch.getAttribute("data-e")==="true", t = ch.getAttribute("data-t");
-      stamp.textContent = d === "held" ? "held" : d;
-      stamp.className = "stamp" + (d==="spam" ? " bad" : d==="held" ? " held" : "");
-      if(!reduce){ stamp.classList.remove("hit"); void stamp.offsetWidth; stamp.classList.add("hit"); }
-      confV.textContent = c.toFixed(2);
-      confBar.style.width = Math.round(c*100) + "%";
-      decV.textContent = labels[d];
-      escV.textContent = e ? "yes → human" : "no";
-      escV.className = "v " + (e ? "escalated-yes" : "escalated-no");
-      msgV.innerHTML = "&ldquo;" + t.replace(/&/g,"&amp;").replace(/</g,"&lt;") + "&rdquo;";
-    });
-  });
-})();
-</script>
 </body>
 </html>
