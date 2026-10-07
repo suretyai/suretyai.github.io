@@ -70,6 +70,7 @@ h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:14px}
 .lede{color:var(--muted);font-size:17.5px;max-width:34rem}
 .lede strong{color:var(--ink);font-weight:600}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.cols>*{min-width:0}
 .prose p{margin-bottom:16px;color:#3c392f}
 .prose p:last-child{margin-bottom:0}
 .inline-cta{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap;align-items:center}
@@ -181,6 +182,7 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .cols{grid-template-columns:1fr;gap:36px}
+  .cols>*{min-width:0}
   nav.links a:not(.demo-link){display:none}
   section.block{padding:52px 0}
   ol.steps li{grid-template-columns:40px 1fr}
