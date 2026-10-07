@@ -3,300 +3,347 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fronesa is the decision API for content-moderation triage. Every call returns a label, a confidence score, and a receipt you can audit.">
 <title>Fronesa — Decisions that learn</title>
-<meta name="description" content="Fronesa is a decision API for content-moderation triage. Every call returns a decision and a receipt; the loop learns from reviewer labels.">
 <link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{
-  font-family:"Fraunces";
+  font-family:"Fraunces";font-style:normal;font-weight:400 900;font-display:swap;
   src:url("assets/fonts/fraunces-latin.woff2") format("woff2");
-  font-weight:400 900;
-  font-display:swap;
 }
 :root{
-  --paper:#fbfaf7;
-  --paper-2:#f4f2ea;
-  --ink:#16150F;
-  --muted:#6e695c;
-  --hair:#e3ded1;
-  --green:#0F5132;
+  --paper:#fbfaf7; --card:#ffffff; --ink:#16150f; --muted:#6e695c;
+  --green:#0f5132; --green-soft:#e7efe9; --hair:#e3ded1; --code-bg:#f4f1e8;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
-  font-size:16.5px;
-  line-height:1.65;
-  -webkit-font-smoothing:antialiased;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
-::selection{background:var(--green);color:var(--paper)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+::selection{background:var(--green);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px;min-width:0}
+.serif{font-family:Fraunces,Georgia,"Times New Roman",serif}
 
-/* ---------- header ---------- */
-header.site{
-  position:sticky;top:0;z-index:50;
-  background:var(--paper);
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;background:rgba(251,250,247,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--hair);
 }
-.bar{display:flex;align-items:center;justify-content:space-between;height:66px;gap:24px}
-.brand img{display:block;height:30px;width:auto}
-nav.links{display:flex;gap:26px;align-items:center}
-nav.links a{
-  color:var(--muted);text-decoration:none;font-size:14.5px;
-}
-nav.links a:hover{color:var(--ink)}
-a.demo-link{
-  color:var(--green)!important;font-weight:600;
-  text-decoration:none;font-size:14.5px;white-space:nowrap;
-}
-a.demo-link:hover{text-decoration:underline}
-
-/* ---------- layout ---------- */
-section.block{padding:72px 0;border-top:1px solid var(--hair)}
-section.block:first-of-type{border-top:none}
-.kicker{
-  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);font-weight:600;margin-bottom:18px;
-}
-.kicker .n{color:var(--green)}
-h1,h2{
-  font-family:"Fraunces",Georgia,serif;
-  font-weight:600;letter-spacing:-.01em;line-height:1.12;
-}
-h1{font-size:clamp(38px,4.6vw,56px);margin-bottom:20px}
-h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:14px}
-.lede{color:var(--muted);font-size:17.5px;max-width:34rem}
-.lede strong{color:var(--ink);font-weight:600}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.cols>*{min-width:0}
-.prose p{margin-bottom:16px;color:#3c392f}
-.prose p:last-child{margin-bottom:0}
-.inline-cta{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 32px;height:68px;
+  display:flex;align-items:center;justify-content:space-between;min-width:0}
+.brand{display:flex;align-items:center;text-decoration:none}
+.brand img{height:26px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:15px;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
 .btn{
-  display:inline-block;background:var(--ink);color:var(--paper);
-  padding:11px 22px;border-radius:7px;text-decoration:none;
-  font-size:15px;font-weight:600;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--ink);color:#fff;border:none;cursor:pointer;
+  font-size:15px;font-weight:600;padding:12px 24px;border-radius:10px;
+  text-decoration:none;transition:transform .15s ease,box-shadow .15s ease;
+  white-space:nowrap;
 }
-.btn:hover{background:#000}
-.quiet-link{color:var(--green);font-weight:600;text-decoration:none;font-size:15px}
-.quiet-link:hover{text-decoration:underline}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(22,21,15,.18)}
+.btn-green{background:var(--green)}
+.btn:active{transform:translateY(0)}
 
-/* ---------- code ---------- */
-.codeblock{
-  background:var(--paper-2);
-  border:1px solid var(--hair);
-  border-radius:9px;
-  overflow:hidden;
+/* ---------- hero ---------- */
+.hero{padding:110px 0 90px;text-align:center}
+.eyebrow{
+  font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--green);margin-bottom:24px;
 }
+.hero h1{
+  font-family:Fraunces,Georgia,serif;font-weight:600;
+  font-size:clamp(3rem,7vw,5rem);line-height:1.04;letter-spacing:-.02em;
+  margin-bottom:24px;
+}
+.hero .sub{
+  font-size:clamp(1.1rem,2vw,1.35rem);color:var(--muted);max-width:660px;
+  margin:0 auto 56px;line-height:1.65;
+}
+.hero .sub strong{color:var(--ink);font-weight:600}
+
+/* ---------- live demo card ---------- */
+.demo-card{
+  max-width:760px;margin:0 auto;background:var(--card);
+  border:1px solid var(--hair);border-radius:20px;
+  box-shadow:0 24px 70px rgba(22,21,15,.10),0 2px 6px rgba(22,21,15,.06);
+  overflow:hidden;text-align:left;min-width:0;
+}
+.demo-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 26px;border-bottom:1px solid var(--hair);min-width:0;
+}
+.demo-head .live{display:flex;align-items:center;gap:10px;font-size:13px;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.pulse{width:9px;height:9px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 0 0 rgba(15,81,50,.5);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(15,81,50,.45)}
+  70%{box-shadow:0 0 0 9px rgba(15,81,50,0)}100%{box-shadow:0 0 0 0 rgba(15,81,50,0)}}
+.demo-head .nokey{font-size:13px;color:var(--muted)}
+.demo-body{padding:26px;min-width:0}
+.demo-inputrow{display:flex;gap:12px;min-width:0}
+.demo-inputrow input{
+  flex:1;min-width:0;font-size:16px;padding:14px 18px;border:1px solid var(--hair);
+  border-radius:12px;background:var(--paper);color:var(--ink);font-family:inherit;
+}
+.demo-inputrow input:focus{outline:2px solid var(--green);outline-offset:-1px;border-color:var(--green)}
+.demo-inputrow .btn{flex-shrink:0}
+.demo-inputrow .btn:disabled{opacity:.6;cursor:wait;transform:none}
+.demo-samples{margin-top:14px;font-size:13.5px;color:var(--muted)}
+.demo-samples button{
+  background:none;border:none;color:var(--green);font:inherit;font-size:13.5px;
+  cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0 2px;
+}
+.demo-result{margin-top:22px;display:none;min-width:0}
+.demo-result.show{display:block;animation:fadeup .4s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.receipt{
+  background:var(--paper);border:1px solid var(--hair);border-radius:14px;
+  padding:22px 24px;min-width:0;
+}
+.receipt-top{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.decision-badge{
+  font-family:Fraunces,Georgia,serif;font-size:1.9rem;font-weight:600;
+  letter-spacing:-.01em;
+}
+.conf-wrap{min-width:200px;flex:1;max-width:320px}
+.conf-label{display:flex;justify-content:space-between;font-size:13px;
+  color:var(--muted);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.conf-bar{height:8px;background:var(--hair);border-radius:99px;overflow:hidden}
+.conf-fill{height:100%;background:var(--green);border-radius:99px;width:0;
+  transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.receipt-meta{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  border-top:1px solid var(--hair);padding-top:16px;min-width:0;
+}
+.receipt-meta>*{min-width:0}
+.meta-k{font-size:12px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:2px}
+.meta-v{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;
+  font-variant-numeric:tabular-nums}
+.demo-error{
+  display:none;margin-top:22px;padding:18px 22px;border-radius:14px;
+  background:#fdf3f0;border:1px solid #e8c9c2;color:#7a2e1f;font-size:15px;
+}
+.demo-error.show{display:block}
+.demo-error a{color:#7a2e1f;font-weight:600}
+.demo-foot{
+  padding:16px 26px;border-top:1px solid var(--hair);font-size:13.5px;
+  color:var(--muted);display:flex;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;
+}
+.demo-foot a{color:var(--green);font-weight:600;text-decoration:none}
+
+/* ---------- sections ---------- */
+section.block{padding:100px 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--green);margin-bottom:18px}
+.kicker .n{font-variant-numeric:tabular-nums}
+h2{font-family:Fraunces,Georgia,serif;font-weight:600;
+  font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:18px}
+.lede{font-size:1.15rem;color:var(--muted);max-width:640px;line-height:1.7}
+
+/* steps */
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px;min-width:0}
+.steps3>*{min-width:0}
+.step-card{
+  background:var(--card);border:1px solid var(--hair);border-radius:16px;
+  padding:30px 28px;min-width:0;
+}
+.step-num{
+  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;font-weight:700;
+  color:var(--green);letter-spacing:.1em;margin-bottom:14px;
+}
+.step-card h3{font-family:Fraunces,Georgia,serif;font-size:1.45rem;font-weight:600;
+  margin-bottom:10px;letter-spacing:-.01em}
+.step-card p{color:var(--muted);font-size:15.5px;line-height:1.65}
+.step-card p strong{color:var(--ink)}
+.loopfig{margin-top:48px}
+.loopfig svg{width:100%;height:auto;display:block}
+.loopfig .loop-v{display:none}
+.figcap{font-size:13.5px;color:var(--muted);margin-top:12px;max-width:640px}
+
+/* measurements */
+.fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px 48px;margin:48px 0 8px;min-width:0}
+.fig-grid>*{min-width:0}
+.fig-grid svg{width:100%;height:auto;display:block;max-width:100%}
+.slopefig{max-width:460px;min-width:0}
+.slopefig svg{width:100%;height:auto;display:block;max-width:100%}
+table.measure{width:100%;border-collapse:collapse;margin-top:36px;font-size:15.5px}
+table.measure th{
+  text-align:left;font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);font-weight:700;padding:12px 16px 12px 0;
+  border-bottom:2px solid var(--ink);
+}
+table.measure td{padding:16px 16px 16px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+table.measure td.num{font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+table.measure td.method{color:var(--muted)}
+.caveat{
+  margin-top:28px;padding:20px 24px;background:var(--code-bg);
+  border-left:3px solid var(--green);border-radius:0 12px 12px 0;
+  font-size:15px;color:var(--muted);max-width:760px;
+}
+.caveat strong{color:var(--ink)}
+.demo-link{display:inline-block;margin-top:20px;color:var(--green);
+  font-weight:600;font-size:16px;text-decoration:none}
+.demo-link:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* api */
+.codeblock{background:var(--card);border:1px solid var(--hair);border-radius:16px;
+  overflow:hidden;margin-top:48px;max-width:760px;box-shadow:0 12px 40px rgba(22,21,15,.07)}
 .codeblock .cap{
-  padding:10px 18px;border-bottom:1px solid var(--hair);
-  font-size:12.5px;color:var(--muted);
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  display:flex;justify-content:space-between;gap:12px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 24px;border-bottom:1px solid var(--hair);
+  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;color:var(--muted);
 }
 .codeblock .cap .method{color:var(--green);font-weight:700}
 .codeblock pre{
-  padding:20px;overflow-x:auto;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  font-size:13.5px;line-height:1.7;color:#3c392f;
+  padding:26px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14.5px;
+  line-height:1.75;overflow-x:auto;color:var(--ink);min-width:0;
 }
-.tok-k{color:var(--green)}
-.tok-s{color:var(--ink)}
-.tok-c{color:#9a9484}
-.tok-n{color:#8a6d1f}
-.figcap{
-  margin-top:12px;font-size:13.5px;color:var(--muted);
-}
+.tok-c{color:#9a9484}.tok-k{color:var(--green)}.tok-s{color:#8a6d1c}.tok-n{color:#1c5d8a}
 
-/* ---------- steps ---------- */
-ol.steps{list-style:none;counter-reset:step}
-ol.steps li{
-  counter-increment:step;
-  padding:22px 0 22px 0;
-  border-bottom:1px solid var(--hair);
-  display:grid;grid-template-columns:52px 1fr;gap:16px;
-}
-ol.steps li:last-child{border-bottom:none}
-ol.steps li::before{
-  content:counter(step,decimal-leading-zero);
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  font-size:13px;color:var(--green);font-weight:700;padding-top:4px;
-}
-ol.steps h3{font-size:18px;font-weight:650;margin-bottom:6px}
-ol.steps p{color:#3c392f;font-size:15.5px}
+/* cta */
+.cta{background:var(--ink);color:#fff;border-radius:28px;padding:88px 48px;
+  text-align:center;margin:40px 0 100px}
+.cta h2{color:#fff;margin-bottom:16px}
+.cta p{color:rgba(255,255,255,.72);font-size:1.15rem;max-width:520px;margin:0 auto 36px}
+.cta .btn{background:#fff;color:var(--ink);font-size:17px;padding:16px 36px}
+.cta .btn:hover{box-shadow:0 10px 30px rgba(0,0,0,.3)}
 
-/* ---------- table ---------- */
-table.measure{width:100%;border-collapse:collapse;font-size:15.5px}
-table.measure th{
-  text-align:left;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);font-weight:600;padding:10px 12px 10px 0;
-  border-bottom:2px solid var(--ink);
-}
-table.measure td{
-  padding:16px 12px 16px 0;border-bottom:1px solid var(--hair);
-  vertical-align:top;
-}
-table.measure td.num{
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  font-size:14.5px;white-space:nowrap;
-}
-table.measure td.method{color:var(--muted);font-size:14px}
-table.measure tr:last-child td{border-bottom:none}
-.fineprint{margin-top:18px;font-size:14px;color:var(--muted);max-width:44rem}
-.fineprint strong{color:var(--ink)}
-
-/* ---------- status ---------- */
-.status-box{
-  border:1px solid var(--hair);
-  border-left:4px solid var(--green);
-  border-radius:0 9px 9px 0;
-  background:var(--paper-2);
-  padding:26px 30px;
-  max-width:46rem;
-}
-.status-box h3{font-size:17px;margin-bottom:10px;font-weight:650}
-.status-box dl{display:grid;grid-template-columns:130px 1fr;gap:6px 18px;font-size:15.5px}
-.status-box dt{color:var(--muted)}
-.status-box dd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14.5px}
-
-/* ---------- footer ---------- */
-footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
-.foot{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
-.foot img{height:26px;width:auto;margin-bottom:10px}
-.foot p{font-size:13.5px;color:var(--muted)}
-.foot nav{display:flex;gap:22px}
-.foot nav a{font-size:14px;color:var(--muted);text-decoration:none}
-.foot nav a:hover{color:var(--ink)}
-
-/* ---------- figures (viz-02) ---------- */
-.fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px 40px;margin:8px 0 10px}
-.fig-grid svg{width:100%;height:auto;display:block}
-.loopfig{margin-top:46px}
-.loopfig .loop-h{display:block;width:100%;height:auto}
-.loopfig .loop-v{display:none;width:100%;height:auto}
-.slopefig{max-width:360px;margin:36px 0 6px}
-.slopefig svg{width:100%;height:auto;display:block}
+/* footer */
+footer{border-top:1px solid var(--hair);padding:56px 0 48px}
+.foot-grid{display:flex;justify-content:space-between;align-items:flex-start;
+  gap:32px;flex-wrap:wrap;margin-bottom:36px}
+.foot-grid img{height:28px;width:auto}
+.foot-links{display:flex;gap:28px;flex-wrap:wrap}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:15px}
+.foot-links a:hover{color:var(--ink)}
+.foot-note{font-size:13.5px;color:var(--muted);max-width:640px}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  .cols{grid-template-columns:1fr;gap:36px}
-  .cols>*{min-width:0}
-  nav.links a:not(.demo-link){display:none}
-  section.block{padding:52px 0}
-  ol.steps li{grid-template-columns:40px 1fr}
-  table.measure thead{display:none}
-  table.measure tr{display:block;padding:14px 0;border-bottom:1px solid var(--hair)}
-  table.measure tr:last-child{border-bottom:none}
-  table.measure td{display:block;border:none;padding:3px 12px 3px 0}
-  table.measure td.method{display:block}
-  .status-box dl{grid-template-columns:1fr;gap:2px}
-  .status-box dd{margin-bottom:8px}
-  .fig-grid{grid-template-columns:1fr}
+  .wrap{padding:0 22px}
+  .nav-inner{padding:0 22px}
+  .nav-links a:not(.demo-link){display:none}
+  .hero{padding:72px 0 64px}
+  section.block{padding:68px 0}
+  .steps3{grid-template-columns:1fr;gap:18px;margin-top:40px}
+  .fig-grid{grid-template-columns:1fr;gap:28px}
   .loopfig .loop-h{display:none}
   .loopfig .loop-v{display:block;max-width:340px;margin:0 auto}
+  table.measure thead{display:none}
+  table.measure tr{display:block;padding:14px 0;border-bottom:1px solid var(--hair)}
+  table.measure td{display:block;border:none;padding:3px 0}
+  table.measure td.num{white-space:normal}
+  .receipt-meta{grid-template-columns:1fr 1fr}
+  .cta{padding:64px 28px;border-radius:22px}
+  .demo-inputrow{flex-direction:column}
+  .demo-inputrow .btn{width:100%}
+}
+@media (max-width:420px){
+  .receipt-meta{grid-template-columns:1fr}
+  .demo-head{flex-direction:column;align-items:flex-start;gap:6px}
 }
 </style>
 </head>
 <body>
 
-<header class="site">
-  <div class="wrap bar">
+<header class="nav">
+  <div class="nav-inner">
     <a class="brand" href="#" aria-label="Fronesa home"><img src="assets/wordmark.svg" alt="Fronesa."></a>
-    <nav class="links" aria-label="Sections">
+    <nav class="nav-links">
       <a href="#how">How it works</a>
       <a href="#measured">Measurements</a>
       <a href="#api">API</a>
-      <a href="#status">Status</a>
-      <a class="demo-link" href="https://suretyai.github.io/try-it.html">Try the demo →</a>
+      <a class="btn demo-link" href="https://suretyai.github.io/try-it.html" style="padding:10px 20px;font-size:14px">Try the demo →</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <!-- ============ hero ============ -->
-  <section class="block">
-    <div class="wrap cols">
-      <div class="prose">
-        <p class="kicker">Fronesa · Content-moderation triage API</p>
-        <h1>Decisions that learn.</h1>
-        <p class="lede">Fronesa is a <strong>decision API for content-moderation triage</strong>. Every call returns a label, a confidence score, and a receipt you can audit. Edge cases route to your reviewers — their labels come back as training data, and the model retrains and re-gates on a weekly loop.</p>
-        <div class="inline-cta">
-          <a class="btn" href="https://suretyai.github.io/try-it.html">Try the live demo</a>
-          <a class="quiet-link" href="#how">How it works ↓</a>
-        </div>
-      </div>
-      <div>
-        <div class="codeblock">
-          <div class="cap"><span><span class="method">POST</span> /v1/decide</span><span>→ 200 OK</span></div>
-<pre><span class="tok-c"># request</span>
-{ <span class="tok-k">"text"</span>: <span class="tok-s">"Free prizes, claim now!"</span> }
+  <!-- ============ hero + live demo ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Fronesa · Content-moderation triage API</p>
+      <h1>Decisions that learn.</h1>
+      <p class="sub">Fronesa is the <strong>decision API for content moderation</strong>. Every call returns a label, a confidence score, and a receipt you can audit. The uncertain ones go to your reviewers — and their labels come back as training data, so the model keeps getting better.</p>
 
-<span class="tok-c"># response — the decision receipt</span>
-{
-  <span class="tok-k">"decision_id"</span>: <span class="tok-s">"d_8f3a2b1c"</span>,
-  <span class="tok-k">"label"</span>:       <span class="tok-s">"spam"</span>,
-  <span class="tok-k">"confidence"</span>:  <span class="tok-n">0.95</span>,
-  <span class="tok-k">"escalated"</span>:   <span class="tok-n">false</span>,
-  <span class="tok-k">"model"</span>:       <span class="tok-s">"fronesa-v1"</span>,
-  <span class="tok-k">"timestamp"</span>:   <span class="tok-s">"2026-10-06T13:32:17+03:00"</span>
-}</pre>
+      <div class="demo-card" id="demo">
+        <div class="demo-head">
+          <span class="live"><span class="pulse"></span>Live demo</span>
+          <span class="nokey">No API key needed — this is the real API</span>
         </div>
-        <p class="figcap">Illustrative shape — the live demo is the source of truth. Every decision returns a receipt; if we can't show the receipt, we don't claim the decision.</p>
+        <div class="demo-body">
+          <div class="demo-inputrow">
+            <input id="demo-input" type="text" maxlength="500" value="Free prizes, claim now!"
+              aria-label="Text to classify" placeholder="Type something to classify…">
+            <button class="btn btn-green" id="demo-btn">Decide →</button>
+          </div>
+          <p class="demo-samples">Try:
+            <button data-t="Free prizes, claim now!">spam</button> ·
+            <button data-t="Thanks, that really helped!">friendly</button> ·
+            <button data-t="You are an idiot, nobody likes you">abuse</button>
+          </p>
+          <div class="demo-result" id="demo-result" aria-live="polite">
+            <div class="receipt">
+              <div class="receipt-top">
+                <span class="decision-badge" id="r-decision">—</span>
+                <div class="conf-wrap">
+                  <div class="conf-label"><span>Confidence</span><span id="r-conf-num">—</span></div>
+                  <div class="conf-bar"><div class="conf-fill" id="r-conf-fill"></div></div>
+                </div>
+              </div>
+              <div class="receipt-meta">
+                <div><div class="meta-k">Latency</div><div class="meta-v" id="r-latency">—</div></div>
+                <div><div class="meta-k">Model</div><div class="meta-v" id="r-version">—</div></div>
+                <div><div class="meta-k">Escalated</div><div class="meta-v" id="r-escalated">—</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-error" id="demo-error"></div>
+        </div>
+        <div class="demo-foot">
+          <span>Decisions return a receipt — if we can't show it, we don't claim it.</span>
+          <a href="https://suretyai.github.io/try-it.html">Open the full demo →</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 01 how it works ============ -->
+  <!-- ============ how it works ============ -->
   <section class="block" id="how">
-    <div class="wrap cols">
-      <div>
-        <p class="kicker"><span class="n">01</span> · How it works</p>
-        <h2>The loop is the product.</h2>
-        <ol class="steps">
-          <li>
-            <div><h3>Decide</h3>
-            <p>The API classifies the content and returns a label with a confidence score — median 21&nbsp;ms per decision. Every response includes a receipt: what was decided, how sure, and which model version decided it.</p></div>
-          </li>
-          <li>
-            <div><h3>Escalate</h3>
-            <p>Low-confidence calls route to a human reviewer instead of guessing. Escalation is budget-based — you set how much review you can afford — not a fixed threshold that quietly breaks.</p></div>
-          </li>
-          <li>
-            <div><h3>Learn</h3>
-            <p>Reviewer labels are logged as training data. Nothing is thrown away: a correction feeds the next training set instead of dying in a queue.</p></div>
-          </li>
-          <li>
-            <div><h3>Retrain</h3>
-            <p>The model retrains on the accumulated labels each week. Corrected labels retrain your own model version by default — they never feed anyone else's without written consent.</p></div>
-          </li>
-          <li>
-            <div><h3>Gate</h3>
-            <p>A new version ships only if it beats the current one on held-out data it never trained on. If it doesn't beat it, it doesn't ship.</p></div>
-          </li>
-        </ol>
-      </div>
-      <div>
-        <div class="codeblock">
-          <div class="cap"><span>the loop, as configuration</span><span>conceptual</span></div>
-<pre><span class="tok-k">loop</span>:
-  <span class="tok-k">cadence</span>:   weekly
-  <span class="tok-k">decide</span>:    every call, ~21ms median
-  <span class="tok-k">escalate</span>:  budget-based, human review
-  <span class="tok-k">learn</span>:      reviewer labels → training set
-  <span class="tok-k">retrain</span>:   on accumulated labels
-  <span class="tok-k">gate</span>:       held-out eval before deploy
-
-<span class="tok-c"># frozen models skip four of these steps.
-# that is the whole difference.</span></pre>
-        </div>
-        <p class="figcap">Five steps, repeating weekly. The usual model does step one and stops.</p>
-      </div>
-    </div>
     <div class="wrap">
+      <p class="kicker"><span class="n">01</span> · How it works</p>
+      <h2>The loop is the product.</h2>
+      <p class="lede">A frozen model does step one and stops. Fronesa runs all five, every week.</p>
+      <div class="steps3">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3>Decide</h3>
+          <p>Every call returns a <strong>label and a confidence score</strong> in about 21&nbsp;ms — plus a receipt: what was decided, how sure, and which model decided it.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h3>Escalate</h3>
+          <p>Low-confidence calls go to <strong>a human reviewer</strong> instead of a guess. You set the review budget — nothing fails silently.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h3>Learn</h3>
+          <p>Reviewer labels become <strong>training data</strong>. The model retrains weekly and only ships if it beats the current version on held-out data.</p>
+        </div>
+      </div>
       <div class="loopfig">
-        <svg class="loop-h" viewBox="0 0 1060 210" role="img" aria-label="Loop diagram: Decide, Escalate, Learn, Retrain, Gate, repeating weekly. Learn is highlighted: the step a frozen model skips.">
+                <svg class="loop-h" viewBox="0 0 1060 210" role="img" aria-label="Loop diagram: Decide, Escalate, Learn, Retrain, Gate, repeating weekly. Learn is highlighted: the step a frozen model skips.">
           <defs>
             <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="#16150F"/>
@@ -377,13 +424,13 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
     </div>
   </section>
 
-  <!-- ============ 02 measurements ============ -->
-  <section class="block" id="measured">
+  <!-- ============ measurements ============ -->
+  <section class="block" id="measured" style="padding-top:0">
     <div class="wrap">
       <p class="kicker"><span class="n">02</span> · Measurements</p>
       <h2>What the lab recorded.</h2>
-      <p class="lede" style="margin-bottom:34px">What the lab runs recorded. Same harness, same data, frozen baseline — no cherry-picked benchmarks.</p>
-      <div class="fig-grid" role="group" aria-label="Four lab measurements">
+      <p class="lede">Same harness, same data, frozen baseline — no cherry-picked benchmarks.</p>
+            <div class="fig-grid" role="group" aria-label="Four lab measurements">
         <svg viewBox="0 0 520 215" role="img" aria-label="Error rate: Fronesa loop 0.38 percent versus frozen model 1.71 percent, v0 lab run on synthetic drift">
           <text x="0" y="30" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="21" fill="#16150F">Error rate</text>
           <text x="138" y="79" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6e695c">Fronesa loop</text>
@@ -436,35 +483,16 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
           <text x="0" y="198" font-family="-apple-system, Segoe UI, Inter, sans-serif" font-size="12.5" fill="#6e695c">v6 · within-loop error</text>
         </svg>
       </div>
-      <p class="figcap" style="margin-bottom:30px">Four lab numbers, each on an honest scale from zero. Methods printed with each panel — lab measurements on synthetic drift, not promises.</p>
       <table class="measure">
-        <thead>
-          <tr><th>Measurement</th><th>Result</th><th class="method">Method</th></tr>
-        </thead>
+        <thead><tr><th>Measurement</th><th>Result</th><th>Method</th></tr></thead>
         <tbody>
-          <tr>
-            <td>Error rate vs. frozen model</td>
-            <td class="num">0.38% vs 1.71%</td>
-            <td class="method">v0 lab run, synthetic drift</td>
-          </tr>
-          <tr>
-            <td>Median latency</td>
-            <td class="num">21 ms per decision</td>
-            <td class="method">v1, CPU</td>
-          </tr>
-          <tr>
-            <td>Escalation rate</td>
-            <td class="num">15.1% → 12.2%</td>
-            <td class="method">v3, first week → last week</td>
-          </tr>
-          <tr>
-            <td>Error, twelve weeks</td>
-            <td class="num">4.52% → 0.22%</td>
-            <td class="method">v6 within-loop error</td>
-          </tr>
+          <tr><td>Error rate vs. frozen model</td><td class="num">0.38% vs 1.71%</td><td class="method">v0 lab run, synthetic drift</td></tr>
+          <tr><td>Median latency</td><td class="num">21 ms per decision</td><td class="method">v1, CPU</td></tr>
+          <tr><td>Escalation rate</td><td class="num">15.1% → 12.2%</td><td class="method">v3, first week → last week</td></tr>
+          <tr><td>Error, twelve weeks</td><td class="num">4.52% → 0.22%</td><td class="method">v6 within-loop error</td></tr>
         </tbody>
       </table>
-      <div class="slopefig">
+            <div class="slopefig">
         <svg viewBox="0 0 360 230" role="img" aria-label="Escalation rate fell from 15.1 percent in the first week to 12.2 percent in the last week, v3 lab run">
           <line x1="50" y1="190" x2="320" y2="190" stroke="#e3ded1" stroke-width="1"/>
           <line x1="50" y1="146.5" x2="320" y2="146.5" stroke="#e3ded1" stroke-width="1"/>
@@ -486,75 +514,126 @@ footer.site{border-top:1px solid var(--hair);padding:36px 0 48px}
         </svg>
         <p class="figcap">Fewer humans needed over time: share of traffic sent to a reviewer, first week → last. v3 lab run, synthetic drift.</p>
       </div>
-      <p class="fineprint"><strong>All figures are lab measurements on synthetic drift.</strong> They describe what we measured, not what we promise. Production traffic, your data distribution, and your review budget will move these numbers — the demo and the receipts exist so you can check us.</p>
-      <p style="margin-top:14px"><a class="quiet-link" href="https://suretyai.github.io/try-it.html">Try the demo and check us →</a></p>
+      <div class="caveat"><strong>All figures are lab measurements on synthetic drift.</strong> They describe what we measured, not what we promise. Production traffic, your data distribution, and your review budget will move these numbers — the demo and the receipts exist so you can check us.</div>
+      <a class="demo-link" href="https://suretyai.github.io/try-it.html">Try the demo and check us →</a>
     </div>
   </section>
 
-  <!-- ============ 03 api ============ -->
-  <section class="block" id="api">
-    <div class="wrap cols">
-      <div class="prose">
-        <p class="kicker"><span class="n">03</span> · API reference</p>
-        <h2>One endpoint.<br>One receipt.</h2>
-        <p>Send content, get a decision. The response always includes the receipt — decision id, label, confidence, whether a human was involved, and the model version. Audit any decision later by its id.</p>
-        <p style="margin-top:18px"><a class="quiet-link" href="https://suretyai.github.io/try-it.html">Run it in the live demo →</a></p>
-      </div>
-      <div>
-        <div class="codeblock">
-          <div class="cap"><span><span class="method">POST</span> /v1/decide</span><span>base URL provided at onboarding</span></div>
-<pre><span class="tok-c"># parameters</span>
-<span class="tok-k">text</span>   string   required   <span class="tok-c">the content to classify</span>
-
-<span class="tok-c"># 200 — application/json</span>
-{
-  <span class="tok-k">"decision_id"</span>: <span class="tok-s">"d_8f3a2b1c"</span>,
-  <span class="tok-k">"label"</span>:       <span class="tok-s">"spam"</span>,
-  <span class="tok-k">"confidence"</span>:  <span class="tok-n">0.95</span>,
-  <span class="tok-k">"escalated"</span>:   <span class="tok-n">false</span>,
-  <span class="tok-k">"reviewer"</span>:    <span class="tok-n">null</span>,
-  <span class="tok-k">"model"</span>:       <span class="tok-s">"fronesa-v1"</span>,
-  <span class="tok-k">"timestamp"</span>:   <span class="tok-s">"2026-10-06T13:32:17+03:00"</span>
-}</pre>
-        </div>
-        <p class="figcap">Illustrative — endpoint shapes follow the live demo. No API key needed for the demo.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 04 status ============ -->
-  <section class="block" id="status">
+  <!-- ============ api ============ -->
+  <section class="block" id="api" style="padding-top:0">
     <div class="wrap">
-      <p class="kicker"><span class="n">04</span> · Status</p>
-      <h2 style="margin-bottom:26px">Where this stands.</h2>
-      <div class="status-box">
-        <h3>Pre-launch. The ledger is open.</h3>
-        <dl>
-          <dt>Revenue</dt><dd>$0</dd>
-          <dt>Customers</dt><dd>0</dd>
-          <dt>Production model</dt><dd>v1 (lab)</dd>
-          <dt>Demo</dt><dd>public, keyless — run it yourself</dd>
-        </dl>
-        <p style="margin-top:16px;font-size:15px;color:#3c392f">The measurements above come from our lab, not from production traffic. When a number changes, this page changes. That is the whole point.</p>
-        <p style="margin-top:10px;font-size:13.5px;color:var(--muted)">Last updated: October 2026.</p>
+      <p class="kicker"><span class="n">03</span> · API reference</p>
+      <h2>One endpoint.<br>One receipt.</h2>
+      <p class="lede">Send content, get a decision. Audit any decision later by its receipt.</p>
+      <div class="codeblock">
+        <div class="cap"><span><span class="method">POST</span> /decide</span><span>base URL provided at onboarding</span></div>
+<pre><span class="tok-c"># request</span>
+{ <span class="tok-k">"text"</span>: <span class="tok-s">"Free prizes, claim now!"</span> }
+
+<span class="tok-c"># response — the decision receipt</span>
+{
+  <span class="tok-k">"decision"</span>:   <span class="tok-s">"spam"</span>,
+  <span class="tok-k">"confidence"</span>: <span class="tok-n">0.95</span>,
+  <span class="tok-k">"escalated"</span>:  <span class="tok-n">false</span>,
+  <span class="tok-k">"latency_ms"</span>: <span class="tok-n">14.1</span>,
+  <span class="tok-k">"version"</span>:    <span class="tok-s">"v1"</span>
+}</pre>
+      </div>
+      <p class="figcap">Live shape — run it yourself in the demo above. No API key needed.</p>
+      <a class="demo-link" href="https://suretyai.github.io/try-it.html">Run it in the full demo →</a>
+    </div>
+  </section>
+
+  <!-- ============ cta ============ -->
+  <section>
+    <div class="wrap">
+      <div class="cta">
+        <h2>Put it to the test.</h2>
+        <p>Run your own text through the live demo. No key, no signup — just decisions with receipts.</p>
+        <a class="btn" href="https://suretyai.github.io/try-it.html">Try the live demo →</a>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="site">
-  <div class="wrap foot">
-    <div>
-      <img src="assets/wordmark.svg" alt="Fronesa.">
-      <p>Decisions that learn. © 2026 Fronesa.</p>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a href="#" aria-label="Fronesa home"><img src="assets/wordmark.svg" alt="Fronesa."></a>
+      <nav class="foot-links">
+        <a href="https://suretyai.github.io/try-it.html">Demo</a>
+        <a href="#how">How it works</a>
+        <a href="#measured">Measurements</a>
+        <a href="#api">API</a>
+      </nav>
     </div>
-    <nav aria-label="Footer">
-      <a href="https://suretyai.github.io/try-it.html">Demo</a>
-      <a href="#how">How it works</a>
-      <a href="#measured">Measurements</a>
-    </nav>
+    <p class="foot-note">Decisions that learn. © 2026 Fronesa. Pre-launch — all figures are lab measurements on synthetic drift, not promises. Last updated: October 2026.</p>
   </div>
 </footer>
 
+<script>
+(function(){
+  var API = 'https://fronsea-api.onrender.com';
+  var input = document.getElementById('demo-input');
+  var btn = document.getElementById('demo-btn');
+  var result = document.getElementById('demo-result');
+  var errBox = document.getElementById('demo-error');
+
+  function setLoading(on){
+    btn.disabled = on;
+    btn.textContent = on ? 'Deciding…' : 'Decide →';
+  }
+  function showError(){
+    errBox.innerHTML = 'The API didn\'t answer just now. <a href="https://suretyai.github.io/try-it.html">Try the full demo →</a>';
+    errBox.classList.add('show');
+    result.classList.remove('show');
+  }
+  function renderReceipt(d){
+    errBox.classList.remove('show');
+    var conf = Math.round((d.confidence || 0) * 100);
+    document.getElementById('r-decision').textContent = d.decision || '—';
+    document.getElementById('r-conf-num').textContent = conf + '%';
+    document.getElementById('r-latency').textContent =
+      (d.latency_ms != null ? d.latency_ms.toFixed(1) + ' ms' : '—');
+    document.getElementById('r-version').textContent = d.version ? 'fronesa-' + d.version : '—';
+    document.getElementById('r-escalated').textContent = d.escalated ? 'yes — human review' : 'no';
+    result.classList.add('show');
+    // animate the bar after paint
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        document.getElementById('r-conf-fill').style.width = conf + '%';
+      });
+    });
+  }
+  var running = false;
+  async function run(){
+    if (running) return;
+    var text = (input.value || '').trim() || 'Free prizes, claim now!';
+    running = true; setLoading(true);
+    errBox.classList.remove('show');
+    try{
+      var ctrl = new AbortController();
+      var t = setTimeout(function(){ ctrl.abort(); }, 25000);
+      var res = await fetch(API + '/decide', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({text: text.slice(0,500)}),
+        signal: ctrl.signal
+      });
+      clearTimeout(t);
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      renderReceipt(await res.json());
+    }catch(e){ showError(); }
+    running = false; setLoading(false);
+  }
+  btn.addEventListener('click', run);
+  input.addEventListener('keydown', function(e){ if(e.key === 'Enter') run(); });
+  document.querySelectorAll('.demo-samples button').forEach(function(b){
+    b.addEventListener('click', function(){ input.value = b.getAttribute('data-t'); run(); });
+  });
+  // auto-run once so visitors see it work immediately
+  window.addEventListener('load', function(){ setTimeout(run, 700); });
+})();
+</script>
 </body>
 </html>
