@@ -135,6 +135,154 @@ details.specdetails summary::after{content:"+";font-size:1.1rem;color:var(--gree
 details.specdetails[open] summary::after{content:"\2013"}
 details.specdetails .specwrap{margin:0;border-top:1px solid var(--paper-200);overflow-x:auto}
 details.specdetails table.spec{min-width:520px}
+.topbar a.nl.active{color:var(--green-900);background:var(--green-100)}
+/* ---- show-don't-tell visual examples ---- */
+.example{margin:32px 0}
+.ex-label{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-500);margin-bottom:12px;display:block}
+.mockpage{border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;overflow:hidden;max-width:420px}
+.mockpage .mp-bar{height:36px;border-bottom:1px solid var(--paper-200);display:flex;align-items:center;padding:0 12px;gap:6px}
+.mockpage .mp-dot{width:8px;height:8px;border-radius:50%;background:var(--paper-300)}
+.mockpage .mp-body{padding:16px}
+.mockpage .mp-h{height:14px;border-radius:4px;background:var(--ink-900);margin-bottom:10px}
+.mockpage .mp-t{height:8px;border-radius:4px;background:var(--paper-300);margin-bottom:8px}
+.mockpage .mp-btn{height:28px;border-radius:8px;background:var(--green-900);width:110px;margin-top:10px}
+.mockpage .mp-btn2{height:28px;border-radius:8px;background:var(--paper-200);width:90px;margin-top:10px;display:inline-block;margin-right:8px}
+.dodont2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0}
+@media(max-width:640px){.dodont2{grid-template-columns:1fr}}
+.bars{display:flex;align-items:flex-end;gap:12px;height:160px;margin:16px 0;max-width:420px}
+.bars .bcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.bars .bar{width:100%;border-radius:6px 6px 0 0;background:var(--paper-300)}
+.bars .bar.hl{background:var(--green-900)}
+.bars .bv{font-family:var(--font-mono);font-size:.74rem;font-weight:700}
+.bars .bl{font-family:var(--font-mono);font-size:.66rem;color:var(--ink-500)}
+.diff{border:1px solid var(--paper-200);border-radius:var(--r-12);overflow:hidden;max-width:560px;background:#fff}
+.diff .drow{padding:16px 20px;font-size:.9rem}
+.diff .drow.before{background:#FDF3F2;border-bottom:1px solid var(--paper-200);color:var(--ink-500);text-decoration:line-through;text-decoration-color:#B3261E}
+.diff .drow.after{background:var(--green-100)}
+.diff .dtag{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:6px}
+.diff .before .dtag{color:#B3261E}.diff .after .dtag{color:var(--green-900)}
+.iconset{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin:24px 0;max-width:560px}
+.iconset .ic{aspect-ratio:1;border:1px solid var(--paper-200);border-radius:var(--r-8);display:flex;align-items:center;justify-content:center;background:#fff}
+.iconset .ic svg{width:26px;height:26px;stroke:var(--ink-900);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.contrast{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+.contrast .cp{border-radius:var(--r-12);padding:20px;min-width:200px;flex:1}
+.contrast .cp .big{font-family:var(--font-display);font-weight:700;font-size:1.6rem;margin-bottom:4px}
+.contrast .cp .mono{font-family:var(--font-mono);font-size:.7rem;opacity:.75}
+.focusdemo{display:inline-block;padding:14px 28px;border-radius:var(--r-12);background:var(--ink-900);color:#fff;font-weight:600;margin:8px 16px 8px 0}
+.focusdemo:focus-visible{outline:3px solid var(--green-900);outline-offset:3px}
+.touchdemo{display:flex;gap:12px;align-items:center;margin:16px 0}
+.touchdemo .t44{width:44px;height:44px;border-radius:50%;background:var(--green-900);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.touchdemo .t28{width:28px;height:28px;border-radius:50%;background:#B3261E;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:700}
+.bpbar{display:flex;height:56px;border-radius:var(--r-12);overflow:hidden;margin:24px 0;max-width:640px;border:1px solid var(--paper-200)}
+.bpbar div{display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.64rem;color:var(--ink-500)}
+.emailmock{border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;max-width:480px;overflow:hidden;margin:24px 0}
+.emailmock .eh{padding:20px 24px;border-bottom:1px solid var(--paper-200)}
+.emailmock .eb{padding:24px}
+.emailmock .ef{padding:16px 24px;background:var(--paper-100);font-family:var(--font-mono);font-size:.68rem;color:var(--ink-500)}
+.socialmock{border:1px solid var(--paper-200);border-radius:var(--r-16);background:#fff;max-width:380px;padding:20px;margin:0 0 16px}
+.socialmock .sh{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.socialmock .sav{width:36px;height:36px;border-radius:50%;background:var(--ink-900);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+.socialmock .simg{height:140px;border-radius:var(--r-8);background:var(--paper-100);margin:12px 0;position:relative;overflow:hidden}
+.darkdemo{border-radius:var(--r-16);background:#141310;color:#F4F0E4;padding:32px 24px;margin:24px 0;max-width:560px}
+.darkdemo .dh{font-family:var(--font-display);font-weight:700;font-size:1.8rem;margin-bottom:12px}
+.darkdemo .dh .sq{color:var(--green-500)}
+.darkdemo p{color:#B9B2A0;font-size:.92rem}
+.darkdemo .btn-primary{background:var(--green-500);color:#0A1F14}
+.waveform{display:flex;align-items:center;gap:4px;height:64px;margin:20px 0}
+.waveform span{width:6px;border-radius:3px;background:var(--green-900)}
+.bizcard{width:340px;max-width:100%;aspect-ratio:1.586;border-radius:10px;background:#fff;border:1px solid var(--paper-200);padding:24px;display:flex;flex-direction:column;justify-content:space-between;margin:24px 0;box-shadow:none}
+.bizcard .bname{font-family:var(--font-display);font-weight:900;font-size:1.3rem}
+.bizcard .bmeta{font-family:var(--font-mono);font-size:.66rem;color:var(--ink-500);line-height:1.8}
+.lockupdemo{display:flex;align-items:center;gap:32px;padding:28px;border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;max-width:520px;margin:24px 0}
+.lockupdemo .div{width:1px;align-self:stretch;background:var(--paper-300)}
+.lockupdemo .fm{font-family:var(--font-display);font-weight:900;font-size:1.4rem}
+.lockupdemo .pm{font-weight:600;color:var(--ink-500)}
+.rtldemo{border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;padding:24px;max-width:480px;margin:24px 0}
+.checklist{list-style:none;margin:24px 0;max-width:560px}
+.checklist li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--paper-200);font-size:.92rem}
+.checklist .cb{width:22px;height:22px;border-radius:6px;background:var(--green-900);flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;margin-top:2px}
+.checklist .cb.no{background:#fff;border:2px solid var(--paper-300)}
+.imgtreat{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin:24px 0}
+.imgtreat .it{border-radius:var(--r-12);overflow:hidden;border:1px solid var(--paper-200)}
+.imgtreat .im{height:140px;position:relative}
+.imgtreat .il{padding:10px 14px;font-family:var(--font-mono);font-size:.66rem;color:var(--ink-500);background:#fff}
+.duotone{background:linear-gradient(135deg,var(--paper-100),var(--green-100))}
+.duotone::after{content:"";position:absolute;inset:0;background:var(--green-900);mix-blend-mode:multiply;opacity:.28}
+.inkwash{background:linear-gradient(135deg,#E8E2D0,#CFC6AC)}
+.inkwash::after{content:"";position:absolute;inset:0;background:var(--ink-900);mix-blend-mode:multiply;opacity:.22}
+.paperbg{background:var(--paper-0)}
+.grid-demo{position:relative;border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;padding:24px;margin:24px 0;max-width:640px}
+.grid-demo .cols{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.grid-demo .cols div{height:80px;background:var(--green-100);border-radius:4px}
+.grid-demo .cols div.span4{grid-column:span 4}.grid-demo .cols div.span8{grid-column:span 8}
+.motiondemo{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0;align-items:center}
+.motiondemo .md{border:1px solid var(--paper-200);border-radius:var(--r-12);padding:20px;background:#fff;text-align:center;min-width:150px}
+.motiondemo .md .box{width:56px;height:56px;border-radius:12px;background:var(--green-900);margin:0 auto 12px}
+.motiondemo .md:nth-child(1) .box{animation:fadeup 2.4s ease-in-out infinite}
+.motiondemo .md:nth-child(2) .box{animation:pressdemo 2.4s ease-in-out infinite}
+.motiondemo .md:nth-child(3) .box{animation:statedemo 2.4s steps(3) infinite}
+@keyframes fadeup{0%,100%{opacity:.25;transform:translateY(10px)}50%{opacity:1;transform:translateY(0)}}
+@keyframes pressdemo{0%,100%{transform:scale(1)}50%{transform:scale(.92)}}
+@keyframes statedemo{0%{background:var(--paper-300)}33%{background:var(--green-300)}66%{background:var(--green-900)}100%{background:var(--paper-300)}}
+@media (prefers-reduced-motion:reduce){.motiondemo .md .box{animation:none}}
+.motiondemo .ml{font-family:var(--font-mono);font-size:.66rem;color:var(--ink-500)}
+.screen{border:1px solid var(--paper-200);border-radius:var(--r-16);background:#fff;overflow:hidden;max-width:340px;margin:0 0 16px}
+.screen .sb{height:30px;border-bottom:1px solid var(--paper-200);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.6rem;color:var(--ink-500)}
+.screen .sbody{padding:20px}
+.screens{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+.stepdots{display:flex;gap:6px;justify-content:center;margin:16px 0}
+.stepdots span{width:8px;height:8px;border-radius:50%;background:var(--paper-300)}
+.stepdots span.on{background:var(--green-900)}
+.dialog{border:1px solid var(--paper-200);border-radius:var(--r-16);background:#fff;max-width:380px;padding:24px;margin:0 0 16px}
+.dialog .dt{font-weight:700;margin-bottom:8px}
+.dialog .dd{font-size:.9rem;color:var(--ink-500);margin-bottom:20px}
+.dialog .da{display:flex;gap:10px;justify-content:flex-end}
+.sheet{border:1px solid var(--paper-200);border-radius:var(--r-16) var(--r-16) 0 0;background:#fff;max-width:380px;padding:16px 24px 24px;margin:0 0 16px}
+.sheet .grab{width:40px;height:4px;border-radius:2px;background:var(--paper-300);margin:0 auto 16px}
+.toast{display:flex;align-items:center;gap:12px;background:var(--ink-900);color:var(--paper-0);border-radius:var(--r-12);padding:14px 18px;max-width:380px;font-size:.88rem;margin:0 0 16px}
+.toast .sq{flex:none}
+.zlevels{display:flex;gap:0;margin:24px 0;max-width:560px;align-items:flex-end}
+.zlevels .z{flex:1;padding:20px 12px;text-align:center;font-family:var(--font-mono);font-size:.64rem;color:var(--ink-500);border:1px solid var(--paper-200)}
+.zlevels .z0{background:var(--paper-0);border-radius:var(--r-8) 0 0 var(--r-8)}
+.zlevels .z1{background:var(--paper-100)}
+.zlevels .z2{background:var(--paper-200);border-radius:0 var(--r-8) var(--r-8) 0}
+.radiuscale{display:flex;gap:12px;align-items:center;margin:24px 0;flex-wrap:wrap}
+.radiuscale .rs{width:72px;height:72px;background:var(--green-900);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;color:#fff;font-family:var(--font-mono);font-size:.6rem}
+.navbar-demo{border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;margin:0 0 16px;max-width:560px}
+.navbar-demo .nb{display:flex;align-items:center;gap:20px;padding:14px 20px;border-bottom:1px solid var(--paper-200)}
+.navbar-demo .nb .fm{font-family:var(--font-display);font-weight:900}
+.navbar-demo .nb a{font-size:.85rem;font-weight:600;color:var(--ink-500);text-decoration:none}
+.navbar-demo .nb a.on{color:var(--green-900)}
+.tabbar{display:flex;border:1px solid var(--paper-200);border-radius:var(--r-16);background:#fff;max-width:340px;margin:0 0 16px}
+.tabbar a{flex:1;text-align:center;padding:12px 4px 10px;font-size:.66rem;font-weight:600;color:var(--ink-500);text-decoration:none}
+.tabbar a.on{color:var(--green-900)}
+.tabbar a svg{display:block;margin:0 auto 4px;width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.donutwrap{display:flex;gap:24px;align-items:center;margin:20px 0;flex-wrap:wrap}
+.states{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:24px 0}
+.states .st{border:1px solid var(--paper-200);border-radius:var(--r-8);padding:16px;text-align:center;background:#fff}
+.states .st .sl{font-family:var(--font-mono);font-size:.62rem;color:var(--ink-500);margin-top:10px;display:block}
+.btn-disabled{background:var(--paper-200)!important;color:var(--ink-300)!important;cursor:not-allowed}
+.input-disabled{background:var(--paper-100)!important;color:var(--ink-300);border-color:var(--paper-200)!important}
+.formdemo{border:1px solid var(--paper-200);border-radius:var(--r-16);background:#fff;padding:28px;max-width:480px;margin:24px 0}
+.formdemo .ferr{border:1px solid #E5C4C0;background:#FDF3F2;border-radius:var(--r-8);padding:12px 16px;font-size:.85rem;color:#7A1F1A;margin-bottom:20px}
+.template{border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;overflow:hidden;max-width:560px;margin:0 0 16px}
+.template .th{padding:16px 20px;border-bottom:1px solid var(--paper-200);font-weight:700}
+.template .tb{padding:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.template .tb .stat{border:1px solid var(--paper-200);border-radius:var(--r-8);padding:14px}
+.template .tb .stat .n{font-family:var(--font-display);font-weight:700;font-size:1.4rem}
+.template .tb .stat .l2{font-size:.7rem;color:var(--ink-500)}
+.verdict{border:1px solid var(--paper-200);border-radius:var(--r-16);background:#fff;max-width:440px;padding:24px;margin:0 0 16px}
+.verdict .vv{font-family:var(--font-display);font-weight:900;font-size:2rem;margin-bottom:4px}
+.verdict .vc{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-500);margin-bottom:12px}
+.verdict .ve{font-size:.88rem;color:var(--ink-700);border-top:1px solid var(--paper-200);padding-top:12px;margin-top:12px}
+.verdict .vesc{margin-top:12px}
+.picto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px;margin:24px 0;max-width:640px}
+.picto-grid .pg{border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff;padding:20px 12px;text-align:center}
+.picto-grid .pg svg{width:44px;height:44px;stroke:var(--ink-900);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.picto-grid .pg .pl{font-family:var(--font-mono);font-size:.62rem;color:var(--ink-500);margin-top:10px;display:block}
+.picto-grid .pg .acc{stroke:var(--green-900)}
+
+
 .spacebar{display:flex;align-items:center;gap:16px;margin:10px 0}
 .spacebar .bar{background:var(--green-900);height:26px;border-radius:var(--r-4);flex:none}
 .spacebar .t{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-500);min-width:110px}
@@ -246,6 +394,9 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <a class="nl" href="#psychology">Psychology</a>
   <a class="nl" href="#responsive">Responsive</a>
   <a class="nl" href="#texture">Texture</a>
+  <a class="nl" href="#patterns">Patterns</a>
+  <a class="nl" href="#dataviz">Data viz</a>
+  <a class="nl" href="#aipatterns">AI</a>
   <a class="nl" href="#tokens">Tokens</a>
   <a class="nl" href="/design/psychology/" style="color:var(--green-900)">Psychology</a>
 </div></header>
@@ -292,6 +443,16 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <a href="#localization"><span>26</span>Localization</a>
     <a href="#checklist"><span>27</span>Checklist</a>
     <a href="#tokens"><span>28</span>Tokens</a>
+    <a href="#patterns"><span>29</span>Patterns</a>
+    <a href="#overlays"><span>30</span>Overlays</a>
+    <a href="#elevation"><span>31</span>Elevation</a>
+    <a href="#navigation"><span>32</span>Navigation</a>
+    <a href="#dataviz"><span>33</span>Data viz</a>
+    <a href="#illustration"><span>34</span>Illustration</a>
+    <a href="#states"><span>35</span>States</a>
+    <a href="#forms"><span>36</span>Forms</a>
+    <a href="#templates"><span>37</span>Templates</a>
+    <a href="#aipatterns"><span>38</span>AI patterns</a>
   </nav>
 </div>
 
@@ -301,6 +462,20 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">01 · Principles</p>
   <h2 class="display-2 sec-title">Ten principles, one test<span class="sq">■</span></h2>
   <p class="lede">Adapted from Dieter Rams. The test for every element: <em>would removing this break understanding?</em> If not, it goes.</p>
+  <div class="example"><span class="ex-label">The principle, demonstrated</span>
+  <div class="dodont2">
+    <div><span class="ex-label" style="color:#B3261E">Don't — competing figures, decoration</span>
+      <div class="mockpage"><div class="mp-bar"><span class="mp-dot"></span><span class="mp-dot"></span><span class="mp-dot"></span></div>
+      <div class="mp-body"><div class="mp-h" style="width:60%;background:linear-gradient(90deg,#888,#444)"></div>
+      <div class="mp-t" style="width:90%"></div><div class="mp-t" style="width:75%"></div>
+      <div><span class="mp-btn2"></span><span class="mp-btn2" style="background:#B3261E"></span></div>
+      <div class="mp-t" style="width:50%;margin-top:10px"></div></div></div></div>
+    <div><span class="ex-label" style="color:var(--green-900)">Do — one figure, air, one action</span>
+      <div class="mockpage"><div class="mp-bar"><span class="mp-dot"></span><span class="mp-dot"></span><span class="mp-dot"></span></div>
+      <div class="mp-body"><div class="mp-h" style="width:45%"></div>
+      <div class="mp-t" style="width:70%"></div>
+      <div class="mp-btn"></div></div></div></div>
+  </div></div>
   <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>#</th><th>Principle</th><th>What it means here</th></tr>
     <tr><td>1</td><td>Innovative</td><td>Our proof is the innovation — measured numbers, the live demo. Design never gets in its way.</td></tr>
@@ -428,6 +603,11 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">05 · Layout &amp; grid</p>
   <h2 class="display-2 sec-title">The grid is infrastructure<span class="sq">■</span></h2>
   <p class="lede">Twelve columns, fixed gutters, asymmetric splits. Once the grid is fixed, every choice is obeying the system or breaking it — there is no third option.</p>
+  <div class="example"><span class="ex-label">12 columns · 16px gutters</span>
+  <div class="grid-demo"><div class="cols">
+    <div class="span4"></div><div class="span8"></div>
+    <div class="span8"></div><div class="span4"></div>
+  </div></div></div>
   <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Grid</td><td>12 columns · <code>--wrap-max: 76rem</code> · gutters 24px · page padding <code>clamp(1.25rem, 4vw, 2rem)</code>.</td></tr>
@@ -479,6 +659,11 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">07 · Text discipline</p>
   <h2 class="display-2 sec-title">Cut 30%, then cut again<span class="sq">■</span></h2>
   <p class="lede">Writers write to think; readers read to decide. The two needs differ by roughly half the words. Budgets are law, not guidance.</p>
+  <div class="example"><span class="ex-label">Cut 30%, then cut again</span>
+  <div class="diff">
+    <div class="drow before"><span class="dtag">Before · 42 words</span>Our revolutionary next-generation AI-powered platform leverages cutting-edge machine learning to deliver world-class spam detection capabilities that will transform how your business handles unwanted communications forever.</div>
+    <div class="drow after"><span class="dtag">After · 9 words</span>Decisions that learn. 0.38% loop error, measured in public.</div>
+  </div></div>
   <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Role</th><th>Budget</th><th>Why</th></tr>
     <tr><td>Hero headline</td><td>≤ 12 words, ideally ≤ 7</td><td>5-second comprehension test — one fixation sweep.</td></tr>
@@ -582,6 +767,13 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">09 · Data &amp; proof</p>
   <h2 class="display-2 sec-title">Numbers large, words small<span class="sq">■</span></h2>
   <p class="lede">We sell evidence. Figures render at display sizes; explanations at body. The number hits before the paragraph.</p>
+  <div class="example"><span class="ex-label">Precise number, always with context</span>
+  <div class="bars">
+    <div class="bcol"><span class="bv">0.38%</span><div class="bar hl" style="height:36px"></div><span class="bl">Fronesa</span></div>
+    <div class="bcol"><span class="bv">1.71%</span><div class="bar" style="height:120px"></div><span class="bl">Baseline</span></div>
+    <div class="bcol"><span class="bv">n=2,400</span><div class="bar" style="height:0"></div><span class="bl">seed 7</span></div>
+  </div>
+  <p style="font-family:var(--font-mono);font-size:.72rem;color:var(--ink-500)">Loop error · 10% judge noise · same test set</p></div>
   <div class="numgrid">
     <div><p class="bignum">0.38<span class="unit">%</span></p><p class="cap">Loop error, measured. vs 1.71% frozen baseline.</p></div>
     <div><p class="bignum">21.02<span class="unit">ms</span></p><p class="cap">Median decision latency, GPU. p95: 834ms CPU.</p></div>
@@ -608,6 +800,12 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">10 · Imagery</p>
   <h2 class="display-2 sec-title">One artifact per section<span class="sq">■</span></h2>
   <p class="lede">Photography as information, never decoration. One strong, specific artifact beats ten generic illustrations.</p>
+  <div class="example"><span class="ex-label">Approved treatments</span>
+  <div class="imgtreat">
+    <div class="it"><div class="im duotone"></div><div class="il">Green duotone · editorial</div></div>
+    <div class="it"><div class="im inkwash"></div><div class="il">Ink wash · diagrams</div></div>
+    <div class="it"><div class="im paperbg" style="border-bottom:1px solid var(--paper-200)"></div><div class="il">Untreated · paper ground</div></div>
+  </div></div>
   <ul class="rules">
     <li><b>The object strategy.</b> Each major section gets one perfect artifact — the live demo console, a real verdict receipt, a measured chart. No stock photography of "teams collaborating."</li>
     <li><b>When photography appears:</b> documentary, available light, no color grading toward brand hues. People only if real; never staged "customers."</li>
@@ -635,6 +833,12 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">12 · Motion</p>
   <h2 class="display-2 sec-title">Motion reveals<span class="sq">■</span></h2>
   <p class="lede">Nothing moves without narrative purpose. Animation is permitted for: state-change feedback, revelation timing, loading. Nothing else.</p>
+  <div class="example"><span class="ex-label">Motion reveals state — live</span>
+  <div class="motiondemo">
+    <div class="md"><div class="box"></div><span class="ml">reveal · 240ms ease-out</span></div>
+    <div class="md"><div class="box"></div><span class="ml">press · scale .92</span></div>
+    <div class="md"><div class="box"></div><span class="ml">state · paper→green</span></div>
+  </div></div><div class="example"><span class="ex-label">2px stroke · round caps · 24px grid</span><div class="iconset"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 12l2 2 4-4"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 4h9l4 4v12H6z"/><path d="M15 4v4h4"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 7l8 6 8-6"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div></div></div>
   <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Token</th><th>Value</th><th>Use</th></tr>
     <tr><td><code>--dur-micro</code></td><td>120ms</td><td>Hover, focus</td></tr>
@@ -676,6 +880,21 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">14 · Psychology</p>
   <h2 class="display-2 sec-title">The causal layer<span class="sq">■</span></h2>
   <p class="lede">Every rule above rests on one of these mechanisms. When two rules conflict, the deeper mechanism wins.</p>
+  <div class="example"><span class="ex-label">Twelve mechanisms — full page</span>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0">
+    <a class="chip" href="/design/psychology/#mechanisms">fluency → truth</a>
+    <a class="chip" href="/design/psychology/#mechanisms">50ms judgment</a>
+    <a class="chip" href="/design/psychology/#mechanisms">costly signaling</a>
+    <a class="chip" href="/design/psychology/#mechanisms">precision effect</a>
+    <a class="chip" href="/design/psychology/#mechanisms">von Restorff</a>
+    <a class="chip" href="/design/psychology/#mechanisms">proximity</a>
+    <a class="chip" href="/design/psychology/#mechanisms">figure–ground</a>
+    <a class="chip" href="/design/psychology/#mechanisms">layer-cake scan</a>
+    <a class="chip" href="/design/psychology/#mechanisms">Hick's law</a>
+    <a class="chip" href="/design/psychology/#mechanisms">cognitive load</a>
+    <a class="chip" href="/design/psychology/#mechanisms">calibrated trust</a>
+    <a class="chip" href="/design/psychology/#mechanisms">whitespace value</a>
+  </div></div>
   <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Mechanism</th><th>What it means</th><th>Where it bites</th></tr>
     <tr><td>Processing fluency</td><td>Ease of processing is misattributed as truth, quality, trust. (Reber 2004)</td><td>Minimalism, restraint, plain sentences</td></tr>
@@ -775,6 +994,40 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">20 · Texture</p>
   <h2 class="display-2 sec-title">Paper, not pixels<span class="sq">■</span></h2>
   <p class="lede">Our surfaces feel like paper. Subtle grain, hairline rules — never shadows, never gradients.</p>
+  <div class="example"><span class="ex-label">Dark is ink, not inverted paper</span>
+  <div class="darkdemo"><p class="dh">Decisions that learn<span class="sq">■</span></p>
+  <p>Signal green <code style="background:#2A2A22">#4A9E6B</code> replaces decision green on dark grounds. Paper becomes ink; hierarchy stays identical.</p>
+  <p style="margin-top:16px"><a class="btn btn-primary" style="min-height:40px;font-size:.9rem" href="#darkmode">Decide</a></p></div></div>
+  <div class="example"><span class="ex-label">Posts are evidence, not announcements</span>
+  <div class="socialmock"><div class="sh"><span class="sav">F</span><div><div style="font-weight:700;font-size:.85rem">Fronesa</div><div style="font-size:.72rem;color:var(--ink-500)">@fronesa · 2h</div></div></div>
+  <p style="font-size:.9rem">0.38% loop error this week. Same test set, seed 7, measured in public.</p>
+  <div class="simg duotone"></div>
+  <p style="font-family:var(--font-mono);font-size:.68rem;color:var(--ink-500)">fronesa.ai/lab-numbers</p></div></div>
+  <div class="example"><span class="ex-label">One idea per email</span>
+  <div class="emailmock">
+    <div class="eh"><p style="font-family:var(--font-display);font-weight:900;margin-bottom:4px">Fronesa<span class="sq">■</span></p><p style="font-size:.85rem;color:var(--ink-500);margin:0">Your weekly verdict summary</p></div>
+    <div class="eb"><p style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;margin-bottom:8px">2,400 decisions. 0.38% error.</p><p style="font-size:.9rem;color:var(--ink-500)">Measured in public, seed 7. Three needed a human — all escalated.</p><p style="margin-top:16px"><a class="btn btn-primary" style="min-height:40px;font-size:.9rem" href="#email">Open the log</a></p></div>
+    <div class="ef">Fronesa is a trademark. All rights reserved. · Unsubscribe</div>
+  </div></div>
+  <div class="example"><span class="ex-label">Breakpoints — content reflows, never clips</span>
+  <div class="bpbar">
+    <div style="flex:0 0 18%;background:var(--green-100)">320</div>
+    <div style="flex:0 0 14%;background:var(--paper-100)">390</div>
+    <div style="flex:0 0 22%;background:var(--green-100)">768</div>
+    <div style="flex:0 0 20%;background:var(--paper-100)">1024</div>
+    <div style="flex:1;background:var(--green-100)">1440</div>
+  </div>
+  <p style="font-family:var(--font-mono);font-size:.72rem;color:var(--ink-500)">Fluid between · gated at each width · zero horizontal overflow</p></div>
+  <div class="example"><span class="ex-label">Contrast pairs</span>
+  <div class="contrast">
+    <div class="cp" style="background:var(--paper-0);border:1px solid var(--paper-200);color:var(--ink-900)"><div class="big">Aa</div><div class="mono">Ink on paper · 15.2:1 · AAA</div></div>
+    <div class="cp" style="background:var(--paper-0);border:1px solid var(--paper-200);color:var(--green-900)"><div class="big">Aa</div><div class="mono">Green on paper · 7.1:1 · AAA</div></div>
+    <div class="cp" style="background:var(--ink-900);color:var(--paper-0)"><div class="big">Aa</div><div class="mono">Paper on ink · 15.2:1 · AAA</div></div>
+  </div></div>
+  <div class="example"><span class="ex-label">Focus is always visible — tab to test</span>
+  <div><a class="focusdemo" href="#accessibility">Decide</a><a class="focusdemo" style="background:#fff;color:var(--ink-900);border:1px solid var(--paper-300)" href="#accessibility">Cancel</a></div></div>
+  <div class="example"><span class="ex-label">Touch targets</span>
+  <div class="touchdemo"><span class="t44">✓</span><span style="font-size:.85rem">44px minimum</span><span class="t28" style="margin-left:24px">✕</span><span style="font-size:.85rem">28px — too small</span></div></div>
   <div class="texswatches">
     <div class="tex"><div class="t grain"></div><div class="l"><b>Paper grain</b>4% noise · light grounds only</div></div>
     <div class="tex"><div class="t hairlines"></div><div class="l"><b>Hairline rules</b>1px · within dense info only</div></div>
@@ -794,6 +1047,9 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">21 · Sound</p>
   <h2 class="display-2 sec-title">Quiet confidence<span class="sq">■</span></h2>
   <p class="lede">Interface sounds are rare, short, and in one family. Most actions are silent.</p>
+  <div class="example"><span class="ex-label">One tone family — verdict rendered</span>
+  <div class="waveform"><span style="height:16px"></span><span style="height:32px"></span><span style="height:48px"></span><span style="height:64px"></span><span style="height:48px"></span><span style="height:32px"></span><span style="height:16px"></span><span style="height:24px"></span><span style="height:40px"></span><span style="height:24px"></span></div>
+  <p style="font-family:var(--font-mono);font-size:.72rem;color:var(--ink-500)">Single soft tone · ≤300ms · one tone for all verdicts</p></div>
   <ul class="rules">
     <li><b>Verdict rendered:</b> single soft tone, ≤ 300ms, low volume. One tone for all verdicts — pitch never encodes meaning.</li>
     <li><b>Error:</b> lower, duller variant of the same tone. Never alarming.</li>
@@ -867,6 +1123,28 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">27 · Ship checklist</p>
   <h2 class="display-2 sec-title">The gate<span class="sq">■</span></h2>
   <p class="lede">Every surface passes every item before it ships. A single failure blocks.</p>
+  <div class="example"><span class="ex-label">Ship gate — all green or it doesn't ship</span>
+  <ul class="checklist">
+    <li><span class="cb">✓</span>Zero horizontal overflow at 320 / 390 / 768 / 1024 / 1440</li>
+    <li><span class="cb">✓</span>One primary action per viewport · 44px minimum</li>
+    <li><span class="cb">✓</span>Every number carries what, vs what, how measured</li>
+    <li><span class="cb no"></span>No transparency, no glow, no gradients, no shadows</li>
+    <li><span class="cb no"></span>No typo, no lorem ipsum, no invented precision</li>
+  </ul></div>
+  <div class="example"><span class="ex-label">RTL — the square stays terminal</span>
+  <div class="rtldemo" dir="rtl"><p style="font-family:var(--font-display);font-weight:700;font-size:1.4rem">قرارات تتعلّم<span class="sq">■</span></p>
+  <p style="font-size:.88rem;color:var(--ink-500)">Logical properties flip layout; the green square remains the terminal mark.</p></div></div>
+  <div class="example"><span class="ex-label">First mention only</span>
+  <p style="font-size:.95rem;max-width:var(--measure)">Fronesa™ routes every message through a decision API. Subsequent mentions of Fronesa carry no mark — not in headlines, not on the wordmark, not on the avatar.</p></div>
+  <div class="example"><span class="ex-label">Fronesa + plain descriptor</span>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">
+    <span class="badge badge-ink">Fronesa Decide</span><span class="badge badge-ink">Fronesa Label</span><span class="badge badge-line">Fronesa AI ✕</span><span class="badge badge-line">Fronesa™ in headline ✕</span>
+  </div></div>
+  <div class="example"><span class="ex-label">Fronesa leads · 2S clearspace · hairline divider</span>
+  <div class="lockupdemo"><span class="fm">Fronesa<span class="sq">■</span></span><span class="div"></span><span class="pm">Partner</span></div></div>
+  <div class="example"><span class="ex-label">90 × 50mm · uncoated warm white</span>
+  <div class="bizcard"><div class="bname">Fronesa<span class="sq">■</span></div>
+  <div class="bmeta">decisions that learn<br>fronesa.ai<br>hello@fronesa.ai</div></div></div>
   <ul class="check">
     <li>Every radius, spacing, color, duration is a token from §21.</li>
     <li>Zero horizontal overflow at 320 / 390 / 768 / 1024 / 1440 — measured.</li>
@@ -920,6 +1198,200 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
 </div></section>
 </main>
 
+<!-- 29 PATTERNS -->
+<section class="chapter" id="patterns"><div class="wrap">
+  <p class="sec-index">29 · Patterns</p>
+  <h2 class="display-2 sec-title">Composed screens<span class="sq">■</span></h2>
+  <p class="lede">Components compose into flows. Three canonical patterns.</p>
+  <div class="example"><span class="ex-label">Onboarding — three steps, one idea each</span>
+  <div class="screens">
+    <div class="screen"><div class="sb">1 / 3</div><div class="sbody"><p style="font-family:var(--font-display);font-weight:700;font-size:1.2rem">Connect a source</p><p style="font-size:.85rem;color:var(--ink-500)">Point Fronesa at the stream you want judged.</p><div class="stepdots"><span class="on"></span><span></span><span></span></div><a class="btn btn-primary" style="width:100%;min-height:40px;font-size:.9rem" href="#patterns">Continue</a></div></div>
+    <div class="screen"><div class="sb">2 / 3</div><div class="sbody"><p style="font-family:var(--font-display);font-weight:700;font-size:1.2rem">Confirm labels</p><p style="font-size:.85rem;color:var(--ink-500)">Correct three verdicts. The loop learns from you.</p><div class="stepdots"><span></span><span class="on"></span><span></span></div><a class="btn btn-primary" style="width:100%;min-height:40px;font-size:.9rem" href="#patterns">Continue</a></div></div>
+    <div class="screen"><div class="sb">3 / 3</div><div class="sbody"><p style="font-family:var(--font-display);font-weight:700;font-size:1.2rem">Go live</p><p style="font-size:.85rem;color:var(--ink-500)">Every decision measured, every number public.</p><div class="stepdots"><span></span><span></span><span class="on"></span></div><a class="btn btn-primary" style="width:100%;min-height:40px;font-size:.9rem" href="#patterns">Decide</a></div></div>
+  </div></div>
+  <ul class="rules">
+    <li><b>Search:</b> input → scoped results → empty state. Never a blank page.</li>
+    <li><b>Settings:</b> grouped sections, one save per group, inline confirmation.</li>
+  </ul>
+</div></section>
+
+<!-- 30 OVERLAYS -->
+<section class="chapter" id="overlays"><div class="wrap">
+  <p class="sec-index">30 · Overlays</p>
+  <h2 class="display-2 sec-title">Interrupt rarely<span class="sq">■</span></h2>
+  <p class="lede">Three levels of interruption. Most things are not dialogs.</p>
+  <div class="example"><span class="ex-label">Dialog — destructive confirm only</span>
+  <div class="dialog"><p class="dt">Delete this label set?</p><p class="dd">2,400 labels will be removed. This can't be undone.</p><div class="da"><a class="btn btn-secondary" style="min-height:40px;font-size:.9rem" href="#overlays">Cancel</a><a class="btn btn-primary" style="min-height:40px;font-size:.9rem;background:#B3261E" href="#overlays">Delete</a></div></div></div>
+  <div class="example"><span class="ex-label">Sheet — mobile detail</span>
+  <div class="sheet"><div class="grab"></div><p style="font-weight:700">Verdict #1,204</p><p style="font-size:.88rem;color:var(--ink-500)">ham · 0.38% spam score · calibrated, seed 7.</p></div></div>
+  <div class="example"><span class="ex-label">Toast — transient confirm</span>
+  <div class="toast"><span class="sq">■</span>Label saved. The loop retrains tonight.</div></div>
+  <ul class="rules">
+    <li><b>Dialogs</b> for destructive or irreversible actions only.</li>
+    <li><b>Sheets</b> for detail on mobile; <b>toasts</b> for confirmations that need no action.</li>
+    <li>One overlay at a time. Never stack.</li>
+  </ul>
+</div></section>
+
+<!-- 31 ELEVATION -->
+<section class="chapter" id="elevation"><div class="wrap">
+  <p class="sec-index">31 · Elevation &amp; shape</p>
+  <h2 class="display-2 sec-title">Depth without shadows<span class="sq">■</span></h2>
+  <p class="lede">No drop shadows — ever. Layering is expressed through ground-color steps.</p>
+  <div class="example"><span class="ex-label">Three z-levels, flat</span>
+  <div class="zlevels"><div class="z z0">z0 · paper-0<br>base</div><div class="z z1">z1 · paper-100<br>raised</div><div class="z z2">z2 · paper-200<br>overlay</div></div></div>
+  <div class="example"><span class="ex-label">Corner radius scale</span>
+  <div class="radiuscale">
+    <span class="rs" style="border-radius:4px">4</span><span class="rs" style="border-radius:8px">8</span><span class="rs" style="border-radius:12px">12</span><span class="rs" style="border-radius:16px">16</span><span class="rs" style="border-radius:999px">full</span>
+  </div></div>
+  <ul class="rules">
+    <li>4px: chips, tags · 8px: inputs · 12px: buttons, cards · 16px: dialogs, sheets · full: toggles, avatars.</li>
+    <li>The decision square is always 0px. No exceptions.</li>
+  </ul>
+</div></section>
+
+<!-- 32 NAVIGATION -->
+<section class="chapter" id="navigation"><div class="wrap">
+  <p class="sec-index">32 · Navigation</p>
+  <h2 class="display-2 sec-title">Always oriented<span class="sq">■</span></h2>
+  <div class="example"><span class="ex-label">Desktop header</span>
+  <div class="navbar-demo"><div class="nb"><span class="fm">Fronesa<span class="sq">■</span></span><a href="#navigation" class="on">Decide</a><a href="#navigation">Labels</a><a href="#navigation">Proof</a><a href="#navigation">API</a></div></div></div>
+  <div class="example"><span class="ex-label">Mobile tab bar — max 4</span>
+  <div class="tabbar">
+    <a href="#navigation" class="on"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg>Decide</a>
+    <a href="#navigation"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 12l2 2 4-4"/></svg>Labels</a>
+    <a href="#navigation"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>Proof</a>
+    <a href="#navigation"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>Account</a>
+  </div></div>
+  <ul class="rules">
+    <li>Current location always marked green. No mystery-meat navigation.</li>
+    <li>Mobile: ≤ 4 tabs. Everything else lives under Account.</li>
+  </ul>
+</div></section>
+
+<!-- 33 DATAVIZ -->
+<section class="chapter" id="dataviz"><div class="wrap">
+  <p class="sec-index">33 · Data visualization</p>
+  <h2 class="display-2 sec-title">Charts in three inks<span class="sq">■</span></h2>
+  <p class="lede">Ink, paper, one green. Axes labeled, always. No 3D, no gradients.</p>
+  <div class="example"><span class="ex-label">Line — error over time</span>
+  <svg viewBox="0 0 400 160" style="width:100%;max-width:440px;background:#fff;border:1px solid var(--paper-200);border-radius:12px">
+    <polyline points="10,30 60,44 110,52 160,70 210,84 260,100 310,118 360,130" fill="none" stroke="#0F5132" stroke-width="3" stroke-linecap="round"/>
+    <line x1="10" y1="145" x2="390" y2="145" stroke="#EAE4D2" stroke-width="1"/>
+    <text x="10" y="158" font-size="9" fill="#8A8474" font-family="monospace">wk1</text><text x="360" y="158" font-size="9" fill="#8A8474" font-family="monospace">wk8</text>
+  </svg></div>
+  <div class="example"><span class="ex-label">Donut — verdict split</span>
+  <div class="donutwrap">
+    <svg width="140" height="140" viewBox="0 0 140 140"><circle cx="70" cy="70" r="54" fill="none" stroke="#EAE4D2" stroke-width="20"/><circle cx="70" cy="70" r="54" fill="none" stroke="#0F5132" stroke-width="20" stroke-dasharray="305 339" stroke-linecap="round" transform="rotate(-90 70 70)"/><text x="70" y="76" text-anchor="middle" font-size="20" font-weight="700" fill="#16150F" font-family="Fraunces,serif">90%</text></svg>
+    <div style="font-size:.85rem"><p><span class="sq">■</span> <b>ham</b> — 90%</p><p><span style="color:var(--paper-300)">■</span> <b>spam</b> — 9%</p><p><span style="color:var(--ink-300)">■</span> <b>escalated</b> — 1%</p></div>
+  </div></div>
+  <ul class="rules">
+    <li>Palette: ink for series, green for the story, paper for the rest.</li>
+    <li>Direct-label the line. Legends only when ≥ 3 series.</li>
+  </ul>
+</div></section>
+
+<!-- 34 ILLUSTRATION -->
+<section class="chapter" id="illustration"><div class="wrap">
+  <p class="sec-index">34 · Illustration</p>
+  <h2 class="display-2 sec-title">Line, not clip-art<span class="sq">■</span></h2>
+  <p class="lede">Pictograms explain mechanisms. Photography shows evidence. Never the reverse.</p>
+  <div class="example"><span class="ex-label">1.8px stroke · ink with one green accent</span>
+  <div class="picto-grid">
+    <div class="pg"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path class="acc" d="M24 14v10l7 7"/></svg><span class="pl">decide</span></div>
+    <div class="pg"><svg viewBox="0 0 48 48"><rect x="10" y="10" width="28" height="28" rx="4"/><path class="acc" d="M18 24l5 5 9-9"/></svg><span class="pl">verify</span></div>
+    <div class="pg"><svg viewBox="0 0 48 48"><path d="M8 36c8-2 10-10 8-18M24 38V10M40 36c-8-2-10-10-8-18"/><path class="acc" d="M24 10l-6 6M24 10l6 6"/></svg><span class="pl">learn</span></div>
+    <div class="pg"><svg viewBox="0 0 48 48"><path d="M24 6l14 7v9c0 9-6 14-14 16-8-2-14-7-14-16v-9z"/><path class="acc" d="M18 24l5 5 9-9"/></svg><span class="pl">protect</span></div>
+    <div class="pg"><svg viewBox="0 0 48 48"><circle cx="18" cy="18" r="10"/><path d="M26 26l12 12"/><path class="acc" d="M14 18h8"/></svg><span class="pl">inspect</span></div>
+    <div class="pg"><svg viewBox="0 0 48 48"><path d="M10 24h28M10 24l6-6M10 24l6 6M38 24l-6-6M38 24l-6 6"/></svg><span class="pl">compare</span></div>
+  </div></div>
+  <ul class="rules">
+    <li>One green accent per pictogram, marking the meaningful part.</li>
+    <li>Never: gradients, drop shadows, faces, hands, stock metaphors.</li>
+  </ul>
+</div></section>
+
+<!-- 35 STATES -->
+<section class="chapter" id="states"><div class="wrap">
+  <p class="sec-index">35 · Interaction states</p>
+  <h2 class="display-2 sec-title">Every state, shown<span class="sq">■</span></h2>
+  <p class="lede">One state per component is a lie. Six states, side by side.</p>
+  <div class="example"><span class="ex-label">Button</span>
+  <div class="states">
+    <div class="st"><a class="btn btn-primary" style="min-height:40px;font-size:.85rem" href="#states">Decide</a><span class="sl">rest</span></div>
+    <div class="st"><a class="btn btn-primary" style="min-height:40px;font-size:.85rem;transform:scale(.96)" href="#states">Decide</a><span class="sl">pressed · scale .96</span></div>
+    <div class="st"><a class="btn btn-primary btn-disabled" style="min-height:40px;font-size:.85rem" href="#states">Decide</a><span class="sl">disabled</span></div>
+    <div class="st"><a class="btn btn-primary" style="min-height:40px;font-size:.85rem;opacity:.7" href="#states">Decide</a><span class="sl">loading · 70%</span></div>
+    <div class="st"><a class="btn btn-secondary" style="min-height:40px;font-size:.85rem" href="#states">Decide</a><span class="sl">secondary</span></div>
+    <div class="st"><a class="btn btn-primary" style="min-height:40px;font-size:.85rem;outline:3px solid var(--green-900);outline-offset:3px" href="#states">Decide</a><span class="sl">focus · 3px ring</span></div>
+  </div></div>
+  <div class="example"><span class="ex-label">Input</span>
+  <div class="states">
+    <div class="st"><input class="input" placeholder="Placeholder" aria-label="rest"><span class="sl">rest</span></div>
+    <div class="st"><input class="input" value="hello@fronesa.ai" aria-label="filled"><span class="sl">filled</span></div>
+    <div class="st"><input class="input input-disabled" value="Locked" disabled aria-label="disabled"><span class="sl">disabled</span></div>
+    <div class="st"><input class="input" value="not-an-email" style="border-color:#B3261E" aria-label="error"><span class="sl">error · red + message</span></div>
+  </div></div>
+</div></section>
+
+<!-- 36 FORMS -->
+<section class="chapter" id="forms"><div class="wrap">
+  <p class="sec-index">36 · Forms</p>
+  <h2 class="display-2 sec-title">Complete forms<span class="sq">■</span></h2>
+  <p class="lede">Not inputs alone — the whole form, with validation.</p>
+  <div class="example"><span class="ex-label">Label above · inline errors · error summary</span>
+  <div class="formdemo">
+    <div class="ferr"><b>2 fields need attention:</b> work email, team size.</div>
+    <div class="field"><label for="f36a">Work email</label><input class="input" id="f36a" value="not-an-email" style="border-color:#B3261E"><p class="err-msg">Enter a valid work email.</p></div>
+    <div class="field"><label for="f36b">Team size</label><select class="select" id="f36b"><option>Select…</option><option>1–10</option><option>11–50</option></select></div>
+    <div class="field" style="margin-bottom:0"><label class="checkbox"><input type="checkbox" checked>Weekly proof digest</label></div>
+    <p style="margin-top:20px"><a class="btn btn-primary" href="#forms">Create account</a></p>
+  </div></div>
+  <ul class="rules">
+    <li>Errors inline at the field AND summarized at top. Never color alone.</li>
+    <li>One column. Labels above. Related fields grouped with 32px between groups.</li>
+  </ul>
+</div></section>
+
+<!-- 37 TEMPLATES -->
+<section class="chapter" id="templates"><div class="wrap">
+  <p class="sec-index">37 · Page templates</p>
+  <h2 class="display-2 sec-title">Canonical pages<span class="sq">■</span></h2>
+  <div class="example"><span class="ex-label">Dashboard</span>
+  <div class="template"><div class="th">This week<span class="sq">■</span></div><div class="tb">
+    <div class="stat"><div class="n">0.38%</div><div class="l2">loop error</div></div>
+    <div class="stat"><div class="n">2,400</div><div class="l2">decisions</div></div>
+    <div class="stat"><div class="n">3</div><div class="l2">escalated</div></div>
+  </div></div></div>
+  <div class="example"><span class="ex-label">Settings</span>
+  <div class="template"><div class="th">Model</div><div class="tb" style="grid-template-columns:1fr">
+    <label class="switch"><input type="checkbox" checked><span class="trk"></span>Nightly retrain</label>
+    <label class="switch"><input type="checkbox"><span class="trk"></span>Human review required</label>
+  </div></div></div>
+  <ul class="rules">
+    <li>New pages start from a template, never a blank canvas.</li>
+  </ul>
+</div></section>
+
+<!-- 38 AI -->
+<section class="chapter" id="aipatterns"><div class="wrap">
+  <p class="sec-index">38 · AI patterns</p>
+  <h2 class="display-2 sec-title">Verdicts, explained<span class="sq">■</span></h2>
+  <p class="lede">Our product is automated judgment. Its UI is trust infrastructure.</p>
+  <div class="example"><span class="ex-label">Verdict card — decision, confidence, reason, escape</span>
+  <div class="verdict">
+    <p class="vv">ham<span class="sq">■</span></p>
+    <p class="vc">confidence 0.962 · calibrated, seed 7 · 41ms</p>
+    <div class="chips" style="margin-bottom:4px"><span class="chip">no bulk headers</span><span class="chip">known sender</span></div>
+    <p class="ve">Why: sender reputation and header structure match legitimate mail. Falsifiable — check the headers.</p>
+    <p class="vesc"><a class="btn btn-secondary" style="min-height:40px;font-size:.88rem" href="#aipatterns">Escalate to human</a></p>
+  </div></div>
+  <ul class="rules">
+    <li><b>Every automated verdict shows:</b> the decision, a calibrated confidence, a falsifiable reason, and a human escape hatch.</li>
+    <li><b>Never</b> present binary certainty. Never hide the escalation path.</li>
+    <li><b>Streaming:</b> verdicts render complete, never token-by-token. Decisions aren't chat.</li>
+  </ul>
+</div></section>
 <footer><div class="wrap">
   <p class="fbrand">Fronesa<span class="sq">■</span></p>
   <p>FDL v2.0 · 2026-10-08 · Active — the single source of truth.<br>
@@ -935,6 +1407,27 @@ document.getElementById('copytokens').addEventListener('click', async (e) => {
   catch (_) { e.target.textContent = 'Select & copy manually'; }
   setTimeout(() => e.target.textContent = 'Copy tokens', 2000);
 });
+</script>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topbar a.nl[href^="#"]'));
+  var map={};
+  links.forEach(function(a){var t=document.querySelector(a.getAttribute('href'));if(t)map[t.id]=a;});
+  if(!links.length)return;
+  var obs=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active')});
+        var a=map[e.target.id];
+        if(a){a.classList.add('active');
+          var nav=a.closest('.topbar').querySelector('.wrap');
+          if(nav){nav.scrollTo({left:a.offsetLeft-nav.clientWidth/2+a.clientWidth/2,behavior:'smooth'});}}
+      }
+    });
+  },{rootMargin:'-40% 0px -40% 0px'});
+  Object.keys(map).forEach(function(id){obs.observe(document.getElementById(id))});
+})();
 </script>
 </body>
 </html>
