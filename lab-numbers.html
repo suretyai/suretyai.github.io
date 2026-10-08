@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why we publish our lab numbers. — Fronesa</title>
+<meta name="description" content="Every figure on our homepage has an address: a versioned lab run, with the same harness, the same data, and a frozen baseline. Here's what we measured, how, and what we won't claim.">
+<link rel="canonical" href="https://suretyai.github.io/lab-numbers.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why we publish our lab numbers.">
+<meta property="og:description" content="Every figure on our homepage has an address: a versioned lab run, with the same harness, the same data, and a frozen baseline.">
+<meta property="og:url" content="https://suretyai.github.io/lab-numbers.html">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why we publish our lab numbers.">
+<meta name="twitter:description" content="Every figure on our homepage has an address: a versioned lab run, with the same harness, the same data, and a frozen baseline.">
+<meta name="twitter:image" content="https://suretyai.github.io/og-image.png">
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<style>
+@font-face {
+  font-family: "Fraunces";
+  src: url("assets/fonts/fraunces-latin.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --paper:  #fbfaf7;
+  --ink:    #16150f;
+  --green:  #0f5132;
+  --hair:   #e3ded1;
+  --muted:  #6e695c;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:  ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--green); color: var(--paper); }
+a { color: inherit; }
+.wrap { max-width: 44rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--hair);
+}
+.nav-inner {
+  max-width: 72rem; margin: 0 auto; padding: 0 1.25rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 4.25rem;
+}
+.nav-brand { font-family: var(--font-serif); font-weight: 900; font-size: 1.5rem; text-decoration: none; letter-spacing: -0.01em; }
+.nav-brand .sq { display: inline-block; width: .42em; height: .42em; background: var(--green); margin-left: .06em; }
+.nav-links { display: flex; gap: 1.75rem; font-size: .95rem; font-weight: 600; }
+.nav-links a { text-decoration: none; }
+.nav-links a:hover { text-decoration: underline; text-decoration-color: var(--green); text-underline-offset: .3em; }
+@media (max-width: 560px) { .nav-links { gap: 1rem; font-size: .875rem; } }
+
+/* ---------- article ---------- */
+.article { padding: 4.5rem 0 5rem; }
+.kicker {
+  font-family: var(--font-mono); font-size: .8rem; letter-spacing: .14em;
+  color: var(--muted); margin-bottom: 1.5rem;
+}
+.kicker .sq { display: inline-block; width: .55em; height: .55em; background: var(--green); margin-right: .6em; vertical-align: baseline; }
+h1 {
+  font-family: var(--font-serif); font-weight: 900;
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  line-height: 1.02; letter-spacing: -0.015em;
+  margin-bottom: 1.25rem;
+}
+h1 .sq { display: inline-block; width: .32em; height: .32em; background: var(--green); margin-left: .05em; }
+.dek { font-size: 1.2rem; color: var(--ink); max-width: 36rem; margin-bottom: 3rem; }
+h2 {
+  font-family: var(--font-serif); font-weight: 900;
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  line-height: 1.15; letter-spacing: -0.01em;
+  margin: 3rem 0 1rem;
+}
+h2 .num { color: var(--green); }
+.article p { margin-bottom: 1.25rem; max-width: 38rem; }
+.caveat {
+  border-left: 3px solid var(--green);
+  padding: .25rem 0 .25rem 1.1rem;
+  margin: 1.5rem 0 1.75rem;
+  max-width: 38rem;
+}
+.caveat .lbl {
+  font-family: var(--font-mono); font-size: .75rem; letter-spacing: .14em;
+  color: var(--muted); display: block; margin-bottom: .35rem;
+}
+.rule { border: 0; border-top: 1px solid var(--hair); margin: 3rem 0; }
+.signoff { margin-top: 3.5rem; font-family: var(--font-serif); font-weight: 700; font-size: 1.25rem; }
+.signoff .sq { display: inline-block; width: .4em; height: .4em; background: var(--green); margin-left: .1em; }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid var(--hair); padding: 2.5rem 0 3rem; }
+.footer-inner { max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+.footer .mission { font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem; max-width: 26rem; }
+.footer .mission .sq { display: inline-block; width: .4em; height: .4em; background: var(--green); margin-left: .08em; }
+.footer .meta { font-size: .85rem; color: var(--muted); line-height: 1.8; }
+.footer .meta a { text-decoration: none; }
+.footer .meta a:hover { text-decoration: underline; }
+
+a:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print {
+  .nav { position: static; }
+  body { font-size: 11pt; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">Fronesa<span class="sq" aria-hidden="true"></span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/#how">How it works</a>
+      <a href="/#measurements">Measurements</a>
+      <a href="/try-it.html">Try the demo</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<article class="article">
+  <div class="wrap">
+
+    <p class="kicker"><span class="sq" aria-hidden="true"></span>FRONESA &middot; LAB NOTEBOOK &middot; OCTOBER 2026</p>
+
+    <h1>Why we publish our lab numbers<span class="sq" aria-hidden="true"></span></h1>
+
+    <p class="dek">Every figure on our homepage has an address: a versioned lab run, with the same harness, the same data, and a frozen baseline. Here&rsquo;s what we measured, how, and what we won&rsquo;t claim.</p>
+
+    <p>Most companies show you a multiplier. &ldquo;4.5&times; better.&rdquo; &ldquo;20&times; faster.&rdquo; Numbers that can&rsquo;t be checked, because there was no experiment.</p>
+
+    <p>Every figure on our homepage has an address: a versioned lab run, on synthetic drift, with the same harness, the same data, and a frozen baseline. Here&rsquo;s what we measured, how, and what we won&rsquo;t claim.</p>
+
+    <hr class="rule">
+
+    <h2><span class="num">0.38%</span> vs <span class="num">1.71%</span> &mdash; the loop, against a frozen model.</h2>
+
+    <p>This is the v0 lab run. We built two pipelines and pointed them at the same synthetic drift: one that learns from its uncertain calls, one that stays frozen. Six simulated weeks in, the learning loop&rsquo;s error rate was 0.38%. The frozen model&rsquo;s was 1.71%.</p>
+
+    <p>That&rsquo;s the whole argument for Fronesa in two bars. We publish both numbers &mdash; including the baseline we beat &mdash; because a chart with one bar is a slogan, not a measurement.</p>
+
+    <div class="caveat">
+      <span class="lbl">WHAT WE WON&rsquo;T CLAIM</span>
+      <p style="margin-bottom:0">That your drift will look like our synthetic drift. It won&rsquo;t. Ours is a lab proxy, and the footer of the site says so.</p>
+    </div>
+
+    <h2><span class="num">21 ms</span> &mdash; the cost of a decision.</h2>
+
+    <p>Median latency per decision for v1, measured on GPU (p95 23 ms). We print it because &ldquo;real-time&rdquo; is a word people hide behind, and a number can&rsquo;t be. If your integration adds round-trip time on top, that&rsquo;s yours to measure &mdash; but ours starts at twenty-one milliseconds.</p>
+
+    <div class="caveat">
+      <span class="lbl">WHAT WE WON&rsquo;T CLAIM</span>
+      <p style="margin-bottom:0">A CPU number at this speed. The 21 ms figure comes from a GPU lab run (Kaggle, 2026-10-04); no 21 ms CPU measurement exists in our records. We also measured the same v1 pipeline on CPU &mdash; median 293 ms, p95 834 ms (n=200) &mdash; which is why we run this model on GPU.</p>
+    </div>
+
+    <h2><span class="num">15.1%</span> to <span class="num">12.2%</span> &mdash; the escalation rate, first week to last.</h2>
+
+    <p>Escalation is the metric we watch most closely, because it&rsquo;s the one that hits your reviewers&rsquo; inboxes. In v3, the share of calls the model pushed to a human fell from 15.1% in the first week to 12.2% in the last week. The loop was learning which calls it actually couldn&rsquo;t handle &mdash; and, just as importantly, which ones it could.</p>
+
+    <div class="caveat">
+      <span class="lbl">WHAT WE WON&rsquo;T CLAIM</span>
+      <p style="margin-bottom:0">That escalation keeps falling forever. It asymptotes. A model that never asks for help is a model that&rsquo;s lying.</p>
+    </div>
+
+    <h2><span class="num">4.52%</span> to <span class="num">0.22%</span> &mdash; twelve-week within-loop error.</h2>
+
+    <p>v6. The error rate inside the loop, week one to week twelve: 4.52% down to 0.22%. This is the learning curve with the training wheels on &mdash; every uncertain call reviewed, every correction fed back in.</p>
+
+    <div class="caveat">
+      <span class="lbl">WHAT WE WON&rsquo;T CLAIM</span>
+      <p style="margin-bottom:0">That this curve repeats on your data. Run the demo on the homepage and judge the first decision yourself. That&rsquo;s the only honest first step.</p>
+    </div>
+
+    <h2>Why we do this.</h2>
+
+    <p>We&rsquo;re pre-launch. We have no customers, no revenue, no logos to line up in a strip. The temptation is to compensate with bigger claims. We chose the other direction: publish the measurements, publish the methods, and let the demo do the rest.</p>
+
+    <p>When the numbers change, we&rsquo;ll update them. When a run disagrees with the story, we&rsquo;ll publish the run. A lab notebook that only records the wins isn&rsquo;t a lab notebook.</p>
+
+    <p class="signoff">&mdash; Fronesa, October 2026<span class="sq" aria-hidden="true"></span></p>
+
+  </div>
+</article>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="mission">Fronesa exists so automated decisions can be checked<span class="sq" aria-hidden="true"></span></p>
+    <div class="meta">
+      <a href="/">Home</a> &middot; <a href="/try-it.html">Try the demo</a> &middot; <a href="/#measurements">Measurements</a><br>
+      &copy; 2026 Fronesa. Founded 2026. Pre-launch.<br>
+      Lab figures are measured on synthetic drift, not promises.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
