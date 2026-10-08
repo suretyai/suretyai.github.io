@@ -1,2 +1,3451 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=/liquid-glass-clone.html"><title>Design</title></head><body><script>location.replace("/liquid-glass-clone.html");</script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa Design Language — v1.0</title>
+<meta name="description" content="FDL v1: the single source of truth for every Fronesa surface. Verdict Glass, light-is-proof, the decision square.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink-900:#16150F; --ink-700:#2A2820; --ink-500:#4A463A; --ink-300:#8A8474;
+  --paper-0:#FBFAF7; --paper-100:#F4F0E4; --paper-200:#EAE4D2; --paper-300:#DCD3B8;
+  --green-950:#0A2E1D; --green-900:#0F5132; --green-700:#1E6B42;
+  --green-500:#4A9E6B; --green-300:#8FCCA4; --green-100:#DDF0E2;
+  --glow-halo-light:rgba(15,81,50,.28); --glow-core-light:rgba(74,158,107,.55);
+  --glow-halo-dark:rgba(74,158,107,.45);  --glow-core-dark:rgba(190,240,205,.85);
+  --font-display:"Fraunces",Georgia,serif;
+  --font-ui:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --r-4:4px; --r-8:8px; --r-12:12px; --r-16:16px; --r-24:24px; --r-32:32px; --r-full:999px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s6:24px; --s8:32px; --s12:48px; --s18:72px; --s30:120px;
+  --dur-micro:120ms; --dur-base:200ms; --dur-emphasis:320ms;
+  --ease-out:cubic-bezier(.2,.7,.2,1); --ease-settle:cubic-bezier(.3,1.4,.4,1);
+  --wrap:76rem;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth; scroll-padding-top:110px}
+body{background:var(--paper-0); color:var(--ink-900); font-family:var(--font-ui); font-size:1.0625rem; line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased}
+::selection{background:var(--green-100)}
+.wrap{max-width:var(--wrap); margin:0 auto; padding-inline:clamp(1.25rem,4vw,2rem)}
+/* ---------- nav ---------- */
+.navhold{position:sticky; top:12px; z-index:50; display:flex; justify-content:center; pointer-events:none; padding:0 12px}
+#nav{pointer-events:auto; position:relative; display:flex; align-items:center; gap:4px; padding:8px 10px; border-radius:var(--r-full); max-width:100%; overflow-x:auto; scrollbar-width:none}
+#nav::-webkit-scrollbar{display:none}
+#nav .wm{font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:-.015em; padding:6px 12px 6px 8px; white-space:nowrap; color:var(--ink-900); text-decoration:none}
+#nav .wm .sq{color:var(--green-900)}
+#nav a.nl{font-size:.83rem; font-weight:700; color:var(--ink-700); text-decoration:none; padding:8px 11px; border-radius:var(--r-full); white-space:nowrap; transition:background var(--dur-micro) var(--ease-out)}
+#nav a.nl:hover{background:rgba(22,21,15,.07)}
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(4.5rem,10vw,7.5rem) clamp(3rem,7vw,5rem); position:relative}
+.eyebrow{font-family:var(--font-mono); font-size:.75rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-500); margin-bottom:var(--s6)}
+.eyebrow .sq{color:var(--green-900); letter-spacing:0; margin-right:10px}
+h1.display{font-family:var(--font-display); font-weight:900; font-size:clamp(3.5rem,9vw,7rem); line-height:.98; letter-spacing:-.015em; text-wrap:balance}
+h1.display .sq{color:var(--green-900)}
+.lede{font-size:clamp(1.125rem,2vw,1.375rem); color:var(--ink-500); max-width:44rem; margin-top:var(--s6)}
+.hero-meta{display:flex; flex-wrap:wrap; gap:var(--s3); margin-top:var(--s8)}
+.pill{font-family:var(--font-mono); font-size:.78rem; font-weight:700; padding:8px 16px; border-radius:var(--r-full); border:1px solid rgba(22,21,15,.22); color:var(--ink-700)}
+.pill.live{border-color:var(--green-900); color:var(--green-900)}
+/* ---------- sections ---------- */
+section.blk{padding-block:clamp(4.5rem,10vw,7.5rem); border-top:1px solid var(--paper-200)}
+.sec-head{margin-bottom:var(--s12)}
+.sec-num{font-family:var(--font-mono); font-size:.75rem; font-weight:700; letter-spacing:.14em; color:var(--green-900); text-transform:uppercase; margin-bottom:var(--s4)}
+h2.h2{font-family:var(--font-display); font-weight:900; font-size:clamp(2.25rem,5.5vw,4rem); line-height:1.02; letter-spacing:-.015em; text-wrap:balance}
+h2.h2 .sq{color:var(--green-900)}
+h3.h3{font-family:var(--font-display); font-weight:700; font-size:clamp(1.5rem,3.2vw,2.25rem); line-height:1.1; margin:var(--s12) 0 var(--s4)}
+.sec-lede{color:var(--ink-500); max-width:46rem; margin-top:var(--s4)}
+p.body{max-width:46rem; margin-bottom:var(--s4)}
+strong{font-weight:700}
+/* principle cards */
+.prin-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:var(--s4); margin-top:var(--s8)}
+.prin{border:1px solid var(--paper-300); border-radius:var(--r-24); padding:var(--s6); background:#fff}
+.prin .n{font-family:var(--font-mono); font-size:.75rem; font-weight:700; color:var(--green-900); letter-spacing:.14em; margin-bottom:var(--s3)}
+.prin h4{font-family:var(--font-display); font-weight:700; font-size:1.25rem; margin-bottom:var(--s2)}
+.prin p{font-size:.9375rem; color:var(--ink-500)}
+/* brand */
+.brand-row{display:grid; grid-template-columns:1fr 1fr; gap:var(--s4); margin-top:var(--s8)}
+@media(max-width:767px){.brand-row{grid-template-columns:1fr}}
+.brand-card{border:1px solid var(--paper-300); border-radius:var(--r-24); padding:var(--s8); background:#fff; display:flex; flex-direction:column; gap:var(--s4)}
+.brand-card .cap{font-family:var(--font-mono); font-size:.75rem; color:var(--ink-500); letter-spacing:.08em; text-transform:uppercase}
+.brand-card.dark{background:var(--ink-900); border-color:var(--ink-900)}
+.brand-card.dark .cap{color:var(--paper-300)}
+.wm-demo{font-family:var(--font-display); font-weight:900; font-size:clamp(2.5rem,6vw,4rem); letter-spacing:-.015em}
+.wm-demo .sq{color:var(--green-900)}
+.dont-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:var(--s4); margin-top:var(--s4)}
+.dont{border:1px solid #E5C4C0; background:#FDF3F2; border-radius:var(--r-16); padding:var(--s4); font-size:.9rem}
+.dont b{display:block; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:#B3261E; margin-bottom:var(--s2)}
+/* color */
+.swatches{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:var(--s3); margin-top:var(--s8)}
+.sw{border-radius:var(--r-16); overflow:hidden; border:1px solid rgba(22,21,15,.1)}
+.sw .c{height:88px}
+.sw .t{padding:var(--s3) var(--s4); background:#fff; font-family:var(--font-mono); font-size:.72rem; line-height:1.5}
+.sw .t b{display:block; font-size:.78rem}
+.rule-list{margin:var(--s8) 0 0; padding:0; list-style:none; max-width:46rem}
+.rule-list li{padding:var(--s3) 0; border-bottom:1px solid var(--paper-200); font-size:.95rem}
+.rule-list li::before{content:"■ "; color:var(--green-900); font-size:.7em}
+/* type */
+.spec{border:1px solid var(--paper-300); border-radius:var(--r-24); background:#fff; padding:var(--s8); margin-top:var(--s4)}
+.spec .lbl{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-500); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s2); display:flex; justify-content:space-between}
+.spec .lbl code{color:var(--green-900); text-transform:none; letter-spacing:0}
+/* material */
+.stage{position:relative; border-radius:var(--r-32); overflow:hidden; margin-top:var(--s8); min-height:420px;
+  background:linear-gradient(135deg,#0A2E1D 0%,#1E6B42 35%,#4A9E6B 60%,#0F5132 100%)}
+.stage .stripes{position:absolute; inset:0; display:flex}
+.stage .stripes i{flex:1}
+.glass{position:absolute}
+.glass canvas{position:absolute; inset:0; width:100%!important; height:100%!important; border-radius:inherit; pointer-events:none}
+.demo-panel{position:relative; z-index:2}
+.codeblk{background:var(--ink-900); color:var(--paper-100); border-radius:var(--r-16); padding:var(--s6); font-family:var(--font-mono); font-size:.82rem; line-height:1.65; overflow-x:auto; margin-top:var(--s4)}
+.codeblk .k{color:var(--green-300)} .codeblk .s{color:#F2C14E} .codeblk .c{color:#8A8474}
+/* radius */
+.radius-row{display:flex; align-items:flex-end; gap:var(--s4); margin-top:var(--s8); flex-wrap:wrap}
+.radius-cell{text-align:center}
+.radius-cell .box{background:var(--green-900); margin:0 auto}
+.radius-cell .t{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-500); margin-top:var(--s2)}
+/* light */
+.verdict-demo{border:1px solid var(--paper-300); border-radius:var(--r-24); background:var(--ink-900); padding:var(--s8); margin-top:var(--s8); text-align:center}
+.verdict-word{font-family:var(--font-display); font-weight:900; font-size:clamp(2.5rem,7vw,4.5rem); color:var(--paper-300); min-height:1.3em; transition:color var(--dur-base)}
+.verdict-word.lit{color:var(--paper-0); text-shadow:0 0 24px var(--glow-halo-dark),0 0 64px var(--glow-core-dark)}
+.verdict-sub{font-family:var(--font-mono); font-size:.8rem; color:var(--ink-300); margin-top:var(--s2); min-height:1.5em}
+/* space */
+.space-row{display:flex; align-items:center; gap:var(--s3); margin-top:var(--s3)}
+.space-row .bar{background:var(--green-500); height:28px; border-radius:var(--r-4)}
+.space-row .t{font-family:var(--font-mono); font-size:.75rem; color:var(--ink-500); min-width:120px}
+/* components */
+.comp-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--s4); margin-top:var(--s8)}
+.comp{border:1px solid var(--paper-300); border-radius:var(--r-24); background:#fff; padding:var(--s6)}
+.comp .cap{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-500); margin-bottom:var(--s4)}
+.fdl-btn{display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 var(--s6); border-radius:var(--r-12); font-family:var(--font-ui); font-weight:700; font-size:1.0625rem; border:1px solid transparent; cursor:pointer; transition:box-shadow 150ms ease-out,transform 150ms ease-out,background-color 150ms ease-out; text-decoration:none}
+.fdl-btn-primary{background:var(--green-900); color:var(--paper-0); box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.fdl-btn-primary:hover{background:var(--green-700); box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 24px var(--glow-halo-light)}
+.fdl-btn-primary:active{transform:translateY(1px)}
+.fdl-btn-secondary{background:transparent; color:var(--ink-900); border-color:rgba(22,21,15,.22)}
+.fdl-btn-secondary:hover{border-color:var(--ink-900)}
+.fdl-btn-ghost{background:transparent; color:var(--ink-900); padding-inline:var(--s4)}
+.fdl-btn-ghost:hover{background:rgba(22,21,15,.06)}
+.fdl-btn:focus-visible{outline:3px solid var(--green-900); outline-offset:3px}
+.fdl-input{min-height:44px; padding:0 var(--s4); border-radius:var(--r-12); border:1px solid rgba(22,21,15,.22); background:var(--paper-0); font-family:var(--font-ui); font-size:1.0625rem; color:var(--ink-900); width:100%; transition:border-color 150ms,box-shadow 150ms}
+.fdl-input::placeholder{color:var(--ink-300)}
+.fdl-input:focus{outline:none; border-color:var(--green-900); box-shadow:0 0 0 3px rgba(15,81,50,.18)}
+.fdl-chip{display:inline-flex; align-items:center; min-height:36px; padding:0 var(--s4); border-radius:var(--r-full); border:1px solid rgba(22,21,15,.22); font-size:.9rem; font-weight:500; cursor:pointer; background:transparent}
+.fdl-chip:hover{border-color:var(--ink-900)}
+/* motion tab bar demo */
+.tabbar-demo{position:relative; margin-top:var(--s8); height:120px}
+#tabbar{position:absolute; left:50%; transform:translateX(-50%); bottom:0; width:min(340px,90%); height:76px; border-radius:var(--r-full); background:rgba(22,21,15,.92); display:flex; z-index:2}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; color:#8A8474; font-size:.68rem; font-weight:700; cursor:pointer; z-index:3; background:none; border:none; font-family:var(--font-ui)}
+.tab .tic{width:22px; height:22px; border-radius:6px; background:currentColor; opacity:.55}
+.tab.on{color:#fff} .tab.on .tic{opacity:1; background:var(--green-500)}
+#pill{position:absolute; top:8px; left:0; width:75px; height:60px; border-radius:var(--r-full); z-index:2}
+/* adaptivity */
+table.spec-t{width:100%; border-collapse:collapse; margin-top:var(--s8); font-size:.92rem}
+table.spec-t th{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; text-align:left; padding:var(--s3) var(--s4); border-bottom:2px solid var(--ink-900); color:var(--ink-500)}
+table.spec-t td{padding:var(--s3) var(--s4); border-bottom:1px solid var(--paper-200); vertical-align:top}
+/* checklist */
+.check{list-style:none; margin-top:var(--s8); max-width:50rem}
+.check li{padding:var(--s3) 0 var(--s3) 2.2rem; border-bottom:1px solid var(--paper-200); position:relative; font-size:.95rem}
+.check li::before{content:""; position:absolute; left:0; top:1.05rem; width:18px; height:18px; border:2px solid var(--green-900); border-radius:var(--r-4)}
+/* tokens */
+.copybtn{font-family:var(--font-mono); font-size:.75rem; font-weight:700; background:var(--green-900); color:var(--paper-0); border:none; border-radius:var(--r-8); padding:10px 18px; cursor:pointer; margin-top:var(--s4)}
+.copybtn:hover{background:var(--green-700)}
+footer{border-top:1px solid var(--paper-200); padding-block:var(--s12); margin-top:var(--s12)}
+footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--s4); align-items:center}
+footer .wm{font-family:var(--font-display); font-weight:900; font-size:1.4rem}
+footer .wm .sq{color:var(--green-900)}
+footer p{font-family:var(--font-mono); font-size:.75rem; color:var(--ink-500)}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+@media(max-width:767px){ .codeblk{font-size:.72rem} }
+</style>
+</head>
+<body>
+
+<div class="navhold" id="navhold"><nav id="nav" aria-label="FDL sections">
+  <a class="wm" href="#top">Fronesa<span class="sq">■</span></a>
+  <a class="nl" href="#principles">Principles</a>
+  <a class="nl" href="#brand">Brand</a>
+  <a class="nl" href="#color">Color</a>
+  <a class="nl" href="#type">Type</a>
+  <a class="nl" href="#material">Material</a>
+  <a class="nl" href="#radius">Radius</a>
+  <a class="nl" href="#light">Light</a>
+  <a class="nl" href="#space">Space</a>
+  <a class="nl" href="#components">Components</a>
+  <a class="nl" href="#motion">Motion</a>
+  <a class="nl" href="#tokens">Tokens</a>
+</nav></div>
+
+<header class="hero wrap" id="top">
+  <p class="eyebrow"><span class="sq">■</span>Fronesa design language · v1.0 · 2026-10-08</p>
+  <h1 class="display">The language decisions are made of<span class="sq">■</span></h1>
+  <p class="lede">FDL is Fronesa's own design system — not Apple's, not a template's. Verdict Glass that refracts instead of frosting. Light that appears only where the product is working. The decision square in a world of round.</p>
+  <div class="hero-meta">
+    <span class="pill live">● ACTIVE — single source of truth</span>
+    <span class="pill">11 sections + token appendix</span>
+    <span class="pill">Founder directive 2026-10-08</span>
+  </div>
+</header>
+
+<main>
+<!-- ============ 0/1 PRINCIPLES ============ -->
+<section class="blk" id="principles"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§0–1 · Foundation</p>
+    <h2 class="h2">Five principles, strictly held<span class="sq">■</span></h2>
+    <p class="sec-lede">Apple is the teacher of <em>clarity</em> — strict scales, named materials, rules over vibes. The language itself is ours. What makes it owned:</p>
+  </div>
+  <div class="prin-grid">
+    <div class="prin"><p class="n">01</p><h4>Light is proof</h4><p>Luminance never decorates. Glow and specular light appear only where the product is genuinely working — a decision rendered, the loop learning, a live state. Never as ornament.</p></div>
+    <div class="prin"><p class="n">02</p><h4>The decision square</h4><p>The D1 wordmark's green square recurs as the system's signature motif — terminal punctuation on headlines, verdict markers, the Learn node. Square in a world of round.</p></div>
+    <div class="prin"><p class="n">03</p><h4>The verdict moment</h4><p>No other design language centers a live decision instrument. Our hero component is the demo console; the language is built around the instant a decision lands.</p></div>
+    <div class="prin"><p class="n">04</p><h4>Green monochrome luminance</h4><p>Our glow is green-only, always. Never rainbow, never iridescent, never blue-purple. One hue, full conviction.</p></div>
+    <div class="prin"><p class="n">05</p><h4>Bold is structural</h4><p>Weight comes from the type scale, spacing rhythm, and material — not from shadows, outlines, or effects stacked onto timid layout.</p></div>
+  </div>
+  <h3 class="h3">Strict rules</h3>
+  <ul class="rule-list">
+    <li><strong>Glass refracts, never frosts.</strong> Our glass bends light at its edges. <code>backdrop-filter: blur()</code> is banned in every context, no exceptions.</li>
+    <li><strong>Every radius is from the scale.</strong> No arbitrary <code>border-radius</code> values. If it isn't in §6, it doesn't ship.</li>
+    <li><strong>One green per surface.</strong> Light surface → Decision Green <code>#0F5132</code>. Dark surface → Signal Green <code>#4A9E6B</code>. Never both on one surface.</li>
+  </ul>
+</div></section>
+<!-- ============ §2 BRAND ============ -->
+<section class="blk" id="brand"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§2 · Brand</p>
+    <h2 class="h2">D1 — the wordmark<span class="sq">■</span></h2>
+    <p class="sec-lede">Founder-picked. "Fronesa." in Fraunces Black with the green decision-square period. The avatar is the F monogram in paper on an ink circle with the green square. Never retype the wordmark — always use the SVG.</p>
+  </div>
+  <div class="brand-row">
+    <div class="brand-card"><p class="cap">Primary wordmark · on paper</p>
+      <div style="max-width:340px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8900.48 1925.88"><path d="M899.0 -1400Q945.0 -1400 977.0 -1408.0Q1009.0 -1416 1035.5 -1423.5Q1062.0 -1431 1088.0 -1431Q1136.0 -1431 1160.0 -1407.5Q1184.0 -1384 1200.0 -1328L1288.0 -1024Q1297.0 -993 1278.5 -971.5Q1260.0 -950 1227.0 -945Q1201.0 -941 1175.0 -950.5Q1149.0 -960 1132.0 -994Q1078.0 -1102 1027.0 -1158.5Q976.0 -1215 922.0 -1236.0Q868.0 -1257 802.0 -1257H694.0V-222Q694.0 -197 705.5 -179.5Q717.0 -162 745.0 -156L805.0 -143Q837.0 -136 851.0 -118.5Q865.0 -101 865.0 -68Q865.0 -37 844.0 -18.5Q823.0 0 779.0 0H175.0Q131.0 0 110.0 -18.5Q89.0 -37 89.0 -68Q89.0 -122 141.0 -142L179.0 -156Q205.0 -166 217.5 -181.5Q230.0 -197 230.0 -222V-1178Q230.0 -1203 217.5 -1218.5Q205.0 -1234 179.0 -1244L141.0 -1258Q89.0 -1278 89.0 -1332Q89.0 -1364 110.0 -1382.0Q131.0 -1400 175.0 -1400ZM527.0 -739H797.0Q860.0 -739 887.0 -764.0Q914.0 -789 939.0 -864Q949.0 -894 967.0 -906.0Q985.0 -918 1009.0 -918Q1067.0 -918 1080.0 -863L1158.0 -545Q1167.0 -509 1156.0 -489.0Q1145.0 -469 1119.0 -459Q1091.0 -449 1066.5 -457.5Q1042.0 -466 1020.0 -495Q991.0 -536 965.5 -558.5Q940.0 -581 907.0 -590.0Q874.0 -599 821.0 -599H527.0Z" fill="#16150F" transform="translate(144.44,1664.44)"/><path d="M1779.0 -546Q1779.0 -699 1819.0 -798.5Q1859.0 -898 1925.5 -946.0Q1992.0 -994 2071.0 -994Q2177.0 -994 2233.5 -930.5Q2290.0 -867 2290.0 -739Q2290.0 -608 2237.5 -546.0Q2185.0 -484 2101.0 -484Q2016.0 -484 1973.5 -527.5Q1931.0 -571 1931.0 -648V-690Q1930.0 -716 1919.5 -729.5Q1909.0 -743 1887.0 -743Q1867.0 -743 1851.5 -725.5Q1836.0 -708 1827.0 -668.5Q1818.0 -629 1818.0 -562ZM1790.0 -904 1818.0 -695V-210Q1818.0 -175 1828.0 -160.5Q1838.0 -146 1874.0 -139L1950.0 -124Q1980.0 -118 1994.0 -103.0Q2008.0 -88 2008.0 -61Q2008.0 -32 1988.5 -16.0Q1969.0 0 1931.0 0H1378.0Q1338.0 0 1320.0 -16.0Q1302.0 -32 1302.0 -60Q1302.0 -80 1312.0 -95.0Q1322.0 -110 1345.0 -120L1367.0 -130Q1382.0 -137 1388.0 -153.5Q1394.0 -170 1394.0 -210V-676Q1394.0 -708 1385.5 -721.5Q1377.0 -735 1360.0 -740L1338.0 -747Q1317.0 -754 1307.5 -767.0Q1298.0 -780 1298.0 -800Q1298.0 -824 1311.5 -838.5Q1325.0 -853 1360.0 -866L1575.0 -950Q1646.0 -978 1677.0 -986.0Q1708.0 -994 1725.0 -994Q1753.0 -994 1768.0 -973.5Q1783.0 -953 1790.0 -904Z" fill="#16150F" transform="translate(144.44,1664.44)"/><path d="M2885.0 -994Q3055.0 -994 3182.0 -929.5Q3309.0 -865 3379.5 -749.0Q3450.0 -633 3450.0 -479Q3450.0 -337 3376.0 -222.0Q3302.0 -107 3171.5 -39.5Q3041.0 28 2869.0 28Q2699.0 28 2572.0 -37.5Q2445.0 -103 2374.5 -219.0Q2304.0 -335 2304.0 -487Q2304.0 -632 2378.0 -746.5Q2452.0 -861 2582.5 -927.5Q2713.0 -994 2885.0 -994ZM2958.0 -117Q2996.0 -126 3016.0 -170.0Q3036.0 -214 3034.0 -298.0Q3032.0 -382 3004.0 -511Q2978.0 -635 2945.5 -713.0Q2913.0 -791 2875.0 -825.0Q2837.0 -859 2796.0 -849Q2758.0 -840 2738.0 -796.0Q2718.0 -752 2720.5 -668.5Q2723.0 -585 2750.0 -455Q2776.0 -332 2809.0 -253.5Q2842.0 -175 2879.5 -141.5Q2917.0 -108 2958.0 -117Z" fill="#16150F" transform="translate(144.44,1664.44)"/><path d="M4015.0 -904V-210Q4015.0 -170 4021.0 -154.0Q4027.0 -138 4042.0 -130L4062.0 -119Q4095.0 -100 4095.0 -64Q4095.0 0 4018.0 0H3575.0Q3535.0 0 3517.0 -16.0Q3499.0 -32 3499.0 -60Q3499.0 -80 3509.0 -95.0Q3519.0 -110 3542.0 -120L3564.0 -130Q3579.0 -137 3585.0 -153.5Q3591.0 -170 3591.0 -210V-680Q3591.0 -712 3582.5 -725.5Q3574.0 -739 3557.0 -744L3535.0 -751Q3514.0 -758 3504.5 -771.0Q3495.0 -784 3495.0 -804Q3495.0 -828 3508.0 -842.0Q3521.0 -856 3557.0 -870L3779.0 -956Q3830.0 -976 3861.5 -985.0Q3893.0 -994 3923.0 -994Q3968.0 -994 3991.5 -968.5Q4015.0 -943 4015.0 -904ZM3979.0 -660 3919.0 -724 3949.0 -752Q4090.0 -883 4190.0 -938.5Q4290.0 -994 4375.0 -994Q4505.0 -994 4578.5 -905.0Q4652.0 -816 4665.0 -674L4710.0 -210Q4714.0 -170 4718.0 -153.5Q4722.0 -137 4737.0 -130L4759.0 -120Q4782.0 -110 4792.0 -95.0Q4802.0 -80 4802.0 -60Q4802.0 -32 4784.0 -16.0Q4766.0 0 4726.0 0H4278.0Q4201.0 0 4201.0 -64Q4201.0 -100 4234.0 -119L4254.0 -130Q4269.0 -138 4277.0 -154.0Q4285.0 -170 4281.0 -210L4243.0 -614Q4237.0 -678 4212.5 -710.0Q4188.0 -742 4137.0 -742Q4106.0 -742 4073.5 -728.5Q4041.0 -715 4014.0 -691Z" fill="#16150F" transform="translate(144.44,1664.44)"/><path d="M5825.0 -608Q5825.0 -538 5787.0 -499.5Q5749.0 -461 5678.0 -461H5085.0V-565H5352.0Q5407.0 -565 5407.0 -617Q5407.0 -743 5378.0 -797.0Q5349.0 -851 5301.0 -851Q5266.0 -851 5238.0 -825.0Q5210.0 -799 5193.5 -745.5Q5177.0 -692 5177.0 -610Q5177.0 -428 5259.0 -343.5Q5341.0 -259 5483.0 -259Q5549.0 -259 5603.0 -274.0Q5657.0 -289 5709.0 -335Q5738.0 -361 5753.0 -370.0Q5768.0 -379 5782.0 -379Q5802.0 -379 5811.5 -359.0Q5821.0 -339 5821.0 -310Q5821.0 -221 5760.5 -143.5Q5700.0 -66 5592.5 -19.0Q5485.0 28 5342.0 28Q5189.0 28 5067.0 -32.5Q4945.0 -93 4874.0 -201.5Q4803.0 -310 4803.0 -455Q4803.0 -618 4868.0 -739.0Q4933.0 -860 5057.5 -927.0Q5182.0 -994 5358.0 -994Q5513.0 -994 5617.0 -944.0Q5721.0 -894 5773.0 -807.0Q5825.0 -720 5825.0 -608Z" fill="#16150F" transform="translate(144.44,1664.44)"/><path d="M6350.0 -99Q6407.0 -99 6434.5 -124.0Q6462.0 -149 6462.0 -184Q6462.0 -205 6454.0 -223.5Q6446.0 -242 6417.0 -257.5Q6388.0 -273 6325.0 -283Q6139.0 -314 6041.5 -365.5Q5944.0 -417 5909.0 -487.5Q5874.0 -558 5874.0 -646Q5874.0 -809 5987.5 -901.5Q6101.0 -994 6323.0 -994Q6399.0 -994 6444.5 -982.0Q6490.0 -970 6517.5 -958.0Q6545.0 -946 6567.0 -946Q6592.0 -946 6605.5 -958.0Q6619.0 -970 6633.5 -982.0Q6648.0 -994 6675.0 -994Q6696.0 -994 6713.0 -980.0Q6730.0 -966 6741.0 -928L6793.0 -751Q6809.0 -699 6802.5 -668.0Q6796.0 -637 6764.0 -625Q6732.0 -613 6708.5 -624.0Q6685.0 -635 6662.0 -668Q6617.0 -735 6567.0 -779.0Q6517.0 -823 6463.0 -845.0Q6409.0 -867 6350.0 -867Q6283.0 -867 6249.5 -842.0Q6216.0 -817 6216.0 -775Q6216.0 -749 6229.5 -730.0Q6243.0 -711 6285.0 -695.5Q6327.0 -680 6410.0 -665Q6556.0 -639 6641.0 -590.5Q6726.0 -542 6763.0 -471.0Q6800.0 -400 6800.0 -304Q6800.0 -204 6746.0 -129.0Q6692.0 -54 6598.5 -13.0Q6505.0 28 6385.0 28Q6311.0 28 6268.5 15.5Q6226.0 3 6199.0 -9.5Q6172.0 -22 6146.0 -22Q6120.0 -22 6101.0 -9.5Q6082.0 3 6064.0 15.5Q6046.0 28 6022.0 28Q6000.0 28 5985.0 12.0Q5970.0 -4 5963.0 -43L5932.0 -214Q5923.0 -265 5931.0 -290.5Q5939.0 -316 5967.0 -328Q5998.0 -341 6022.0 -327.5Q6046.0 -314 6071.0 -279Q6140.0 -180 6211.0 -139.5Q6282.0 -99 6350.0 -99Z" fill="#16150F" transform="translate(144.44,1664.44)"/><path d="M7490.0 -137V-160L7458.0 -161V-807Q7458.0 -845 7437.5 -868.0Q7417.0 -891 7382.0 -891Q7356.0 -891 7336.5 -878.5Q7317.0 -866 7317.0 -845V-736Q7317.0 -652 7259.5 -606.0Q7202.0 -560 7095.0 -560Q7004.0 -560 6959.5 -598.5Q6915.0 -637 6915.0 -706Q6915.0 -772 6975.0 -838.0Q7035.0 -904 7155.5 -948.0Q7276.0 -992 7459.0 -992Q7671.0 -992 7774.0 -914.5Q7877.0 -837 7877.0 -703V-225Q7877.0 -206 7886.5 -193.5Q7896.0 -181 7916.0 -181Q7933.0 -181 7943.5 -190.0Q7954.0 -199 7963.0 -208Q7970.0 -215 7977.5 -220.0Q7985.0 -225 7995.0 -225Q8012.0 -225 8019.5 -212.5Q8027.0 -200 8027.0 -181Q8027.0 -137 7995.0 -88.5Q7963.0 -40 7899.5 -6.0Q7836.0 28 7742.0 28Q7631.0 28 7560.5 -19.0Q7490.0 -66 7490.0 -137ZM6879.0 -213Q6879.0 -350 7003.0 -429.5Q7127.0 -509 7351.0 -509Q7410.0 -509 7454.0 -501.0Q7498.0 -493 7526.0 -478L7492.0 -391Q7471.0 -403 7452.5 -408.0Q7434.0 -413 7412.0 -413Q7363.0 -413 7334.5 -380.5Q7306.0 -348 7306.0 -287Q7306.0 -223 7334.0 -189.5Q7362.0 -156 7408.0 -156Q7437.0 -156 7462.5 -169.5Q7488.0 -183 7501.0 -201L7525.0 -121Q7477.0 -50 7385.5 -11.0Q7294.0 28 7190.0 28Q7050.0 28 6964.5 -41.0Q6879.0 -110 6879.0 -213Z" fill="#16150F" transform="translate(144.44,1664.44)"/><rect x="8281.44" y="1278.84" width="385.60" height="385.60" fill="#0F5132"/></svg></div>
+      <p class="cap" style="margin-top:8px">d1-wordmark-final.svg · Fraunces Black · square #0F5132</p></div>
+    <div class="brand-card"><p class="cap">Avatar · social / favicon</p>
+      <img src="data:image/png;base64,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" alt="Fronesa D1 avatar" style="width:120px;height:120px;border-radius:50%">
+      <p class="cap" style="margin-top:8px">F monogram · paper on ink circle · green square</p></div>
+  </div>
+  <h3 class="h3">The decision square</h3>
+  <p class="body">The green square is the brand's signature motif — terminal punctuation on headlines, verdict markers, the Learn node. <strong>It is always square.</strong> Maximum radius <code>--r-4</code>. Never round, never pill. Squareness is the brand; roundness is the system.</p>
+  <h3 class="h3">Misuse — never</h3>
+  <div class="dont-grid">
+    <div class="dont"><b>Don't</b>Retype the wordmark in another font or weight.</div>
+    <div class="dont"><b>Don't</b>Round the decision square or recolor it.</div>
+    <div class="dont"><b>Don't</b>Place the wordmark on green, or green text on ink.</div>
+    <div class="dont"><b>Don't</b>Stretch, shadow, or outline the mark.</div>
+    <div class="dont"><b>Don't</b>Use both greens on one surface.</div>
+    <div class="dont"><b>Don't</b>Set headlines without the square terminal.</div>
+  </div>
+</div></section>
+
+<!-- ============ §3 COLOR ============ -->
+<section class="blk" id="color"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§3 · Color</p>
+    <h2 class="h2">Ink, paper, one green<span class="sq">■</span></h2>
+    <p class="sec-lede">Four immutable brand colors. Everything else is a functional tint or shade — never a new brand color.</p>
+  </div>
+  <h3 class="h3">Brand core — immutable</h3>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:#16150F"></div><div class="t"><b>--ink-900</b>#16150F · Ink — primary text, dark surfaces</div></div>
+    <div class="sw"><div class="c" style="background:#FBFAF7"></div><div class="t"><b>--paper-0</b>#FBFAF7 · Paper — primary background</div></div>
+    <div class="sw"><div class="c" style="background:#0F5132"></div><div class="t"><b>--green-900</b>#0F5132 · Decision Green — light surfaces only</div></div>
+    <div class="sw"><div class="c" style="background:#4A9E6B"></div><div class="t"><b>--green-500</b>#4A9E6B · Signal Green — dark surfaces only</div></div>
+  </div>
+  <h3 class="h3">Derived scales</h3>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:#0A2E1D"></div><div class="t"><b>--green-950</b>#0A2E1D</div></div>
+    <div class="sw"><div class="c" style="background:#1E6B42"></div><div class="t"><b>--green-700</b>#1E6B42</div></div>
+    <div class="sw"><div class="c" style="background:#8FCCA4"></div><div class="t"><b>--green-300</b>#8FCCA4</div></div>
+    <div class="sw"><div class="c" style="background:#DDF0E2"></div><div class="t"><b>--green-100</b>#DDF0E2</div></div>
+    <div class="sw"><div class="c" style="background:#2A2820"></div><div class="t"><b>--ink-700</b>#2A2820</div></div>
+    <div class="sw"><div class="c" style="background:#4A463A"></div><div class="t"><b>--ink-500</b>#4A463A · muted text</div></div>
+    <div class="sw"><div class="c" style="background:#8A8474"></div><div class="t"><b>--ink-300</b>#8A8474</div></div>
+    <div class="sw"><div class="c" style="background:#F4F0E4"></div><div class="t"><b>--paper-100</b>#F4F0E4</div></div>
+    <div class="sw"><div class="c" style="background:#EAE4D2"></div><div class="t"><b>--paper-200</b>#EAE4D2</div></div>
+    <div class="sw"><div class="c" style="background:#DCD3B8"></div><div class="t"><b>--paper-300</b>#DCD3B8</div></div>
+  </div>
+  <h3 class="h3">Luminous tokens</h3>
+  <p class="body">Glow is always a two-stop system: <strong>halo</strong> (wide falloff) + <strong>core</strong> (hot center). Spread scale — pick ONE per element, never stack.</p>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:rgba(15,81,50,.28)"></div><div class="t"><b>--glow-halo-light</b>rgba(15,81,50,.28)</div></div>
+    <div class="sw"><div class="c" style="background:rgba(74,158,107,.55)"></div><div class="t"><b>--glow-core-light</b>rgba(74,158,107,.55)</div></div>
+    <div class="sw"><div class="c" style="background:rgba(74,158,107,.45)"></div><div class="t"><b>--glow-halo-dark</b>rgba(74,158,107,.45)</div></div>
+    <div class="sw"><div class="c" style="background:rgba(190,240,205,.85)"></div><div class="t"><b>--glow-core-dark</b>rgba(190,240,205,.85)</div></div>
+  </div>
+  <h3 class="h3">Strict rules</h3>
+  <ul class="rule-list">
+    <li>Body text: <code>--ink-900</code> on <code>--paper-0</code> (AAA). Reversed: <code>--paper-0</code> on <code>--ink-900</code>.</li>
+    <li>Green text only at ≥18px or weight ≥700. Never body copy. Never green-on-green.</li>
+    <li>Forbidden pairs: Green on Ink · Bright on Paper · Ink on Green · Paper on Green.</li>
+    <li>Glow colors: green-family only. No white glow, no colored glow, ever.</li>
+    <li>Muted text (<code>--ink-500</code>): labels, captions, metadata — never claims, never headlines.</li>
+  </ul>
+</div></section>
+<!-- ============ §4 TYPOGRAPHY ============ -->
+<section class="blk" id="type"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§4 · Typography</p>
+    <h2 class="h2">Fraunces speaks, Inter works<span class="sq">■</span></h2>
+    <p class="sec-lede">Fraunces Black is the display voice. One fluid scale — <code>clamp()</code> — all viewports. No breakpoint-specific font sizes, ever.</p>
+  </div>
+  <div class="spec"><p class="lbl"><span>Display · Fraunces 900</span><code>--text-display: clamp(3.5rem, 9vw, 7rem)</code></p>
+    <p style="font-family:var(--font-display);font-weight:900;font-size:clamp(2.5rem,6vw,4.5rem);line-height:.98;letter-spacing:-.015em">Decisions that learn<span style="color:var(--green-900)">■</span></p></div>
+  <div class="spec"><p class="lbl"><span>Section · Fraunces 900</span><code>--text-h2: clamp(2.25rem, 5.5vw, 4rem)</code></p>
+    <p style="font-family:var(--font-display);font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.02">Measured in public<span style="color:var(--green-900)">■</span></p></div>
+  <div class="spec"><p class="lbl"><span>H3 · Fraunces 700</span><code>--text-h3: clamp(1.5rem, 3.2vw, 2.25rem)</code></p>
+    <p style="font-family:var(--font-display);font-weight:700;font-size:1.6rem">The verdict moment</p></div>
+  <div class="spec"><p class="lbl"><span>Body · UI sans</span><code>--text-body: 1.0625rem · lh 1.6</code></p>
+    <p style="max-width:40rem">Every claim on a Fronesa surface traces to a measured artifact. Numbers are never rounded into meaninglessness, and no sentence promises what the lab hasn't proven.</p></div>
+  <div class="spec"><p class="lbl"><span>Instrument · Mono</span><code>--text-caption / --text-eyebrow</code></p>
+    <p style="font-family:var(--font-mono);font-size:.8125rem">0.38% vs 1.71% · 21.02 ms GPU · 4.52% → 0.22%</p>
+    <p style="font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:8px">Live demo · no key needed</p></div>
+  <h3 class="h3">Strict type rules</h3>
+  <ul class="rule-list">
+    <li><strong>Display (Fraunces 900)</strong> reserved for: page hero, section headlines, decision verdicts. Maximum one <code>--text-display</code> per viewport.</li>
+    <li><strong>UI sans</strong> for everything functional: buttons, inputs, nav, labels, body copy.</li>
+    <li><strong>Mono</strong> for instrument readings: latency, confidence, timestamps, code, eyebrow kickers.</li>
+    <li><strong>The green square period.</strong> Display headlines and H2s close with ■ instead of a period. One per headline, never in body copy.</li>
+    <li><strong>Verdict text</strong> — a rendered decision — is Fraunces 900, green, with glow. The <em>only</em> sanctioned glowing text.</li>
+    <li>Letter-spacing: <code>-.015em</code> display · <code>0</code> UI · <code>.14em</code> uppercase eyebrows. Nothing else.</li>
+    <li><code>text-wrap: balance</code> on all display type. No orphans, no manual <code>&lt;br&gt;</code> in headlines.</li>
+  </ul>
+</div></section>
+
+<!-- ============ §5 MATERIAL ============ -->
+<section class="blk" id="material"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§5 · Materials</p>
+    <h2 class="h2">Verdict Glass<span class="sq">■</span></h2>
+    <p class="sec-lede">The material decisions are made of. Real WebGL refraction — light bends at the edges, specular catches the bevel. The demos below are <strong>live</strong>: drag the orb.</p>
+  </div>
+  <div class="stage" id="mstage">
+    <div class="stripes" id="mstripes"></div>
+    <div id="morb" class="glass" data-config='{"floating":true}' style="width:150px;height:150px;border-radius:999px;left:8%;top:60px;z-index:3;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;user-select:none">DRAG</div>
+    <div id="mpill" class="glass" style="width:280px;height:84px;border-radius:999px;left:50%;top:230px;transform:translateX(-50%);z-index:2;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;letter-spacing:.02em">Verdict Glass</div>
+    <div class="demo-panel" style="position:absolute;right:20px;top:20px;background:rgba(22,21,15,.85);border-radius:16px;padding:16px 20px;color:#FBFAF7;max-width:230px">
+      <p style="font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;color:#8FCCA4;margin-bottom:8px">ENGINE</p>
+      <p style="font-size:.85rem;line-height:1.5">ybouane liquidglass · exact defaults · zero custom tuning</p>
+    </div>
+  </div>
+  <h3 class="h3">The law</h3>
+  <ul class="rule-list">
+    <li><strong>Glass refracts, never frosts.</strong> Displacement + specular edge. <code>backdrop-filter: blur()</code> is banned everywhere, no exceptions.</li>
+    <li>Permitted: <code>backdrop-filter: saturate()</code> / <code>brightness()</code> — they enliven without frosting.</li>
+    <li>Glass is for: floating nav, demo console, verdict receipts, primary CTAs, modal sheets. <strong>Maximum 3 glass surfaces per viewport.</strong></li>
+    <li>Glass is NEVER for: body text containers, long-form reading, footers, full-page backgrounds.</li>
+    <li>Glass minimum radius: <code>--r-16</code>. Text on glass must pass WCAG AA.</li>
+    <li>The nav pill above uses the exact production material — defaults untouched.</li>
+  </ul>
+</div></section>
+<!-- ============ §6 RADIUS ============ -->
+<section class="blk" id="radius"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§6 · Radius</p>
+    <h2 class="h2">Seven radii, no others<span class="sq">■</span></h2>
+    <p class="sec-lede">No arbitrary <code>border-radius</code> values. If it isn't here, it doesn't ship. Nesting rule: inner radius = outer − 8.</p>
+  </div>
+  <div class="radius-row">
+    <div class="radius-cell"><div class="box" style="width:64px;height:64px;border-radius:4px"></div><p class="t">--r-4 · square max<br>focus rings, tags</p></div>
+    <div class="radius-cell"><div class="box" style="width:64px;height:64px;border-radius:8px"></div><p class="t">--r-8<br>chips, toggles</p></div>
+    <div class="radius-cell"><div class="box" style="width:72px;height:72px;border-radius:12px"></div><p class="t">--r-12<br>buttons, inputs</p></div>
+    <div class="radius-cell"><div class="box" style="width:80px;height:80px;border-radius:16px"></div><p class="t">--r-16<br>glass minimum</p></div>
+    <div class="radius-cell"><div class="box" style="width:88px;height:88px;border-radius:24px"></div><p class="t">--r-24<br>console, panels</p></div>
+    <div class="radius-cell"><div class="box" style="width:96px;height:96px;border-radius:32px"></div><p class="t">--r-32<br>hero, modals</p></div>
+    <div class="radius-cell"><div class="box" style="width:96px;height:96px;border-radius:999px"></div><p class="t">--r-full<br>pills, nav</p></div>
+  </div>
+  <ul class="rule-list">
+    <li><strong>The decision square is square.</strong> The brand's green square takes <code>--r-4</code> maximum — never round, never pill.</li>
+    <li>Focus rings follow the element's radius + 4px offset ring.</li>
+  </ul>
+</div></section>
+
+<!-- ============ §7 LIGHT ============ -->
+<section class="blk" id="light"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§7 · Light &amp; glow</p>
+    <h2 class="h2">Light is proof<span class="sq">■</span></h2>
+    <p class="sec-lede">Glow appears only where the product is <em>working</em>. Press the button — the verdict lands, the light fires. Before that, quiet.</p>
+  </div>
+  <div class="verdict-demo">
+    <p style="font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;color:#8A8474;margin-bottom:16px">LIVE DEMO · THE VERDICT MOMENT</p>
+    <p class="verdict-word" id="vword">awaiting input</p>
+    <p class="verdict-sub" id="vsub">press "Run decision" — light fires only on a rendered verdict</p>
+    <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="fdl-btn fdl-btn-primary" id="vrun" style="border:1px solid rgba(255,255,255,.2)">Run decision</button>
+      <button class="fdl-btn fdl-btn-secondary" id="vreset" style="color:#FBFAF7;border-color:rgba(255,255,255,.25)">Reset</button>
+    </div>
+  </div>
+  <div class="brand-row">
+    <div class="brand-card"><p class="cap">Glow appears — exhaustive list</p>
+      <ul class="rule-list" style="margin-top:0">
+        <li>Verdict rendered — decision word, <code>--glow-normal</code></li>
+        <li>Learning active — may <em>breathe</em> (2.4s, the only animated glow)</li>
+        <li>Live connection — <code>--glow-whisper</code></li>
+        <li>Hover intent — primary button hover</li>
+        <li>Focus — solid ring, never glow</li>
+      </ul></div>
+    <div class="brand-card"><p class="cap">Glow never appears</p>
+      <ul class="rule-list" style="margin-top:0">
+        <li>Body text, headlines (except verdicts), static icons</li>
+        <li>More than <strong>one glowing element per section</strong></li>
+        <li>As a permanent state on a static element</li>
+        <li>In any color other than green</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- ============ §8 SPACE ============ -->
+<section class="blk" id="space"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§8 · Spacing &amp; grid</p>
+    <h2 class="h2">Nine tokens, one grid<span class="sq">■</span></h2>
+    <p class="sec-lede">Margins, padding, gaps — all from this scale. 12 columns, <code>--wrap-max: 76rem</code>, gutters <code>--s6</code>.</p>
+  </div>
+  <div style="margin-top:32px">
+    <div class="space-row"><span class="t">--s1 · 4px</span><span class="bar" style="width:4px"></span></div>
+    <div class="space-row"><span class="t">--s2 · 8px</span><span class="bar" style="width:8px"></span></div>
+    <div class="space-row"><span class="t">--s3 · 12px</span><span class="bar" style="width:12px"></span></div>
+    <div class="space-row"><span class="t">--s4 · 16px</span><span class="bar" style="width:16px"></span></div>
+    <div class="space-row"><span class="t">--s6 · 24px</span><span class="bar" style="width:24px"></span></div>
+    <div class="space-row"><span class="t">--s8 · 32px</span><span class="bar" style="width:32px"></span></div>
+    <div class="space-row"><span class="t">--s12 · 48px</span><span class="bar" style="width:48px"></span></div>
+    <div class="space-row"><span class="t">--s18 · 72px</span><span class="bar" style="width:72px"></span></div>
+    <div class="space-row"><span class="t">--s30 · 120px</span><span class="bar" style="width:120px"></span></div>
+  </div>
+  <ul class="rule-list">
+    <li>Section rhythm: <code>padding-block: clamp(4.5rem, 10vw, 7.5rem)</code>.</li>
+    <li>Horizontal overflow is a ship-blocking defect at every width.</li>
+    <li>Section headers: left-aligned always. Centered headers are forbidden.</li>
+  </ul>
+</div></section>
+<!-- ============ §9 COMPONENTS ============ -->
+<section class="blk" id="components"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§9 · Components</p>
+    <h2 class="h2">Built from tokens<span class="sq">■</span></h2>
+    <p class="sec-lede">Every component: default / hover / focus-visible / active / disabled. All live below.</p>
+  </div>
+  <div class="comp-grid">
+    <div class="comp"><p class="cap">Buttons</p>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <button class="fdl-btn fdl-btn-primary">Decide — primary</button>
+        <button class="fdl-btn fdl-btn-secondary">Secondary</button>
+        <button class="fdl-btn fdl-btn-ghost">Ghost</button>
+      </div></div>
+    <div class="comp"><p class="cap">Input</p>
+      <input class="fdl-input" placeholder="Paste a message to triage…" aria-label="Demo input">
+      <p style="font-size:.85rem;color:var(--ink-500);margin-top:12px">Focus ring: solid green, 3px + 3px offset. Errors are red, never green.</p></div>
+    <div class="comp"><p class="cap">Chips</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="fdl-chip">Free crypto!!!</button>
+        <button class="fdl-chip">Invoice attached</button>
+        <button class="fdl-chip">You won a prize</button>
+      </div></div>
+    <div class="comp"><p class="cap">Section header pattern</p>
+      <p class="eyebrow"><span class="sq">■</span>Live demo · no key needed</p>
+      <h3 class="h3" style="margin:8px 0">Try the verdict<span style="color:var(--green-900)">■</span></h3>
+      <p style="color:var(--ink-500);font-size:.95rem">Eyebrow → H2 with square terminal → lede. Left-aligned, always.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ §10 MOTION ============ -->
+<section class="blk" id="motion"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§10 · Motion</p>
+    <h2 class="h2">Springs, not tweens<span class="sq">■</span></h2>
+    <p class="sec-lede">Liquid elements move on real spring physics — <code>k=150, c=12</code>. Stretch with velocity, smear mid-flight, settle to perfect clarity. Tap the tabs.</p>
+  </div>
+  <div class="tabbar-demo" id="tstage">
+    <div id="tabbar">
+      <button class="tab on"><span class="tic"></span>Home</button>
+      <button class="tab"><span class="tic"></span>Search</button>
+      <button class="tab"><span class="tic"></span>Calls</button>
+      <button class="tab"><span class="tic"></span>You</button>
+    </div>
+    <div id="pill" class="glass"></div>
+  </div>
+  <div class="brand-row">
+    <div class="brand-card"><p class="cap">Durations</p>
+      <p style="font-family:var(--font-mono);font-size:.85rem;line-height:2">--dur-micro: 120ms<br>--dur-base: 200ms<br>--dur-emphasis: 320ms<br><span style="color:var(--ink-500)">Nothing longer. Ever.</span></p></div>
+    <div class="brand-card"><p class="cap">Easing</p>
+      <p style="font-family:var(--font-mono);font-size:.85rem;line-height:2">--ease-out: cubic-bezier(.2,.7,.2,1)<br>--ease-settle: cubic-bezier(.3,1.4,.4,1)<br><span style="color:var(--ink-500)">Slight overshoot on emphasis only. Never bouncy.</span></p></div>
+  </div>
+  <h3 class="h3">What never animates</h3>
+  <ul class="rule-list">
+    <li>Body text. Layout in response to scroll. Glow (except the 2.4s learning breath).</li>
+    <li>Anything on an infinite loop — except loading spinners and the learning breath.</li>
+    <li><code>prefers-reduced-motion: reduce</code> → all motion becomes instant. The page must be fully usable with zero motion.</li>
+  </ul>
+  <h3 class="h3">The verdict reveal</h3>
+  <p class="body">Fade + 8px rise, 200ms. The glow fires exactly when the decision lands — see §7.</p>
+</div></section>
+
+<!-- ============ §11 ADAPTIVITY ============ -->
+<section class="blk" id="adaptivity"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">§11 · Adaptivity</p>
+    <h2 class="h2">Rules, not suggestions<span class="sq">■</span></h2>
+  </div>
+  <div style="overflow-x:auto"><table class="spec-t">
+    <tr><th>Range</th><th>Layout</th><th>Material</th><th>Glow</th><th>Touch</th></tr>
+    <tr><td><b>320–479</b></td><td>Single column; glass keeps radius, padding → --s4</td><td>Tier-1 only (no SVG refraction)</td><td>Spread −25%</td><td>44px min, full-width primaries</td></tr>
+    <tr><td><b>480–767</b></td><td>Single column; two-up chips</td><td>Tier-1</td><td>Full spread</td><td>44px</td></tr>
+    <tr><td><b>768–1023</b></td><td>Two-column where specified; nav pill full</td><td>Tier-1 + Tier-2 on hero</td><td>Full</td><td>44px</td></tr>
+    <tr><td><b>1024–1439</b></td><td>Full 12-col grid</td><td>Both tiers</td><td>Full</td><td>—</td></tr>
+    <tr><td><b>1440+</b></td><td>Max-width wrap; never stretch past --wrap-max</td><td>Both tiers</td><td>Full</td><td>—</td></tr>
+  </table></div>
+  <h3 class="h3">Compliance checklist</h3>
+  <ul class="check">
+    <li>Every radius, spacing, color, and duration is a token from this document.</li>
+    <li><code>backdrop-filter: blur()</code> appears nowhere (grep it — zero hits).</li>
+    <li>Glow appears only at §7 states, max one per section, green only.</li>
+    <li>Glass surfaces ≤ 3 per viewport; glass never holds body text.</li>
+    <li>One green per surface; forbidden color pairs absent.</li>
+    <li>Display type: one <code>--text-display</code> per viewport max; headlines end with the green square.</li>
+    <li>Zero horizontal overflow at 320 / 390 / 768 / 1024 / 1440 (measured, not eyeballed).</li>
+    <li>Keyboard: all interactive elements reachable, focus rings visible, 44px targets.</li>
+    <li><code>prefers-reduced-motion</code>: page fully usable, no motion.</li>
+    <li>No invented claims, no AI-startup diction, numbers traceable to lab artifacts.</li>
+  </ul>
+</div></section>
+
+<!-- ============ APPENDIX TOKENS ============ -->
+<section class="blk" id="tokens"><div class="wrap">
+  <div class="sec-head">
+    <p class="sec-num">Appendix A</p>
+    <h2 class="h2">Token reference<span class="sq">■</span></h2>
+    <p class="sec-lede">Copy-paste. The whole system in one <code>:root</code>.</p>
+  </div>
+  <div class="codeblk" id="tokenblock">:root {
+  <span class="c">/* color */</span>
+  <span class="k">--ink-900</span>:#16150F; <span class="k">--ink-700</span>:#2A2820; <span class="k">--ink-500</span>:#4A463A; <span class="k">--ink-300</span>:#8A8474;
+  <span class="k">--paper-0</span>:#FBFAF7; <span class="k">--paper-100</span>:#F4F0E4; <span class="k">--paper-200</span>:#EAE4D2; <span class="k">--paper-300</span>:#DCD3B8;
+  <span class="k">--green-950</span>:#0A2E1D; <span class="k">--green-900</span>:#0F5132; <span class="k">--green-700</span>:#1E6B42;
+  <span class="k">--green-500</span>:#4A9E6B; <span class="k">--green-300</span>:#8FCCA4; <span class="k">--green-100</span>:#DDF0E2;
+  <span class="c">/* light */</span>
+  <span class="k">--glow-halo-light</span>:rgba(15,81,50,.28);  <span class="k">--glow-core-light</span>:rgba(74,158,107,.55);
+  <span class="k">--glow-halo-dark</span>:rgba(74,158,107,.45);  <span class="k">--glow-core-dark</span>:rgba(190,240,205,.85);
+  <span class="k">--glow-whisper</span>:0 0 12px; <span class="k">--glow-normal</span>:0 0 24px; <span class="k">--glow-blaze</span>:0 0 48px;
+  <span class="c">/* type */</span>
+  <span class="k">--font-display</span>:<span class="s">"Fraunces"</span>,Georgia,serif;
+  <span class="k">--font-ui</span>:-apple-system,BlinkMacSystemFont,<span class="s">"Segoe UI"</span>,Inter,<span class="s">"Helvetica Neue"</span>,Arial,sans-serif;
+  <span class="k">--font-mono</span>:ui-monospace,<span class="s">"SF Mono"</span>,Menlo,Consolas,monospace;
+  <span class="k">--text-display</span>:clamp(3.5rem,9vw,7rem); <span class="k">--text-h2</span>:clamp(2.25rem,5.5vw,4rem);
+  <span class="k">--text-h3</span>:clamp(1.5rem,3.2vw,2.25rem); <span class="k">--text-lede</span>:clamp(1.125rem,2vw,1.375rem);
+  <span class="k">--text-body</span>:1.0625rem; <span class="k">--text-small</span>:.9375rem; <span class="k">--text-caption</span>:.8125rem; <span class="k">--text-eyebrow</span>:.75rem;
+  <span class="c">/* shape */</span>
+  <span class="k">--r-4</span>:4px; <span class="k">--r-8</span>:8px; <span class="k">--r-12</span>:12px; <span class="k">--r-16</span>:16px;
+  <span class="k">--r-24</span>:24px; <span class="k">--r-32</span>:32px; <span class="k">--r-full</span>:999px;
+  <span class="c">/* space */</span>
+  <span class="k">--s1</span>:4px; <span class="k">--s2</span>:8px; <span class="k">--s3</span>:12px; <span class="k">--s4</span>:16px;
+  <span class="k">--s6</span>:24px; <span class="k">--s8</span>:32px; <span class="k">--s12</span>:48px; <span class="k">--s18</span>:72px; <span class="k">--s30</span>:120px;
+  <span class="c">/* motion */</span>
+  <span class="k">--dur-micro</span>:120ms; <span class="k">--dur-base</span>:200ms; <span class="k">--dur-emphasis</span>:320ms;
+  <span class="k">--ease-out</span>:cubic-bezier(.2,.7,.2,1); <span class="k">--ease-settle</span>:cubic-bezier(.3,1.4,.4,1);
+}</div>
+  <button class="copybtn" id="copytokens">Copy tokens</button>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="wm">Fronesa<span class="sq">■</span></p>
+  <p>FDL v1.0 · 2026-10-08 · Active — the single source of truth.<br>Changelog: v1.0 initial release. Supersedes round-5 "Editorial Bold" and all prior style bans on glow/glass/light.</p>
+</div></footer>
+<script type="module">
+/* ===== ybouane liquidglass — exact defaults (founder-approved material) ===== */
+// src/defaults.ts
+var DEFAULTS = {
+  blurAmount: 0,
+  refraction: 0.69,
+  chromAberration: 0.05,
+  edgeHighlight: 0.05,
+  specular: 0,
+  fresnel: 1,
+  distortion: 0,
+  cornerRadius: 65,
+  zRadius: 40,
+  opacity: 1,
+  saturation: 0,
+  tintStrength: 0,
+  brightness: 0,
+  shadowOpacity: 0.3,
+  shadowSpread: 10,
+  shadowOffsetY: 1,
+  floating: false,
+  button: false,
+  bevelMode: 0
+};
+var BLUR_ITERATIONS = 6;
+var SHADOW_PAD = 20;
+
+// node_modules/html-to-image/es/util.js
+function resolveUrl(url, baseUrl) {
+  if (url.match(/^[a-z]+:\/\//i)) {
+    return url;
+  }
+  if (url.match(/^\/\//)) {
+    return window.location.protocol + url;
+  }
+  if (url.match(/^[a-z]+:/i)) {
+    return url;
+  }
+  const doc = document.implementation.createHTMLDocument();
+  const base = doc.createElement("base");
+  const a = doc.createElement("a");
+  doc.head.appendChild(base);
+  doc.body.appendChild(a);
+  if (baseUrl) {
+    base.href = baseUrl;
+  }
+  a.href = url;
+  return a.href;
+}
+var uuid = /* @__PURE__ */ (() => {
+  let counter = 0;
+  const random = () => (
+    // eslint-disable-next-line no-bitwise
+    `0000${(Math.random() * 36 ** 4 << 0).toString(36)}`.slice(-4)
+  );
+  return () => {
+    counter += 1;
+    return `u${random()}${counter}`;
+  };
+})();
+function toArray(arrayLike) {
+  const arr = [];
+  for (let i = 0, l = arrayLike.length; i < l; i++) {
+    arr.push(arrayLike[i]);
+  }
+  return arr;
+}
+var styleProps = null;
+function getStyleProperties(options = {}) {
+  if (styleProps) {
+    return styleProps;
+  }
+  if (options.includeStyleProperties) {
+    styleProps = options.includeStyleProperties;
+    return styleProps;
+  }
+  styleProps = toArray(window.getComputedStyle(document.documentElement));
+  return styleProps;
+}
+function px(node, styleProperty) {
+  const win = node.ownerDocument.defaultView || window;
+  const val = win.getComputedStyle(node).getPropertyValue(styleProperty);
+  return val ? parseFloat(val.replace("px", "")) : 0;
+}
+function getNodeWidth(node) {
+  const leftBorder = px(node, "border-left-width");
+  const rightBorder = px(node, "border-right-width");
+  return node.clientWidth + leftBorder + rightBorder;
+}
+function getNodeHeight(node) {
+  const topBorder = px(node, "border-top-width");
+  const bottomBorder = px(node, "border-bottom-width");
+  return node.clientHeight + topBorder + bottomBorder;
+}
+function getImageSize(targetNode, options = {}) {
+  const width = options.width || getNodeWidth(targetNode);
+  const height = options.height || getNodeHeight(targetNode);
+  return { width, height };
+}
+function getPixelRatio() {
+  let ratio;
+  let FINAL_PROCESS;
+  try {
+    FINAL_PROCESS = process;
+  } catch (e) {
+  }
+  const val = FINAL_PROCESS && FINAL_PROCESS.env ? FINAL_PROCESS.env.devicePixelRatio : null;
+  if (val) {
+    ratio = parseInt(val, 10);
+    if (Number.isNaN(ratio)) {
+      ratio = 1;
+    }
+  }
+  return ratio || window.devicePixelRatio || 1;
+}
+var canvasDimensionLimit = 16384;
+function checkCanvasDimensions(canvas) {
+  if (canvas.width > canvasDimensionLimit || canvas.height > canvasDimensionLimit) {
+    if (canvas.width > canvasDimensionLimit && canvas.height > canvasDimensionLimit) {
+      if (canvas.width > canvas.height) {
+        canvas.height *= canvasDimensionLimit / canvas.width;
+        canvas.width = canvasDimensionLimit;
+      } else {
+        canvas.width *= canvasDimensionLimit / canvas.height;
+        canvas.height = canvasDimensionLimit;
+      }
+    } else if (canvas.width > canvasDimensionLimit) {
+      canvas.height *= canvasDimensionLimit / canvas.width;
+      canvas.width = canvasDimensionLimit;
+    } else {
+      canvas.width *= canvasDimensionLimit / canvas.height;
+      canvas.height = canvasDimensionLimit;
+    }
+  }
+}
+function createImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      img.decode().then(() => {
+        requestAnimationFrame(() => resolve(img));
+      });
+    };
+    img.onerror = reject;
+    img.crossOrigin = "anonymous";
+    img.decoding = "async";
+    img.src = url;
+  });
+}
+async function svgToDataURL(svg) {
+  return Promise.resolve().then(() => new XMLSerializer().serializeToString(svg)).then(encodeURIComponent).then((html) => `data:image/svg+xml;charset=utf-8,${html}`);
+}
+async function nodeToDataURL(node, width, height) {
+  const xmlns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(xmlns, "svg");
+  const foreignObject = document.createElementNS(xmlns, "foreignObject");
+  svg.setAttribute("width", `${width}`);
+  svg.setAttribute("height", `${height}`);
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  foreignObject.setAttribute("width", "100%");
+  foreignObject.setAttribute("height", "100%");
+  foreignObject.setAttribute("x", "0");
+  foreignObject.setAttribute("y", "0");
+  foreignObject.setAttribute("externalResourcesRequired", "true");
+  svg.appendChild(foreignObject);
+  foreignObject.appendChild(node);
+  return svgToDataURL(svg);
+}
+var isInstanceOfElement = (node, instance) => {
+  if (node instanceof instance)
+    return true;
+  const nodePrototype = Object.getPrototypeOf(node);
+  if (nodePrototype === null)
+    return false;
+  return nodePrototype.constructor.name === instance.name || isInstanceOfElement(nodePrototype, instance);
+};
+
+// node_modules/html-to-image/es/clone-pseudos.js
+function formatCSSText(style) {
+  const content = style.getPropertyValue("content");
+  return `${style.cssText} content: '${content.replace(/'|"/g, "")}';`;
+}
+function formatCSSProperties(style, options) {
+  return getStyleProperties(options).map((name) => {
+    const value = style.getPropertyValue(name);
+    const priority = style.getPropertyPriority(name);
+    return `${name}: ${value}${priority ? " !important" : ""};`;
+  }).join(" ");
+}
+function getPseudoElementStyle(className, pseudo, style, options) {
+  const selector = `.${className}:${pseudo}`;
+  const cssText = style.cssText ? formatCSSText(style) : formatCSSProperties(style, options);
+  return document.createTextNode(`${selector}{${cssText}}`);
+}
+function clonePseudoElement(nativeNode, clonedNode, pseudo, options) {
+  const style = window.getComputedStyle(nativeNode, pseudo);
+  const content = style.getPropertyValue("content");
+  if (content === "" || content === "none") {
+    return;
+  }
+  const className = uuid();
+  try {
+    clonedNode.className = `${clonedNode.className} ${className}`;
+  } catch (err) {
+    return;
+  }
+  const styleElement = document.createElement("style");
+  styleElement.appendChild(getPseudoElementStyle(className, pseudo, style, options));
+  clonedNode.appendChild(styleElement);
+}
+function clonePseudoElements(nativeNode, clonedNode, options) {
+  clonePseudoElement(nativeNode, clonedNode, ":before", options);
+  clonePseudoElement(nativeNode, clonedNode, ":after", options);
+}
+
+// node_modules/html-to-image/es/mimes.js
+var WOFF = "application/font-woff";
+var JPEG = "image/jpeg";
+var mimes = {
+  woff: WOFF,
+  woff2: WOFF,
+  ttf: "application/font-truetype",
+  eot: "application/vnd.ms-fontobject",
+  png: "image/png",
+  jpg: JPEG,
+  jpeg: JPEG,
+  gif: "image/gif",
+  tiff: "image/tiff",
+  svg: "image/svg+xml",
+  webp: "image/webp"
+};
+function getExtension(url) {
+  const match = /\.([^./]*?)$/g.exec(url);
+  return match ? match[1] : "";
+}
+function getMimeType(url) {
+  const extension = getExtension(url).toLowerCase();
+  return mimes[extension] || "";
+}
+
+// node_modules/html-to-image/es/dataurl.js
+function getContentFromDataUrl(dataURL) {
+  return dataURL.split(/,/)[1];
+}
+function isDataUrl(url) {
+  return url.search(/^(data:)/) !== -1;
+}
+function makeDataUrl(content, mimeType) {
+  return `data:${mimeType};base64,${content}`;
+}
+async function fetchAsDataURL(url, init, process2) {
+  const res = await fetch(url, init);
+  if (res.status === 404) {
+    throw new Error(`Resource "${res.url}" not found`);
+  }
+  const blob = await res.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onloadend = () => {
+      try {
+        resolve(process2({ res, result: reader.result }));
+      } catch (error) {
+        reject(error);
+      }
+    };
+    reader.readAsDataURL(blob);
+  });
+}
+var cache = {};
+function getCacheKey(url, contentType, includeQueryParams) {
+  let key = url.replace(/\?.*/, "");
+  if (includeQueryParams) {
+    key = url;
+  }
+  if (/ttf|otf|eot|woff2?/i.test(key)) {
+    key = key.replace(/.*\//, "");
+  }
+  return contentType ? `[${contentType}]${key}` : key;
+}
+async function resourceToDataURL(resourceUrl, contentType, options) {
+  const cacheKey = getCacheKey(resourceUrl, contentType, options.includeQueryParams);
+  if (cache[cacheKey] != null) {
+    return cache[cacheKey];
+  }
+  if (options.cacheBust) {
+    resourceUrl += (/\?/.test(resourceUrl) ? "&" : "?") + (/* @__PURE__ */ new Date()).getTime();
+  }
+  let dataURL;
+  try {
+    const content = await fetchAsDataURL(resourceUrl, options.fetchRequestInit, ({ res, result }) => {
+      if (!contentType) {
+        contentType = res.headers.get("Content-Type") || "";
+      }
+      return getContentFromDataUrl(result);
+    });
+    dataURL = makeDataUrl(content, contentType);
+  } catch (error) {
+    dataURL = options.imagePlaceholder || "";
+    let msg = `Failed to fetch resource: ${resourceUrl}`;
+    if (error) {
+      msg = typeof error === "string" ? error : error.message;
+    }
+    if (msg) {
+      console.warn(msg);
+    }
+  }
+  cache[cacheKey] = dataURL;
+  return dataURL;
+}
+
+// node_modules/html-to-image/es/clone-node.js
+async function cloneCanvasElement(canvas) {
+  const dataURL = canvas.toDataURL();
+  if (dataURL === "data:,") {
+    return canvas.cloneNode(false);
+  }
+  return createImage(dataURL);
+}
+async function cloneVideoElement(video, options) {
+  if (video.currentSrc) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
+    ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataURL2 = canvas.toDataURL();
+    return createImage(dataURL2);
+  }
+  const poster = video.poster;
+  const contentType = getMimeType(poster);
+  const dataURL = await resourceToDataURL(poster, contentType, options);
+  return createImage(dataURL);
+}
+async function cloneIFrameElement(iframe, options) {
+  var _a;
+  try {
+    if ((_a = iframe === null || iframe === void 0 ? void 0 : iframe.contentDocument) === null || _a === void 0 ? void 0 : _a.body) {
+      return await cloneNode(iframe.contentDocument.body, options, true);
+    }
+  } catch (_b) {
+  }
+  return iframe.cloneNode(false);
+}
+async function cloneSingleNode(node, options) {
+  if (isInstanceOfElement(node, HTMLCanvasElement)) {
+    return cloneCanvasElement(node);
+  }
+  if (isInstanceOfElement(node, HTMLVideoElement)) {
+    return cloneVideoElement(node, options);
+  }
+  if (isInstanceOfElement(node, HTMLIFrameElement)) {
+    return cloneIFrameElement(node, options);
+  }
+  return node.cloneNode(isSVGElement(node));
+}
+var isSlotElement = (node) => node.tagName != null && node.tagName.toUpperCase() === "SLOT";
+var isSVGElement = (node) => node.tagName != null && node.tagName.toUpperCase() === "SVG";
+async function cloneChildren(nativeNode, clonedNode, options) {
+  var _a, _b;
+  if (isSVGElement(clonedNode)) {
+    return clonedNode;
+  }
+  let children = [];
+  if (isSlotElement(nativeNode) && nativeNode.assignedNodes) {
+    children = toArray(nativeNode.assignedNodes());
+  } else if (isInstanceOfElement(nativeNode, HTMLIFrameElement) && ((_a = nativeNode.contentDocument) === null || _a === void 0 ? void 0 : _a.body)) {
+    children = toArray(nativeNode.contentDocument.body.childNodes);
+  } else {
+    children = toArray(((_b = nativeNode.shadowRoot) !== null && _b !== void 0 ? _b : nativeNode).childNodes);
+  }
+  if (children.length === 0 || isInstanceOfElement(nativeNode, HTMLVideoElement)) {
+    return clonedNode;
+  }
+  await children.reduce((deferred, child) => deferred.then(() => cloneNode(child, options)).then((clonedChild) => {
+    if (clonedChild) {
+      clonedNode.appendChild(clonedChild);
+    }
+  }), Promise.resolve());
+  return clonedNode;
+}
+function cloneCSSStyle(nativeNode, clonedNode, options) {
+  const targetStyle = clonedNode.style;
+  if (!targetStyle) {
+    return;
+  }
+  const sourceStyle = window.getComputedStyle(nativeNode);
+  if (sourceStyle.cssText) {
+    targetStyle.cssText = sourceStyle.cssText;
+    targetStyle.transformOrigin = sourceStyle.transformOrigin;
+  } else {
+    getStyleProperties(options).forEach((name) => {
+      let value = sourceStyle.getPropertyValue(name);
+      if (isInstanceOfElement(nativeNode, HTMLIFrameElement) && name === "display" && value === "inline") {
+        value = "block";
+      }
+      if (name === "d" && clonedNode.getAttribute("d")) {
+        value = `path(${clonedNode.getAttribute("d")})`;
+      }
+      targetStyle.setProperty(name, value, sourceStyle.getPropertyPriority(name));
+    });
+  }
+}
+function cloneInputValue(nativeNode, clonedNode) {
+  if (isInstanceOfElement(nativeNode, HTMLTextAreaElement)) {
+    clonedNode.innerHTML = nativeNode.value;
+  }
+  if (isInstanceOfElement(nativeNode, HTMLInputElement)) {
+    clonedNode.setAttribute("value", nativeNode.value);
+  }
+}
+function cloneSelectValue(nativeNode, clonedNode) {
+  if (isInstanceOfElement(nativeNode, HTMLSelectElement)) {
+    const clonedSelect = clonedNode;
+    const selectedOption = Array.from(clonedSelect.children).find((child) => nativeNode.value === child.getAttribute("value"));
+    if (selectedOption) {
+      selectedOption.setAttribute("selected", "");
+    }
+  }
+}
+function decorate(nativeNode, clonedNode, options) {
+  if (isInstanceOfElement(clonedNode, Element)) {
+    cloneCSSStyle(nativeNode, clonedNode, options);
+    clonePseudoElements(nativeNode, clonedNode, options);
+    cloneInputValue(nativeNode, clonedNode);
+    cloneSelectValue(nativeNode, clonedNode);
+  }
+  return clonedNode;
+}
+async function ensureSVGSymbols(clone, options) {
+  const uses = clone.querySelectorAll ? clone.querySelectorAll("use") : [];
+  if (uses.length === 0) {
+    return clone;
+  }
+  const processedDefs = {};
+  for (let i = 0; i < uses.length; i++) {
+    const use = uses[i];
+    const id = use.getAttribute("xlink:href");
+    if (id) {
+      const exist = clone.querySelector(id);
+      const definition = document.querySelector(id);
+      if (!exist && definition && !processedDefs[id]) {
+        processedDefs[id] = await cloneNode(definition, options, true);
+      }
+    }
+  }
+  const nodes = Object.values(processedDefs);
+  if (nodes.length) {
+    const ns = "http://www.w3.org/1999/xhtml";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("xmlns", ns);
+    svg.style.position = "absolute";
+    svg.style.width = "0";
+    svg.style.height = "0";
+    svg.style.overflow = "hidden";
+    svg.style.display = "none";
+    const defs = document.createElementNS(ns, "defs");
+    svg.appendChild(defs);
+    for (let i = 0; i < nodes.length; i++) {
+      defs.appendChild(nodes[i]);
+    }
+    clone.appendChild(svg);
+  }
+  return clone;
+}
+async function cloneNode(node, options, isRoot) {
+  if (!isRoot && options.filter && !options.filter(node)) {
+    return null;
+  }
+  return Promise.resolve(node).then((clonedNode) => cloneSingleNode(clonedNode, options)).then((clonedNode) => cloneChildren(node, clonedNode, options)).then((clonedNode) => decorate(node, clonedNode, options)).then((clonedNode) => ensureSVGSymbols(clonedNode, options));
+}
+
+// node_modules/html-to-image/es/embed-resources.js
+var URL_REGEX = /url\((['"]?)([^'"]+?)\1\)/g;
+var URL_WITH_FORMAT_REGEX = /url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g;
+var FONT_SRC_REGEX = /src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;
+function toRegex(url) {
+  const escaped = url.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
+  return new RegExp(`(url\\(['"]?)(${escaped})(['"]?\\))`, "g");
+}
+function parseURLs(cssText) {
+  const urls = [];
+  cssText.replace(URL_REGEX, (raw, quotation, url) => {
+    urls.push(url);
+    return raw;
+  });
+  return urls.filter((url) => !isDataUrl(url));
+}
+async function embed(cssText, resourceURL, baseURL, options, getContentFromUrl) {
+  try {
+    const resolvedURL = baseURL ? resolveUrl(resourceURL, baseURL) : resourceURL;
+    const contentType = getMimeType(resourceURL);
+    let dataURL;
+    if (getContentFromUrl) {
+      const content = await getContentFromUrl(resolvedURL);
+      dataURL = makeDataUrl(content, contentType);
+    } else {
+      dataURL = await resourceToDataURL(resolvedURL, contentType, options);
+    }
+    return cssText.replace(toRegex(resourceURL), `$1${dataURL}$3`);
+  } catch (error) {
+  }
+  return cssText;
+}
+function filterPreferredFontFormat(str, { preferredFontFormat }) {
+  return !preferredFontFormat ? str : str.replace(FONT_SRC_REGEX, (match) => {
+    while (true) {
+      const [src, , format] = URL_WITH_FORMAT_REGEX.exec(match) || [];
+      if (!format) {
+        return "";
+      }
+      if (format === preferredFontFormat) {
+        return `src: ${src};`;
+      }
+    }
+  });
+}
+function shouldEmbed(url) {
+  return url.search(URL_REGEX) !== -1;
+}
+async function embedResources(cssText, baseUrl, options) {
+  if (!shouldEmbed(cssText)) {
+    return cssText;
+  }
+  const filteredCSSText = filterPreferredFontFormat(cssText, options);
+  const urls = parseURLs(filteredCSSText);
+  return urls.reduce((deferred, url) => deferred.then((css) => embed(css, url, baseUrl, options)), Promise.resolve(filteredCSSText));
+}
+
+// node_modules/html-to-image/es/embed-images.js
+async function embedProp(propName, node, options) {
+  var _a;
+  const propValue = (_a = node.style) === null || _a === void 0 ? void 0 : _a.getPropertyValue(propName);
+  if (propValue) {
+    const cssString = await embedResources(propValue, null, options);
+    node.style.setProperty(propName, cssString, node.style.getPropertyPriority(propName));
+    return true;
+  }
+  return false;
+}
+async function embedBackground(clonedNode, options) {
+  ;
+  await embedProp("background", clonedNode, options) || await embedProp("background-image", clonedNode, options);
+  await embedProp("mask", clonedNode, options) || await embedProp("-webkit-mask", clonedNode, options) || await embedProp("mask-image", clonedNode, options) || await embedProp("-webkit-mask-image", clonedNode, options);
+}
+async function embedImageNode(clonedNode, options) {
+  const isImageElement = isInstanceOfElement(clonedNode, HTMLImageElement);
+  if (!(isImageElement && !isDataUrl(clonedNode.src)) && !(isInstanceOfElement(clonedNode, SVGImageElement) && !isDataUrl(clonedNode.href.baseVal))) {
+    return;
+  }
+  const url = isImageElement ? clonedNode.src : clonedNode.href.baseVal;
+  const dataURL = await resourceToDataURL(url, getMimeType(url), options);
+  await new Promise((resolve, reject) => {
+    clonedNode.onload = resolve;
+    clonedNode.onerror = options.onImageErrorHandler ? (...attributes) => {
+      try {
+        resolve(options.onImageErrorHandler(...attributes));
+      } catch (error) {
+        reject(error);
+      }
+    } : reject;
+    const image = clonedNode;
+    if (image.decode) {
+      image.decode = resolve;
+    }
+    if (image.loading === "lazy") {
+      image.loading = "eager";
+    }
+    if (isImageElement) {
+      clonedNode.srcset = "";
+      clonedNode.src = dataURL;
+    } else {
+      clonedNode.href.baseVal = dataURL;
+    }
+  });
+}
+async function embedChildren(clonedNode, options) {
+  const children = toArray(clonedNode.childNodes);
+  const deferreds = children.map((child) => embedImages(child, options));
+  await Promise.all(deferreds).then(() => clonedNode);
+}
+async function embedImages(clonedNode, options) {
+  if (isInstanceOfElement(clonedNode, Element)) {
+    await embedBackground(clonedNode, options);
+    await embedImageNode(clonedNode, options);
+    await embedChildren(clonedNode, options);
+  }
+}
+
+// node_modules/html-to-image/es/apply-style.js
+function applyStyle(node, options) {
+  const { style } = node;
+  if (options.backgroundColor) {
+    style.backgroundColor = options.backgroundColor;
+  }
+  if (options.width) {
+    style.width = `${options.width}px`;
+  }
+  if (options.height) {
+    style.height = `${options.height}px`;
+  }
+  const manual = options.style;
+  if (manual != null) {
+    Object.keys(manual).forEach((key) => {
+      style[key] = manual[key];
+    });
+  }
+  return node;
+}
+
+// node_modules/html-to-image/es/embed-webfonts.js
+var cssFetchCache = {};
+async function fetchCSS(url) {
+  let cache2 = cssFetchCache[url];
+  if (cache2 != null) {
+    return cache2;
+  }
+  const res = await fetch(url);
+  const cssText = await res.text();
+  cache2 = { url, cssText };
+  cssFetchCache[url] = cache2;
+  return cache2;
+}
+async function embedFonts(data, options) {
+  let cssText = data.cssText;
+  const regexUrl = /url\(["']?([^"')]+)["']?\)/g;
+  const fontLocs = cssText.match(/url\([^)]+\)/g) || [];
+  const loadFonts = fontLocs.map(async (loc) => {
+    let url = loc.replace(regexUrl, "$1");
+    if (!url.startsWith("https://")) {
+      url = new URL(url, data.url).href;
+    }
+    return fetchAsDataURL(url, options.fetchRequestInit, ({ result }) => {
+      cssText = cssText.replace(loc, `url(${result})`);
+      return [loc, result];
+    });
+  });
+  return Promise.all(loadFonts).then(() => cssText);
+}
+function parseCSS(source) {
+  if (source == null) {
+    return [];
+  }
+  const result = [];
+  const commentsRegex = /(\/\*[\s\S]*?\*\/)/gi;
+  let cssText = source.replace(commentsRegex, "");
+  const keyframesRegex = new RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})", "gi");
+  while (true) {
+    const matches = keyframesRegex.exec(cssText);
+    if (matches === null) {
+      break;
+    }
+    result.push(matches[0]);
+  }
+  cssText = cssText.replace(keyframesRegex, "");
+  const importRegex = /@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;
+  const combinedCSSRegex = "((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})";
+  const unifiedRegex = new RegExp(combinedCSSRegex, "gi");
+  while (true) {
+    let matches = importRegex.exec(cssText);
+    if (matches === null) {
+      matches = unifiedRegex.exec(cssText);
+      if (matches === null) {
+        break;
+      } else {
+        importRegex.lastIndex = unifiedRegex.lastIndex;
+      }
+    } else {
+      unifiedRegex.lastIndex = importRegex.lastIndex;
+    }
+    result.push(matches[0]);
+  }
+  return result;
+}
+async function getCSSRules(styleSheets, options) {
+  const ret = [];
+  const deferreds = [];
+  styleSheets.forEach((sheet) => {
+    if ("cssRules" in sheet) {
+      try {
+        toArray(sheet.cssRules || []).forEach((item, index) => {
+          if (item.type === CSSRule.IMPORT_RULE) {
+            let importIndex = index + 1;
+            const url = item.href;
+            const deferred = fetchCSS(url).then((metadata) => embedFonts(metadata, options)).then((cssText) => parseCSS(cssText).forEach((rule) => {
+              try {
+                sheet.insertRule(rule, rule.startsWith("@import") ? importIndex += 1 : sheet.cssRules.length);
+              } catch (error) {
+                console.error("Error inserting rule from remote css", {
+                  rule,
+                  error
+                });
+              }
+            })).catch((e) => {
+              console.error("Error loading remote css", e.toString());
+            });
+            deferreds.push(deferred);
+          }
+        });
+      } catch (e) {
+        const inline = styleSheets.find((a) => a.href == null) || document.styleSheets[0];
+        if (sheet.href != null) {
+          deferreds.push(fetchCSS(sheet.href).then((metadata) => embedFonts(metadata, options)).then((cssText) => parseCSS(cssText).forEach((rule) => {
+            inline.insertRule(rule, inline.cssRules.length);
+          })).catch((err) => {
+            console.error("Error loading remote stylesheet", err);
+          }));
+        }
+        console.error("Error inlining remote css file", e);
+      }
+    }
+  });
+  return Promise.all(deferreds).then(() => {
+    styleSheets.forEach((sheet) => {
+      if ("cssRules" in sheet) {
+        try {
+          toArray(sheet.cssRules || []).forEach((item) => {
+            ret.push(item);
+          });
+        } catch (e) {
+          console.error(`Error while reading CSS rules from ${sheet.href}`, e);
+        }
+      }
+    });
+    return ret;
+  });
+}
+function getWebFontRules(cssRules) {
+  return cssRules.filter((rule) => rule.type === CSSRule.FONT_FACE_RULE).filter((rule) => shouldEmbed(rule.style.getPropertyValue("src")));
+}
+async function parseWebFontRules(node, options) {
+  if (node.ownerDocument == null) {
+    throw new Error("Provided element is not within a Document");
+  }
+  const styleSheets = toArray(node.ownerDocument.styleSheets);
+  const cssRules = await getCSSRules(styleSheets, options);
+  return getWebFontRules(cssRules);
+}
+function normalizeFontFamily(font) {
+  return font.trim().replace(/["']/g, "");
+}
+function getUsedFonts(node) {
+  const fonts = /* @__PURE__ */ new Set();
+  function traverse(node2) {
+    const fontFamily = node2.style.fontFamily || getComputedStyle(node2).fontFamily;
+    fontFamily.split(",").forEach((font) => {
+      fonts.add(normalizeFontFamily(font));
+    });
+    Array.from(node2.children).forEach((child) => {
+      if (child instanceof HTMLElement) {
+        traverse(child);
+      }
+    });
+  }
+  traverse(node);
+  return fonts;
+}
+async function getWebFontCSS(node, options) {
+  const rules = await parseWebFontRules(node, options);
+  const usedFonts = getUsedFonts(node);
+  const cssTexts = await Promise.all(rules.filter((rule) => usedFonts.has(normalizeFontFamily(rule.style.fontFamily))).map((rule) => {
+    const baseUrl = rule.parentStyleSheet ? rule.parentStyleSheet.href : null;
+    return embedResources(rule.cssText, baseUrl, options);
+  }));
+  return cssTexts.join("\n");
+}
+async function embedWebFonts(clonedNode, options) {
+  const cssText = options.fontEmbedCSS != null ? options.fontEmbedCSS : options.skipFonts ? null : await getWebFontCSS(clonedNode, options);
+  if (cssText) {
+    const styleNode = document.createElement("style");
+    const sytleContent = document.createTextNode(cssText);
+    styleNode.appendChild(sytleContent);
+    if (clonedNode.firstChild) {
+      clonedNode.insertBefore(styleNode, clonedNode.firstChild);
+    } else {
+      clonedNode.appendChild(styleNode);
+    }
+  }
+}
+
+// node_modules/html-to-image/es/index.js
+async function toSvg(node, options = {}) {
+  const { width, height } = getImageSize(node, options);
+  const clonedNode = await cloneNode(node, options, true);
+  await embedWebFonts(clonedNode, options);
+  await embedImages(clonedNode, options);
+  applyStyle(clonedNode, options);
+  const datauri = await nodeToDataURL(clonedNode, width, height);
+  return datauri;
+}
+async function toCanvas(node, options = {}) {
+  const { width, height } = getImageSize(node, options);
+  const svg = await toSvg(node, options);
+  const img = await createImage(svg);
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  const ratio = options.pixelRatio || getPixelRatio();
+  const canvasWidth = options.canvasWidth || width;
+  const canvasHeight = options.canvasHeight || height;
+  canvas.width = canvasWidth * ratio;
+  canvas.height = canvasHeight * ratio;
+  if (!options.skipAutoScale) {
+    checkCanvasDimensions(canvas);
+  }
+  canvas.style.width = `${canvasWidth}`;
+  canvas.style.height = `${canvasHeight}`;
+  if (options.backgroundColor) {
+    context.fillStyle = options.backgroundColor;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  context.drawImage(img, 0, 0, canvas.width, canvas.height);
+  return canvas;
+}
+
+// src/HtmlCapture.ts
+var _sharedFontBlocks = null;
+function invalidateFontEmbedCache() {
+  _sharedFontBlocks = null;
+}
+function parseFontFamily(block) {
+  const m = block.match(/font-family\s*:\s*(['"]?)([^;'"]+)\1/i);
+  return m ? m[2].trim() : "";
+}
+function parseFontWeight(block) {
+  const m = block.match(/font-weight\s*:\s*([^;]+)/i);
+  return m ? m[1].trim() : "400";
+}
+function parseFontStyle(block) {
+  const m = block.match(/font-style\s*:\s*([^;]+)/i);
+  return m ? m[1].trim() : "normal";
+}
+function parseUnicodeRange(block) {
+  const m = block.match(/unicode-range\s*:\s*([^;]+)/i);
+  if (!m) return null;
+  const ranges = [];
+  for (const part of m[1].split(",")) {
+    const trimmed = part.trim();
+    const rangeMatch = trimmed.match(/U\+([0-9A-Fa-f]+)(?:-([0-9A-Fa-f]+))?/);
+    if (!rangeMatch) continue;
+    const start = parseInt(rangeMatch[1], 16);
+    const end = rangeMatch[2] ? parseInt(rangeMatch[2], 16) : start;
+    ranges.push([start, end]);
+  }
+  return ranges.length > 0 ? ranges : null;
+}
+function weightMatches(descriptor, target) {
+  const parts = descriptor.split(/\s+/).map(Number);
+  const t = Number(target) || 400;
+  if (parts.length >= 2) {
+    return t >= parts[0] && t <= parts[1];
+  }
+  return parts[0] === t;
+}
+function textMatchesUnicodeRange(text, ranges) {
+  for (let i = 0; i < text.length; i++) {
+    const cp = text.codePointAt(i);
+    for (const [lo, hi] of ranges) {
+      if (cp >= lo && cp <= hi) return true;
+    }
+    if (cp > 65535) i++;
+  }
+  return false;
+}
+function collectFontUsage(element) {
+  const indexMap = /* @__PURE__ */ new Map();
+  const fonts = [];
+  function walk(node) {
+    if (node.nodeType === 3) {
+      const content = node.textContent || "";
+      if (content.trim() === "") return;
+      const parent = node.parentElement;
+      if (!parent) return;
+      const style = getComputedStyle(parent);
+      const weight = style.fontWeight;
+      const fontStyle = style.fontStyle;
+      for (const raw of style.fontFamily.split(",")) {
+        const family = raw.replace(/['"]/g, "").trim().toLowerCase();
+        const key = `${family}|${weight}|${fontStyle}`;
+        const idx = indexMap.get(key);
+        if (idx !== void 0) {
+          fonts[idx].text += content;
+        } else {
+          indexMap.set(key, fonts.length);
+          fonts.push({ family, weight, style: fontStyle, text: content });
+        }
+      }
+    } else if (node.nodeType === 1) {
+      const el = node;
+      for (let i = 0; i < el.childNodes.length; i++) {
+        walk(el.childNodes[i]);
+      }
+    }
+  }
+  walk(element);
+  return fonts;
+}
+function filterFontBlocksForElement(blocks, element) {
+  const usages = collectFontUsage(element);
+  if (usages.length === 0) return [];
+  return blocks.filter((block) => {
+    const matchingUsages = usages.filter((u) => {
+      if (u.family !== block.family) return false;
+      const styleOk = block.style === u.style || block.style === "normal" && u.style === "normal";
+      return styleOk && weightMatches(block.weight, u.weight);
+    });
+    if (matchingUsages.length === 0) return false;
+    if (block.unicodeRanges) {
+      const hasMatch = matchingUsages.some(
+        (u) => u.text.length > 0 && textMatchesUnicodeRange(u.text, block.unicodeRanges)
+      );
+      if (!hasMatch) return false;
+    }
+    return true;
+  });
+}
+async function fetchAsDataUrl(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
+}
+async function buildFontBlocks() {
+  const fontFaceRules = [];
+  const links = Array.from(
+    document.querySelectorAll('link[rel="stylesheet"]')
+  );
+  for (const link of links) {
+    if (!link.href) continue;
+    try {
+      const res = await fetch(link.href, { cache: "force-cache" });
+      if (!res.ok) continue;
+      const cssText = await res.text();
+      const sheet = new CSSStyleSheet();
+      await sheet.replace(cssText);
+      for (const rule of sheet.cssRules) {
+        if (rule.type === CSSRule.FONT_FACE_RULE) {
+          fontFaceRules.push(rule.cssText);
+        }
+      }
+    } catch {
+    }
+  }
+  for (const sheet of Array.from(document.styleSheets)) {
+    if (sheet.href) continue;
+    try {
+      for (const rule of Array.from(sheet.cssRules || [])) {
+        if (rule.type === CSSRule.FONT_FACE_RULE) {
+          fontFaceRules.push(rule.cssText);
+        }
+      }
+    } catch {
+    }
+  }
+  const loadedFamilies = /* @__PURE__ */ new Set();
+  if (document.fonts) {
+    for (const ff of document.fonts) {
+      if (ff.status === "loaded") {
+        loadedFamilies.add(
+          ff.family.replace(/['"]/g, "").trim().toLowerCase()
+        );
+      }
+    }
+  }
+  const candidates = loadedFamilies.size > 0 ? fontFaceRules.filter((r) => loadedFamilies.has(parseFontFamily(r).toLowerCase())) : fontFaceRules;
+  const embedded = await Promise.all(
+    candidates.map(async (ruleText) => {
+      const urlRegex = /url\(\s*['"]?([^'")\s]+)['"]?\s*\)/g;
+      const urlMatches = Array.from(ruleText.matchAll(urlRegex));
+      let css = ruleText;
+      for (const m of urlMatches) {
+        const url = m[1];
+        if (url.startsWith("data:")) continue;
+        const dataUrl = await fetchAsDataUrl(url);
+        if (dataUrl) {
+          css = css.replace(m[0], `url(${dataUrl})`);
+        }
+      }
+      return {
+        css,
+        family: parseFontFamily(ruleText).toLowerCase(),
+        weight: parseFontWeight(ruleText),
+        style: parseFontStyle(ruleText),
+        unicodeRanges: parseUnicodeRange(ruleText)
+      };
+    })
+  );
+  return embedded;
+}
+var HtmlCapture = class {
+  constructor(root) {
+    /** Elements with an in-flight html-to-image re-capture (dedupe). */
+    this._capturing = /* @__PURE__ */ new Set();
+    /**
+     * Optional callback fired when an async re-capture finishes and
+     * the cache changes. Receives the element whose cache entry was
+     * just (re)written so the consumer can scope its dirty marking
+     * to glasses that actually intersect that element.
+     */
+    this.onCacheUpdate = null;
+    /**
+     * Prefetched + embedded @font-face blocks. Computed once at init
+     * via prefetchFontEmbedCSS. At capture time, filtered per-element
+     * to include only the blocks whose family/weight/style/unicode-range
+     * match the element's actual text content and computed styles.
+     */
+    this._fontBlocks = [];
+    this.root = root;
+    this.cache = /* @__PURE__ */ new Map();
+    this.dpr = 1;
+  }
+  // ────────────────────────────────────────────
+  // Public API
+  // ────────────────────────────────────────────
+  /**
+   * Resolve the page's @font-face rules into a single CSS string with
+   * every `url(...)` source already inlined as a base64 data URL. The
+   * result is reused on every subsequent toCanvas call so the captured
+   * raster renders text with the page's actual webfonts (e.g. Inter)
+   * instead of system fallbacks. Matching glyph metrics is what makes
+   * the refracted text line up with the live DOM under the glass.
+   *
+   * The build is shared at module scope across every LiquidGlass
+   * instance — the first init() pays the fetch + base64 cost, every
+   * subsequent init() awaits the same Promise.
+   *
+   * Implemented manually rather than via html-to-image's getFontEmbedCSS
+   * because that path walks document.styleSheets via CSSOM, which throws
+   * SecurityError on every cross-origin stylesheet and has a brittle
+   * recovery flow. We just fetch each <link rel="stylesheet"> directly
+   * (CORS-friendly for the typical Google Fonts / CDN cases), regex out
+   * the @font-face blocks, and inline each url(...) ourselves.
+   */
+  async prefetchFontEmbedCSS() {
+    if (!_sharedFontBlocks) {
+      _sharedFontBlocks = buildFontBlocks();
+    }
+    this._fontBlocks = await _sharedFontBlocks;
+  }
+  /**
+   * Return the @font-face CSS string for a specific element,
+   * filtered to only the blocks whose family + weight + style
+   * match computed styles on the element's text nodes, AND whose
+   * unicode-range covers at least one codepoint in the element's
+   * text content.
+   */
+  fontEmbedCSSForElement(element) {
+    if (this._fontBlocks.length === 0) return "";
+    const relevant = filterFontBlocksForElement(this._fontBlocks, element);
+    return relevant.map((b) => b.css).join("\n");
+  }
+  /**
+   * Update the device pixel ratio used for future captures.
+   */
+  resize(dpr = 1) {
+    this.dpr = dpr;
+    this.cache.clear();
+  }
+  /**
+   * Ensure an element's cached canvas is fresh enough for the current DPR.
+   *
+   * Cache semantics:
+   *   - Fresh hit (size matches within 0.5 px) → return immediately.
+   *   - Stale hit (size differs) → keep the stale entry so callers can
+   *     stretch-blit it, and kick off an async re-capture.
+   *   - Cache miss → kick off an async capture.
+   *
+   * Concurrent re-captures for the same element are deduplicated
+   * via the `_capturing` set, so calling this every frame is cheap.
+   */
+  async captureElement(element, force = false) {
+    const rect = element.getBoundingClientRect();
+    const cssW = rect.width;
+    const cssH = rect.height;
+    const w = Math.round(cssW * this.dpr);
+    const h = Math.round(cssH * this.dpr);
+    if (w <= 0 || h <= 0) {
+      this.cache.delete(element);
+      return;
+    }
+    const cached = this.cache.get(element);
+    const cacheIsFresh = !!cached && cached.canvas.width > 0 && cached.canvas.height > 0 && Math.abs(cached.w - w) < 0.5 && Math.abs(cached.h - h) < 0.5;
+    if (!force && cacheIsFresh) return;
+    if (this._capturing.has(element)) return;
+    if (element.tagName === "CANVAS") {
+      return;
+    }
+    this._capturing.add(element);
+    try {
+      await this._captureWithHtmlToImage(element, w, h, cssW, cssH);
+    } finally {
+      this._capturing.delete(element);
+    }
+  }
+  /**
+   * Draw the current cached capture for an element into an arbitrary
+   * 2D canvas. Returns true when a cached snapshot was available.
+   */
+  drawCachedElement(element, targetCtx, x, y, w, h) {
+    const cached = this.cache.get(element);
+    if (!cached) return false;
+    if (cached.canvas.width <= 0 || cached.canvas.height <= 0) {
+      this.cache.delete(element);
+      return false;
+    }
+    targetCtx.drawImage(cached.canvas, x, y, w, h);
+    return true;
+  }
+  /**
+   * Capture an element's DOM content as a standalone canvas, optionally
+   * excluding specified child nodes from the capture.
+   *
+   * The hideNodes are pruned from the cloned tree via html-to-image's
+   * filter callback, so the live DOM is never mutated and there is no
+   * visible flicker on the page even when this runs inside the render
+   * loop (e.g. on a re-capture triggered by a content change).
+   */
+  async captureToCanvas(element, cssW, cssH, hideNodes = null) {
+    if (cssW <= 0 || cssH <= 0) return null;
+    const hideSet = hideNodes && hideNodes.length ? new Set(hideNodes) : null;
+    try {
+      const rendered = await toCanvas(element, {
+        width: cssW,
+        height: cssH,
+        pixelRatio: this.dpr,
+        backgroundColor: void 0,
+        // Reuse the prefetched font embed CSS so the per-glass
+        // content image (used for compositing labels on top of
+        // the shader output) uses the same Inter face the live
+        // page does. Skips html-to-image's noisy CSSOM walk.
+        fontEmbedCSS: this.fontEmbedCSSForElement(element),
+        filter: hideSet ? (node) => !hideSet.has(node) : void 0,
+        style: {
+          position: "static",
+          top: "auto",
+          left: "auto",
+          right: "auto",
+          bottom: "auto",
+          transform: "none",
+          margin: "0"
+        }
+      });
+      return rendered;
+    } catch (err) {
+      console.warn("LiquidGlass: captureToCanvas failed for element:", element, err);
+      return null;
+    }
+  }
+  /**
+   * Remove an element's entry from the capture cache.
+   */
+  invalidateCache(element) {
+    this.cache.delete(element);
+  }
+  /** Destroy the capture system and free resources. */
+  destroy() {
+    this.cache.clear();
+  }
+  // ────────────────────────────────────────────
+  // html-to-image back-end
+  // ────────────────────────────────────────────
+  async _captureWithHtmlToImage(element, w, h, cssW, cssH) {
+    if (cssW <= 0 || cssH <= 0 || w <= 0 || h <= 0) return;
+    try {
+      const rendered = await toCanvas(element, {
+        width: cssW,
+        height: cssH,
+        pixelRatio: this.dpr,
+        // Per-element font embed CSS so the captured raster
+        // uses the page's actual webfont at the correct weight
+        // and unicode subset for this element's text content.
+        fontEmbedCSS: this.fontEmbedCSSForElement(element)
+      });
+      this.cache.set(element, { canvas: rendered, w, h });
+      this.onCacheUpdate?.(element);
+    } catch (err) {
+      console.warn("LiquidGlass: html-to-image capture failed for element:", element, err);
+    }
+  }
+};
+
+// src/shaders.ts
+var VS_QUAD = `
+attribute vec2 a_pos;
+varying vec2 v_uv;
+void main() {
+	v_uv = a_pos * 0.5 + 0.5;
+	gl_Position = vec4(a_pos, 0.0, 1.0);
+}`;
+var FS_BLIT = `
+precision mediump float;
+uniform sampler2D u_tex;
+uniform vec2 u_scale;
+uniform vec2 u_offset;
+varying vec2 v_uv;
+void main() {
+	gl_FragColor = texture2D(u_tex, v_uv * u_scale + u_offset);
+}`;
+var FS_BLUR = `
+precision mediump float;
+uniform sampler2D u_tex;
+uniform vec2 u_dir;
+varying vec2 v_uv;
+void main() {
+	vec4 s  = texture2D(u_tex, v_uv) * 0.227027;
+	s += texture2D(u_tex, v_uv + u_dir * 1.0) * 0.194594;
+	s += texture2D(u_tex, v_uv - u_dir * 1.0) * 0.194594;
+	s += texture2D(u_tex, v_uv + u_dir * 2.0) * 0.121622;
+	s += texture2D(u_tex, v_uv - u_dir * 2.0) * 0.121622;
+	s += texture2D(u_tex, v_uv + u_dir * 3.0) * 0.054054;
+	s += texture2D(u_tex, v_uv - u_dir * 3.0) * 0.054054;
+	s += texture2D(u_tex, v_uv + u_dir * 4.0) * 0.016216;
+	s += texture2D(u_tex, v_uv - u_dir * 4.0) * 0.016216;
+	gl_FragColor = s;
+}`;
+var VS_GLASS = `
+attribute vec2 a_pos;
+uniform vec2 u_center;   // panel centre in root-pixel coords (top-left origin)
+uniform vec2 u_size;     // panel size in px
+uniform vec2 u_res;      // root element size in px
+uniform float u_pad;     // shadow padding in px
+varying vec2 v_localPx;
+varying vec2 v_screenUV;
+
+void main() {
+	vec2 total = u_size + vec2(u_pad * 2.0);
+	v_localPx = a_pos * total;                       // px from panel centre
+	vec2 px = u_center + a_pos * total;              // screen px (DOM)
+	v_screenUV = vec2(px.x / u_res.x, 1.0 - px.y / u_res.y);
+	vec2 ndc = (px / u_res) * 2.0 - 1.0;
+	ndc.y = -ndc.y;
+	gl_Position = vec4(ndc, 0.0, 1.0);
+}`;
+var FS_GLASS = `
+precision highp float;
+
+uniform sampler2D u_bgTex;
+uniform sampler2D u_blurTex;
+uniform vec2 u_size;           // panel px
+uniform float u_radius;        // corner radius px
+uniform vec2 u_res;
+
+uniform float u_refract;
+uniform float u_chroma;
+uniform float u_edgeHL;
+uniform float u_spec;
+uniform float u_fresnel;
+uniform float u_distort;
+uniform float u_alpha;
+uniform float u_sat;
+uniform float u_tint;
+uniform float u_zRadius;
+uniform float u_brightness;
+uniform float u_shadowAlpha;
+uniform float u_shadowSpread;
+uniform float u_shadowOffY;
+uniform float u_bevelMode;
+
+varying vec2 v_localPx;
+varying vec2 v_screenUV;
+
+// Rounded-rect signed distance
+float rrSDF(vec2 p, vec2 b, float r) {
+	vec2 q = abs(p) - b + vec2(r);
+	return min(max(q.x, q.y), 0.0) + length(max(q, vec2(0.0))) - r;
+}
+
+// Bevel height field.
+// Both modes use the same half-circle profile (smooth peak at centre,
+// steep at edges).  The difference is in the refraction model:
+//   mode 0 = biconvex pill \u2014 light refracts at both surfaces (entry + exit).
+//   mode 1 = dome (plano-convex) \u2014 flat bottom, so only exit refraction.
+// d = distance inside from edge (-sdf), zR = z-radius of the bevel.
+float bevelHeight(float d, float zR) {
+	if (d <= 0.0) return 0.0;
+	if (d >= zR) return zR;
+	return sqrt(d * (2.0 * zR - d));
+}
+
+float hash(vec2 p) {
+	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+void main() {
+	vec2 half_ = u_size * 0.5;
+	float r = min(u_radius, min(half_.x, half_.y));
+	float sdf = rrSDF(v_localPx, half_, r);
+
+	// \u2500\u2500 Shadow (outside panel, offset by shadowOffY) \u2500\u2500
+	if (sdf > 0.0) {
+		float sdfShadow = rrSDF(v_localPx - vec2(0.0, u_shadowOffY), half_, r);
+		float d = max(sdfShadow - 1.0, 0.0);
+		float spread = max(u_shadowSpread, 1.0);
+		float falloff = 1.0 / (spread * spread);
+		float outerShadow = exp(-d * d * falloff) * 0.65;
+		float contactShadow = exp(-d * 0.08 / max(spread * 0.04, 0.01)) * 0.35;
+		float shadow = (outerShadow + contactShadow) * u_shadowAlpha;
+		gl_FragColor = vec4(0.0, 0.0, 0.0, shadow);
+		return;
+	}
+
+	// \u2500\u2500 Anti-aliased mask \u2500\u2500
+	float mask = 1.0 - smoothstep(-1.5, 0.5, sdf);
+
+	float maxD = min(half_.x, half_.y);
+	float inside = -sdf;
+	float edge = smoothstep(maxD * 0.35, 0.0, inside);
+
+	// \u2500\u2500 Surface normal (top surface) via bevel height field \u2500\u2500
+	float zR = u_zRadius;
+	float e = 2.0;
+	float dC = inside;
+	float dR = -rrSDF(v_localPx + vec2(e, 0.0), half_, r);
+	float dL = -rrSDF(v_localPx - vec2(e, 0.0), half_, r);
+	float dU = -rrSDF(v_localPx + vec2(0.0, e), half_, r);
+	float dD = -rrSDF(v_localPx - vec2(0.0, e), half_, r);
+	float hC = bevelHeight(dC, zR);
+	float hR = bevelHeight(dR, zR);
+	float hL = bevelHeight(dL, zR);
+	float hU = bevelHeight(dU, zR);
+	float hD = bevelHeight(dD, zR);
+	vec2 hGrad = vec2(hR - hL, hU - hD) / (2.0 * e);
+	vec3 N = normalize(vec3(-hGrad, 1.0));
+
+	float depth = smoothstep(0.0, zR, inside);
+
+	// \u2500\u2500 Refraction \u2500\u2500
+	vec2 pxToUV = vec2(1.0, -1.0) / u_res;
+	float ior = 1.5;
+	float refrPow = 1.0 - 1.0 / ior;
+	float thickness = hC * 2.0;
+	float thickNorm = thickness / max(zR * 2.0, 1.0);
+	vec2 refrPx;
+	if (u_bevelMode < 0.5) {
+		// Biconvex: physically-based dual-surface refraction
+		vec2 exitRefr = hGrad * refrPow;
+		vec2 entryRefr = hGrad * refrPow;
+		vec2 throughRefr = entryRefr * thickNorm * 0.5;
+		refrPx = (exitRefr + entryRefr + throughRefr) * u_refract * 30.0;
+		vec2 centerDir = -v_localPx / max(half_, vec2(1.0));
+		refrPx += centerDir * u_refract * 4.0 * depth;
+	} else {
+		// Dome (plano-convex): uniform magnification by contracting UV toward center.
+		// Each pixel samples from closer to center \u2192 content appears larger.
+		refrPx = -v_localPx * u_refract * depth * 0.35;
+	}
+	vec2 refr = refrPx * pxToUV;
+
+	// \u2500\u2500 Micro-distortion noise \u2500\u2500
+	vec2 ns = v_localPx * 0.08;
+	vec2 absPxToUV = vec2(1.0) / u_res;
+	vec2 micro = (vec2(hash(ns), hash(ns + vec2(37.0))) - 0.5) * u_distort * 4.0 * absPxToUV;
+
+	// \u2500\u2500 Chromatic aberration \u2500\u2500
+	float caS = u_chroma * 18.0 * (edge * 0.7 + 0.3) * 2.0;
+	vec2 caD = N.xy * caS * pxToUV;
+	vec2 base = v_screenUV + refr + micro;
+
+	vec3 sharp = vec3(
+		texture2D(u_bgTex,  base + caD).r,
+		texture2D(u_bgTex,  base).g,
+		texture2D(u_bgTex,  base - caD).b
+	);
+	vec3 blur = vec3(
+		texture2D(u_blurTex, base + caD).r,
+		texture2D(u_blurTex, base).g,
+		texture2D(u_blurTex, base - caD).b
+	);
+	// \u2500\u2500 Edge-weighted blur mix \u2500\u2500
+	// Centre of the panel uses the blurred sample; the rim blends
+	// toward the sharp sample so refraction edges stay crisp.
+	float edgeMix = (1.0 - edge * 0.15);
+	vec3 col = mix(sharp, blur, edgeMix);
+
+	// \u2500\u2500 Brightness \u2500\u2500
+	col *= 1.0 + u_brightness;
+
+	// \u2500\u2500 Saturation \u2500\u2500
+	float lum = dot(col, vec3(0.299, 0.587, 0.114));
+	col = mix(vec3(lum), col, 1.0 + u_sat);
+
+	// \u2500\u2500 Cool glass tint \u2500\u2500
+	col = mix(col, col * vec3(0.92, 0.95, 1.05), u_tint);
+	col *= 1.0 + 0.06 * depth;
+
+	// \u2500\u2500 Fresnel \u2500\u2500
+	float fres = pow(1.0 - abs(N.z), 4.0) * u_fresnel;
+
+	// \u2500\u2500 Specular highlights (multi-light Blinn-Phong) \u2500\u2500
+	vec3 V = vec3(0.0, 0.0, 1.0);
+	vec3 L1 = normalize(vec3(0.4, 0.7, 1.0));
+	vec3 H1 = normalize(L1 + V);
+	float sp1 = pow(max(dot(N, H1), 0.0), 90.0);
+	vec3 L2 = normalize(vec3(-0.3, -0.5, 1.0));
+	vec3 H2 = normalize(L2 + V);
+	float sp2 = pow(max(dot(N, H2), 0.0), 50.0) * 0.3;
+	vec3 L3 = normalize(vec3(0.1, 0.3, 1.0));
+	float spB = pow(max(dot(N, L3), 0.0), 6.0) * 0.1;
+	vec3 L4 = normalize(vec3(0.0, 0.9, 0.4));
+	vec3 H4 = normalize(L4 + V);
+	float sp4 = pow(max(dot(N, H4), 0.0), 120.0) * 0.6;
+	float totalSpec = (sp1 + sp2 + spB + sp4) * u_spec;
+
+	// \u2500\u2500 Inner border / stroke highlight \u2500\u2500
+	float borderWidth = 1.5;
+	float innerStroke = smoothstep(-borderWidth - 1.0, -borderWidth, sdf)
+	                  * (1.0 - smoothstep(-1.0, 0.0, sdf));
+	float topBias = 0.5 + 0.5 * (-v_localPx.y / half_.y);
+	innerStroke *= (0.4 + 0.6 * topBias);
+
+	// \u2500\u2500 Edge highlight & inner glow \u2500\u2500
+	float rim = edge * u_edgeHL * 0.22;
+	float innerGlow = smoothstep(5.0, 0.0, -sdf) * u_edgeHL * 0.15;
+
+	// \u2500\u2500 Environment-like reflection (fake) \u2500\u2500
+	float envRefl = (N.y * 0.5 + 0.5) * fres * 0.08;
+
+	// \u2500\u2500 Composite \u2500\u2500
+	vec3 fin = col;
+	fin += vec3(totalSpec);
+	fin += vec3(rim + innerGlow);
+	fin += vec3(innerStroke * u_edgeHL * 0.55);
+	fin += vec3(envRefl);
+	fin = mix(fin, vec3(1.0), fres * 0.2);
+
+	gl_FragColor = vec4(fin, mask * u_alpha);
+}`;
+
+// src/GlassRenderer.ts
+var GlassRenderer = class {
+  constructor() {
+    this.fboCache = /* @__PURE__ */ new Map();
+    this.activeFBOs = null;
+    this.bgTex = null;
+    this.width = 0;
+    this.height = 0;
+    this.contextLost = false;
+    this.canvas = document.createElement("canvas");
+    this.canvas.style.display = "none";
+    document.body.appendChild(this.canvas);
+    this.cropCanvas = document.createElement("canvas");
+    this.cropCtx = this.cropCanvas.getContext("2d");
+    const gl = this.canvas.getContext("webgl", {
+      alpha: true,
+      premultipliedAlpha: false,
+      antialias: false,
+      preserveDrawingBuffer: true
+    });
+    if (!gl) {
+      throw new Error("LiquidGlass: WebGL is not supported in this browser.");
+    }
+    this.gl = gl;
+    this._initPrograms();
+    this._initBuffers();
+    this._onContextLost = (e) => {
+      e.preventDefault();
+      this.contextLost = true;
+      console.warn("LiquidGlass: WebGL context lost.");
+    };
+    this._onContextRestored = () => {
+      console.info("LiquidGlass: WebGL context restored \u2014 reinitialising.");
+      this.contextLost = false;
+      this._initPrograms();
+      this._initBuffers();
+      for (const fboSet of this.fboCache.values()) {
+        this._freeFBOSet(fboSet);
+      }
+      this.fboCache.clear();
+      this.activeFBOs = null;
+      this.bgTex = null;
+    };
+    this.canvas.addEventListener("webglcontextlost", this._onContextLost);
+    this.canvas.addEventListener("webglcontextrestored", this._onContextRestored);
+  }
+  // ────────────────────────────────────────────
+  // Initialisation
+  // ────────────────────────────────────────────
+  _initPrograms() {
+    this.blitP = this._link(VS_QUAD, FS_BLIT);
+    this.blitU = this._uloc(this.blitP, ["u_tex", "u_scale", "u_offset"]);
+    this.blurP = this._link(VS_QUAD, FS_BLUR);
+    this.blurU = this._uloc(this.blurP, ["u_tex", "u_dir"]);
+    this.glassP = this._link(VS_GLASS, FS_GLASS);
+    this.glassU = this._uloc(this.glassP, [
+      "u_bgTex",
+      "u_blurTex",
+      "u_center",
+      "u_size",
+      "u_radius",
+      "u_res",
+      "u_pad",
+      "u_refract",
+      "u_chroma",
+      "u_edgeHL",
+      "u_spec",
+      "u_fresnel",
+      "u_distort",
+      "u_alpha",
+      "u_sat",
+      "u_tint",
+      "u_zRadius",
+      "u_brightness",
+      "u_shadowAlpha",
+      "u_shadowSpread",
+      "u_shadowOffY",
+      "u_bevelMode"
+    ]);
+  }
+  _initBuffers() {
+    const gl = this.gl;
+    this.quadBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.quadBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    this.panelBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.panelBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5]), gl.STATIC_DRAW);
+  }
+  // ────────────────────────────────────────────
+  // Resize
+  // ────────────────────────────────────────────
+  resize(width, height) {
+    this.width = width;
+    this.height = height;
+    for (const fboSet of this.fboCache.values()) {
+      this._freeFBOSet(fboSet);
+    }
+    this.fboCache.clear();
+    this.activeFBOs = null;
+    this.canvas.width = 0;
+    this.canvas.height = 0;
+  }
+  // ────────────────────────────────────────────
+  // Background upload
+  // ────────────────────────────────────────────
+  uploadAndBlur(sourceCanvas, sourceX, sourceY, width, height, blurAmount) {
+    if (this.contextLost) return;
+    const gl = this.gl;
+    if (!this._setActiveSize(width, height)) return;
+    const W = this.width;
+    const H = this.height;
+    const fboSet = this.activeFBOs;
+    this.cropCanvas.width = W;
+    this.cropCanvas.height = H;
+    this.cropCtx.clearRect(0, 0, W, H);
+    this.cropCtx.drawImage(sourceCanvas, -sourceX, -sourceY);
+    if (!this.bgTex) {
+      this.bgTex = gl.createTexture();
+    }
+    gl.bindTexture(gl.TEXTURE_2D, this.bgTex);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.cropCanvas);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fboSet.bg.fbo);
+    gl.viewport(0, 0, W, H);
+    gl.useProgram(this.blitP);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, this.bgTex);
+    gl.uniform1i(this.blitU.u_tex, 0);
+    gl.uniform2f(this.blitU.u_scale, 1, 1);
+    gl.uniform2f(this.blitU.u_offset, 0, 0);
+    this._drawQuad(this.blitP, this.quadBuf);
+    const bw = fboSet.blurA.w;
+    const bh = fboSet.blurA.h;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fboSet.blurA.fbo);
+    gl.viewport(0, 0, bw, bh);
+    gl.bindTexture(gl.TEXTURE_2D, fboSet.bg.tex);
+    this._drawQuad(this.blitP, this.quadBuf);
+    if (blurAmount > 0) {
+      const spread = blurAmount * 2.5;
+      gl.useProgram(this.blurP);
+      gl.uniform1i(this.blurU.u_tex, 0);
+      for (let i = 0; i < BLUR_ITERATIONS; i++) {
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fboSet.blurB.fbo);
+        gl.viewport(0, 0, bw, bh);
+        gl.bindTexture(gl.TEXTURE_2D, fboSet.blurA.tex);
+        gl.uniform2f(this.blurU.u_dir, spread / bw, 0);
+        this._drawQuad(this.blurP, this.quadBuf);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fboSet.blurA.fbo);
+        gl.bindTexture(gl.TEXTURE_2D, fboSet.blurB.tex);
+        gl.uniform2f(this.blurU.u_dir, 0, spread / bh);
+        this._drawQuad(this.blurP, this.quadBuf);
+      }
+    }
+  }
+  // ────────────────────────────────────────────
+  // Glass panel rendering
+  // ────────────────────────────────────────────
+  renderGlassPanel(config, width, height, dpr) {
+    if (this.contextLost) return;
+    const gl = this.gl;
+    const W = this.width;
+    const H = this.height;
+    const fboSet = this.activeFBOs;
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.useProgram(this.glassP);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, fboSet.bg.tex);
+    gl.uniform1i(this.glassU.u_bgTex, 0);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, fboSet.blurA.tex);
+    gl.uniform1i(this.glassU.u_blurTex, 1);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, this.canvas.height - H, W, H);
+    gl.uniform2f(this.glassU.u_res, W, H);
+    gl.uniform2f(this.glassU.u_center, W * 0.5, H * 0.5);
+    gl.uniform2f(this.glassU.u_size, width * dpr, height * dpr);
+    gl.uniform1f(this.glassU.u_radius, config.cornerRadius * dpr);
+    gl.uniform1f(this.glassU.u_pad, SHADOW_PAD * dpr);
+    gl.uniform1f(this.glassU.u_refract, config.refraction);
+    gl.uniform1f(this.glassU.u_chroma, config.chromAberration);
+    gl.uniform1f(this.glassU.u_edgeHL, config.edgeHighlight);
+    gl.uniform1f(this.glassU.u_spec, config.specular);
+    gl.uniform1f(this.glassU.u_fresnel, config.fresnel);
+    gl.uniform1f(this.glassU.u_distort, config.distortion);
+    gl.uniform1f(this.glassU.u_alpha, config.opacity);
+    gl.uniform1f(this.glassU.u_sat, config.saturation);
+    gl.uniform1f(this.glassU.u_tint, config.tintStrength);
+    gl.uniform1f(this.glassU.u_zRadius, config.zRadius * dpr);
+    gl.uniform1f(this.glassU.u_brightness, config.brightness);
+    gl.uniform1f(this.glassU.u_shadowAlpha, config.shadowOpacity);
+    gl.uniform1f(this.glassU.u_shadowSpread, config.shadowSpread * dpr);
+    gl.uniform1f(this.glassU.u_shadowOffY, config.shadowOffsetY * dpr);
+    gl.uniform1f(this.glassU.u_bevelMode, config.bevelMode);
+    this._drawQuad(this.glassP, this.panelBuf);
+    gl.disable(gl.BLEND);
+  }
+  clear() {
+    const gl = this.gl;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, this.canvas.height - this.height, this.width, this.height);
+    gl.enable(gl.SCISSOR_TEST);
+    gl.scissor(0, this.canvas.height - this.height, this.width, this.height);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.disable(gl.SCISSOR_TEST);
+  }
+  destroy() {
+    this.canvas.removeEventListener("webglcontextlost", this._onContextLost);
+    this.canvas.removeEventListener("webglcontextrestored", this._onContextRestored);
+    if (!this.contextLost) {
+      const gl = this.gl;
+      for (const fboSet of this.fboCache.values()) {
+        this._freeFBOSet(fboSet);
+      }
+      this.fboCache.clear();
+      if (this.bgTex) gl.deleteTexture(this.bgTex);
+      gl.deleteBuffer(this.quadBuf);
+      gl.deleteBuffer(this.panelBuf);
+      gl.deleteProgram(this.blitP);
+      gl.deleteProgram(this.blurP);
+      gl.deleteProgram(this.glassP);
+    }
+    this.canvas.remove();
+  }
+  // ────────────────────────────────────────────
+  // FBO management
+  // ────────────────────────────────────────────
+  _setActiveSize(w, h) {
+    if (w <= 0 || h <= 0) return false;
+    this.width = w;
+    this.height = h;
+    if (this.canvas.width < w || this.canvas.height < h) {
+      this.canvas.width = Math.max(this.canvas.width, w);
+      this.canvas.height = Math.max(this.canvas.height, h);
+    }
+    const key = `${w}x${h}`;
+    let fboSet = this.fboCache.get(key);
+    if (!fboSet) {
+      fboSet = {
+        bg: this._makeFBO(w, h),
+        blurA: this._makeFBO(w, h),
+        blurB: this._makeFBO(w, h)
+      };
+      this.fboCache.set(key, fboSet);
+    }
+    this.activeFBOs = fboSet;
+    return true;
+  }
+  _makeFBO(w, h) {
+    const gl = this.gl;
+    const tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    const fbo = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    return { fbo, tex, w, h };
+  }
+  _freeFBO(fboObj) {
+    if (!fboObj) return;
+    const gl = this.gl;
+    gl.deleteFramebuffer(fboObj.fbo);
+    gl.deleteTexture(fboObj.tex);
+  }
+  _freeFBOSet(fboSet) {
+    this._freeFBO(fboSet.bg);
+    this._freeFBO(fboSet.blurA);
+    this._freeFBO(fboSet.blurB);
+  }
+  // ────────────────────────────────────────────
+  // Shader helpers
+  // ────────────────────────────────────────────
+  _compile(src, type) {
+    const gl = this.gl;
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.error("LiquidGlass shader compile error:", gl.getShaderInfoLog(s), src);
+      return null;
+    }
+    return s;
+  }
+  _link(vsSrc, fsSrc) {
+    const gl = this.gl;
+    const p = gl.createProgram();
+    gl.attachShader(p, this._compile(vsSrc, gl.VERTEX_SHADER));
+    gl.attachShader(p, this._compile(fsSrc, gl.FRAGMENT_SHADER));
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
+      console.error("LiquidGlass program link error:", gl.getProgramInfoLog(p));
+    }
+    return p;
+  }
+  _uloc(prog, names) {
+    const gl = this.gl;
+    const u = {};
+    for (const n of names) {
+      u[n] = gl.getUniformLocation(prog, n);
+    }
+    return u;
+  }
+  _drawQuad(prog, buf) {
+    const gl = this.gl;
+    const loc = gl.getAttribLocation(prog, "a_pos");
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+};
+
+// src/LiquidGlass.ts
+var BUTTON_CLASS = "liquid-glass-button";
+var STYLE_ID = "liquid-glass-button-styles";
+var BUTTON_CSS = `
+.${BUTTON_CLASS} {
+	cursor: pointer;
+}
+`;
+var LiquidGlass = class _LiquidGlass {
+  // ────────────────────────────────────────────
+  // Constructor (prefer LiquidGlass.init)
+  // ────────────────────────────────────────────
+  constructor({ root, glassElements, defaults = {} }) {
+    /** Current frames-per-second (updated every frame). */
+    this.fps = 0;
+    this._running = false;
+    this._rafId = 0;
+    this._hasDynamic = false;
+    /**
+     * Genuinely-global dirty flag — set by events that legitimately
+     * affect every glass at once (resize, WebGL context restored,
+     * structural mutation of root, end of _start). On the next frame
+     * the entry guard promotes it into per-element dirty marks for
+     * every glass in glassSet, then clears itself.
+     */
+    this._globalDirty = true;
+    /**
+     * Per-element shader-render dirty set. Each entry is a glass
+     * element that needs its WebGL pipeline to re-run on the next
+     * frame. Drained at the end of _renderFrame.
+     *
+     * Mirrors _glassContentDirty (which tracks html-to-image content
+     * captures) but for the WebGL shader pass instead of the DOM
+     * raster pass — they have different triggers.
+     */
+    this._glassDirty = /* @__PURE__ */ new Set();
+    /**
+     * Elements (typically wrappers, glasses themselves, or descendants
+     * of root) explicitly marked changed via the public markChanged()
+     * API. The next frame fans each one out into _glassDirty by
+     * intersecting against every glass's sample rect, then clears
+     * the set.
+     */
+    this._userMarkedChanged = /* @__PURE__ */ new Set();
+    this._capturingGlassContent = false;
+    /**
+     * Glass elements whose content image is stale and needs to be
+     * re-captured. Per-element rather than a single global flag so a
+     * mutation inside one glass subtree only re-captures that one
+     * element instead of every glass on the page.
+     */
+    this._glassContentDirty = /* @__PURE__ */ new Set();
+    this._fpsFrames = 0;
+    this._fpsTime = 0;
+    this._observer = null;
+    this._glassSubtreeObserver = null;
+    this._sortedChildren = [];
+    this._glassCache = /* @__PURE__ */ new Map();
+    this._glassContentImages = /* @__PURE__ */ new Map();
+    this._glassLastSize = /* @__PURE__ */ new Map();
+    this._buttonStates = /* @__PURE__ */ new Map();
+    this._buttonListeners = /* @__PURE__ */ new Map();
+    this._drag = {
+      active: false,
+      element: null,
+      startX: 0,
+      startY: 0,
+      origTx: 0,
+      origTy: 0
+    };
+    if (!root) throw new Error("LiquidGlass: `root` element is required.");
+    this.root = root;
+    this.defaults = { ...DEFAULTS, ...defaults };
+    this.glassSet = new Set(Array.from(glassElements || []));
+    this.glassCanvases = /* @__PURE__ */ new Map();
+    this.capture = new HtmlCapture(root);
+    this.capture.onCacheUpdate = (element) => {
+      this._markGlassesIntersecting(element);
+    };
+    this.renderer = new GlassRenderer();
+    this._sceneCanvas = document.createElement("canvas");
+    this._sceneCtx = this._sceneCanvas.getContext("2d");
+    this.renderer.canvas.addEventListener("webglcontextrestored", () => {
+      this._glassCache.clear();
+      this._globalDirty = true;
+    });
+    this._onResize = this._handleResize.bind(this);
+    this._onPointerDown = this._handlePointerDown.bind(this);
+    this._onPointerMove = this._handlePointerMove.bind(this);
+    this._onPointerUp = this._handlePointerUp.bind(this);
+  }
+  // ────────────────────────────────────────────
+  // Static entry point
+  // ────────────────────────────────────────────
+  static async init(options) {
+    const instance = new _LiquidGlass(options);
+    await instance._start();
+    return instance;
+  }
+  // ────────────────────────────────────────────
+  // Lifecycle
+  // ────────────────────────────────────────────
+  async _start() {
+    this.root.style.userSelect = "none";
+    this.root.style.webkitUserSelect = "none";
+    this._setupGlassElements();
+    this._hasDynamic = this._detectDynamic();
+    this._sortedChildren = this._getSortedChildren();
+    this._handleResize();
+    await this.capture.prefetchFontEmbedCSS();
+    await this._captureGlassContent();
+    await this._prewarmStaticCaptures();
+    window.addEventListener("resize", this._onResize);
+    this.root.addEventListener("pointerdown", this._onPointerDown);
+    window.addEventListener("pointermove", this._onPointerMove);
+    window.addEventListener("pointerup", this._onPointerUp);
+    this._observer = new MutationObserver(() => {
+      this._sortedChildren = this._getSortedChildren();
+      this._globalDirty = true;
+    });
+    this._observer.observe(this.root, { childList: true });
+    this._glassSubtreeObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        const owner = this._closestGlassAncestor(mutation.target);
+        if (mutation.type === "attributes" && mutation.attributeName === "data-config") {
+          if (owner) this._markGlassAndDependents(owner);
+          continue;
+        }
+        if (owner) {
+          this._glassContentDirty.add(owner);
+          this._markGlassAndDependents(owner);
+        }
+      }
+    });
+    for (const el of this.glassSet) {
+      this._glassSubtreeObserver.observe(el, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ["data-config"]
+      });
+    }
+    this._glassContentDirty.clear();
+    this._running = true;
+    this._globalDirty = true;
+    this._rafId = requestAnimationFrame(() => this._renderLoop());
+  }
+  destroy() {
+    this._running = false;
+    cancelAnimationFrame(this._rafId);
+    this.root.style.removeProperty("user-select");
+    this.root.style.removeProperty("-webkit-user-select");
+    window.removeEventListener("resize", this._onResize);
+    this.root.removeEventListener("pointerdown", this._onPointerDown);
+    window.removeEventListener("pointermove", this._onPointerMove);
+    window.removeEventListener("pointerup", this._onPointerUp);
+    this._observer?.disconnect();
+    this._observer = null;
+    this._glassSubtreeObserver?.disconnect();
+    this._glassSubtreeObserver = null;
+    for (const [el, canvas] of this.glassCanvases) {
+      canvas.remove();
+      el.style.removeProperty("position");
+      el.style.removeProperty("overflow");
+      el.style.removeProperty("touch-action");
+      el.classList.remove(BUTTON_CLASS);
+    }
+    this.glassCanvases.clear();
+    this._glassCache.clear();
+    this._glassContentImages.clear();
+    this._glassLastSize.clear();
+    for (const removers of this._buttonListeners.values()) {
+      for (const r of removers) r();
+    }
+    this._buttonListeners.clear();
+    this._buttonStates.clear();
+    document.getElementById(STYLE_ID)?.remove();
+    this.capture.destroy();
+    this.renderer.destroy();
+  }
+  // ────────────────────────────────────────────
+  // Glass element setup
+  // ────────────────────────────────────────────
+  _setupGlassElements() {
+    let needsButtonStyles = false;
+    for (const el of this.glassSet) {
+      if (el.parentElement !== this.root) {
+        console.warn("LiquidGlass: glass element must be a direct child of root, skipping.", el);
+        this.glassSet.delete(el);
+        continue;
+      }
+      const currentPosition = window.getComputedStyle(el).position;
+      if (currentPosition === "static") {
+        el.style.position = "relative";
+      }
+      el.style.overflow = "visible";
+      const config = this._getConfig(el);
+      if (config.floating) {
+        el.style.touchAction = "none";
+      }
+      if (config.button) {
+        el.classList.add(BUTTON_CLASS);
+        needsButtonStyles = true;
+        this._setupButtonListeners(el);
+      }
+      const canvas = document.createElement("canvas");
+      canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;";
+      el.insertBefore(canvas, el.firstChild);
+      this.glassCanvases.set(el, canvas);
+    }
+    if (needsButtonStyles && !document.getElementById(STYLE_ID)) {
+      const style = document.createElement("style");
+      style.id = STYLE_ID;
+      style.textContent = BUTTON_CSS;
+      document.head.appendChild(style);
+    }
+  }
+  /**
+   * Walk up from a mutation target until we hit a glass element
+   * registered on this instance. Returns null if the node isn't
+   * inside any glass subtree (shouldn't normally happen since the
+   * observers are scoped to glass elements, but the mutation target
+   * may be a Text node or detached during a removal).
+   */
+  _closestGlassAncestor(node) {
+    let cur = node;
+    while (cur) {
+      if (cur.nodeType === 1 && this.glassSet.has(cur)) {
+        return cur;
+      }
+      cur = cur.parentNode;
+    }
+    return null;
+  }
+  /**
+   * Mark a glass element (and any glass that visually depends on it
+   * via z-order overlap) as needing a shader re-render on the next
+   * frame.
+   *
+   * `rectOverride` lets callers pass a rect that differs from the
+   * element's current bounding box — useful for drag, where we
+   * want to invalidate both the *old* and *new* footprints in the
+   * same call so glasses behind the dragged panel can clear its
+   * trail and glasses ahead can pick up its new shadow.
+   */
+  _markGlassAndDependents(element, rectOverride) {
+    if (this.glassSet.has(element)) {
+      this._glassDirty.add(element);
+    }
+    const rootRect = this.root.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const elementDOMRect = rectOverride ?? element.getBoundingClientRect();
+    const elementBox = this._getPixelRect(
+      elementDOMRect,
+      rootRect,
+      dpr,
+      this.glassSet.has(element) ? SHADOW_PAD : 0
+    );
+    let seenElement = false;
+    for (const child of this._sortedChildren) {
+      if (child === element) {
+        seenElement = true;
+        continue;
+      }
+      if (!seenElement) continue;
+      if (!this.glassSet.has(child)) continue;
+      const sampleRect = this._getPixelRect(
+        child.getBoundingClientRect(),
+        rootRect,
+        dpr,
+        SHADOW_PAD
+      );
+      if (_LiquidGlass._rectsIntersect(elementBox, sampleRect)) {
+        this._glassDirty.add(child);
+      }
+    }
+  }
+  /**
+   * Mark every glass element whose sample rect intersects the given
+   * element's bounding rect, regardless of stacking order. Used by
+   * the async cache-update callback (a wrapper's pixels just got
+   * fresh, so any glass that samples them needs to re-render) and
+   * by the public markChanged() API for elements outside the glass
+   * set.
+   */
+  _markGlassesIntersecting(element) {
+    const rootRect = this.root.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const elementBox = this._getPixelRect(
+      element.getBoundingClientRect(),
+      rootRect,
+      dpr,
+      this.glassSet.has(element) ? SHADOW_PAD : 0
+    );
+    for (const glass of this.glassSet) {
+      const sampleRect = this._getPixelRect(
+        glass.getBoundingClientRect(),
+        rootRect,
+        dpr,
+        SHADOW_PAD
+      );
+      if (_LiquidGlass._rectsIntersect(elementBox, sampleRect)) {
+        this._glassDirty.add(glass);
+      }
+    }
+  }
+  /**
+   * Public API: mark an element (or all glass elements when called
+   * with no arguments) as needing a shader re-render on the next
+   * frame. Useful for content the library can't observe on its own —
+   * a `<canvas>` whose pixels you just updated, an `<img>` you just
+   * swapped via JS, a wrapper whose CSS background-image you just
+   * changed, etc.
+   *
+   * For elements registered via `data-dynamic`, the library already
+   * treats them as always-dirty and re-renders affected glasses
+   * every frame; calling markChanged() on them is a no-op but is
+   * harmless.
+   *
+   * @param element The element that changed visually. Pass nothing
+   * (or `undefined`) to mark every glass on this instance dirty.
+   */
+  markChanged(element) {
+    if (!element) {
+      this._globalDirty = true;
+      return;
+    }
+    this._userMarkedChanged.add(element);
+  }
+  _setupButtonListeners(el) {
+    const state = { hover: false, pressed: false };
+    this._buttonStates.set(el, state);
+    const mark = () => this._markGlassAndDependents(el);
+    const onOver = () => {
+      state.hover = true;
+      mark();
+    };
+    const onOut = () => {
+      state.hover = false;
+      state.pressed = false;
+      mark();
+    };
+    const onDown = () => {
+      state.pressed = true;
+      mark();
+    };
+    const onUp = () => {
+      state.pressed = false;
+      mark();
+    };
+    el.addEventListener("pointerover", onOver);
+    el.addEventListener("pointerout", onOut);
+    el.addEventListener("pointerdown", onDown);
+    el.addEventListener("pointerup", onUp);
+    el.addEventListener("pointercancel", onUp);
+    this._buttonListeners.set(el, [
+      () => el.removeEventListener("pointerover", onOver),
+      () => el.removeEventListener("pointerout", onOut),
+      () => el.removeEventListener("pointerdown", onDown),
+      () => el.removeEventListener("pointerup", onUp),
+      () => el.removeEventListener("pointercancel", onUp)
+    ]);
+  }
+  // ────────────────────────────────────────────
+  // Glass content pre-capture
+  // ────────────────────────────────────────────
+  /**
+   * Re-capture the DOM content (text, icons, etc.) of glass elements
+   * whose subtrees have been mutated since the last capture, hiding
+   * the injected shader canvas so it isn't included.
+   *
+   * Pass `targets = null` to capture every glass element (used at
+   * init and on resize); pass a Set to capture only specific ones.
+   *
+   * Guarded against concurrent execution: if a capture is already
+   * running, the affected elements stay in `_glassContentDirty` and
+   * the next render-loop tick picks them up.
+   */
+  async _captureGlassContent(targets = null) {
+    if (this._capturingGlassContent) return;
+    this._capturingGlassContent = true;
+    try {
+      for (const [el, glassCanvas] of this.glassCanvases) {
+        if (targets && !targets.has(el)) continue;
+        const rect = el.getBoundingClientRect();
+        const img = await this.capture.captureToCanvas(
+          el,
+          rect.width,
+          rect.height,
+          [glassCanvas]
+        );
+        if (img) {
+          this._glassContentImages.set(el, img);
+        }
+      }
+    } finally {
+      this._capturingGlassContent = false;
+    }
+  }
+  /**
+   * Synchronously walk every non-glass direct child of root and
+   * await its html-to-image capture so the cache is fully populated
+   * by the time the render loop starts. Without this, the first
+   * frame's glass shader sees an empty (white) local scene for
+   * ~one or two frames while the async captures resolve.
+   */
+  async _prewarmStaticCaptures() {
+    for (const child of this._sortedChildren) {
+      if (this.glassSet.has(child)) continue;
+      const tag = child.tagName;
+      if (tag === "CANVAS" || tag === "IMG" || tag === "VIDEO") continue;
+      if (child.hasAttribute("data-dynamic")) continue;
+      try {
+        await this.capture.captureElement(child, false);
+      } catch (err) {
+        console.warn("LiquidGlass: prewarm capture failed:", child, err);
+      }
+    }
+  }
+  // ────────────────────────────────────────────
+  // Child ordering & stacking context
+  // ────────────────────────────────────────────
+  _getSortedChildren() {
+    const children = Array.from(this.root.children);
+    const rootDisplay = window.getComputedStyle(this.root).display;
+    const isFlexOrGridParent = rootDisplay === "flex" || rootDisplay === "inline-flex" || rootDisplay === "grid" || rootDisplay === "inline-grid";
+    const tagged = children.map((el, domIndex) => {
+      const style = window.getComputedStyle(el);
+      const hasStackingContext = _LiquidGlass._formsStackingContext(style, isFlexOrGridParent);
+      const rawZ = parseInt(style.zIndex, 10);
+      const zIndex = isNaN(rawZ) ? 0 : rawZ;
+      return { el, domIndex, hasStackingContext, zIndex };
+    });
+    tagged.sort((a, b) => {
+      if (!a.hasStackingContext && b.hasStackingContext) return -1;
+      if (a.hasStackingContext && !b.hasStackingContext) return 1;
+      if (a.hasStackingContext && b.hasStackingContext) {
+        if (a.zIndex !== b.zIndex) return a.zIndex - b.zIndex;
+      }
+      return a.domIndex - b.domIndex;
+    });
+    return tagged.map((t) => t.el);
+  }
+  /**
+   * Returns true when the element forms a CSS stacking context — i.e.
+   * when its z-index participates in painting order. Mirrors the spec:
+   * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Stacking_context
+   *
+   * Used by `_getSortedChildren` to decide painting order for the
+   * local scene assembly. The set of triggers needs to match the
+   * browser's actual stacking model — otherwise overlays end up
+   * painted before the background image and get erased.
+   */
+  static _formsStackingContext(style, isFlexOrGridParent) {
+    if (style.position !== "static") return true;
+    if (isFlexOrGridParent && style.zIndex !== "auto") return true;
+    if (parseFloat(style.opacity) < 1) return true;
+    if (style.transform !== "none" && style.transform !== "") return true;
+    if (style.filter !== "none" && style.filter !== "") return true;
+    if (style.perspective !== "none" && style.perspective !== "") return true;
+    if (style.clipPath !== "none" && style.clipPath !== "") return true;
+    if (style.mixBlendMode !== "normal" && style.mixBlendMode !== "") return true;
+    if (style.isolation === "isolate") return true;
+    const bf = style.backdropFilter || style.webkitBackdropFilter;
+    if (bf && bf !== "none") return true;
+    const mask = style.maskImage || style.webkitMaskImage;
+    if (mask && mask !== "none") return true;
+    const contain = style.contain;
+    if (contain && /\b(layout|paint|strict|content)\b/.test(contain)) return true;
+    if (style.willChange) {
+      const triggers = /* @__PURE__ */ new Set([
+        "transform",
+        "opacity",
+        "filter",
+        "backdrop-filter",
+        "perspective",
+        "clip-path",
+        "mask",
+        "mask-image",
+        "isolation",
+        "mix-blend-mode"
+      ]);
+      const tokens = style.willChange.split(",").map((t) => t.trim());
+      for (const t of tokens) {
+        if (triggers.has(t)) return true;
+      }
+    }
+    return false;
+  }
+  _detectDynamic() {
+    const dynEls = this.root.querySelectorAll("[data-dynamic]");
+    for (const el of dynEls) {
+      if (!this.glassSet.has(el)) {
+        return true;
+      }
+    }
+    const videos = this.root.querySelectorAll("video");
+    for (const vid of videos) {
+      if (!this.glassSet.has(vid)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  // ────────────────────────────────────────────
+  // Configuration
+  // ────────────────────────────────────────────
+  _getConfig(el) {
+    const cachedEl = el;
+    const configKey = el.dataset.config ?? "";
+    if (cachedEl.configCacheKey !== configKey) {
+      let perElement = {};
+      if (configKey) {
+        try {
+          const parsed = JSON.parse(configKey);
+          if (parsed && typeof parsed === "object") {
+            perElement = parsed;
+          } else {
+            console.warn("LiquidGlass: data-config must decode to an object for element:", el);
+          }
+        } catch (_e) {
+          console.warn("LiquidGlass: invalid JSON in data-config for element:", el);
+        }
+      }
+      cachedEl.configCache = perElement;
+      cachedEl.configCacheKey = configKey;
+    }
+    const config = { ...this.defaults, ...cachedEl.configCache || {} };
+    if (config.button) {
+      const state = this._buttonStates.get(el);
+      if (state) {
+        if (state.pressed) {
+          config.zRadius = config.zRadius * 0.8;
+          config.shadowSpread = config.shadowSpread * 1.2;
+        } else if (state.hover) {
+          config.brightness = config.brightness + 0.2;
+        }
+      }
+    }
+    return config;
+  }
+  // ────────────────────────────────────────────
+  // Resize
+  // ────────────────────────────────────────────
+  _handleResize() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = this.root.getBoundingClientRect();
+    this.capture.resize(dpr);
+    this.renderer.resize(Math.round(rect.width * dpr), Math.round(rect.height * dpr));
+    for (const el of this.glassSet) {
+      this._updateGlassCanvasSize(el);
+    }
+    this._glassCache.clear();
+    for (const el of this.glassSet) this._glassContentDirty.add(el);
+    this._globalDirty = true;
+  }
+  _updateGlassCanvasSize(el) {
+    const canvas = this.glassCanvases.get(el);
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const elW = Math.round(el.offsetWidth);
+    const elH = Math.round(el.offsetHeight);
+    const padW = SHADOW_PAD * 2;
+    const padH = SHADOW_PAD * 2;
+    canvas.width = Math.round((elW + padW) * dpr);
+    canvas.height = Math.round((elH + padH) * dpr);
+    canvas.style.cssText = [
+      "position:absolute",
+      `left:${-SHADOW_PAD}px`,
+      `top:${-SHADOW_PAD}px`,
+      `width:${elW + padW}px`,
+      `height:${elH + padH}px`,
+      "pointer-events:none",
+      "z-index:-1"
+    ].join(";") + ";";
+    this._glassLastSize.set(el, { w: elW, h: elH });
+  }
+  _checkGlassSizeChanges() {
+    let changed = false;
+    for (const el of this.glassSet) {
+      const w = el.offsetWidth;
+      const h = el.offsetHeight;
+      const last = this._glassLastSize.get(el);
+      if (!last || Math.abs(last.w - w) > 0.5 || Math.abs(last.h - h) > 0.5) {
+        this._updateGlassCanvasSize(el);
+        this._glassCache.delete(el);
+        this.capture.invalidateCache(el);
+        this._glassContentDirty.add(el);
+        changed = true;
+      }
+    }
+    return changed;
+  }
+  // ────────────────────────────────────────────
+  // Floating (drag) behaviour — Pointer Events
+  // ────────────────────────────────────────────
+  /** Parse the current translate(x, y) values from an element's transform. */
+  static _getTranslateXY(el) {
+    const style = getComputedStyle(el);
+    const matrix = style.transform;
+    if (!matrix || matrix === "none") return [0, 0];
+    const m = matrix.match(/matrix\(([^)]+)\)/);
+    if (m) {
+      const parts = m[1].split(",").map(Number);
+      return [parts[4] || 0, parts[5] || 0];
+    }
+    return [0, 0];
+  }
+  _handlePointerDown(e) {
+    for (let i = this._sortedChildren.length - 1; i >= 0; i--) {
+      const el = this._sortedChildren[i];
+      if (!this.glassSet.has(el)) continue;
+      const config = this._getConfig(el);
+      if (!config.floating) continue;
+      const rect = el.getBoundingClientRect();
+      const elW = el.offsetWidth;
+      const elH = el.offsetHeight;
+      const visualLeft = rect.left + (rect.width - elW) / 2;
+      const visualTop = rect.top + (rect.height - elH) / 2;
+      if (e.clientX >= visualLeft && e.clientX <= visualLeft + elW && e.clientY >= visualTop && e.clientY <= visualTop + elH) {
+        const [tx, ty] = _LiquidGlass._getTranslateXY(el);
+        this._drag.active = true;
+        this._drag.element = el;
+        this._drag.startX = e.clientX;
+        this._drag.startY = e.clientY;
+        this._drag.origTx = tx;
+        this._drag.origTy = ty;
+        el.style.cursor = "grabbing";
+        el.setPointerCapture(e.pointerId);
+        e.preventDefault();
+        break;
+      }
+    }
+  }
+  _handlePointerMove(e) {
+    if (!this._drag.active) {
+      for (const el2 of this.glassSet) {
+        const config = this._getConfig(el2);
+        if (!config.floating) continue;
+        const rect = el2.getBoundingClientRect();
+        const elW2 = el2.offsetWidth;
+        const elH2 = el2.offsetHeight;
+        const visualLeft = rect.left + (rect.width - elW2) / 2;
+        const visualTop = rect.top + (rect.height - elH2) / 2;
+        if (e.clientX >= visualLeft && e.clientX <= visualLeft + elW2 && e.clientY >= visualTop && e.clientY <= visualTop + elH2) {
+          el2.style.cursor = "grab";
+        } else {
+          el2.style.cursor = "";
+        }
+      }
+      return;
+    }
+    const el = this._drag.element;
+    const dx = e.clientX - this._drag.startX;
+    const dy = e.clientY - this._drag.startY;
+    let newTx = this._drag.origTx + dx;
+    let newTy = this._drag.origTy + dy;
+    const rootRect = this.root.getBoundingClientRect();
+    const elW = el.offsetWidth;
+    const elH = el.offsetHeight;
+    const elRect = el.getBoundingClientRect();
+    const [curTx, curTy] = _LiquidGlass._getTranslateXY(el);
+    const baseLeft = elRect.left + (elRect.width - elW) / 2 - rootRect.left - curTx;
+    const baseTop = elRect.top + (elRect.height - elH) / 2 - rootRect.top - curTy;
+    const margin = 10;
+    const posLeft = baseLeft + newTx;
+    const posTop = baseTop + newTy;
+    const maxLeft = rootRect.width - elW - margin;
+    const maxTop = rootRect.height - elH - margin;
+    if (posLeft < margin) newTx += margin - posLeft;
+    if (posTop < margin) newTy += margin - posTop;
+    if (posLeft > maxLeft) newTx -= posLeft - maxLeft;
+    if (posTop > maxTop) newTy -= posTop - maxTop;
+    const oldRect = el.getBoundingClientRect();
+    this._markGlassAndDependents(el, oldRect);
+    el.style.transform = `translate(${newTx}px, ${newTy}px)`;
+    this._markGlassAndDependents(el);
+  }
+  _handlePointerUp(_e) {
+    if (!this._drag.active) return;
+    const dragged = this._drag.element;
+    dragged.style.cursor = "";
+    this._drag.active = false;
+    this._drag.element = null;
+    this._markGlassAndDependents(dragged);
+  }
+  // ────────────────────────────────────────────
+  // Render loop
+  // ────────────────────────────────────────────
+  _renderLoop() {
+    if (!this._running) return;
+    const now = performance.now();
+    this._fpsFrames++;
+    if (now - this._fpsTime >= 1e3) {
+      this.fps = this._fpsFrames;
+      this._fpsFrames = 0;
+      this._fpsTime = now;
+    }
+    if (this._checkGlassSizeChanges()) {
+    }
+    if (this._glassContentDirty.size > 0 && !this._capturingGlassContent) {
+      const targets = new Set(this._glassContentDirty);
+      this._glassContentDirty.clear();
+      this._captureGlassContent(targets);
+    }
+    try {
+      this._renderFrame();
+    } catch (err) {
+      console.error("LiquidGlass: render error:", err);
+    }
+    this._rafId = requestAnimationFrame(() => this._renderLoop());
+  }
+  _renderFrame() {
+    const dpr = window.devicePixelRatio || 1;
+    const rootRect = this.root.getBoundingClientRect();
+    const isDragging = this._drag.active;
+    if (this._userMarkedChanged.size > 0) {
+      for (const el of this._userMarkedChanged) {
+        this._markGlassesIntersecting(el);
+      }
+      this._userMarkedChanged.clear();
+    }
+    if (this._globalDirty) {
+      for (const el of this.glassSet) this._glassDirty.add(el);
+      this._globalDirty = false;
+    }
+    const needsRender = this._glassDirty.size > 0 || this._hasDynamic || isDragging;
+    if (!needsRender) return;
+    const dirtyTargets = new Set(this._glassDirty);
+    this._glassDirty.clear();
+    const renderedThisFrame = [];
+    for (const child of this._sortedChildren) {
+      if (!this.glassSet.has(child)) continue;
+      this._renderGlassElement(
+        child,
+        rootRect,
+        dpr,
+        isDragging,
+        dirtyTargets,
+        renderedThisFrame
+      );
+    }
+  }
+  /**
+   * Render a single glass element by composing just the scene region
+   * that can affect it, then running the shader over that local input.
+   *
+   * Whether the shader actually re-runs depends on:
+   *   - explicit dirty mark for this element (in `dirtyTargets`),
+   *   - any earlier glass in z-order that re-rendered this frame
+   *     and whose rect intersects this glass's sample rect,
+   *   - this glass having moved since last frame (position cache),
+   *   - this glass having dynamic contributors in its sample (video,
+   *     data-dynamic),
+   *   - or active drag involving this element.
+   *
+   * On render, an entry is pushed to `renderedThisFrame` so later
+   * glasses can check whether they need to refresh too.
+   */
+  _renderGlassElement(child, rootRect, dpr, isDragging, dirtyTargets, renderedThisFrame) {
+    const config = this._getConfig(child);
+    const elRect = child.getBoundingClientRect();
+    const elW = child.offsetWidth;
+    const elH = child.offsetHeight;
+    const centerX = elRect.left - rootRect.left + elRect.width / 2;
+    const centerY = elRect.top - rootRect.top + elRect.height / 2;
+    const glassCanvas = this.glassCanvases.get(child);
+    const isBeingDragged = isDragging && this._drag.element === child;
+    const sampleRect = this._getPixelRect(elRect, rootRect, dpr, SHADOW_PAD);
+    const cached = this._glassCache.get(child);
+    const posChanged = !cached || Math.abs(cached.centerX - centerX) > 0.5 || Math.abs(cached.centerY - centerY) > 0.5;
+    const hasDynamicContributors = this._hasDynamic && this._glassHasDynamicContributors(child, sampleRect, rootRect, dpr);
+    let priorGlassChanged = false;
+    for (const r of renderedThisFrame) {
+      if (_LiquidGlass._rectsIntersect(r.rect, sampleRect)) {
+        priorGlassChanged = true;
+        break;
+      }
+    }
+    const isExplicitlyDirty = dirtyTargets.has(child);
+    const needsShaderRender = isDragging ? isBeingDragged || isExplicitlyDirty || priorGlassChanged || hasDynamicContributors : !cached || posChanged || isExplicitlyDirty || priorGlassChanged || hasDynamicContributors;
+    if (needsShaderRender && glassCanvas) {
+      const renderW = glassCanvas.width;
+      const renderH = glassCanvas.height;
+      this._composeSceneForGlass(child, sampleRect, rootRect, dpr);
+      this.renderer.uploadAndBlur(
+        this._sceneCanvas,
+        0,
+        0,
+        renderW,
+        renderH,
+        config.blurAmount
+      );
+      this.renderer.clear();
+      this.renderer.renderGlassPanel(
+        config,
+        elW,
+        elH,
+        dpr
+      );
+      const ctx = glassCanvas.getContext("2d");
+      ctx.clearRect(0, 0, glassCanvas.width, glassCanvas.height);
+      ctx.drawImage(
+        this.renderer.canvas,
+        0,
+        0,
+        glassCanvas.width,
+        glassCanvas.height,
+        0,
+        0,
+        glassCanvas.width,
+        glassCanvas.height
+      );
+      this._glassCache.set(child, { centerX, centerY });
+      renderedThisFrame.push({ rect: sampleRect });
+    }
+  }
+  /**
+   * Build the local input scene for a glass panel by walking only the
+   * contributors that paint before it in the stacking order.
+   */
+  _composeSceneForGlass(currentGlass, sampleRect, rootRect, dpr) {
+    this._prepareSceneCanvas(sampleRect.w, sampleRect.h);
+    for (const child of this._sortedChildren) {
+      if (child === currentGlass) break;
+      if (this.glassSet.has(child)) {
+        this._drawPriorGlassToScene(child, sampleRect, rootRect, dpr);
+      } else {
+        this._drawNonGlassChildToScene(child, sampleRect, rootRect, dpr);
+      }
+    }
+  }
+  _prepareSceneCanvas(width, height) {
+    if (this._sceneCanvas.width !== width || this._sceneCanvas.height !== height) {
+      this._sceneCanvas.width = width;
+      this._sceneCanvas.height = height;
+    } else {
+      this._sceneCtx.clearRect(0, 0, width, height);
+    }
+    this._sceneCtx.fillStyle = "#ffffff";
+    this._sceneCtx.fillRect(0, 0, width, height);
+  }
+  _glassHasDynamicContributors(currentGlass, sampleRect, rootRect, dpr) {
+    if (this._childHasDynamicContent(currentGlass)) return true;
+    for (const child of this._sortedChildren) {
+      if (child === currentGlass) break;
+      if (this.glassSet.has(child)) continue;
+      if (!this._childHasDynamicContent(child)) continue;
+      if (this._childTouchesSample(child, sampleRect, rootRect, dpr)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  _childHasDynamicContent(child) {
+    if (child.hasAttribute("data-dynamic")) return true;
+    if (child.tagName === "VIDEO") return true;
+    return child.querySelector("[data-dynamic], video") !== null;
+  }
+  _drawNonGlassChildToScene(child, sampleRect, rootRect, dpr) {
+    const tag = child.tagName;
+    if (tag === "CANVAS" || tag === "IMG" || tag === "VIDEO") {
+      this._drawMediaElement(child, this._sceneCtx, sampleRect, rootRect, dpr);
+      return;
+    }
+    if (!this._elementTouchesSample(child, sampleRect, rootRect, dpr)) {
+      return;
+    }
+    this._captureMediaDescendants(child, this._sceneCtx, sampleRect, rootRect, dpr);
+    const isDynamic = child.hasAttribute("data-dynamic");
+    this.capture.captureElement(child, isDynamic);
+    const rect = this._getPixelRect(child.getBoundingClientRect(), rootRect, dpr);
+    this.capture.drawCachedElement(
+      child,
+      this._sceneCtx,
+      rect.x - sampleRect.x,
+      rect.y - sampleRect.y,
+      rect.w,
+      rect.h
+    );
+  }
+  /**
+   * Recursively find and draw all img/video/canvas elements inside
+   * a wrapper, skipping any glass elements and their injected canvases.
+   */
+  _captureMediaDescendants(parent, targetCtx, sampleRect, rootRect, dpr) {
+    const mediaEls = parent.querySelectorAll("img, video, canvas");
+    for (const el of mediaEls) {
+      const htmlEl = el;
+      let isGlassCanvas = false;
+      for (const [, gc] of this.glassCanvases) {
+        if (gc === el) {
+          isGlassCanvas = true;
+          break;
+        }
+      }
+      if (isGlassCanvas) continue;
+      this._drawMediaElement(htmlEl, targetCtx, sampleRect, rootRect, dpr);
+    }
+  }
+  /** Draw a single img/video/canvas into a local scene canvas. */
+  _drawMediaElement(el, targetCtx, sampleRect, rootRect, dpr) {
+    const tag = el.tagName;
+    const r = el.getBoundingClientRect();
+    if (!this._elementTouchesSample(el, sampleRect, rootRect, dpr)) return false;
+    const rect = this._getPixelRect(r, rootRect, dpr);
+    const dx = rect.x - sampleRect.x;
+    const dy = rect.y - sampleRect.y;
+    const dw = rect.w;
+    const dh = rect.h;
+    if (dw <= 0 || dh <= 0) return false;
+    if (tag === "CANVAS") {
+      const liveCanvas = el;
+      if (liveCanvas.width <= 0 || liveCanvas.height <= 0) return false;
+      targetCtx.drawImage(liveCanvas, dx, dy, dw, dh);
+      return true;
+    } else if (tag === "IMG") {
+      const img = el;
+      if (!img.complete || img.naturalWidth === 0) return false;
+      this._drawMediaFitted(
+        targetCtx,
+        img,
+        img.naturalWidth,
+        img.naturalHeight,
+        el,
+        r,
+        dx,
+        dy,
+        dw,
+        dh
+      );
+      return true;
+    } else if (tag === "VIDEO") {
+      const vid = el;
+      if (vid.readyState < 1) return false;
+      try {
+        this._drawMediaFitted(
+          targetCtx,
+          vid,
+          vid.videoWidth,
+          vid.videoHeight,
+          el,
+          r,
+          dx,
+          dy,
+          dw,
+          dh
+        );
+      } catch {
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }
+  /** Draw an img or video onto a local scene canvas, respecting object-fit. */
+  _drawMediaFitted(targetCtx, mediaEl, natW, natH, child, r, dx, dy, dw, dh) {
+    if (natW && natH) {
+      const computed = getComputedStyle(child);
+      const fit = computed.objectFit || "fill";
+      const pos = computed.objectPosition || "50% 50%";
+      const src = _LiquidGlass._objectFitRect(natW, natH, r.width, r.height, fit, pos);
+      targetCtx.drawImage(mediaEl, src.sx, src.sy, src.sw, src.sh, dx, dy, dw, dh);
+    } else {
+      targetCtx.drawImage(mediaEl, dx, dy, dw, dh);
+    }
+  }
+  _drawPriorGlassToScene(child, sampleRect, rootRect, dpr) {
+    const glassCanvas = this.glassCanvases.get(child);
+    const elRect = child.getBoundingClientRect();
+    if (glassCanvas) {
+      const shaderRect = this._getPixelRect(elRect, rootRect, dpr, SHADOW_PAD);
+      if (_LiquidGlass._rectsIntersect(shaderRect, sampleRect)) {
+        this._sceneCtx.drawImage(
+          glassCanvas,
+          0,
+          0,
+          glassCanvas.width,
+          glassCanvas.height,
+          shaderRect.x - sampleRect.x,
+          shaderRect.y - sampleRect.y,
+          shaderRect.w,
+          shaderRect.h
+        );
+      }
+    }
+    const contentImg = this._glassContentImages.get(child);
+    if (!contentImg) return;
+    const contentRect = this._getPixelRect(elRect, rootRect, dpr);
+    if (!_LiquidGlass._rectsIntersect(contentRect, sampleRect)) return;
+    this._sceneCtx.drawImage(
+      contentImg,
+      contentRect.x - sampleRect.x,
+      contentRect.y - sampleRect.y,
+      contentRect.w,
+      contentRect.h
+    );
+  }
+  _getPixelRect(rect, rootRect, dpr, pad = 0) {
+    return {
+      x: Math.round((rect.left - rootRect.left - pad) * dpr),
+      y: Math.round((rect.top - rootRect.top - pad) * dpr),
+      w: Math.round((rect.width + pad * 2) * dpr),
+      h: Math.round((rect.height + pad * 2) * dpr)
+    };
+  }
+  _childTouchesSample(child, sampleRect, rootRect, dpr) {
+    if (this._elementTouchesSample(child, sampleRect, rootRect, dpr)) return true;
+    for (const el of child.querySelectorAll("[data-dynamic], video")) {
+      if (this._elementTouchesSample(el, sampleRect, rootRect, dpr)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  _elementTouchesSample(element, sampleRect, rootRect, dpr) {
+    const pad = this._getPaintOverflowPad(element);
+    const bounds = this._getPixelRect(element.getBoundingClientRect(), rootRect, dpr, pad);
+    return _LiquidGlass._rectsIntersect(bounds, sampleRect);
+  }
+  _getPaintOverflowPad(element) {
+    if (this.glassSet.has(element)) return SHADOW_PAD;
+    const style = getComputedStyle(element);
+    const backdropFilter = style.backdropFilter || style.webkitBackdropFilter;
+    const maskImage = style.maskImage || style.webkitMaskImage;
+    const paintsOutsideBounds = style.boxShadow && style.boxShadow !== "none" || style.textShadow && style.textShadow !== "none" || style.filter && style.filter !== "none" || backdropFilter && backdropFilter !== "none" || maskImage && maskImage !== "none" || style.mixBlendMode && style.mixBlendMode !== "normal";
+    return paintsOutsideBounds ? SHADOW_PAD : 0;
+  }
+  static _rectsIntersect(a, b) {
+    return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+  }
+  /** Compute the source rectangle for drawImage that replicates CSS object-fit / object-position. */
+  static _objectFitRect(natW, natH, boxW, boxH, fit, pos) {
+    let sx = 0, sy = 0, sw = natW, sh = natH;
+    if (fit === "fill" || fit === "scale-down" && natW <= boxW && natH <= boxH) {
+      return { sx, sy, sw, sh };
+    }
+    const parts = pos.split(/\s+/);
+    const parseFrac = (v, total) => {
+      if (v.endsWith("%")) return parseFloat(v) / 100;
+      return parseFloat(v) / total;
+    };
+    const fx = parseFrac(parts[0] || "50%", boxW);
+    const fy = parseFrac(parts[1] || "50%", boxH);
+    if (fit === "cover") {
+      const scale = Math.max(boxW / natW, boxH / natH);
+      sw = boxW / scale;
+      sh = boxH / scale;
+      sx = (natW - sw) * fx;
+      sy = (natH - sh) * fy;
+    } else if (fit === "contain" || fit === "scale-down") {
+      return { sx: 0, sy: 0, sw: natW, sh: natH };
+    } else if (fit === "none") {
+      sw = boxW;
+      sh = boxH;
+      sx = (natW - sw) * fx;
+      sy = (natH - sh) * fy;
+    }
+    sx = Math.max(0, Math.min(sx, natW - 1));
+    sy = Math.max(0, Math.min(sy, natH - 1));
+    sw = Math.min(sw, natW - sx);
+    sh = Math.min(sh, natH - sy);
+    return { sx, sy, sw, sh };
+  }
+};
+
+/* ===== FDL live demos ===== */
+// stripes for the material stage
+const SC = ['#f43f5e','#fb923c','#facc15','#4ade80','#22d3ee','#60a5fa','#a78bfa','#f472b6'];
+document.getElementById('mstripes').innerHTML = SC.concat(SC).map(c=>`<i style="background:${c}"></i>`).join('');
+
+async function boot(){
+  try {
+    await LiquidGlass.init({ root: document.getElementById('mstage'), glassElements: [document.getElementById('morb'), document.getElementById('mpill')] });
+    await LiquidGlass.init({ root: document.getElementById('navhold'), glassElements: [document.getElementById('nav')] });
+  } catch(e){ /* glass is progressive enhancement */ }
+  try {
+    await LiquidGlass.init({ root: document.getElementById('tstage'), glassElements: [document.getElementById('pill')] });
+  } catch(e){}
+
+  // tab bar spring motion (k=150, c=12)
+  const stage=document.getElementById('tstage'), pill=document.getElementById('pill'),
+        bar=document.getElementById('tabbar'),
+        tabs=[...bar.querySelectorAll('.tab')], tics=tabs.map(t=>t.querySelector('.tic'));
+  const K=150, C=12; let active=0, running=false, lastT=0;
+  const st={x:0,tx:0,v:0};
+  function barMetrics(){ const r=bar.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+    return { tabW: r.width/4, left: r.left-sr.left }; }
+  function layoutPill(snap){ const m=barMetrics(), pw=m.tabW-10;
+    st.x = m.left + m.tabW*(active+.5); st.tx = st.x;
+    pill.style.width = pw+'px';
+    pill.style.transform = `translateX(${st.x-pw/2}px)`; }
+  function kick(){ if(!running){ running=true; lastT=performance.now(); requestAnimationFrame(frame); } }
+  function frame(now){ const dt=Math.min((now-lastT)/1000,1/30); lastT=now;
+    const a=-K*(st.x-st.tx)-C*st.v; st.v+=a*dt; st.x+=st.v*dt;
+    const speed=Math.abs(st.v), stretch=Math.min(1+speed*0.003,1.9);
+    const m=barMetrics(), pw=m.tabW-10;
+    pill.style.transform=`translateX(${st.x-pw/2}px) scaleX(${stretch})`;
+    pill.style.transformOrigin = st.v>=0 ? 'left center' : 'right center';
+    const blur = speed>40 ? Math.min(speed*0.006,3.2).toFixed(2) : 0;
+    for(const t of tics){ t.style.filter = blur?`blur(${blur}px)`:''; t.style.transform = blur?`scaleX(${1+blur*0.05})`:''; }
+    if(Math.abs(st.v)<2 && Math.abs(st.x-st.tx)<0.6){ st.x=st.tx; st.v=0;
+      pill.style.transform=`translateX(${st.x-pw/2}px)`;
+      for(const t of tics){ t.style.filter=''; t.style.transform=''; }
+      running=false; return; }
+    requestAnimationFrame(frame); }
+  tabs.forEach((t,i)=>t.addEventListener('pointerdown',e=>{ e.preventDefault();
+    if(i===active) return;
+    tabs[active].classList.remove('on'); tabs[i].classList.add('on'); active=i;
+    st.tx = barMetrics().left + barMetrics().tabW*(i+.5); kick(); },{passive:false}));
+  layoutPill(true);
+  addEventListener('resize', ()=>layoutPill(true));
+
+  // verdict demo — light fires only on a rendered decision
+  const vw=document.getElementById('vword'), vs=document.getElementById('vsub');
+  document.getElementById('vrun').addEventListener('click', ()=>{
+    vw.textContent='…'; vw.classList.remove('lit'); vs.textContent='analyzing…';
+    setTimeout(()=>{ const verdicts=[['ham','0.38% spam score · confident'],['spam','1.71% ham score · confident'],['escalated','0.65% · needs a human']];
+      const v=verdicts[Math.floor(Math.random()*verdicts.length)];
+      vw.textContent=v[0]; vw.classList.add('lit'); vs.textContent=v[1]+' — light fired on render';
+    }, 900);
+  });
+  document.getElementById('vreset').addEventListener('click', ()=>{
+    vw.textContent='awaiting input'; vw.classList.remove('lit'); vs.textContent='press "Run decision" — light fires only on a rendered verdict';
+  });
+
+  // copy tokens
+  document.getElementById('copytokens').addEventListener('click', async (e)=>{
+    const t=document.getElementById('tokenblock').innerText;
+    try{ await navigator.clipboard.writeText(t); e.target.textContent='Copied ✓'; }
+    catch(_){ e.target.textContent='Select & copy manually'; }
+    setTimeout(()=>e.target.textContent='Copy tokens', 2000);
+  });
+}
+boot();
+</script>
+</body>
+</html>
