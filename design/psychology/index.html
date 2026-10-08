@@ -1,1 +1,195 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — Design Psychology</title>
+<meta name="description" content="The why beneath the rules: perception, trust, cognition. Writing styles, musts and mustn'ts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink-900:#16150F; --ink-700:#2A2820; --ink-500:#4A463A; --ink-300:#8A8474;
+  --paper-0:#FBFAF7; --paper-100:#F4F0E4; --paper-200:#EAE4D2; --paper-300:#DCD3B8;
+  --green-950:#0A2E1D; --green-900:#0F5132; --green-700:#1E6B42;
+  --green-500:#4A9E6B; --green-300:#8FCCA4; --green-100:#DDF0E2;
+  --font-display:"Fraunces",Georgia,serif;
+  --font-ui:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --r-4:4px; --r-8:8px; --r-12:12px; --r-16:16px; --r-full:999px;
+  --wrap:76rem; --measure:65ch;
+}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--paper-0);color:var(--ink-900);font-family:var(--font-ui);font-size:17px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--green-100)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:clamp(1.25rem,4vw,2rem)}
+.prose{max-width:var(--measure)}
+.sq{color:var(--green-900)}
+.display-1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.6rem,11vw,5.5rem);line-height:1.0;letter-spacing:-0.02em;text-wrap:balance;overflow-wrap:break-word}
+.display-2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.9rem,7vw,3.25rem);line-height:1.05;letter-spacing:-0.015em;text-wrap:balance;overflow-wrap:break-word}
+.display-3{font-family:var(--font-display);font-weight:700;font-size:clamp(1.375rem,2.5vw,1.75rem);line-height:1.15;letter-spacing:-0.01em}
+.eyebrow{font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-500);margin-bottom:24px}
+.eyebrow .sq{margin-right:10px;letter-spacing:0}
+.lede{font-size:clamp(1.0625rem,1.8vw,1.25rem);line-height:1.55;color:var(--ink-500);max-width:var(--measure);margin-top:24px}
+p{margin-bottom:16px}
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper-0);border-bottom:1px solid var(--paper-200)}
+.topbar .wrap{display:flex;align-items:center;gap:8px;height:64px;overflow-x:auto;scrollbar-width:none}
+.topbar .wrap::-webkit-scrollbar{display:none}
+.brandmark{font-family:var(--font-display);font-weight:900;font-size:1.2rem;letter-spacing:-0.015em;color:var(--ink-900);text-decoration:none;white-space:nowrap;margin-right:16px;flex:none}
+.topbar a.nl{font-size:.82rem;font-weight:600;color:var(--ink-500);text-decoration:none;padding:8px 10px;white-space:nowrap;border-radius:var(--r-8);flex:none}
+.topbar a.nl:hover{color:var(--ink-900);background:var(--paper-100)}
+.hero{padding-block:clamp(5rem,12vw,9rem) clamp(4rem,8vw,6rem)}
+section.chapter{padding-block:clamp(5rem,10vw,8rem);border-top:1px solid var(--paper-200)}
+.sec-index{font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-900);margin-bottom:20px}
+.specwrap{overflow-x:auto;margin:32px 0;max-width:100%}
+table.spec{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}
+table.spec th{font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:12px 16px;border-bottom:2px solid var(--ink-900);color:var(--ink-500);white-space:nowrap}
+table.spec td{padding:14px 16px;border-bottom:1px solid var(--paper-200);vertical-align:top}
+table.spec td:first-child{font-weight:700;white-space:nowrap}
+code{font-family:var(--font-mono);font-size:.85em;background:var(--paper-100);padding:2px 7px;border-radius:var(--r-4);overflow-wrap:anywhere}
+.rules{list-style:none;margin:28px 0;max-width:var(--measure)}
+.rules li{padding:12px 0;border-bottom:1px solid var(--paper-200);font-size:.95rem;line-height:1.6}
+.rules li::before{content:"■ ";color:var(--green-900);font-size:.65em}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0}
+@media(max-width:700px){.dodont{grid-template-columns:1fr}}
+.do,.dont{border-radius:var(--r-12);padding:20px 22px;font-size:.9rem;line-height:1.6}
+.do{background:var(--green-100);border:1px solid var(--green-300)}
+.dont{background:#FDF3F2;border:1px solid #E5C4C0}
+.do b,.dont b{display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.do b{color:var(--green-900)} .dont b{color:#B3261E}
+.mech{border-top:1px solid var(--paper-200);padding:28px 0;max-width:var(--measure)}
+.mech h3{font-family:var(--font-display);font-weight:700;font-size:1.3rem;margin-bottom:8px}
+.mech p{font-size:.95rem;color:var(--ink-700)}
+.mech .src{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-300);margin-top:8px}
+footer{border-top:1px solid var(--paper-200);padding-block:64px}
+footer .fbrand{font-family:var(--font-display);font-weight:900;font-size:1.5rem;letter-spacing:-0.015em;margin-bottom:12px}
+footer p{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-500);line-height:1.8}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <a class="brandmark" href="/design/">Fronesa<span class="sq">■</span></a>
+  <a class="nl" href="/design/">Guidelines</a>
+  <a class="nl" href="#mechanisms">Mechanisms</a>
+  <a class="nl" href="#writing">Writing</a>
+  <a class="nl" href="#musts">Musts</a>
+  <a class="nl" href="#mustnts">Mustn'ts</a>
+</div></header>
+
+<div class="wrap"><div class="hero" id="top">
+  <p class="eyebrow"><span class="sq">■</span>Fronesa · design psychology</p>
+  <h1 class="display-1">The why beneath<br>the rules<span class="sq">■</span></h1>
+  <p class="lede">Every visual rule in the guidelines rests on a mechanism in the human brain. This page collects them: the ideas, the writing styles, the musts and mustn'ts — everything we should do, and why.</p>
+</div></div>
+
+<main>
+<!-- MECHANISMS -->
+<section class="chapter" id="mechanisms"><div class="wrap">
+  <p class="sec-index">01 · Mechanisms</p>
+  <h2 class="display-2">Twelve ideas that run the system<span class="sq">■</span></h2>
+  <p class="lede">When two rules conflict, the deeper mechanism wins.</p>
+  <div style="margin-top:40px">
+  <div class="mech"><h3>1. Processing fluency → truth</h3><p>Ease of processing is misattributed as truth, quality, and trust. A clean page is literally easier to believe. Every unnecessary element taxes the believability of everything else.</p><p class="src">Reber, Schwarz &amp; Winkielman, 2004</p></div>
+  <div class="mech"><h3>2. The 50ms snap judgment</h3><p>Visual-appeal judgments form in 50 milliseconds and predict later credibility ratings. The hero must read as intentional — prototypical, low-complexity — before a word is read.</p><p class="src">Lindgaard et al.</p></div>
+  <div class="mech"><h3>3. Costly signaling</h3><p>Checkable claims are believable because being wrong is punishable. Hype adjectives are cheap — anyone can claim them, so the brain discounts them. Specificity is a trust technology.</p><p class="src">Signaling theory; Stanford credibility</p></div>
+  <div class="mech"><h3>4. The precision effect</h3><p>Precise numbers are judged more credible than round ones — the brain infers measurement behind them. But false precision destroys more trust than vagueness. Precision is earned, never invented.</p><p class="src">Berkeley CMR review, 2024</p></div>
+  <div class="mech"><h3>5. Von Restorff (isolation)</h3><p>The one different item is noticed and remembered. A single green accent in a monochrome field pops; every added hue halves the effect until color means nothing.</p><p class="src">Hedwig von Restorff, 1933</p></div>
+  <div class="mech"><h3>6. Gestalt proximity</h3><p>Grouping by distance outranks color, size, and shape. Space between groups must be ≥2× space within groups — the most violated, most visible spacing law.</p><p class="src">Wertheimer; NN/g formulation</p></div>
+  <div class="mech"><h3>7. Figure–ground</h3><p>The brain holds one figure–ground assignment at a time. Two competing focal elements force constant re-decision — which reads as chaos before any conscious judgment forms.</p><p class="src">Gestalt psychology</p></div>
+  <div class="mech"><h3>8. Layer-cake scanning</h3><p>Fixations cluster on headings; body text is opt-in. The F-pattern is what happens with no formatting to lean on — a failure state, not a target. Headings must summarize.</p><p class="src">NN/g eyetracking, 500+ participants</p></div>
+  <div class="mech"><h3>9. Hick's law</h3><p>Decision time grows logarithmically with the number of choices. One primary action per viewport; disclose the rest progressively.</p><p class="src">Hick, 1952</p></div>
+  <div class="mech"><h3>10. Cognitive load</h3><p>Extraneous load (bad design) steals capacity from germane load (your argument). Every element must justify the working-memory slot it occupies. Decoration isn't neutral — it consumes.</p><p class="src">Sweller</p></div>
+  <div class="mech"><h3>11. Calibrated trust</h3><p>The goal is appropriate reliance, not maximum trust. Uncertainty shown honestly and continuously; binary certainty manufactures overreliance. "Escalated" proves the system knows its limits.</p><p class="src">Lee &amp; See; Google PAIR</p></div>
+  <div class="mech"><h3>12. Whitespace value</h3><p>Identical products surrounded by whitespace rated 7.8 vs 5.2 on quality, +37% price estimates. Whitespace is expensive because it represents choice — deliberate non-filling.</p><p class="src">Pracejus, Olsen &amp; O'Guinn, 2006</p></div>
+  </div>
+</div></section>
+
+<!-- WRITING -->
+<section class="chapter" id="writing"><div class="wrap">
+  <p class="sec-index">02 · Writing styles</p>
+  <h2 class="display-2">Decisions that learn<span class="sq">■</span></h2>
+  <p class="lede">The brand sounds like the tagline reads. Every style below is a trust mechanism, not a preference.</p>
+
+  <h3 class="display-3" style="margin:48px 0 16px">The five styles</h3>
+  <div class="specwrap"><table class="spec">
+    <tr><th>Style</th><th>Rule</th><th>Example</th></tr>
+    <tr><td>Honest</td><td>State what was measured, with number and method. No claim without a source.</td><td>"0.38% loop error, seed 7, n=2,400."</td></tr>
+    <tr><td>Technical</td><td>Concrete nouns, real mechanisms. For engineers, never abstraction fog.</td><td>"The loop re-labels from disagreements."</td></tr>
+    <tr><td>Plain</td><td>Short sentences. No ceremony. Outcome-first.</td><td>"Your labels train only your model."</td></tr>
+    <tr><td>Precise</td><td>Exact numbers where measured. Context always: what, vs what, how.</td><td>"0.38% vs 1.71% · 10% judge noise."</td></tr>
+    <tr><td>Restrained</td><td>Zero hype adjectives. Let the numbers carry the weight.</td><td>"Measured in public." (not "revolutionary")</td></tr>
+  </table></div>
+
+  <h3 class="display-3" style="margin:48px 0 16px">Banned language</h3>
+  <div class="dodont">
+    <div class="dont"><b>Never</b>revolutionary · game-changing · disruptive · cutting-edge · next-gen · world-class · best-in-class · AI-powered (as hype)</div>
+    <div class="dont"><b>Never</b>Invented multipliers (4.5×, 20×) · unqualified "zero false positives" · any revenue/customer/certification claim · "your data may be used to improve our models"</div>
+  </div>
+
+  <h3 class="display-3" style="margin:48px 0 16px">Structure</h3>
+  <ul class="rules">
+    <li><b>Headlines ≤ 12 words</b> — the whole proposition in one fixation sweep.</li>
+    <li><b>Ledes ≤ 140 characters</b> — framing, not informing.</li>
+    <li><b>Key information first</b> — the first 2–3 words carry the claim (scan rail).</li>
+    <li><b>One idea per paragraph.</b> One idea per viewport. One idea per email.</li>
+    <li><b>Numbers as nouns</b> — "0.38% loop error" not "our error rate is very low at 0.38%."</li>
+  </ul>
+</div></section>
+
+<!-- MUSTS -->
+<section class="chapter" id="musts"><div class="wrap">
+  <p class="sec-index">03 · Musts</p>
+  <h2 class="display-2">Everything we should do<span class="sq">■</span></h2>
+  <div class="dodont" style="grid-template-columns:1fr">
+    <div class="do"><b>Musts</b>
+      <ul class="rules" style="margin:8px 0 0">
+        <li>Show the number with its method, every time.</li>
+        <li>Keep one green per surface; one accent per viewport doing real work.</li>
+        <li>Left-align everything; lock body measure at 65ch.</li>
+        <li>Make the primary action unmistakable — verb-first, 44px, green.</li>
+        <li>Admit uncertainty: show confidence, show the escalate path.</li>
+        <li>Keep the human visibly in the loop — supervision is trust architecture.</li>
+        <li>Fix typos before adding features. Small errors generalize.</li>
+        <li>Alternate air and evidence: every whitespace chapter neighbors a proof chapter.</li>
+        <li>Set claims in authority type (Fraunces). Never casual faces for facts.</li>
+        <li>Measure overflow at 320/390/768/1024/1440 before every ship.</li>
+        <li>Write alt text describing informational content, not appearance.</li>
+        <li>Make every page fully usable with zero motion.</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- MUSTNTS -->
+<section class="chapter" id="mustnts"><div class="wrap">
+  <p class="sec-index">04 · Mustn'ts</p>
+  <h2 class="display-2">Everything we never do<span class="sq">■</span></h2>
+  <div class="dodont" style="grid-template-columns:1fr">
+    <div class="dont"><b>Mustn'ts</b>
+      <ul class="rules" style="margin:8px 0 0">
+        <li>Never use transparency, glass, glow, gradients, or shadows as brand language.</li>
+        <li>Never center body text or headlines. Never justify text.</li>
+        <li>Never round the decision square. Never recolor it. Never detach it.</li>
+        <li>Never retype the wordmark — always the SVG.</li>
+        <li>Never add a third expressive typeface. Never set headlines in sans.</li>
+        <li>Never show a number without: what, vs what, how measured.</li>
+        <li>Never round a measured number. Never invent precision.</li>
+        <li>Never use hype adjectives. Never imply more than the evidence supports.</li>
+        <li>Never hide the escalation path. Never present binary certainty.</li>
+        <li>Never ship horizontal overflow. Never ship a typo. Never ship lorem ipsum.</li>
+        <li>Never use stock photography of fake customers. Never fake testimonials.</li>
+        <li>Never let decoration consume the working memory the argument needs.</li>
+      </ul></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="fbrand">Fronesa<span class="sq">■</span></p>
+  <p>Design psychology · companion to FDL v2.0<br>Full studies: research/design-psychology-deep.md · research/editorial-minimalism-deep.md</p>
+</div></footer>
+</body>
+</html>
