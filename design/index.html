@@ -128,6 +128,28 @@ footer{border-top:1px solid var(--paper-200);padding-block:64px;margin-top:0}
 footer .fbrand{font-family:var(--font-display);font-weight:900;font-size:1.5rem;letter-spacing:-0.015em;margin-bottom:12px}
 footer p{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-500);line-height:1.8}
 img.responsive{max-width:100%;height:auto}
+details.specdetails{margin:24px 0;border:1px solid var(--paper-200);border-radius:var(--r-12);background:#fff}
+details.specdetails summary{list-style:none;cursor:pointer;font-family:var(--font-mono);font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-500);padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+details.specdetails summary::-webkit-details-marker{display:none}
+details.specdetails summary::after{content:"+";font-size:1.1rem;color:var(--green-900)}
+details.specdetails[open] summary::after{content:"\2013"}
+details.specdetails .specwrap{margin:0;border-top:1px solid var(--paper-200);overflow-x:auto}
+details.specdetails table.spec{min-width:520px}
+.spacebar{display:flex;align-items:center;gap:16px;margin:10px 0}
+.spacebar .bar{background:var(--green-900);height:26px;border-radius:var(--r-4);flex:none}
+.spacebar .t{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-500);min-width:110px}
+.texswatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin:32px 0}
+.tex{border:1px solid var(--paper-200);border-radius:var(--r-12);overflow:hidden;background:#fff}
+.tex .t{height:110px;position:relative}
+.tex .l{padding:12px 14px;font-family:var(--font-mono);font-size:.7rem;line-height:1.6;color:var(--ink-500)}
+.tex .l b{display:block;font-size:.76rem;color:var(--ink-900)}
+.grain{background-color:var(--paper-0);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hairlines{background:repeating-linear-gradient(0deg,transparent,transparent:31px,var(--paper-200) 31px,var(--paper-200) 32px),var(--paper-0)}
+.dots{background-image:radial-gradient(var(--paper-300) 1px,transparent 1px);background-size:18px 18px;background-color:var(--paper-0)}
+.flatink{background:var(--ink-900)}
+.flatgreen{background:var(--green-900)}
+.noshadow{box-shadow:none!important}
+
 
 /* ---- extended UI elements ---- */
 .switch{position:relative;display:inline-flex;align-items:center;gap:12px;cursor:pointer;font-size:.92rem}
@@ -223,6 +245,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <a class="nl" href="#voice">Voice</a>
   <a class="nl" href="#psychology">Psychology</a>
   <a class="nl" href="#responsive">Responsive</a>
+  <a class="nl" href="#texture">Texture</a>
   <a class="nl" href="#tokens">Tokens</a>
   <a class="nl" href="/design/psychology/" style="color:var(--green-900)">Psychology</a>
 </div></header>
@@ -259,8 +282,16 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <a href="#email"><span>17</span>Email</a>
     <a href="#social"><span>18</span>Social</a>
     <a href="#darkmode"><span>19</span>Dark mode</a>
-    <a href="#checklist"><span>20</span>Ship checklist</a>
-    <a href="#tokens"><span>21</span>Tokens</a>
+    <a href="#checklist"><span>27</span>Ship checklist</a>
+    <a href="#texture"><span>20</span>Texture</a>
+    <a href="#sound"><span>21</span>Sound</a>
+    <a href="#print"><span>22</span>Print</a>
+    <a href="#cobranding"><span>23</span>Co-branding</a>
+    <a href="#naming"><span>24</span>Naming</a>
+    <a href="#trademark"><span>25</span>Trademark</a>
+    <a href="#localization"><span>26</span>Localization</a>
+    <a href="#checklist"><span>27</span>Checklist</a>
+    <a href="#tokens"><span>28</span>Tokens</a>
   </nav>
 </div>
 
@@ -270,7 +301,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">01 · Principles</p>
   <h2 class="display-2 sec-title">Ten principles, one test<span class="sq">■</span></h2>
   <p class="lede">Adapted from Dieter Rams. The test for every element: <em>would removing this break understanding?</em> If not, it goes.</p>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>#</th><th>Principle</th><th>What it means here</th></tr>
     <tr><td>1</td><td>Innovative</td><td>Our proof is the innovation — measured numbers, the live demo. Design never gets in its way.</td></tr>
     <tr><td>2</td><td>Useful</td><td>Every element answers: what does the visitor <em>do</em> with this? Decoration is detraction.</td></tr>
@@ -282,7 +313,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>8</td><td>Thorough</td><td>Nothing arbitrary. Every value from a scale, every breakpoint measured. Care is respect for the reader.</td></tr>
     <tr><td>9</td><td>Light</td><td>Performance is a design principle. Fast pages feel high-quality; heavy pages feel careless.</td></tr>
     <tr><td>10</td><td>As little as possible</td><td>Remove until removing more breaks understanding — then stop. The stopping condition is the discipline.</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 <!-- 02 BRAND -->
@@ -303,14 +334,14 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
       <p style="font-size:.82rem;color:var(--ink-500);margin-top:12px">"F." cut of the wordmark. Below 120px, use this — never the full lockup.<br>Legible at 16px.</p></div>
   </div>
 
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Clearspace</td><td>2S on all sides — S = side of the decision square. No type, rules, imagery, or page edges inside.</td></tr>
     <tr><td>Minimum size · lockup</td><td>120px digital · 25mm print. Below: switch to monogram.</td></tr>
     <tr><td>Minimum size · avatar</td><td>48px digital.</td></tr>
     <tr><td>Dark surfaces</td><td>Use <code>*-dark.svg</code> variants: paper letterforms, bright-green <code>#4A9E6B</code> square.</td></tr>
     <tr><td>Backgrounds</td><td>Paper or ink only. Photography sits <em>behind</em> a paper/ink tile — never raw behind the mark.</td></tr>
-  </table></div>
+  </table></div></details>
 
   <h3 class="display-3" style="margin:40px 0 8px">Misuse — non-negotiable</h3>
   <div class="dodont">
@@ -351,7 +382,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <div class="sw"><div class="c" style="background:#DCD3B8"></div><div class="t"><b>--paper-300</b>#DCD3B8</div></div>
   </div>
 
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Accent budget</td><td>≤ 5 chromatic elements per viewport. Neutrals unlimited.</td></tr>
     <tr><td>Accent = action or proof</td><td>Green appears only on: primary action · rendered result · one orienting marker per section. Never body text, never decoration.</td></tr>
@@ -359,7 +390,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Green text</td><td>Only ≥18px or ≥700 weight. Never body copy. Never green-on-green.</td></tr>
     <tr><td>Body text</td><td><code>--ink-900</code> on <code>--paper-0</code> (~15:1). Muted <code>--ink-500</code> (~7:1) for labels only — never claims.</td></tr>
     <tr><td>Forbidden pairs</td><td>Green on Ink · Bright on Paper · Ink on Green · Paper on Green.</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 <!-- 04 TYPOGRAPHY -->
@@ -378,7 +409,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <p style="font-family:var(--font-mono);font-size:.82rem">0.38% vs 1.71% · 21.02 ms GPU · 4.52% → 0.22%</p>
     <p class="eyebrow" style="margin-top:12px;margin-bottom:0"><span class="sq">■</span>Live demo · no key needed</p></div>
 
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Tracking ramp</td><td>Display −0.02em → section −0.015em → H3 −0.01em → body 0 → micro-labels +0.14em uppercase. Tightens with size, always.</td></tr>
     <tr><td>Measure</td><td>Body <code>max-width: 65ch</code> — all viewports, no exceptions. Display headlines exempt (scanned, not read).</td></tr>
@@ -388,7 +419,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Alignment</td><td>Left, always. Centered text re-finds the line start every line — measurable extra work, zero benefit.</td></tr>
     <tr><td>Headlines</td><td>Close with ■. One per headline, never in body. <code>text-wrap: balance</code>. No orphans.</td></tr>
     <tr><td>Forbidden</td><td>Fraunces for UI chrome · Inter for headlines · a third expressive family anywhere.</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 
@@ -397,7 +428,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">05 · Layout &amp; grid</p>
   <h2 class="display-2 sec-title">The grid is infrastructure<span class="sq">■</span></h2>
   <p class="lede">Twelve columns, fixed gutters, asymmetric splits. Once the grid is fixed, every choice is obeying the system or breaking it — there is no third option.</p>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Grid</td><td>12 columns · <code>--wrap-max: 76rem</code> · gutters 24px · page padding <code>clamp(1.25rem, 4vw, 2rem)</code>.</td></tr>
     <tr><td>Asymmetry</td><td>Major splits at 7:5, 8:4, 60/40 — never 50/50. Tension creates attention; symmetry reads as default.</td></tr>
@@ -406,7 +437,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>One idea per viewport</td><td>Each screen of scroll carries one claim. Two claims in one viewport: neither is remembered.</td></tr>
     <tr><td>Density rhythm</td><td>Alternate air and evidence: display spread (80–90% whitespace, one headline) → proof spread (dense, narrow). Alternating density <em>is</em> the rhythm.</td></tr>
     <tr><td>60/40 economy</td><td>No viewport more than ~40% text by area. Cut text or add air — never decoration.</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 
@@ -415,7 +446,15 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">06 · Spacing</p>
   <h2 class="display-2 sec-title">Doubling ladder<span class="sq">■</span></h2>
   <p class="lede">4 → 8 → 16 → 32 → 64 → 128. Doubling creates perceptible steps; linear steps read as indecision.</p>
-  <div class="specwrap"><table class="spec">
+  <div style="margin:32px 0">
+    <div class="spacebar"><span class="t">--s1 · 4px</span><span class="bar" style="width:4px"></span></div>
+    <div class="spacebar"><span class="t">--s2 · 8px</span><span class="bar" style="width:8px"></span></div>
+    <div class="spacebar"><span class="t">--s3 · 16px</span><span class="bar" style="width:16px"></span></div>
+    <div class="spacebar"><span class="t">--s4 · 32px</span><span class="bar" style="width:32px"></span></div>
+    <div class="spacebar"><span class="t">--s5 · 64px</span><span class="bar" style="width:64px"></span></div>
+    <div class="spacebar"><span class="t">--s6 · 128px</span><span class="bar" style="width:128px"></span></div>
+  </div>
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Token</th><th>Value</th><th>Use</th></tr>
     <tr><td><code>--s1</code></td><td>4px</td><td>Micro-gaps, icon insets</td></tr>
     <tr><td><code>--s2</code></td><td>8px</td><td>Component internals</td></tr>
@@ -423,15 +462,15 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td><code>--s4</code></td><td>32px</td><td>Group separation</td></tr>
     <tr><td><code>--s5</code></td><td>64px</td><td>Section sub-rhythm</td></tr>
     <tr><td><code>--s6</code></td><td>128px</td><td>Chapter separation</td></tr>
-  </table></div>
-  <div class="specwrap"><table class="spec">
+  </table></div></details>
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>2:1 group separation</td><td>Space <em>between</em> groups ≥ 2× space <em>within</em> groups. The most violated, most visible spacing law.</td></tr>
     <tr><td>One owner per gap</td><td>A container sets the gap; children never add competing margins. Eliminates 90% of spacing bugs.</td></tr>
     <tr><td>Sections ≥ 4× body leading</td><td>Body at 27px leading → sections need 112px+ to read as separate chapters.</td></tr>
     <tr><td>Space, not lines</td><td>Air separates sections. A 1px hairline is permitted <em>within</em> dense information only. Every visible divider is an admission spacing failed.</td></tr>
     <tr><td>Headings</td><td>2× base unit above, 1× below. This one rule produces 80% of vertical rhythm.</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 
@@ -440,14 +479,14 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">07 · Text discipline</p>
   <h2 class="display-2 sec-title">Cut 30%, then cut again<span class="sq">■</span></h2>
   <p class="lede">Writers write to think; readers read to decide. The two needs differ by roughly half the words. Budgets are law, not guidance.</p>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Role</th><th>Budget</th><th>Why</th></tr>
     <tr><td>Hero headline</td><td>≤ 12 words, ideally ≤ 7</td><td>5-second comprehension test — one fixation sweep.</td></tr>
     <tr><td>Section lede</td><td>≤ 140 characters</td><td>Framing, not informing — the most a reader consumes before deciding to continue.</td></tr>
     <tr><td>Body block</td><td>≤ 120 words without a landmark</td><td>Attention decays across undifferentiated text; figures reset it.</td></tr>
     <tr><td>Button label</td><td>1–3 words, verb first</td><td>Hick's law — decision time grows with choice complexity.</td></tr>
     <tr><td>Caption</td><td>≤ 25 words</td><td>Captions are read 3× more than body — keep them scannable.</td></tr>
-  </table></div>
+  </table></div></details>
   <ul class="rules">
     <li><b>Headings summarize, never decorate.</b> Scanners land on headings and skip body — a vague heading ("Solutions") breaks the contract and teaches distrust of all headings.</li>
     <li><b>Key claims in the first 2–3 words</b> of every heading. The left edge is the scan rail.</li>
@@ -527,7 +566,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <div class="gitem"><span class="glbl">Divider</span><hr class="divider" style="margin:8px 0"></div>
   </div>
 
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Element</th><th>Key spec</th></tr>
     <tr><td>Buttons</td><td>One primary/viewport · 44px min · <code>--r-12</code> · 700 weight · verb-first labels.</td></tr>
     <tr><td>Inputs</td><td>Label above, never placeholder-as-label · 44px · focus ring 3px green.</td></tr>
@@ -535,7 +574,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Radio / Checkbox</td><td>22px · 2px border · green fill when on. Radios: one choice among many. Checkboxes: independent.</td></tr>
     <tr><td>Focus</td><td>3px solid green + 3px offset, everywhere. Never removed, never glow.</td></tr>
     <tr><td>Errors</td><td>Red <code>#B3261E</code>, message below in text — never color alone.</td></tr>
-  </table></div>
+  </table></div></details>
 </div></section>
 
 <!-- 09 DATA -->
@@ -548,7 +587,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <div><p class="bignum">21.02<span class="unit">ms</span></p><p class="cap">Median decision latency, GPU. p95: 834ms CPU.</p></div>
     <div><p class="bignum">4.52 → 0.22<span class="unit">%</span></p><p class="cap">Error after judge-noise correction, seed 7.</p></div>
   </div>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Precision</td><td>Precise where measured (<code>0.38%</code>, never <code>0.4%</code>). Round numbers imply estimates. False precision destroys more trust than vagueness — precision is earned.</td></tr>
     <tr><td>Context</td><td>Every number ships with: what, vs what, how measured. "0.38% vs 1.71%, 10% judge noise, seed 7" — not "dramatically better."</td></tr>
@@ -556,7 +595,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Uncertainty</td><td>Shown continuously, never binary. Confidence calibrates reliance; false certainty manufactures it.</td></tr>
     <tr><td>Charts</td><td>Monochrome + single green series. No 3D, no gradients, no chartjunk. Axes labeled, units stated, n stated.</td></tr>
     <tr><td>Comparisons</td><td>Us vs named baseline, same conditions. Never vs "competitors" unnamed.</td></tr>
-  </table></div>
+  </table></div></details>
   <div class="dodont">
     <div class="do"><b>Do</b>"0.38% loop error vs 1.71% frozen · 10% judge noise · seed 7 · n=2,400"</div>
     <div class="dont"><b>Don't</b>"4.5× better accuracy!" / "Zero false positives" / "Best-in-class"</div>
@@ -596,14 +635,14 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">12 · Motion</p>
   <h2 class="display-2 sec-title">Motion reveals<span class="sq">■</span></h2>
   <p class="lede">Nothing moves without narrative purpose. Animation is permitted for: state-change feedback, revelation timing, loading. Nothing else.</p>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Token</th><th>Value</th><th>Use</th></tr>
     <tr><td><code>--dur-micro</code></td><td>120ms</td><td>Hover, focus</td></tr>
     <tr><td><code>--dur-base</code></td><td>200ms</td><td>State changes, reveals</td></tr>
     <tr><td><code>--dur-emphasis</code></td><td>320ms</td><td>Sheet / modal entrance</td></tr>
     <tr><td><code>--ease-out</code></td><td>cubic-bezier(.2,.7,.2,1)</td><td>Standard</td></tr>
     <tr><td><code>--ease-settle</code></td><td>cubic-bezier(.3,1.4,.4,1)</td><td>Emphasis only — slight overshoot, never bouncy</td></tr>
-  </table></div>
+  </table></div></details>
   <ul class="rules">
     <li><b>What never animates:</b> body text · layout on scroll · anything looping except spinners.</li>
     <li><b>Verdict reveal:</b> fade + 8px rise, 200ms. One visual event for one decision.</li>
@@ -620,7 +659,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <div class="do"><b>Do</b>"0.38% loop error vs 1.71% frozen · seed 7"<br>"Your labels train only your model."</div>
     <div class="dont"><b>Don't</b>"Revolutionary AI-powered game-changer"<br>"Your data may be used to improve our models"</div>
   </div>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Honest</td><td>Say what was measured, with the number and method. If a claim needs a number you can't source, cut the claim.</td></tr>
     <tr><td>Technical</td><td>Write for engineers. Concrete nouns, real mechanisms. "The loop re-labels from disagreements" beats "intelligent adaptive pipelines."</td></tr>
@@ -628,7 +667,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Measured, never claimed</td><td>Every public number traces to a results file. State the sample, the seed, the window.</td></tr>
     <tr><td>Plain register</td><td>Short sentences. No ceremony. Match the founder's register: outcome-first, no performance.</td></tr>
     <tr><td>Second person, sparingly</td><td>"Your labels" when it's about their data. Never "you" as hype ("you deserve better").</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 
@@ -637,7 +676,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <p class="sec-index">14 · Psychology</p>
   <h2 class="display-2 sec-title">The causal layer<span class="sq">■</span></h2>
   <p class="lede">Every rule above rests on one of these mechanisms. When two rules conflict, the deeper mechanism wins.</p>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Mechanism</th><th>What it means</th><th>Where it bites</th></tr>
     <tr><td>Processing fluency</td><td>Ease of processing is misattributed as truth, quality, trust. (Reber 2004)</td><td>Minimalism, restraint, plain sentences</td></tr>
     <tr><td>50ms snap judgment</td><td>Visual-appeal judgments form in 50ms and predict credibility. (Lindgaard)</td><td>Hero: prototypical + low complexity</td></tr>
@@ -651,7 +690,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Cognitive load</td><td>Extraneous load (bad design) steals capacity from germane load (your argument).</td><td>Every element justifies its slot</td></tr>
     <tr><td>Calibrated trust</td><td>Goal is appropriate reliance, not maximum trust. Uncertainty shown honestly.</td><td>Verdict + score + escalate</td></tr>
     <tr><td>Whitespace value</td><td>Identical products in whitespace rated 7.8 vs 5.2 on quality, +37% price. (Pracejus 2006)</td><td>Air frames proof</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 
@@ -660,7 +699,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
 <section class="chapter" id="accessibility"><div class="wrap">
   <p class="sec-index">15 · Accessibility</p>
   <h2 class="display-2 sec-title">Non-negotiable<span class="sq">■</span></h2>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Contrast</td><td>AA is the floor, not the target. Body at ~15:1. Muted never drifts near minimums.</td></tr>
     <tr><td>Keyboard</td><td>All interactive elements reachable · visible focus rings · logical order · no keyboard traps.</td></tr>
@@ -668,7 +707,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Motion</td><td><code>prefers-reduced-motion</code> → instant. No information conveyed by motion alone.</td></tr>
     <tr><td>Text</td><td>Real text, never text-in-image. 200% zoom without horizontal scroll or overlap.</td></tr>
     <tr><td>Forms</td><td>Labels programmatically associated. Errors announced, described in text — never color alone.</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 
@@ -676,7 +715,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
 <section class="chapter" id="responsive"><div class="wrap">
   <p class="sec-index">16 · Responsive</p>
   <h2 class="display-2 sec-title">Fluid, measured, gated<span class="sq">■</span></h2>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Fluid type</td><td>All type in <code>clamp()</code>. Zero <code>@media</code> font-size overrides, ever.</td></tr>
     <tr><td>Measure holds</td><td>65ch cap at 320px and 1440px alike. Type shrinks via clamp; the measure doesn't change.</td></tr>
@@ -685,7 +724,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Tables</td><td>Wrapper with <code>overflow-x: auto</code> + <code>max-width: 100%</code>. Sticky first column for wide data tables.</td></tr>
     <tr><td>Images</td><td><code>max-width: 100%</code>, always. No fixed-width media anywhere.</td></tr>
     <tr><td>Gate</td><td>Zero horizontal overflow at 320 / 390 / 768 / 1024 / 1440 — <em>measured</em>, not eyeballed. Ship-blocking.</td></tr>
-  </table></div>
+  </table></div></details>
   
 </div></section>
 <!-- 17 EMAIL -->
@@ -706,34 +745,126 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
 <section class="chapter" id="social"><div class="wrap">
   <p class="sec-index">18 · Social</p>
   <h2 class="display-2 sec-title">Same mark everywhere<span class="sq">■</span></h2>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Surface</th><th>Asset</th><th>Spec</th></tr>
     <tr><td>Avatar (all)</td><td><code>d1-avatar-circle-400.png</code></td><td>400×400, pre-composed. Never re-crop.</td></tr>
     <tr><td>Banner</td><td><code>banner-1500x500.png</code></td><td>"Decisions that learn." Ink ground, paper type.</td></tr>
     <tr><td>Favicon</td><td><code>d1-favicon-16/32.png</code> + SVG</td><td>Dark-variant for dark browser chrome.</td></tr>
     <tr><td>Post voice</td><td>Voice §13</td><td>One measured claim per post. Numbers with method. No threads longer than 4.</td></tr>
     <tr><td>Post visuals</td><td>Artifact or nothing</td><td>Real charts, real verdicts. No stock, no memes, no gradient quote-cards.</td></tr>
-  </table></div>
+  </table></div></details>
 </div></section>
 
 <!-- 19 DARK MODE -->
 <section class="chapter" id="darkmode"><div class="wrap">
   <p class="sec-index">19 · Dark mode</p>
   <h2 class="display-2 sec-title">Ink is a ground, not a theme<span class="sq">■</span></h2>
-  <div class="specwrap"><table class="spec">
+  <details class="specdetails"><summary>Specifications</summary><div class="specwrap"><table class="spec">
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Grounds swap</td><td>Paper <code>#FBFAF7</code> → Ink <code>#16150F</code>. Text inverts. Structure identical — dark mode is a recolor, never a redesign.</td></tr>
     <tr><td>Green swaps</td><td>Decision <code>#0F5132</code> → Signal <code>#4A9E6B</code>. One green per surface still holds.</td></tr>
     <tr><td>Wordmark</td><td><code>d1-wordmark-final-dark.svg</code> — paper letterforms, bright square.</td></tr>
     <tr><td>Borders</td><td><code>rgba(255,255,255,.14)</code> hairlines replace paper-200 rules.</td></tr>
     <tr><td>Never</td><td>Pure <code>#000</code> grounds (harsh) · colored dark grounds · glow to "lift" dark elements.</td></tr>
-  </table></div>
+  </table></div></details>
   
+</div></section>
+
+<!-- 22 TEXTURE -->
+<section class="chapter" id="texture"><div class="wrap">
+  <p class="sec-index">20 · Texture</p>
+  <h2 class="display-2 sec-title">Paper, not pixels<span class="sq">■</span></h2>
+  <p class="lede">Our surfaces feel like paper. Subtle grain, hairline rules — never shadows, never gradients.</p>
+  <div class="texswatches">
+    <div class="tex"><div class="t grain"></div><div class="l"><b>Paper grain</b>4% noise · light grounds only</div></div>
+    <div class="tex"><div class="t hairlines"></div><div class="l"><b>Hairline rules</b>1px · within dense info only</div></div>
+    <div class="tex"><div class="t dots"></div><div class="l"><b>Dot grid</b>Diagram backgrounds · 18px</div></div>
+    <div class="tex"><div class="t flatink"></div><div class="l"><b>Flat ink</b>Dark grounds · zero texture</div></div>
+    <div class="tex"><div class="t flatgreen"></div><div class="l"><b>Flat green</b>Accents · never textured</div></div>
+  </div>
+  <ul class="rules">
+    <li><b>No drop shadows.</b> Depth comes from ground-color change, not blur.</li>
+    <li><b>No gradients.</b> Flat color or nothing.</li>
+    <li><b>Grain is 4% opacity maximum</b> — felt, not seen.</li>
+  </ul>
+</div></section>
+
+<!-- 23 SOUND -->
+<section class="chapter" id="sound"><div class="wrap">
+  <p class="sec-index">21 · Sound</p>
+  <h2 class="display-2 sec-title">Quiet confidence<span class="sq">■</span></h2>
+  <p class="lede">Interface sounds are rare, short, and in one family. Most actions are silent.</p>
+  <ul class="rules">
+    <li><b>Verdict rendered:</b> single soft tone, ≤ 300ms, low volume. One tone for all verdicts — pitch never encodes meaning.</li>
+    <li><b>Error:</b> lower, duller variant of the same tone. Never alarming.</li>
+    <li><b>Everything else:</b> silent. No hover sounds, no transitions, no background audio — ever.</li>
+    <li><b>Respect silence:</b> all sounds off by default where the OS requests it; a visible mute control wherever sound exists.</li>
+  </ul>
+</div></section>
+
+<!-- 24 PRINT -->
+<section class="chapter" id="print"><div class="wrap">
+  <p class="sec-index">22 · Print</p>
+  <h2 class="display-2 sec-title">Ink on paper<span class="sq">■</span></h2>
+  <ul class="rules">
+    <li><b>Stocks:</b> uncoated, ≥ 120gsm for covers, ≥ 90gsm text. Paper color: warm white matching <code>--paper-0</code>.</li>
+    <li><b>Inks:</b> Ink <code>#16150F</code> + Decision Green <code>#0F5132</code>. Two inks maximum.</li>
+    <li><b>Margins:</b> ≥ 20mm all sides. Measure ≤ 65 characters holds in print.</li>
+    <li><b>Wordmark:</b> minimum 25mm wide. Below: monogram.</li>
+  </ul>
+</div></section>
+
+<!-- 25 CO-BRANDING -->
+<section class="chapter" id="cobranding"><div class="wrap">
+  <p class="sec-index">23 · Co-branding</p>
+  <h2 class="display-2 sec-title">Our mark leads<span class="sq">■</span></h2>
+  <ul class="rules">
+    <li><b>Order:</b> Fronesa mark first (left / top), partner second. Equal size maximum — never larger than ours.</li>
+    <li><b>Separation:</b> clearspace 2S between marks, plus a hairline divider.</li>
+    <li><b>Grounds:</b> both marks on paper or both on ink. Never split grounds.</li>
+    <li><b>Never:</b> merge marks into one lockup · recolor a partner mark · place beside unapproved marks without review.</li>
+  </ul>
+</div></section>
+
+<!-- 26 NAMING -->
+<section class="chapter" id="naming"><div class="wrap">
+  <p class="sec-index">24 · Naming</p>
+  <h2 class="display-2 sec-title">Plain names<span class="sq">■</span></h2>
+  <ul class="rules">
+    <li><b>Pattern:</b> Fronesa + plain descriptor. "Fronesa Decide", "Fronesa Label". No cute names, no codenames in public.</li>
+    <li><b>Case:</b> Fronesa always capitalized. Descriptors in title case.</li>
+    <li><b>Never:</b> "Fronesa AI" (redundant) · "Fronesa™" in headlines · internal project names in public.</li>
+  </ul>
+</div></section>
+
+<!-- 27 TRADEMARK -->
+<section class="chapter" id="trademark"><div class="wrap">
+  <p class="sec-index">25 · Trademark</p>
+  <h2 class="display-2 sec-title">Mark it once<span class="sq">■</span></h2>
+  <ul class="rules">
+    <li><b>First mention</b> in any document: "Fronesa™". Subsequent mentions: plain "Fronesa".</li>
+    <li><b>Never</b> in headlines, the wordmark lockup itself, or social handles.</li>
+    <li><b>Legal line</b> in footers: "Fronesa is a trademark. All rights reserved."</li>
+    <li><b>Don't</b> use ™ on the green square or the avatar.</li>
+  </ul>
+</div></section>
+
+<!-- 28 LOCALIZATION -->
+<section class="chapter" id="localization"><div class="wrap">
+  <p class="sec-index">26 · Localization</p>
+  <h2 class="display-2 sec-title">Built to translate<span class="sq">■</span></h2>
+  <ul class="rules">
+    <li><b>Expansion:</b> layouts tolerate +30% text growth (German, Russian). Buttons flex; nothing clips.</li>
+    <li><b>RTL:</b> logical properties only (<code>margin-inline-start</code>, not <code>margin-left</code>). The green square stays terminal — punctuation flips with direction.</li>
+    <li><b>No text in images.</b> Ever. Translated images don't exist.</li>
+    <li><b>Numbers:</b> locale-aware grouping; the precise value never changes, only its formatting.</li>
+    <li><b>Never</b> machine-translate the wordmark, tagline, or verdict words without human review.</li>
+  </ul>
 </div></section>
 
 <!-- 20 CHECKLIST -->
 <section class="chapter" id="checklist"><div class="wrap">
-  <p class="sec-index">20 · Ship checklist</p>
+  <p class="sec-index">27 · Ship checklist</p>
   <h2 class="display-2 sec-title">The gate<span class="sq">■</span></h2>
   <p class="lede">Every surface passes every item before it ships. A single failure blocks.</p>
   <ul class="check">
@@ -754,7 +885,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
 
 <!-- 21 TOKENS -->
 <section class="chapter" id="tokens"><div class="wrap">
-  <p class="sec-index">21 · Tokens</p>
+  <p class="sec-index">28 · Tokens</p>
   <h2 class="display-2 sec-title">Copy-paste<span class="sq">■</span></h2>
   <p class="lede">The whole system in one <code>:root</code>.</p>
   <div class="codeblk" id="tokenblock">:root {
