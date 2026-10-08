@@ -38,11 +38,11 @@ body{background:var(--paper-0);color:var(--ink-900);font-family:var(--font-ui);f
 p{margin-bottom:16px}
 p:last-child{margin-bottom:0}
 /* nav: minimal, no glass */
-.topbar{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.92);backdrop-filter:saturate(1.2);-webkit-backdrop-filter:saturate(1.2);border-bottom:1px solid var(--paper-200)}
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper-0);border-bottom:1px solid var(--paper-200)}
 .topbar .wrap{display:flex;align-items:center;gap:8px;height:64px;overflow-x:auto;scrollbar-width:none}
 .topbar .wrap::-webkit-scrollbar{display:none}
-.brandmark{font-family:var(--font-display);font-weight:900;font-size:1.2rem;letter-spacing:-0.015em;color:var(--ink-900);text-decoration:none;white-space:nowrap;margin-right:16px}
-.topbar a.nl{font-size:.82rem;font-weight:600;color:var(--ink-500);text-decoration:none;padding:8px 10px;white-space:nowrap;border-radius:var(--r-8)}
+.brandmark{font-family:var(--font-display);font-weight:900;font-size:1.2rem;letter-spacing:-0.015em;color:var(--ink-900);text-decoration:none;white-space:nowrap;margin-right:16px;flex:none}
+.topbar a.nl{font-size:.82rem;font-weight:600;color:var(--ink-500);text-decoration:none;padding:8px 10px;white-space:nowrap;border-radius:var(--r-8);flex:none}
 .topbar a.nl:hover{color:var(--ink-900);background:var(--paper-100)}
 /* hero */
 .hero{padding-block:clamp(5rem,12vw,9rem) clamp(4rem,8vw,6rem)}
@@ -128,6 +128,83 @@ footer{border-top:1px solid var(--paper-200);padding-block:64px;margin-top:0}
 footer .fbrand{font-family:var(--font-display);font-weight:900;font-size:1.5rem;letter-spacing:-0.015em;margin-bottom:12px}
 footer p{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-500);line-height:1.8}
 img.responsive{max-width:100%;height:auto}
+
+/* ---- extended UI elements ---- */
+.switch{position:relative;display:inline-flex;align-items:center;gap:12px;cursor:pointer;font-size:.92rem}
+.switch input{position:absolute;opacity:0;width:52px;height:30px;cursor:pointer}
+.switch .trk{width:52px;height:30px;border-radius:var(--r-full);background:var(--paper-300);transition:background 150ms;flex:none}
+.switch .trk::after{content:"";display:block;width:24px;height:24px;border-radius:50%;background:#fff;margin:3px;transition:transform 150ms;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.switch input:checked + .trk{background:var(--green-900)}
+.switch input:checked + .trk::after{transform:translateX(22px)}
+.switch input:focus-visible + .trk{outline:3px solid var(--green-900);outline-offset:2px}
+.checkbox,.radio{display:flex;align-items:center;gap:12px;cursor:pointer;font-size:.92rem;padding:6px 0}
+.checkbox input,.radio input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:2px solid rgba(22,21,15,.35);border-radius:6px;cursor:pointer;flex:none;position:relative;background:#fff;margin:0}
+.checkbox input:checked{background:var(--green-900);border-color:var(--green-900)}
+.checkbox input:checked::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(42deg)}
+.radio input{border-radius:50%}
+.radio input:checked{border-color:var(--green-900);border-width:6px}
+.checkbox input:focus-visible,.radio input:focus-visible{outline:3px solid var(--green-900);outline-offset:2px}
+.select{appearance:none;-webkit-appearance:none;min-height:44px;padding:0 40px 0 16px;border-radius:var(--r-12);border:1px solid rgba(22,21,15,.25);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2316150F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center;font-family:var(--font-ui);font-size:1rem;color:var(--ink-900);cursor:pointer;max-width:100%}
+.select:focus{outline:none;border-color:var(--green-900);box-shadow:0 0 0 3px rgba(15,81,50,.16)}
+input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;max-width:320px;height:28px;background:transparent;cursor:pointer}
+.slider::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--paper-300)}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--green-900);margin-top:-10px}
+.slider::-moz-range-track{height:4px;border-radius:2px;background:var(--paper-300)}
+.slider::-moz-range-thumb{width:24px;height:24px;border:none;border-radius:50%;background:var(--green-900)}
+.progress{height:8px;border-radius:var(--r-full);background:var(--paper-200);overflow:hidden;max-width:320px}
+.progress i{display:block;height:100%;background:var(--green-900);border-radius:inherit}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--paper-300);max-width:100%;overflow-x:auto}
+.tabs button{background:none;border:none;font-family:var(--font-ui);font-size:.92rem;font-weight:600;color:var(--ink-500);padding:12px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs button[aria-selected=true]{color:var(--ink-900);border-bottom-color:var(--green-900)}
+.tabs button:hover{color:var(--ink-900)}
+details.acc{border-bottom:1px solid var(--paper-200);max-width:var(--measure)}
+details.acc summary{list-style:none;cursor:pointer;font-weight:600;padding:16px 0;display:flex;justify-content:space-between;align-items:center;font-size:.95rem}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"+";font-size:1.2rem;color:var(--green-900);font-weight:400}
+details.acc[open] summary::after{content:"–"}
+details.acc .acc-body{padding:0 0 20px;color:var(--ink-500);font-size:.92rem;max-width:var(--measure)}
+.badge{display:inline-flex;align-items:center;min-height:26px;padding:0 12px;border-radius:var(--r-full);font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.badge-green{background:var(--green-100);color:var(--green-900)}
+.badge-ink{background:var(--ink-900);color:var(--paper-0)}
+.badge-line{border:1px solid var(--paper-300);color:var(--ink-500)}
+.alert{border-radius:var(--r-12);padding:16px 20px;font-size:.92rem;max-width:var(--measure);border:1px solid}
+.alert-ok{background:var(--green-100);border-color:var(--green-300);color:var(--green-950)}
+.alert-err{background:#FDF3F2;border-color:#E5C4C0;color:#7A1F1A}
+.alert b{display:block;font-size:.8rem;margin-bottom:4px}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-500);flex-wrap:wrap}
+.crumbs a{color:var(--ink-700);text-decoration:none}
+.crumbs a:hover{color:var(--green-900);text-decoration:underline}
+.crumbs .sep{color:var(--ink-300)}
+.pages{display:flex;gap:8px;align-items:center}
+.pages a,.pages span{min-width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--r-8);font-size:.9rem;font-weight:600;color:var(--ink-700);text-decoration:none;border:1px solid transparent}
+.pages a:hover{border-color:var(--paper-300)}
+.pages .cur{background:var(--ink-900);color:var(--paper-0)}
+.avatars{display:flex;align-items:center}
+.avatars img,.avatars .av{width:40px;height:40px;border-radius:50%;border:2px solid var(--paper-0);margin-left:-10px;background:var(--paper-200);display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--ink-500)}
+.avatars img:first-child,.avatars .av:first-child{margin-left:0}
+.skel{border-radius:var(--r-8);background:linear-gradient(90deg,var(--paper-100) 25%,var(--paper-200) 50%,var(--paper-100) 75%);background-size:200% 100%;animation:sk 1.4s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+.empty{text-align:center;padding:48px 24px;border:1px dashed var(--paper-300);border-radius:var(--r-16);max-width:480px}
+.empty .t{font-weight:700;margin-bottom:8px}
+.empty .d{font-size:.9rem;color:var(--ink-500);margin-bottom:20px}
+.searchwrap{position:relative;max-width:420px}
+.searchwrap .input{padding-left:44px}
+.searchwrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
+textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
+.field{margin-bottom:20px;max-width:420px}
+.field label{display:block;font-size:.85rem;font-weight:600;color:var(--ink-700);margin-bottom:8px}
+.field .hint{font-size:.8rem;color:var(--ink-500);margin-top:6px}
+.field .err-msg{font-size:.8rem;color:#B3261E;margin-top:6px}
+.divider{border:none;border-top:1px solid var(--paper-200);margin:24px 0;max-width:100%}
+.card{border:1px solid var(--paper-200);border-radius:var(--r-16);padding:24px;background:#fff;max-width:400px}
+.card .ct{font-weight:700;margin-bottom:8px}
+.card .cd{font-size:.9rem;color:var(--ink-500)}
+.kbd{font-family:var(--font-mono);font-size:.78rem;border:1px solid var(--paper-300);border-bottom-width:2px;border-radius:6px;padding:2px 8px;background:#fff}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:32px 0}
+.gitem{border:1px solid var(--paper-200);border-radius:var(--r-16);padding:24px;background:#fff}
+.gitem > .glbl{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-500);margin-bottom:16px;display:block}
+
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -147,6 +224,7 @@ img.responsive{max-width:100%;height:auto}
   <a class="nl" href="#psychology">Psychology</a>
   <a class="nl" href="#responsive">Responsive</a>
   <a class="nl" href="#tokens">Tokens</a>
+  <a class="nl" href="/design/psychology/" style="color:var(--green-900)">Psychology</a>
 </div></header>
 
 <div class="wrap" id="top">
@@ -205,7 +283,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>9</td><td>Light</td><td>Performance is a design principle. Fast pages feel high-quality; heavy pages feel careless.</td></tr>
     <tr><td>10</td><td>As little as possible</td><td>Remove until removing more breaks understanding — then stop. The stopping condition is the discipline.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Processing fluency: the brain reads ease-of-processing as truth and quality. Every unnecessary element taxes the believability of everything else. (Reber, Schwarz &amp; Winkielman, 2004)</p></div>
+  
 </div></section>
 <!-- 02 BRAND -->
 <section class="chapter" id="brand"><div class="wrap">
@@ -243,7 +321,7 @@ img.responsive{max-width:100%;height:auto}
     <div class="dont"><b>Don't</b>Use bright green <code>#4A9E6B</code> on paper, or green <code>#0F5132</code> on ink.</div>
     <div class="dont"><b>Don't</b>Improvise lockups — no added taglines, no redrawn marks.</div>
   </div>
-  <div class="why"><b>Why</b><p>The wordmark is a costly signal: hand-tuned geometry that can't be faked by typing. Consistency compounds — every correct use strengthens the pattern the brain files under "institutional."</p></div>
+  
 </div></section>
 
 <!-- 03 COLOR -->
@@ -282,7 +360,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Body text</td><td><code>--ink-900</code> on <code>--paper-0</code> (~15:1). Muted <code>--ink-500</code> (~7:1) for labels only — never claims.</td></tr>
     <tr><td>Forbidden pairs</td><td>Green on Ink · Bright on Paper · Ink on Green · Paper on Green.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Von Restorff effect: the one green element in a monochrome field is noticed and remembered. Every added hue halves the effect. Green also borrows the "go / safe / systems nominal" template — for a decisions company, the accent literally means <em>the decision</em>.</p></div>
+  
 </div></section>
 <!-- 04 TYPOGRAPHY -->
 <section class="chapter" id="type"><div class="wrap">
@@ -311,7 +389,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Headlines</td><td>Close with ■. One per headline, never in body. <code>text-wrap: balance</code>. No orphans.</td></tr>
     <tr><td>Forbidden</td><td>Fraunces for UI chrome · Inter for headlines · a third expressive family anywhere.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Serif display borrows the brain's "institutional authority" template — Baskerville raised claim believability +1.5% (p=0.0068, n≈45k). One family per job means the reader never spends cognition deciding what a piece of text <em>is</em>.</p></div>
+  
 </div></section>
 
 <!-- 05 LAYOUT -->
@@ -329,7 +407,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Density rhythm</td><td>Alternate air and evidence: display spread (80–90% whitespace, one headline) → proof spread (dense, narrow). Alternating density <em>is</em> the rhythm.</td></tr>
     <tr><td>60/40 economy</td><td>No viewport more than ~40% text by area. Cut text or add air — never decoration.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Prägnanz: the brain prefers one stable interpretation. Figure–ground: ambiguous ground costs trust before any conscious judgment. Müller-Brockmann: an organized page is respect for the reader's attention.</p></div>
+  
 </div></section>
 
 <!-- 06 SPACING -->
@@ -354,7 +432,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Space, not lines</td><td>Air separates sections. A 1px hairline is permitted <em>within</em> dense information only. Every visible divider is an admission spacing failed.</td></tr>
     <tr><td>Headings</td><td>2× base unit above, 1× below. This one rule produces 80% of vertical rhythm.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Gestalt proximity outranks all other grouping cues — the eye groups by distance before color, size, or shape. Whitespace structures up to ~50%; past that it just pushes content apart without clarifying relationships.</p></div>
+  
 </div></section>
 
 <!-- 07 TEXT DISCIPLINE -->
@@ -375,51 +453,89 @@ img.responsive{max-width:100%;height:auto}
     <li><b>Key claims in the first 2–3 words</b> of every heading. The left edge is the scan rail.</li>
     <li><b>No wall of unformatted text.</b> The F-pattern is what happens when readers have no formatting to lean on — designing for it means designing for your own failure.</li>
   </ul>
-  <div class="why"><b>Why</b><p>Layer-cake eyetracking: fixations cluster on headings; body text is opt-in. AI-era readers skip body entirely. Headings carry the page — every word in one must earn its place.</p></div>
+  
 </div></section>
 <!-- 08 COMPONENTS -->
 <section class="chapter" id="components"><div class="wrap">
   <p class="sec-index">08 · Components</p>
-  <h2 class="display-2 sec-title">Quiet parts, loud proof<span class="sq">■</span></h2>
-  <p class="lede">Components are infrastructure — never the interesting part of any viewport. All radii from the scale, all spacing from the ladder.</p>
+  <h2 class="display-2 sec-title">The kit<span class="sq">■</span></h2>
+  <p class="lede">Every basic element, live. One treatment per function.</p>
 
-  <h3 class="display-3" style="margin:40px 0 8px">Buttons</h3>
-  <div class="demo-row">
-    <a class="btn btn-primary" href="#components">Decide</a>
-    <a class="btn btn-secondary" href="#components">Secondary</a>
+  <div class="gallery">
+    <div class="gitem"><span class="glbl">Buttons</span>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <a class="btn btn-primary" href="#components">Decide</a>
+        <a class="btn btn-secondary" href="#components">Secondary</a>
+      </div></div>
+    <div class="gitem"><span class="glbl">Text input</span>
+      <div class="field" style="margin:0"><label for="gi1">Label</label>
+        <input class="input" id="gi1" placeholder="Placeholder">
+        <p class="hint">Hint text, 14px muted.</p></div></div>
+    <div class="gitem"><span class="glbl">Textarea</span>
+      <textarea class="input" placeholder="Longer input…" aria-label="Textarea demo"></textarea></div>
+    <div class="gitem"><span class="glbl">Search</span>
+      <div class="searchwrap">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#16150F" stroke-width="2"/><path d="M13 13l3.5 3.5" stroke="#16150F" stroke-width="2" stroke-linecap="round"/></svg>
+        <input class="input" placeholder="Search…" aria-label="Search demo"></div></div>
+    <div class="gitem"><span class="glbl">Select</span>
+      <select class="select" aria-label="Select demo"><option>ham — legitimate</option><option>spam — bulk unsolicited</option><option>escalated — needs a human</option></select></div>
+    <div class="gitem"><span class="glbl">Toggle</span>
+      <label class="switch"><input type="checkbox" checked><span class="trk"></span>Live mode</label><br>
+      <label class="switch" style="margin-top:12px"><input type="checkbox"><span class="trk"></span>Notifications</label></div>
+    <div class="gitem"><span class="glbl">Checkbox</span>
+      <label class="checkbox"><input type="checkbox" checked>Remember me</label>
+      <label class="checkbox"><input type="checkbox">Weekly digest</label></div>
+    <div class="gitem"><span class="glbl">Radio</span>
+      <label class="radio"><input type="radio" name="gd" checked>Production</label>
+      <label class="radio"><input type="radio" name="gd">Sandbox</label></div>
+    <div class="gitem"><span class="glbl">Slider</span>
+      <input type="range" class="slider" min="0" max="100" value="38" aria-label="Slider demo"></div>
+    <div class="gitem"><span class="glbl">Progress</span>
+      <div class="progress"><i style="width:64%"></i></div>
+      <p style="font-family:var(--font-mono);font-size:.74rem;color:var(--ink-500);margin-top:10px">64% · 1,536 / 2,400</p></div>
+    <div class="gitem"><span class="glbl">Chips</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="chip">ham</button><button class="chip">spam</button><button class="chip">escalated</button></div></div>
+    <div class="gitem"><span class="glbl">Badges</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="badge badge-green">Live</span><span class="badge badge-ink">v2.0</span><span class="badge badge-line">Draft</span></div></div>
+    <div class="gitem"><span class="glbl">Tabs</span>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true">Overview</button><button role="tab" aria-selected="false">Proof</button><button role="tab" aria-selected="false">API</button></div></div>
+    <div class="gitem"><span class="glbl">Accordion</span>
+      <details class="acc" style="border:none"><summary>How is confidence computed?</summary><div class="acc-body">Calibrated on a held-out set, seed 7. Reported as a precise score, never binary.</div></details>
+      <details class="acc" style="border:none"><summary>What trains the model?</summary><div class="acc-body">Your labels train only your model — unless you explicitly agree otherwise.</div></details></div>
+    <div class="gitem"><span class="glbl">Alert · ok</span>
+      <div class="alert alert-ok"><b>Deployed</b>v2.0 is live on all surfaces.</div></div>
+    <div class="gitem"><span class="glbl">Alert · error</span>
+      <div class="alert alert-err"><b>Needs attention</b>3 labels failed validation. <a href="#components" style="color:inherit">Review</a>.</div></div>
+    <div class="gitem"><span class="glbl">Breadcrumb</span>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#components">Docs</a><span class="sep">/</span><a href="#components">API</a><span class="sep">/</span><span>Decide</span></nav></div>
+    <div class="gitem"><span class="glbl">Pagination</span>
+      <nav class="pages" aria-label="Pagination"><a href="#components">←</a><a href="#components">1</a><span class="cur">2</span><a href="#components">3</a><a href="#components">→</a></nav></div>
+    <div class="gitem"><span class="glbl">Avatars</span>
+      <div class="avatars"><span class="av">BR</span><span class="av">EN</span><span class="av">+3</span></div></div>
+    <div class="gitem"><span class="glbl">Card</span>
+      <div class="card" style="border:none;padding:0;max-width:none"><p class="ct">Verdict receipt</p><p class="cd">ham · 0.38% spam score · calibrated, seed 7.</p></div></div>
+    <div class="gitem"><span class="glbl">Skeleton</span>
+      <div class="skel" style="height:20px;width:70%;margin-bottom:12px"></div>
+      <div class="skel" style="height:20px;width:45%"></div></div>
+    <div class="gitem"><span class="glbl">Empty state</span>
+      <div class="empty" style="padding:24px"><p class="t">No labels yet</p><p class="d">Labels you confirm will appear here.</p><a class="btn btn-secondary" href="#components" style="min-height:40px;font-size:.9rem">Add label</a></div></div>
+    <div class="gitem"><span class="glbl">Keyboard</span>
+      <p><span class="kbd">⌘</span> <span class="kbd">K</span> <span style="color:var(--ink-500);font-size:.9rem">quick actions</span></p></div>
+    <div class="gitem"><span class="glbl">Divider</span><hr class="divider" style="margin:8px 0"></div>
   </div>
-  <div class="specwrap"><table class="spec">
-    <tr><th>Rule</th><th>Spec</th></tr>
-    <tr><td>Hierarchy</td><td>One primary per viewport. Secondary demoted. Tertiary = text link.</td></tr>
-    <tr><td>Shape</td><td><code>--r-12</code> · min-height 44px · padding 0 24px · weight 700.</td></tr>
-    <tr><td>Primary</td><td>Decision green <code>#0F5132</code> fill, paper text. Hover: <code>#1E6B42</code>. No shadow, no gradient, no glow.</td></tr>
-    <tr><td>Focus</td><td>3px solid green ring + 3px offset. Solid, always visible, never glow.</td></tr>
-    <tr><td>Disabled</td><td>40% opacity. No tooltip explaining why — fix the form instead.</td></tr>
-    <tr><td>Loading</td><td>Spinner replaces label, 700ms linear. Button disabled during.</td></tr>
-  </table></div>
 
-  <h3 class="display-3" style="margin:40px 0 8px">Inputs</h3>
-  <div class="demo-row"><input class="input" placeholder="Paste a message to triage…" aria-label="Demo input"></div>
   <div class="specwrap"><table class="spec">
-    <tr><th>Rule</th><th>Spec</th></tr>
-    <tr><td>Shape</td><td><code>--r-12</code> · min-height 44px · 1px border <code>rgba(22,21,15,.25)</code>.</td></tr>
-    <tr><td>Label</td><td>Above the input, 14px, <code>--ink-700</code>. Never placeholder-as-label.</td></tr>
-    <tr><td>Focus</td><td>Border green + 3px <code>rgba(15,81,50,.16)</code> ring.</td></tr>
-    <tr><td>Error</td><td>Border <code>#B3261E</code> + message below in 14px. Errors are red, never green.</td></tr>
+    <tr><th>Element</th><th>Key spec</th></tr>
+    <tr><td>Buttons</td><td>One primary/viewport · 44px min · <code>--r-12</code> · 700 weight · verb-first labels.</td></tr>
+    <tr><td>Inputs</td><td>Label above, never placeholder-as-label · 44px · focus ring 3px green.</td></tr>
+    <tr><td>Toggles</td><td>52×30 · green when on. For binary settings only — never for actions.</td></tr>
+    <tr><td>Radio / Checkbox</td><td>22px · 2px border · green fill when on. Radios: one choice among many. Checkboxes: independent.</td></tr>
+    <tr><td>Focus</td><td>3px solid green + 3px offset, everywhere. Never removed, never glow.</td></tr>
+    <tr><td>Errors</td><td>Red <code>#B3261E</code>, message below in text — never color alone.</td></tr>
   </table></div>
-
-  <h3 class="display-3" style="margin:40px 0 8px">Chips, nav, tables</h3>
-  <div class="demo-row">
-    <button class="chip">ham</button><button class="chip">spam</button><button class="chip">escalated</button>
-  </div>
-  <ul class="rules">
-    <li><b>Chips:</b> pill, 36px min-height, hairline border. Selected = ink fill, paper text.</li>
-    <li><b>Nav:</b> text links + one primary button. Max 5 top-level items, grouped 3–4 per cluster. Sticky, hairline bottom border — no shadow.</li>
-    <li><b>Tables:</b> hairline row rules, mono numerals, left-aligned text / right-aligned numbers. Header 12px uppercase mono. Never striped.</li>
-    <li><b>Cards:</b> used sparingly — one boundary per group that truly belongs together. Card-itis (everything boxed) destroys grouping.</li>
-    <li><b>Radius scale:</b> 4 (tags) · 8 (small) · 12 (controls) · 16 (panels) · 24 (feature) · 32 (hero) · full (pills). No others.</li>
-  </ul>
-  <div class="why"><b>Why</b><p>Similarity: one treatment per functional category lets the eye categorize instantly. Accidental similarity (two things that look alike but behave differently) teaches false rules — worse than no system at all.</p></div>
 </div></section>
 
 <!-- 09 DATA -->
@@ -445,7 +561,7 @@ img.responsive{max-width:100%;height:auto}
     <div class="do"><b>Do</b>"0.38% loop error vs 1.71% frozen · 10% judge noise · seed 7 · n=2,400"</div>
     <div class="dont"><b>Don't</b>"4.5× better accuracy!" / "Zero false positives" / "Best-in-class"</div>
   </div>
-  <div class="why"><b>Why</b><p>Precision effect: precise numbers are judged more credible because the brain infers measurement behind them. Costly signaling: checkable claims can be punished if wrong — that risk is exactly what makes them believable. Hype adjectives are cheap; the brain discounts them.</p></div>
+  
 </div></section>
 
 <!-- 10 IMAGERY -->
@@ -460,7 +576,7 @@ img.responsive{max-width:100%;height:auto}
     <li><b>Diagrams:</b> hairlines, mono labels, green for the single highlighted path. White or paper ground.</li>
     <li><b>Alt text:</b> every image carries alt describing its informational content, not its appearance.</li>
   </ul>
-  <div class="why"><b>Why</b><p>Figure–ground: a single artifact is unambiguously the figure. Ten decorations compete for figure status and the brain keeps re-deciding what matters — which reads as chaos before any conscious judgment.</p></div>
+  
 </div></section>
 
 <!-- 11 ICONS -->
@@ -493,7 +609,7 @@ img.responsive{max-width:100%;height:auto}
     <li><b>Verdict reveal:</b> fade + 8px rise, 200ms. One visual event for one decision.</li>
     <li><b><code>prefers-reduced-motion</code>:</b> all motion becomes instant. The page must be fully usable with zero motion.</li>
   </ul>
-  <div class="why"><b>Why</b><p>Purposeless motion spends the motion budget — then purposeful motion stops registering. Motion is attention; spend it only where attention is owed.</p></div>
+  
 </div></section>
 <!-- 13 VOICE -->
 <section class="chapter" id="voice"><div class="wrap">
@@ -513,7 +629,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Plain register</td><td>Short sentences. No ceremony. Match the founder's register: outcome-first, no performance.</td></tr>
     <tr><td>Second person, sparingly</td><td>"Your labels" when it's about their data. Never "you" as hype ("you deserve better").</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Fluency: plain specific sentences are easier to process, and fluent statements feel true. Hype forces calibration ("best at what? says who?") — extraneous load that reduces the believability of everything around it.</p></div>
+  
 </div></section>
 
 <!-- 14 PSYCHOLOGY -->
@@ -536,9 +652,10 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Calibrated trust</td><td>Goal is appropriate reliance, not maximum trust. Uncertainty shown honestly.</td><td>Verdict + score + escalate</td></tr>
     <tr><td>Whitespace value</td><td>Identical products in whitespace rated 7.8 vs 5.2 on quality, +37% price. (Pracejus 2006)</td><td>Air frames proof</td></tr>
   </table></div>
-  <div class="why"><b>Why this section exists</b><p>A rule without a why gets negotiated away; a rule with a why gets defended. Full studies: <code>research/design-psychology-deep.md</code> · <code>research/editorial-minimalism-deep.md</code>.</p></div>
+  
 </div></section>
 
+  <p style="margin:8px 0 32px"><a class="btn btn-secondary" href="/design/psychology/">The full psychology page →</a></p>
 <!-- 15 ACCESSIBILITY -->
 <section class="chapter" id="accessibility"><div class="wrap">
   <p class="sec-index">15 · Accessibility</p>
@@ -552,7 +669,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Text</td><td>Real text, never text-in-image. 200% zoom without horizontal scroll or overlap.</td></tr>
     <tr><td>Forms</td><td>Labels programmatically associated. Errors announced, described in text — never color alone.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Exclusion is the loudest possible brand statement — and it contradicts every trust signal above. Accessibility failures are also Stanford-credibility failures: they read as carelessness, and carelessness generalizes.</p></div>
+  
 </div></section>
 
 <!-- 16 RESPONSIVE -->
@@ -569,7 +686,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Images</td><td><code>max-width: 100%</code>, always. No fixed-width media anywhere.</td></tr>
     <tr><td>Gate</td><td>Zero horizontal overflow at 320 / 390 / 768 / 1024 / 1440 — <em>measured</em>, not eyeballed. Ship-blocking.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Horizontal scroll on mobile is the fastest "this is amateur" signal — it destroys the 50ms snap judgment before a word is read. Breakpoint-specific sizes guarantee inconsistency; fluid type is continuous by construction.</p></div>
+  
 </div></section>
 <!-- 17 EMAIL -->
 <section class="chapter" id="email"><div class="wrap">
@@ -611,7 +728,7 @@ img.responsive{max-width:100%;height:auto}
     <tr><td>Borders</td><td><code>rgba(255,255,255,.14)</code> hairlines replace paper-200 rules.</td></tr>
     <tr><td>Never</td><td>Pure <code>#000</code> grounds (harsh) · colored dark grounds · glow to "lift" dark elements.</td></tr>
   </table></div>
-  <div class="why"><b>Why</b><p>Warm darks (<code>#16150F</code>) feel like paper and leather; neutral black feels like a screen. The brand's ink was chosen warm — dark mode inherits the choice instead of inventing a new one.</p></div>
+  
 </div></section>
 
 <!-- 20 CHECKLIST -->
