@@ -12,80 +12,17 @@
 <meta property="og:url" content="https://suretyai.github.io/fronesa/integrations/tickets.html">
 <meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
 <meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#fbfaf7; --ink:#16150f; --mut:#5c5a50; --faint:#8a877a;
-    --line:#e3e0d5; --green:#0f5132; --green-soft:#e8f0ea;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
-  .mono{font-family:'JetBrains Mono',monospace}
-  nav{border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
-  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;text-decoration:none;color:var(--ink)}
-  .nav-links{display:flex;gap:26px;align-items:center}
-  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
-    border-radius:7px;padding:7px 16px}
-  .nav-links a.talk:hover{background:var(--green);color:#fff}
-  a.here{color:var(--ink);font-weight:600}
-  .draft-banner{background:#fff8e1;border-bottom:1px solid #e3c878;padding:10px 0;
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a5a00;text-align:center}
-  .hero{padding:72px 0 40px}
-  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:24px}
-  h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(34px,5.5vw,52px);line-height:1.1;margin-bottom:20px}
-  h1 em{font-style:italic;color:var(--green)}
-  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(24px,4vw,34px);margin:56px 0 16px}
-  p{font-size:15.5px;color:var(--mut);line-height:1.75;max-width:640px;margin-top:14px}
-  p strong{color:var(--ink)}
-  p code{font-family:'JetBrains Mono',monospace;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--ink)}
-  .codeblock{margin:28px 0;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
-  .codeblock .cap{padding:11px 20px;border-bottom:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);display:flex;justify-content:space-between}
-  .codeblock pre{padding:22px 24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;overflow-x:auto;color:var(--ink)}
-  .codeblock .c{color:var(--faint)}
-  .limit-note{margin-top:24px;padding:18px 22px;border-left:3px solid var(--green);background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
-  .limit-note strong{color:var(--ink)}
-  .warn{margin-top:24px;padding:18px 22px;border-left:3px solid #8a5a00;background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
-  .warn strong{color:var(--ink)}
-  table{width:100%;border-collapse:collapse;margin-top:20px;font-size:14.5px}
-  th{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-weight:500}
-  td{padding:13px 14px;border-bottom:1px solid var(--line);color:var(--mut);vertical-align:top}
-  td:first-child{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);white-space:nowrap}
-  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:72px}
-  footer .wrap{max-width:960px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-  footer p{font-size:13px;color:var(--faint)}
-  footer .fl{display:flex;gap:22px;flex-wrap:wrap}
-  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
-  footer .fl a:hover{color:var(--ink)}
-
-  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;min-width:0;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
-</style>
-<style>
-code{overflow-wrap:anywhere}
-pre{overflow-x:auto;max-width:100%}
-@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fdl.css">
 </head>
 <body>
-
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="brandmark" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><a class="nl" href="/try-it.html">Demo</a><a class="nl" href="/benchmarks.html">Benchmarks</a><a class="nl" href="/docs.html">Docs</a><a class="nl" href="/pricing.html">Pricing</a><a class="nl" href="/blog/">Blog</a><a class="nl" href="/about.html">About</a></div></header>
+<main id="main">
 <div class="draft-banner">DRAFT — internal only. Do not publish without Braa's approval.</div>
-
-<nav><div class="wrap">
-  <a class="wordmark" href="../index.html">Fronesa</a>
-  <div class="nav-links">
-    <a href="../try-it.html">Demo</a>
-    <a href="../benchmarks.html">Benchmarks</a>
-    <a href="../docs.html">Docs</a>
-    <a href="../pricing.html">Pricing</a>
-    <a href="../about.html">About</a>
-    <a class="talk" href="../getting-started.html">Get started</a>
-  </div>
-</div></nav>
 
 <div class="wrap">
 <div class="hero">
@@ -140,23 +77,19 @@ app.run(port=8000)</pre></div>
 <div class="limit-note"><strong>Why only confident spam auto-closes:</strong> closing a real customer's ticket as spam is the most expensive mistake in support. The lab-measured zero false positives on spam make confident closes safe; anything uncertain gets a human. Your agents see a <code class="mono">needs_review</code> tag and a confidence score — not a black box.</div>
 
 <h2>What escalation looks like here</h2>
-<table>
+<div class="specwrap"><table>
   <tr><th>API says</th><th>Service returns</th><th>What happens</th></tr>
   <tr><td>spam, confident</td><td><code class="mono">{"action":"close_as_spam"}</code></td><td>Ticket auto-closed, logged — agent never sees it</td></tr>
   <tr><td>ham, confident</td><td><code class="mono">{"action":"route"}</code></td><td>Normal queue, no tag</td></tr>
   <tr><td>escalated</td><td><code class="mono">{"action":"route","tag":"needs_review"}</code></td><td>Agent sees it with the score — prioritizes the review</td></tr>
-</table>
+</table></div>
 <p>Agents' decisions on <code class="mono">needs_review</code> tickets — real spam they close, real customers they help — are the feedback the <strong>learning loop</strong> retrains on. The filter gets better at <em>your</em> spam, not generic spam.</p>
 
 <div class="warn"><strong>Honest scope:</strong> this guide filters spam/scam text — that's what the production model is trained for (lab accuracy 0.9875 on spam vs. legitimate messages). It does not detect angry customers, urgent tickets, or VIPs. Don't promise your support team coverage it doesn't have.</div>
 
 <p style="margin-top:48px">SDK reference: <code class="mono">Client(api_key, ...)</code> · <code class="mono">client.decide(text)</code> → <code class="mono">Decision(decision, confidence, escalated, version)</code> · exceptions: <code class="mono">APIError</code> and subclasses.</p>
 </div>
-
-<footer><div class="wrap">
-  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
-  <div class="fl"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="../getting-started.html">Getting started</a><a href="../api-docs.html">API reference</a><a href="../sdk-docs.html">SDK docs</a><a href="../docs.html">Docs</a><a href="../faq.html">FAQ</a><a href="../changelog.html">Changelog</a><a href="../security.html">Security</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
-</div></footer>
-
+</main>
+<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.<br>Every number on this site is measured; nothing is promised.</p></div></footer>
 </body>
 </html>
