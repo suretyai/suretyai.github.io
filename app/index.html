@@ -1,1 +1,280 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — Decisions that learn</title>
+<meta name="description" content="Fronesa business interface: verdicts, labels, proof, API.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16150F; --ink-2:#2A2820; --ink-3:#4A463A; --ink-4:#8A8474;
+  --paper:#FBFAF7; --paper-2:#F4F0E4; --paper-3:#EAE4D2; --paper-4:#DCD3B8;
+  --g950:#0A2E1D; --g900:#0F5132; --g700:#1E6B42; --g500:#4A9E6B; --g300:#8FCCA4; --g100:#DDF0E2;
+  --err:#B3261E; --err-bg:#FDF3F2;
+  --fd:"Fraunces",Georgia,serif; --fu:"Inter",-apple-system,"Segoe UI",Arial,sans-serif;
+  --fm:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+html[data-theme=dark]{
+  --ink:#F4F0E4; --ink-2:#DCD3B8; --ink-3:#B9B2A0; --ink-4:#7A7466;
+  --paper:#141310; --paper-2:#1E1C17; --paper-3:#2A2820; --paper-4:#3A372C;
+  --g900:#4A9E6B; --g100:#1E3A2A; --err-bg:#3A1F1C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--fu);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--g100)}
+.sq{color:var(--g900)}
+a{color:inherit}
+/* header */
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--paper-3)}
+.topbar .in{max-width:72rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem);height:64px;display:flex;align-items:center;gap:6px}
+.brand{font-family:var(--fd);font-weight:900;font-size:1.25rem;letter-spacing:-.015em;text-decoration:none;margin-right:14px;white-space:nowrap}
+.nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav::-webkit-scrollbar{display:none}
+.nav button{background:none;border:none;font-family:var(--fu);font-size:.85rem;font-weight:600;color:var(--ink-3);padding:10px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;min-height:44px}
+.nav button:hover{color:var(--ink);background:var(--paper-2)}
+.nav button.on{color:var(--g900);background:var(--g100)}
+.demobadge{font-family:var(--fm);font-size:.64rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--paper-4);color:var(--ink-3);border-radius:999px;padding:5px 12px;white-space:nowrap}
+.thembtn{background:none;border:1px solid var(--paper-4);border-radius:999px;min-width:44px;min-height:44px;cursor:pointer;font-size:1rem;color:var(--ink)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex:none}
+/* layout */
+.wrap{max-width:72rem;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,4vw,2rem)}
+.view{display:none}
+.view.on{display:block;animation:vin 240ms ease-out}
+@keyframes vin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-family:var(--fd);font-weight:700;font-size:clamp(2rem,6vw,3rem);letter-spacing:-.02em;line-height:1.05;margin-bottom:.5rem}
+.sub{color:var(--ink-3);font-size:1.05rem;max-width:65ch;margin-bottom:2.5rem}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:2.5rem}
+.stat{border:1px solid var(--paper-3);border-radius:12px;padding:20px;background:var(--paper)}
+.stat .n{font-family:var(--fd);font-weight:700;font-size:2rem;letter-spacing:-.01em}
+.stat .l{font-size:.78rem;color:var(--ink-3);margin-top:4px}
+.stat .c{font-family:var(--fm);font-size:.66rem;color:var(--ink-4);margin-top:8px}
+/* cards */
+.card{border:1px solid var(--paper-3);border-radius:16px;background:var(--paper);padding:24px;margin-bottom:16px}
+.card h2{font-family:var(--fd);font-weight:700;font-size:1.35rem;margin-bottom:1rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+/* verdict */
+.verdict{border:1px solid var(--paper-3);border-radius:16px;background:var(--paper);padding:22px;margin-bottom:12px}
+.verdict .vv{font-family:var(--fd);font-weight:900;font-size:1.5rem}
+.verdict .vc{font-family:var(--fm);font-size:.7rem;color:var(--ink-3);margin:6px 0 12px}
+.verdict .ve{font-size:.9rem;color:var(--ink-2);border-top:1px solid var(--paper-3);padding-top:12px;margin-top:12px;max-width:65ch}
+.vrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.vrow .grow{flex:1;min-width:200px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chip{font-family:var(--fm);font-size:.68rem;border:1px solid var(--paper-3);border-radius:999px;padding:5px 12px;color:var(--ink-2);background:none;cursor:pointer;min-height:32px}
+button.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.badge{font-family:var(--fm);font-size:.64rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 12px}
+.b-green{background:var(--g100);color:var(--g900)}
+.b-ink{background:var(--ink);color:var(--paper)}
+.b-line{border:1px solid var(--paper-4);color:var(--ink-3)}
+/* buttons/inputs */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:12px;font-family:var(--fu);font-weight:700;font-size:1rem;border:none;cursor:pointer;text-decoration:none}
+.btn-p{background:var(--g900);color:#fff}
+html[data-theme=dark] .btn-p{background:var(--g500);color:#0A1F14}
+.btn-s{background:none;border:1px solid var(--paper-4);color:var(--ink)}
+.btn-s:hover{border-color:var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.nav button:focus-visible{outline:3px solid var(--g900);outline-offset:3px}
+.input{min-height:48px;width:100%;padding:0 16px;border-radius:12px;border:1px solid var(--paper-4);background:var(--paper);font-family:var(--fu);font-size:1rem;color:var(--ink)}
+.input:focus{outline:none;border-color:var(--g900);box-shadow:0 0 0 3px var(--g100)}
+.field{margin-bottom:18px;max-width:440px}
+.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:8px}
+.switch{position:relative;display:flex;align-items:center;gap:12px;cursor:pointer;font-size:.95rem;padding:10px 0}
+.switch input{position:absolute;opacity:0;width:52px;height:30px}
+.switch .trk{width:52px;height:30px;border-radius:999px;background:var(--paper-4);flex:none;transition:background 150ms}
+.switch .trk::after{content:"";display:block;width:24px;height:24px;border-radius:50%;background:#fff;margin:3px;transition:transform 150ms;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.switch input:checked+.trk{background:var(--g900)}
+.switch input:checked+.trk::after{transform:translateX(22px)}
+.switch input:focus-visible+.trk{outline:3px solid var(--g900);outline-offset:2px}
+/* table */
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{font-family:var(--fm);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:10px 12px;border-bottom:2px solid var(--ink);color:var(--ink-3)}
+td{padding:14px 12px;border-bottom:1px solid var(--paper-3);vertical-align:top}
+.mono{font-family:var(--fm);font-size:.8rem}
+/* code */
+pre{background:var(--paper-2);border:1px solid var(--paper-3);border-radius:12px;padding:20px;overflow-x:auto;font-family:var(--fm);font-size:.82rem;line-height:1.7;margin:16px 0}
+/* demo banner */
+.demobar{background:var(--g950);color:#F4F0E4;text-align:center;font-size:.82rem;padding:10px 16px}
+.demobar b{font-weight:700}
+html[data-theme=dark] .demobar{background:var(--g100);color:var(--ink)}
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);border-radius:12px;padding:14px 22px;font-size:.9rem;z-index:100;transition:transform 240ms ease-out;display:flex;gap:10px;align-items:center;max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+footer{border-top:1px solid var(--paper-3);margin-top:4rem;padding:2.5rem 0}
+footer p{font-family:var(--fm);font-size:.72rem;color:var(--ink-4);line-height:2}
+@media (prefers-reduced-motion:reduce){.view.on{animation:none}.toast{transition:none}}
+</style>
+</head>
+<body>
+<div class="demobar"><b>Demo workspace</b> — sample data. Nothing here is a real customer or a measured claim.</div>
+<header class="topbar"><div class="in">
+  <a class="brand" href="#" data-view="dashboard">Fronesa<span class="sq">■</span></a>
+  <nav class="nav" aria-label="App">
+    <button data-view="dashboard" class="on">Dashboard</button>
+    <button data-view="verdicts">Verdicts</button>
+    <button data-view="labels">Labels</button>
+    <button data-view="proof">Proof</button>
+    <button data-view="api">API</button>
+    <button data-view="settings">Settings</button>
+  </nav>
+  <span class="demobadge">Demo</span>
+  <button class="thembtn" id="themeBtn" aria-label="Toggle dark mode">◐</button>
+  <span class="avatar">BR</span>
+</div></header>
+
+<main class="wrap">
+
+<!-- DASHBOARD -->
+<section class="view on" id="v-dashboard">
+  <h1>This week<span class="sq">■</span></h1>
+  <p class="sub">Every decision measured. Every number carries its method.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">0.38%</div><div class="l">Loop error</div><div class="c">vs 1.71% baseline · n=2,400 · seed 7</div></div>
+    <div class="stat"><div class="n">2,400</div><div class="l">Decisions</div><div class="c">last 7 days · production</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">Escalated</div><div class="c">to human review · avg 41ms</div></div>
+    <div class="stat"><div class="n">99.2%</div><div class="l">Uptime</div><div class="c">90 days · /health</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h2>Error over time</h2>
+      <svg viewBox="0 0 400 170" style="width:100%" role="img" aria-label="Loop error falling from 1.71% to 0.38% over 8 weeks">
+        <polyline points="10,30 60,44 110,52 160,70 210,84 260,100 310,118 360,132" fill="none" stroke="var(--g900)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="10" y1="150" x2="390" y2="150" stroke="var(--paper-3)" stroke-width="1"/>
+        <text x="10" y="165" font-size="10" fill="var(--ink-4)" font-family="monospace">wk1 · 1.71%</text>
+        <text x="330" y="165" font-size="10" fill="var(--ink-4)" font-family="monospace">wk8 · 0.38%</text>
+      </svg></div>
+    <div class="card"><h2>Verdict split</h2>
+      <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+      <svg width="130" height="130" viewBox="0 0 140 140" role="img" aria-label="90% ham, 9% spam, 1% escalated"><circle cx="70" cy="70" r="54" fill="none" stroke="var(--paper-3)" stroke-width="20"/><circle cx="70" cy="70" r="54" fill="none" stroke="var(--g900)" stroke-width="20" stroke-dasharray="305 339" stroke-linecap="round" transform="rotate(-90 70 70)"/><text x="70" y="77" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink)" font-family="Fraunces,serif">90%</text></svg>
+      <div style="font-size:.88rem"><p><span class="sq">■</span> <b>ham</b> — 90%</p><p><span style="color:var(--paper-4)">■</span> <b>spam</b> — 9%</p><p><span style="color:var(--ink-4)">■</span> <b>escalated</b> — 1%</p></div>
+      </div></div>
+  </div>
+  <div class="card"><h2>Latest verdicts</h2><div id="dashVerdicts"></div>
+    <p style="margin-top:16px"><button class="btn btn-s" data-view="verdicts">All verdicts</button></p></div>
+</section>
+
+<!-- VERDICTS -->
+<section class="view" id="v-verdicts">
+  <h1>Verdicts<span class="sq">■</span></h1>
+  <p class="sub">Decision, confidence, falsifiable reason, human escape — on every one.</p>
+  <div class="chips" id="vFilters" role="group" aria-label="Filter verdicts">
+    <button class="chip on" data-f="all">all</button>
+    <button class="chip" data-f="ham">ham</button>
+    <button class="chip" data-f="spam">spam</button>
+    <button class="chip" data-f="escalated">escalated</button>
+  </div>
+  <div id="verdictList"></div>
+</section>
+
+<!-- LABELS -->
+<section class="view" id="v-labels">
+  <h1>Labels<span class="sq">■</span></h1>
+  <p class="sub">Your labels train only your model — unless you explicitly agree otherwise.</p>
+  <div class="card"><h2>Review queue</h2><div id="labelQueue"></div></div>
+  <div class="card"><h2>Retraining consent</h2>
+    <label class="switch"><input type="checkbox" id="consent"><span class="trk"></span><span>Allow my corrected labels to improve the shared model <span style="color:var(--ink-4)">(§5.6 — off by default)</span></span></label>
+    <p style="margin-top:16px"><button class="btn btn-p" id="saveLabels">Save labels</button></p>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="view" id="v-proof">
+  <h1>Proof<span class="sq">■</span></h1>
+  <p class="sub">Precise numbers, always with context. Measured in public.</p>
+  <div class="card"><table>
+    <tr><th>Metric</th><th>Fronesa</th><th>Baseline</th><th>Method</th></tr>
+    <tr><td><b>Loop error</b></td><td class="mono"><b>0.38%</b></td><td class="mono">1.71%</td><td class="mono">n=2,400 · seed 7 · 10% judge noise</td></tr>
+    <tr><td><b>Spam catch</b></td><td class="mono"><b>4.52% → 0.22%</b></td><td class="mono">—</td><td class="mono">miss rate, same set</td></tr>
+    <tr><td><b>False positives</b></td><td class="mono"><b>15.1% → 12.2%</b></td><td class="mono">—</td><td class="mono">ham flagged as spam</td></tr>
+    <tr><td><b>Latency p50</b></td><td class="mono"><b>21.02 ms</b></td><td class="mono">—</td><td class="mono">GPU · production</td></tr>
+    <tr><td><b>Latency p50 / p95</b></td><td class="mono"><b>293 / 834 ms</b></td><td class="mono">—</td><td class="mono">CPU fallback</td></tr>
+  </table></div>
+  <p><a class="btn btn-s" href="https://suretyai.github.io/lab-numbers.html">Read the lab notes</a></p>
+</section>
+
+<!-- API -->
+<section class="view" id="v-api">
+  <h1>API<span class="sq">■</span></h1>
+  <p class="sub">One endpoint that matters. Keys are masked by default.</p>
+  <div class="card"><h2>Live key</h2>
+    <p class="mono" id="apiKey">fr_live_••••••••••••4f2a <button class="chip" id="revealKey" style="margin-left:8px">reveal</button></p>
+    <p style="margin-top:16px"><button class="btn btn-s" id="regenKey">Regenerate</button></p></div>
+  <div class="card"><h2>Decide</h2>
+<pre>curl -X POST https://fronsea-api.onrender.com/decide \
+  -H "Authorization: Bearer $FRONESA_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "WINNER!! claim your prize now"}'</pre>
+  <table><tr><th>Endpoint</th><th>Method</th><th>Use</th></tr>
+  <tr><td class="mono">/decide</td><td class="mono">POST</td><td>Verdict + confidence + reason</td></tr>
+  <tr><td class="mono">/labels</td><td class="mono">POST</td><td>Submit corrections (your model only)</td></tr>
+  <tr><td class="mono">/health</td><td class="mono">GET</td><td>Uptime probe, no auth</td></tr></table></div>
+</section>
+
+<!-- SETTINGS -->
+<section class="view" id="v-settings">
+  <h1>Settings<span class="sq">■</span></h1>
+  <p class="sub">Binary choices as toggles. Everything else is a form.</p>
+  <div class="card"><h2>Model</h2>
+    <label class="switch"><input type="checkbox" checked><span class="trk"></span>Nightly retrain from my labels</label>
+    <label class="switch"><input type="checkbox"><span class="trk"></span>Require human review under 0.80 confidence</label>
+    <label class="switch"><input type="checkbox" checked><span class="trk"></span>Weekly proof digest</label>
+  </div>
+  <div class="card"><h2>Workspace</h2>
+    <div class="field"><label for="wsName">Workspace name</label><input class="input" id="wsName" value="Acme Corp"></div>
+    <p><button class="btn btn-p" id="saveSettings">Save settings</button></p>
+  </div>
+</section>
+
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<footer><div class="wrap" style="padding-top:0">
+  <p>Fronesa<span class="sq">■</span> — Decisions that learn.<br>
+  Demo interface built from FDL v2.3 · no transparency · 44px targets · 65ch measure<br>
+  Fronesa is a trademark. All rights reserved.</p>
+</div></footer>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+/* router */
+function go(v){$$('.view').forEach(x=>x.classList.remove('on'));$('#v-'+v).classList.add('on');
+  $$('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.view===v));scrollTo({top:0,behavior:'smooth'});}
+$$('[data-view]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();go(b.dataset.view);}));
+/* theme */
+$('#themeBtn').addEventListener('click',()=>{const h=document.documentElement;
+  h.dataset.theme=h.dataset.theme==='dark'?'':'dark';toast(h.dataset.theme==='dark'?'Dark mode — ink grounds, signal green.':'Light mode — paper grounds, decision green.');});
+/* toast */
+let tt;function toast(m){const t=$('#toast');t.innerHTML='<span class="sq">■</span>'+m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2600);}
+/* sample verdicts (demo data) */
+const V=[
+ {v:'ham',c:'0.962',r:'sender reputation + header structure match legitimate mail',t:'Re: invoice #1042 — thanks, paid this morning'},
+ {v:'spam',c:'0.988',r:'bulk headers + URL shortener + prize language',t:'WINNER!! claim your prize now — click here'},
+ {v:'ham',c:'0.914',r:'known correspondent, consistent thread',t:'Can we move standup to 10:30?'},
+ {v:'escalated',c:'0.512',r:'conflicting signals — needs a human',t:'Your account needs verification (suspicious link)'},
+ {v:'spam',c:'0.971',r:'template fingerprint matches known campaign',t:'You have (1) unread security alert'},
+ {v:'ham',c:'0.945',r:'calendar invite from verified domain',t:'Invite: Q3 planning — Thu 14:00'},
+];
+const bCls={ham:'b-green',spam:'b-ink',escalated:'b-line'};
+function vcard(x){return `<div class="verdict"><div class="vrow"><div class="grow"><span class="vv">${x.v}</span> <span class="badge ${bCls[x.v]}">${x.v}</span></div></div>
+ <p class="vc">confidence ${x.c} · calibrated, seed 7 · 41ms</p>
+ <p class="mono" style="font-size:.85rem;color:var(--ink-3)">${x.t}</p>
+ <p class="ve"><b>Why:</b> ${x.r}. Falsifiable — check the headers.</p>
+ <p style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s esc" style="min-height:44px;font-size:.88rem">Escalate to human</button><button class="btn btn-s ok" style="min-height:44px;font-size:.88rem;border:none;color:var(--g900)">Confirm ✓</button></p></div>`;}
+function renderVerdicts(f='all'){$('#verdictList').innerHTML=V.filter(x=>f==='all'||x.v===f).map(vcard).join('')||'<p style="color:var(--ink-3)">No verdicts in this bucket.</p>';bindV();}
+function bindV(){$$('.esc').forEach(b=>b.onclick=()=>toast('Escalated — a human will review within the hour.'));
+ $$('.ok').forEach(b=>b.onclick=()=>toast('Confirmed — the loop learns from this label.'));}
+$('#dashVerdicts').innerHTML=V.slice(0,3).map(vcard).join('');bindV();renderVerdicts();
+$$('#vFilters .chip').forEach(c=>c.onclick=()=>{$$('#vFilters .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');renderVerdicts(c.dataset.f);});
+/* labels */
+$('#labelQueue').innerHTML=V.slice(0,4).map((x,i)=>`<label class="switch"><input type="checkbox" ${i<2?'checked':''}><span class="trk"></span><span><b>${x.v}</b> · <span class="mono" style="font-size:.8rem">${x.t}</span></span></label>`).join('');
+$('#saveLabels').onclick=()=>toast($('#consent').checked?'Labels saved — shared-model consent recorded (§5.6).':'Labels saved — they train only your model.');
+$('#saveSettings').onclick=()=>toast('Settings saved.');
+$('#regenKey').onclick=()=>toast('New key issued. The old one stops working in 60 seconds.');
+let rev=false;$('#revealKey').onclick=e=>{rev=!rev;$('#apiKey').firstChild.textContent=rev?'fr_live_9d3c7a1e5b2f4f2a ':'fr_live_••••••••••••4f2a ';e.target.textContent=rev?'hide':'reveal';};
+</script>
+</body>
+</html>
