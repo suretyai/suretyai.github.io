@@ -702,7 +702,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#16150F" stroke-width="2"/><path d="M13 13l3.5 3.5" stroke="#16150F" stroke-width="2" stroke-linecap="round"/></svg>
         <input class="input" placeholder="Search…" aria-label="Search demo"></div></div>
     <div class="gitem"><span class="glbl">Select</span>
-      <select class="select" aria-label="Select demo"><option>ham — legitimate</option><option>spam — bulk unsolicited</option><option>escalated — needs a human</option></select></div>
+      <select class="select" aria-label="Select demo"><option>ham — legitimate</option><option>spam — bulk unsolicited</option><option>uncertain — both models unsure</option></select></div>
     <div class="gitem"><span class="glbl">Toggle</span>
       <label class="switch"><input type="checkbox" checked><span class="trk"></span>Live mode</label><br>
       <label class="switch" style="margin-top:12px"><input type="checkbox"><span class="trk"></span>Notifications</label></div>
@@ -719,7 +719,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
       <p style="font-family:var(--font-mono);font-size:.74rem;color:var(--ink-500);margin-top:10px">64% · 1,536 / 2,400</p></div>
     <div class="gitem"><span class="glbl">Chips</span>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="chip">ham</button><button class="chip">spam</button><button class="chip">escalated</button></div></div>
+        <button class="chip">ham</button><button class="chip">spam</button><button class="chip">uncertain</button></div></div>
     <div class="gitem"><span class="glbl">Badges</span>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <span class="badge badge-green">Live</span><span class="badge badge-ink">v2.0</span><span class="badge badge-line">Draft</span></div></div>
@@ -783,7 +783,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><th>Rule</th><th>Spec</th></tr>
     <tr><td>Precision</td><td>Precise where measured (<code>0.38%</code>, never <code>0.4%</code>). Round numbers imply estimates. False precision destroys more trust than vagueness — precision is earned.</td></tr>
     <tr><td>Context</td><td>Every number ships with: what, vs what, how measured. "0.38% vs 1.71%, 10% judge noise, seed 7" — not "dramatically better."</td></tr>
-    <tr><td>Verdict display</td><td>Decision word in Fraunces 700, green. Confidence as precise score beside it. Escalation path always visible — "escalated" proves the system knows its limits.</td></tr>
+    <tr><td>Verdict display</td><td>Decision word in Fraunces 700, green. Confidence as precise score beside it. Uncertainty always visible — the "uncertain" flag and tier-2 line prove the system knows its limits.</td></tr>
     <tr><td>Uncertainty</td><td>Shown continuously, never binary. Confidence calibrates reliance; false certainty manufactures it.</td></tr>
     <tr><td>Charts</td><td>Monochrome + single green series. No 3D, no gradients, no chartjunk. Axes labeled, units stated, n stated.</td></tr>
     <tr><td>Comparisons</td><td>Us vs named baseline, same conditions. Never vs "competitors" unnamed.</td></tr>
@@ -907,7 +907,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <tr><td>Layer-cake scanning</td><td>Fixations land on headings; body is opt-in. F-pattern = failure state.</td><td>Headings that summarize</td></tr>
     <tr><td>Hick's law</td><td>Decision time grows logarithmically with choices.</td><td>One primary action per viewport</td></tr>
     <tr><td>Cognitive load</td><td>Extraneous load (bad design) steals capacity from germane load (your argument).</td><td>Every element justifies its slot</td></tr>
-    <tr><td>Calibrated trust</td><td>Goal is appropriate reliance, not maximum trust. Uncertainty shown honestly.</td><td>Verdict + score + escalate</td></tr>
+    <tr><td>Calibrated trust</td><td>Goal is appropriate reliance, not maximum trust. Uncertainty shown honestly.</td><td>Verdict + score + tier</td></tr>
     <tr><td>Whitespace value</td><td>Identical products in whitespace rated 7.8 vs 5.2 on quality, +37% price. (Pracejus 2006)</td><td>Air frames proof</td></tr>
   </table></div></details>
   
@@ -1006,7 +1006,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <div class="example"><span class="ex-label">One idea per email</span>
   <div class="emailmock">
     <div class="eh"><p style="font-family:var(--font-display);font-weight:900;margin-bottom:4px">Fronesa<span class="sq">■</span></p><p style="font-size:.85rem;color:var(--ink-500);margin:0">Your weekly verdict summary</p></div>
-    <div class="eb"><p style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;margin-bottom:8px">2,400 decisions. 0.38% error.</p><p style="font-size:.9rem;color:var(--ink-500)">Measured in public, seed 7. Three needed a human — all escalated.</p><p style="margin-top:16px"><a class="btn btn-primary" style="min-height:40px;font-size:.9rem" href="#email">Open the log</a></p></div>
+    <div class="eb"><p style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;margin-bottom:8px">2,400 decisions. 0.38% error.</p><p style="font-size:.9rem;color:var(--ink-500)">Measured in public, seed 7. Three uncertain — flagged by the cascade, none sent to a human.</p><p style="margin-top:16px"><a class="btn btn-primary" style="min-height:40px;font-size:.9rem" href="#email">Open the log</a></p></div>
     <div class="ef">Fronesa is a trademark. All rights reserved. · Unsubscribe</div>
   </div></div>
   <div class="example"><span class="ex-label">Breakpoints — content reflows, never clips</span>
@@ -1283,7 +1283,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <div class="example"><span class="ex-label">Donut — verdict split</span>
   <div class="donutwrap">
     <svg width="140" height="140" viewBox="0 0 140 140"><circle cx="70" cy="70" r="54" fill="none" stroke="#EAE4D2" stroke-width="20"/><circle cx="70" cy="70" r="54" fill="none" stroke="#0F5132" stroke-width="20" stroke-dasharray="305 339" stroke-linecap="round" transform="rotate(-90 70 70)"/><text x="70" y="76" text-anchor="middle" font-size="20" font-weight="700" fill="#16150F" font-family="Fraunces,serif">90%</text></svg>
-    <div style="font-size:.85rem"><p><span class="sq">■</span> <b>ham</b> — 90%</p><p><span style="color:var(--paper-300)">■</span> <b>spam</b> — 9%</p><p><span style="color:var(--ink-300)">■</span> <b>escalated</b> — 1%</p></div>
+    <div style="font-size:.85rem"><p><span class="sq">■</span> <b>ham</b> — 90%</p><p><span style="color:var(--paper-300)">■</span> <b>spam</b> — 9%</p><p><span style="color:var(--ink-300)">■</span> <b>uncertain</b> — 1%</p></div>
   </div></div>
   <ul class="rules">
     <li>Palette: ink for series, green for the story, paper for the rest.</li>
@@ -1361,7 +1361,7 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
   <div class="template"><div class="th">This week<span class="sq">■</span></div><div class="tb">
     <div class="stat"><div class="n">0.38%</div><div class="l2">loop error</div></div>
     <div class="stat"><div class="n">2,400</div><div class="l2">decisions</div></div>
-    <div class="stat"><div class="n">3</div><div class="l2">escalated</div></div>
+    <div class="stat"><div class="n">3</div><div class="l2">uncertain</div></div>
   </div></div></div>
   <div class="example"><span class="ex-label">Settings</span>
   <div class="template"><div class="th">Model</div><div class="tb" style="grid-template-columns:1fr">
@@ -1384,11 +1384,11 @@ textarea.input{min-height:120px;padding:12px 16px;resize:vertical}
     <p class="vc">confidence 0.962 · calibrated, seed 7 · 41ms</p>
     <div class="chips" style="margin-bottom:4px"><span class="chip">no bulk headers</span><span class="chip">known sender</span></div>
     <p class="ve">Why: sender reputation and header structure match legitimate mail. Falsifiable — check the headers.</p>
-    <p class="vesc"><a class="btn btn-secondary" style="min-height:40px;font-size:.88rem" href="#aipatterns">Escalate to human</a></p>
+    <p class="vesc"><a class="btn btn-secondary" style="min-height:40px;font-size:.88rem" href="#aipatterns">Flag this verdict</a></p>
   </div></div>
   <ul class="rules">
-    <li><b>Every automated verdict shows:</b> the decision, a calibrated confidence, a falsifiable reason, and a human escape hatch.</li>
-    <li><b>Never</b> present binary certainty. Never hide the escalation path.</li>
+    <li><b>Every automated verdict shows:</b> the decision, a calibrated confidence, a falsifiable reason, and a larger-model review path.</li>
+    <li><b>Never</b> present binary certainty. Below 0.80 confidence the verdict routes to the larger model automatically; the card shows "reviewed by larger model". The user action is "flag this verdict" — it feeds the learning loop.</li>
     <li><b>Streaming:</b> verdicts render complete, never token-by-token. Decisions aren't chat.</li>
   </ul>
 </div></section>
