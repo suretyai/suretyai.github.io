@@ -19,13 +19,6 @@
 <link rel="stylesheet" href="/assets/fdl.css">
 <style>
 /* Page-specific: live demo widget + loop diagram. FDL tokens only. */
-/* Decorative: subtle geometric touches, editorial not overwhelming */
-.hero{position:relative}
-.hero::before{content:"";position:absolute;top:0;right:0;width:120px;height:120px;
-  background:var(--green-100);border-radius:var(--r-16);z-index:-1}
-.secnum{position:relative;padding-left:24px}
-.secnum::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
-  width:12px;height:12px;background:var(--green-900)}
 .demo{border:1px solid var(--paper-200);border-radius:var(--r-16);padding:24px;margin:36px 0 0;max-width:var(--measure)}
 .demo .dhead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .demo .dhead b{font-size:.95rem}
@@ -75,7 +68,7 @@
   <div class="hero">
     <div class="kicker">Fronesa &mdash; early access</div>
     <h1>Decisions that <em>learn.</em></h1>
-    <p class="lede">Your reviewers are already labeling every edge case. Fronesa learns from those labels, so escalation falls instead of compounding. Try it right now &mdash; type anything below.</p>
+    <p class="lede">Your team labels edge cases every day. We make those labels count — the model gets better each week. Try it below.</p>
 
     <div class="demo" id="demo">
       <div class="dhead">
@@ -93,33 +86,34 @@
 
   <section class="chapter">
     <div class="sec-index">1 &mdash; THE PROBLEM</div>
-    <h2 class="display-2">Your model is exactly as capable on day 500 as day 1.</h2>
-    <p>Every API call returns a verdict. The hard ones get escalated to your reviewers, who label them correctly &mdash; and then nothing happens. The model never sees those labels. Escalation compounds instead of falling.</p>
+    <h2 class="display-2">Your model never gets better.</h2>
+    <p>You've got reviewers labeling edge cases all day. Those labels go nowhere. The model stays frozen. Same mistakes, week after week.</p>
   </section>
 
   <section class="chapter">
-    <div class="sec-index">2 &mdash; THE METHOD</div>
-    <h2 class="display-2">A loop, not a model.</h2>
-    <p>Five steps, running every week. Each pass makes the next week's decisions sharper.</p>
+    <div class="sec-index">2 &mdash; HOW IT WORKS</div>
+    <h2 class="display-2">We put your reviewers' work to use.</h2>
+    <p>Every label they make trains the next version. Here's the cycle:</p>
     <div class="lwrap">
       <div class="loop" role="list" aria-label="The Fronesa loop">
-        <div class="lstep" role="listitem"><div class="ln">01</div><div class="lt">Decide</div><div class="ld">Fast model scores every request in milliseconds.</div></div>
+        <div class="lstep" role="listitem"><div class="ln">01</div><div class="lt">Decide</div><div class="ld">The model scores everything in milliseconds.</div></div>
         <div class="larrow" aria-hidden="true">&rarr;</div>
-        <div class="lstep" role="listitem"><div class="ln">02</div><div class="lt">Escalate</div><div class="ld">Low-confidence calls go to your reviewers, not a black hole.</div></div>
+        <div class="lstep" role="listitem"><div class="ln">02</div><div class="lt">Escalate</div><div class="ld">Tough calls go to your team.</div></div>
         <div class="larrow" aria-hidden="true">&rarr;</div>
-        <div class="lstep" role="listitem"><div class="ln">03</div><div class="lt">Learn</div><div class="ld">Reviewer labels become training data, automatically.</div></div>
+        <div class="lstep" role="listitem"><div class="ln">03</div><div class="lt">Learn</div><div class="ld">Their labels become training data.</div></div>
         <div class="larrow" aria-hidden="true">&rarr;</div>
-        <div class="lstep" role="listitem"><div class="ln">04</div><div class="lt">Retrain</div><div class="ld">A new model version trains on the corrected labels.</div></div>
+        <div class="lstep" role="listitem"><div class="ln">04</div><div class="lt">Retrain</div><div class="ld">New version trains on the corrections.</div></div>
         <div class="larrow" aria-hidden="true">&rarr;</div>
-        <div class="lstep" role="listitem"><div class="ln">05</div><div class="lt">Gate</div><div class="ld">Only ships if it beats the old model on held-out data.</div></div>
+        <div class="lstep" role="listitem"><div class="ln">05</div><div class="lt">Gate</div><div class="ld">Ships only if it beats the old one.</div></div>
       </div>
       <div class="lback">&larr; back to 01, every week</div>
     </div>
   </section>
 
   <section class="chapter">
-    <div class="sec-index">3 &mdash; MEASURED</div>
-    <h2 class="display-2">Measured, not promised.</h2>
+    <div class="sec-index">3 &mdash; PROOF</div>
+    <h2 class="display-2">Numbers from our lab.</h2>
+    <p>Not promises. Measurements.</p>
     <div class="numgrid">
       <div><div class="bignum">0.38<span class="unit">%</span></div><div class="cap">loop error rate vs 1.71% baseline, lab run</div></div>
       <div><div class="bignum">21<span class="unit">ms</span></div><div class="cap">median decision latency, production API</div></div>
@@ -137,22 +131,7 @@
         <div class="bar-val">12.2%</div>
       </div>
     </div>
-    <p class="caveat">One lab run, one workload. Your numbers will differ. We publish the method so you can check our work: <a href="/lab-numbers.html">lab numbers</a>, <a href="/benchmarks.html">benchmarks</a>.</p>
-  </section>
-
-  <section class="chapter">
-    <div class="sec-index">4 &mdash; HONEST LIMITS</div>
-    <h2 class="display-2">What it won't do.</h2>
-    <ul class="rules">
-      <li>It won't replace your reviewers &mdash; it makes their labels count.</li>
-      <li>It won't work without your data &mdash; the loop needs your edge cases.</li>
-      <li>It won't be right every time &mdash; that's what the escalation path is for.</li>
-    </ul>
-    <div class="fl" style="margin-top:32px">
-      <a class="btn btn-primary" href="mailto:surety.ai@proton.me">Talk to us</a>
-      <a class="link-arrow" href="/try-it.html">Full demo &rarr;</a>
-      <a class="link-arrow" href="/docs.html">Read the docs &rarr;</a>
-    </div>
+    <p class="caveat">Lab results, not guarantees. <a href="/lab-numbers.html">See the data</a>.</p>
   </section>
 
 </div>
