@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The deploy went 5-for-8. — Honest eval, part 37 — Fronesa</title>
+<meta name="description" content="The deploy verification caught three assets 404ing at 13:26. We filed the deploy as incomplete. By 13:52 it was 8-for-8 without anyone touching anything — and the CEO was about to reject the whole design anyway.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-54-five-for-eight.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The deploy went 5-for-8. — Honest eval, part 37 — Fronesa">
+<meta property="og:description" content="The deploy verification caught three assets 404ing at 13:26. We filed the deploy as incomplete. By 13:52 it was 8-for-8 without anyone touching anything — and the CEO was about to reject the whole design anyway.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-54-five-for-eight.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 37</p>
+  <h1>The deploy went 5-for-8.</h1>
+  <p class="standfirst">The deploy verification caught three assets 404ing at 13:26. We filed the deploy as incomplete. By 13:52 it was 8-for-8 without anyone touching anything — and the CEO was about to reject the entire design anyway.</p>
+  <div class="byline">
+    <span>By Layla, Content</span>
+    <span>2026-10-06</span>
+    <span>Draft — not published</span>
+  </div>
+
+  <main id="article">
+    <p>At 13:26 on 2026-10-06, the post-deploy verification came back: 5 of 8 files returning 200, three binary assets — the favicon, the social image, the font — returning 404. The verification note said what process demanded: the deploy is not complete until 8 of 8. At 13:52, before anyone had re-deployed anything, a fresh check came back 8-for-8. All green. Nothing had been fixed, because nothing was broken — or at least, nothing we could point to. Then the CEO looked at the site and rejected the design on taste. The asset gap we had agonized over didn't matter. The design did.</p>
+
+    <div class="pull">We verified the wrong thing correctly, then measured the right thing too late.</div>
+
+    <h2>The defect</h2>
+    <p>There were two, and only one of them was real. The first: three binary assets 404ing roughly nine minutes after the deploy finished. That's a real anomaly — the pages loaded without a favicon, without the font (falling back to system serif), without the social card image. If a visitor had shared the page in that window, the preview card would have been blank. We were right to file it.</p>
+
+    <p>The second defect was ours, in the reaction: the verification note framed 5-of-8 as an incomplete deploy, implying a re-deploy was needed. Nobody re-deployed. Twenty-six minutes later the 404s were gone on their own. The likeliest explanation is propagation delay — the page host finishing the rollout of binary assets behind the HTML. But we don't know that for certain, and this series has a rule about unresolved mysteries: say so. We did not confirm propagation. We did not rule anything else out. The gap closed without our intervention, and we filed that fact instead of a theory.</p>
+
+    <h2>How we found it</h2>
+    <p>The deploy ran in the browser with the CEO's approval at 13:17 +03. The verification was a straightforward loop — request each of the eight deployed files, record the status code. At 13:26: five 200s, three 404s. The note went into <code>marketing/deploy_landed_verification_2026-10-06.md</code>: "deploy not complete until 8/8." A later check at 13:52, run before drafting this piece, returned 200 on all eight. Two measurements, one gap, zero interventions in between.</p>
+
+    <p>Meanwhile, in the same hour, the CEO opened the site and said the design was a wall of text with no visuals and heavy AI style. That verdict didn't need a measurement loop. It needed five seconds and a pair of eyes.</p>
+
+    <h2>The fix</h2>
+    <p>For the asset gap: none. The process fix is a re-verification rule — before declaring a deploy broken and re-pushing, wait out the propagation window and check again. Re-deploying over a propagating host is how you turn a nine-minute delay into a real outage, by landing a second rollout on top of the first.</p>
+
+    <p>For the larger miss: the taste check now happens before the deploy, not after. The replacement design (staged, awaiting the CEO) went through a 60-term cliché audit and a paragraph-length rule before it ever touched a server. That's part 36's story; this piece is the bookend — the instrument we needed existed one deploy too late.</p>
+
+    <h2>What this doesn't prove</h2>
+    <p>It doesn't prove the 404s were propagation. It doesn't prove a re-deploy wouldn't have been harmless. And it doesn't prove that slower verification is better verification — in a different scenario, a 404 on the payment script would be a five-alarm fire, not a wait-and-see. The honest version: the correct response to a 5-for-8 is "check again before acting," not "assume it's fine." We got the outcome right by luck of timing, not by discipline. This piece exists so the next 5-for-8 gets the disciplined version.</p>
+
+    <div class="lesson">
+      <div class="label">The lesson</div>
+      <p>A checklist can tell you the deploy is incomplete. It cannot tell you the deploy was the wrong thing to complete.</p>
+    </div>
+
+    <h2>Current state</h2>
+    <p>As of writing: all eight files serve 200. The deployed design is the one the CEO rejected — it stays live until the replacement is approved, because a live ugly site beats a dead pretty one and we don't ship reversions without a review. The replacement design is staged, content-audited clean, awaiting his eye. The re-verification rule — check again before declaring a deploy broken — is proposed, not yet written into the runbook; it ships as a named step before the next deploy, or this piece's "fix" section is aspirational rather than actual.</p>
+
+    <div class="footnotes">
+      <div class="label">Chain of custody</div>
+      <ul>
+        <li>13:26 +03 verification: <code>marketing/deploy_landed_verification_2026-10-06.md</code> — 5/8 files 200, 3 binary assets 404 ("deploy not complete until 8/8").</li>
+        <li>13:52 +03 re-verification: direct curl loop by Layla (content30) — 8/8 files 200, zero interventions between the two checks.</li>
+        <li>The three assets: <code>/assets/favicon.svg</code>, <code>/assets/og-fronesa.png</code>, <code>/assets/fonts/fraunces-latin.woff2</code>.</li>
+        <li>Deploy approval: CEO, 2026-10-06 13:17 +03 (Option A editorial redesign, <code>suretyai/suretyai.github.io</code>).</li>
+        <li>Design rejection: CEO feedback after the deploy, verbatim quote carried in part 36's footnotes — this piece references, not repeats.</li>
+        <li>Numbers used: 5/8 → 8/8 (three assets), ~26 minutes between checks, 8 files total per the deploy tree.</li>
+        <li>Banned claims: none in this piece — no zero-FP, no multipliers, no guarantees, no "validated" framing, no entity implications.</li>
+      </ul>
+    </div>
+
+    <div class="blockers">
+      <div class="label">Pre-publish blockers</div>
+      <ol>
+        <li>Confirm the 404-cause attribution stays honest — the piece says "likeliest explanation, unconfirmed." If anyone later confirms propagation vs. something else, update before publishing.</li>
+        <li>Re-verification rule must actually land in the deploy runbook before publication — the draft now honestly says "proposed, not yet written." Do not publish while the fix section describes an aspiration.</li>
+        <li>Sara (Legal): confirm the "live ugly site beats a dead pretty one" line doesn't read as a commitment to keep a rejected design live indefinitely.</li>
+        <li>Re-verify the 8/8 state at publish time — if the replacement design has shipped by then, the "current state" section needs a rewrite.</li>
+        <li>Series-order check: does part 37 flow after part 36 (#53, AI style measured) without re-litigating the rejection?</li>
+        <li>Series does not publish while any earlier part has unresolved blockers — check parts 33–36 state.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-53-ai-style-measured.html"><span class="dir">← Previous</span>Part 36: What 'AI style' actually means, measured.</a>
+      <span></span>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Draft content, not published. All claims in this draft require the pre-publish blockers above to be resolved before publication.</p>
+  </div>
+</footer>
+
+</body>
+</html>

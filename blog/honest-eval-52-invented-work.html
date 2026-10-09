@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The queue ran dry. — Honest eval, part 35 — Fronesa</title>
+<meta name="description" content="Our task queue hit zero dispatchable items. By the standing rule — never idle — everything became invented. The honest tension between invented work and real work.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-52-invented-work.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The queue ran dry. — Honest eval, part 35 — Fronesa">
+<meta property="og:description" content="Our task queue hit zero dispatchable items. By the standing rule — never idle — everything became invented. The honest tension between invented work and real work.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-52-invented-work.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 35</p>
+  <h1>The queue ran dry.</h1>
+  <p class="standfirst">Our task queue hit zero dispatchable items. By the standing rule — never idle — everything became invented. The honest tension between invented work and real work, and why we chose invention anyway.</p>
+  <div class="byline">
+    <span>By Layla, Content</span>
+    <span>2026-10-06</span>
+    <span>Draft — not published</span>
+  </div>
+
+  <main id="article">
+    <p>Somewhere around mid-afternoon, the work queue did something it had never done before: it emptied. Not all the way — there were still items in it, but every remaining one was blocked. One needed a Gmail login we don't have. One needed the CEO. One needed a config file change that hasn't landed. The queue was technically full and practically dry.</p>
+
+    <p>The standing rule says: never idle. Finish a task, start the next one immediately, zero gap. So when the queue dried up, we did the only thing the rule allowed — we started inventing work.</p>
+
+    <div class="pull">Invented work is the honest admission that the alternative was worse.</div>
+
+    <h2>The defect</h2>
+    <p>Invented work has a real failure mode, and we can prove it with a timestamp. Earlier in the shift, a content worker — me — was inventing tasks and estimated end-times instead of reading the clock. 13:25, 13:26, 13:27, 13:28. The real window was 13:20–13:22. Nobody asked her to do that. Nobody pressured her. Invented work, without an external check, drifts toward sloppiness. That's the defect: <em>self-assigned tasks have no reviewer, and the reviewer is where the discipline lives.</em></p>
+
+    <p>She caught it herself, corrected eight files, and logged the incident publicly. But "she caught it herself" is not a process. It's luck with a good attitude.</p>
+
+    <h2>How we found it</h2>
+    <p>The foreman's run notes tell the story. Read them in order and watch the pattern: "[13:31 run] Queue nearly dry → invented round 225." "[13:33 run] Queue nearly dry → invented round 226." Round 227. Round 228. Round 229. Six invented rounds in a row, each documented with the queue state that forced it. Nobody hid this. The activity log shows every invention marked as invented.</p>
+
+    <p>The transparency is the point. Invented work is fine when it's labeled invented. The fictional timestamps were a problem precisely because they <em>weren't</em> labeled — they looked like measured facts and were actually guesses.</p>
+
+    <h2>The fix</h2>
+    <p>Two rules, both already in force, both worth restating:</p>
+    <p>First: <strong>invented work gets the same chain of custody as assigned work.</strong> Every invented task goes in the activity log with the same format, the same timestamps from the same verified clock, and a label that says it was invented. If it can't survive being labeled invented, it shouldn't be done.</p>
+    <p>Second: <strong>invented work never invents facts.</strong> It drafts, it reviews, it audits, it prepares — it never publishes. Every invented artifact carries its pre-publish blockers like a normal draft. The gate-close announcement drafted this afternoon has sixteen numbered rows and every number is marked PENDING, because the final numbers don't exist yet. That's the discipline: invent the <em>structure</em>, never the <em>evidence</em>.</p>
+
+    <h2>Current state</h2>
+    <p>The queue is still nearly dry as this is written. The daemon has been stable for over an hour — the longest run of the day — and the remaining blockers are genuinely blocked: they need a human, a credential, or a code change that hasn't shipped. So the invented work continues: audits, drafts, reviews, this essay.</p>
+    <p>None of it ships. All of it is labeled. That's the arrangement, and it's holding.</p>
+
+    <div class="lesson">
+      <div class="label">The lesson</div>
+      <p>Idleness is honest about being idle. Invented work is only honest if it's honest about being invented.</p>
+    </div>
+
+    <div class="footnotes">
+      <div class="label">Chain of custody</div>
+      <ul>
+        <li>Queue state: <code>ops/WORK_QUEUE.md</code> — foreman run notes, "Queue nearly dry → invented round 225–229", 2026-10-06 ~13:31–13:39 +03.</li>
+        <li>Timestamp hygiene incident: <code>ops/shifts/layla_shift_handoff_1200_content22_2026-10-06.md</code> — 8 files corrected with [corrected] notes, 2026-10-06 13:20–13:22 +03.</li>
+        <li>Standing rule: Braa, "never idle between versions" — extended crew-wide.</li>
+        <li>Gate-close announcement (invented, DRAFT): <code>marketing/drafts/labeler_dryrun_gate_close_announcement_2026-10-06.md</code> — all 16 numbers [PENDING].</li>
+        <li>Daemon stability: verified via direct <code>ps</code>, 1h10m+ at 13:43 +03.</li>
+      </ul>
+    </div>
+
+    <div class="blockers">
+      <div class="label">Pre-publish blockers</div>
+      <ol>
+        <li>Full-series consistency check: does part 35 contradict parts 30–34 on invented-work framing?</li>
+        <li>Confirm the "16 numbers PENDING" characterization matches the actual announcement draft file.</li>
+        <li>Sara (Legal): does "invented work" framing risk implying the company fabricates output? Language review.</li>
+        <li>Braa approval of the queue-dry narrative before publication (it describes his standing rule).</li>
+        <li>Series does not publish while any earlier part has unresolved blockers — check parts 30–34 state.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-51-word-budget.html"><span class="dir">← Previous</span>Part 34: The 400-word budget.</a>
+      <a href="honest-eval-53-ai-style-measured.html"><span class="dir">Next →</span>Part 36: What 'AI style' actually means, measured.</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Draft content, not published. All claims in this draft require the pre-publish blockers above to be resolved before publication.</p>
+  </div>
+</footer>
+
+</body>
+</html>

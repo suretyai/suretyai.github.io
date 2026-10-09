@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>Two knobs, not one: the escalation floor is not the classification threshold. — Honest eval, part 18 — Fronesa</title>
+<meta name="description" content="Raising the spam threshold from 0.5 to 0.6 makes the model strictly worse. But a 0.6 escalation floor is a free lunch. Both are true — they're different knobs.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-35-two-knobs.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Two knobs, not one: the escalation floor is not the classification threshold. — Honest eval, part 18 — Fronesa">
+<meta property="og:description" content="Raising the spam threshold from 0.5 to 0.6 makes the model strictly worse. But a 0.6 escalation floor is a free lunch. Both are true — they're different knobs.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-35-two-knobs.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main table{width:100%;border-collapse:collapse;margin:1.5em 0;font-size:15px}
+  @media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}table{font-size:13px}}
+  main th,main td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  main th:first-child,main td:first-child{text-align:left}
+  main th{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:var(--faint)}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes p{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+  @media (max-width:600px){ .sitebar nav{gap:14px} main table{font-size:13px} }
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 18</p>
+  <h1>Two knobs, not one: the escalation floor is not the classification threshold.</h1>
+  <p class="standfirst">Raising the spam threshold from 0.5 to 0.6 makes the model strictly worse. But a 0.6 escalation floor is a free lunch. Both are true — they're different knobs.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>6 min read</span>
+  </div>
+
+  <main id="article">
+    <h2>The apparent contradiction</h2>
+    <p>Our latest measurement showed that raising the spam threshold from 0.5 to 0.6 on our phishing held-out set makes the model strictly worse: recall drops from 0.5625 to 0.4375 while the false-positive count doesn't move (2 either way). That looks like a contradiction with an earlier finding that a 0.6 floor is a free lunch — more uncertain spam routed to human review, zero extra ham.</p>
+    <p>Both are true. They're different knobs. The free lunch was an <em>escalation</em> floor. The recall loss is a <em>classification</em> threshold. Confusing them would have us either shipping a threshold that silently eats recall, or dismissing an escalation setting that genuinely works.</p>
+
+    <h2>What was measured</h2>
+    <p>Corpus: the permanent clean phishing gate (32 items, 16 spam / 16 ham). Model: production TF-IDF v1, unchanged. Method: true P(spam) swept as the decision threshold.</p>
+    <p><strong>Critical definition:</strong> the API's <code>decision.confidence</code> field is confidence <em>in the decision</em> — not P(spam). Thresholding the confidence field directly is meaningless. The sweep below thresholds the real quantity.</p>
+    <table>
+      <thead><tr><th>T</th><th>TP</th><th>TN</th><th>FP</th><th>FN</th><th>recall</th><th>specificity</th></tr></thead>
+      <tbody>
+        <tr><td>0.5</td><td>9</td><td>14</td><td>2</td><td>7</td><td>0.5625</td><td>0.8750</td></tr>
+        <tr><td>0.6</td><td>7</td><td>14</td><td>2</td><td>9</td><td>0.4375</td><td>0.8750</td></tr>
+        <tr><td>0.7</td><td>2</td><td>14</td><td>2</td><td>14</td><td>0.1250</td><td>0.8750</td></tr>
+        <tr><td>0.8</td><td>0</td><td>15</td><td>1</td><td>16</td><td>0.0000</td><td>0.9375</td></tr>
+      </tbody>
+    </table>
+    <p>Raising 0.5 → 0.6 loses two more spam while both false positives stay. Strictly worse: recall −12.5 percentage points, nothing gained.</p>
+    <p>The two false positives are <em>high-confidence</em> errors (0.746, 0.855). No threshold below 0.75 removes either. These errors are unfixable by threshold.</p>
+
+    <aside class="pull">0.6 is a reasonable escalation floor and a bad classification threshold. Do not confuse the two knobs.</aside>
+
+    <h2>The correction that matters</h2>
+    <p>The earlier finding — "T=0.60 escalation floor: +5 spam golden, +2 v4, zero extra ham" — is <strong>not contradicted</strong> by the table above. It measures a different quantity: at an <em>escalation</em> floor of 0.6, items with P(spam) in the uncertain band get routed to human review instead of being auto-decided.</p>
+    <p><strong>Conclusion: 0.6 is a reasonable escalation floor (more uncertain spam routed to review) and a bad classification threshold (recall 0.5625 → 0.4375, FPs unchanged). Do not confuse the two knobs.</strong></p>
+    <p>Verdict stands: gate baseline at T=0.5 — recall 0.5625, FP=2 — unchanged, PASS. Do not raise the production threshold to 0.6 on phishing grounds.</p>
+
+    <h2>A definitions risk in the API</h2>
+    <p>There's a definitions risk in the API surface itself: <code>confidence</code> as returned by <code>decide()</code> is <em>decision</em>-confidence. A ham decision with confidence 0.933 means "93.3% ham," <strong>not</strong> "93.3% spam." Any dashboard, labeler, or demo-page consumer that renders bare confidence scores next to a prediction must label them as such. Rendered bare, ham-side scores will be misread.</p>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>Name the knob before you turn it. An escalation floor and a classification threshold are different instruments — confusing them ships bad thresholds or dismisses good settings.</p>
+    </div>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <p>Every number above is from <code>docs/threshold_sweep_v4_T060_2026-10-06.md</code> (Yasmin, ml5, 2026-10-06). No other inputs.</p>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li>Confirm the escalation-floor recommendation state (CEO/PM-gated) — this piece must not read as a recommendation to ship the 0.6 floor.</li>
+        <li>Legal/scientific review of the "fitting the held-out" framing.</li>
+        <li>Confirm the OpenAPI/backend confidence-semantics audit status before the consumer-facing section publishes.</li>
+        <li>Standard series gates: no multipliers, no "AI moderation" language, every number sourced, draft only until reviewed.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="index.html"><span class="dir">← Series</span>All honest-eval parts</a>
+      <a href="honest-eval-36-budget-gap.html" style="text-align:right"><span class="dir">Next →</span>Part 19: the budget funds zero of our worst errors</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

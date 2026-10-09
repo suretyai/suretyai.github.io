@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>What 'AI style' actually means, measured. — Honest eval, part 36 — Fronesa</title>
+<meta name="description" content="Our CEO said the redesigned site had 'A LOT OF AI STYLE.' Instead of arguing taste, we built a measurement: 60 cliché terms, 26 template phrases, one paragraph rule.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-53-ai-style-measured.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What 'AI style' actually means, measured. — Honest eval, part 36 — Fronesa">
+<meta property="og:description" content="Our CEO said the redesigned site had 'A LOT OF AI STYLE.' Instead of arguing taste, we built a measurement: 60 cliché terms, 26 template phrases, one paragraph rule.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-53-ai-style-measured.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 36</p>
+  <h1>What 'AI style' actually means, measured.</h1>
+  <p class="standfirst">Our CEO looked at the redesigned website we'd just deployed and said it had "A LOT OF AI STYLE." The useful response wasn't to argue or redecorate — it was to measure the thing.</p>
+  <div class="byline">
+    <span>By Layla, Content</span>
+    <span>2026-10-06</span>
+    <span>Draft — not published</span>
+  </div>
+
+  <main id="article">
+    <p>Our CEO looked at the redesigned website we'd just deployed and said it had "A LOT OF AI STYLE." He was right — and the useful response wasn't to argue or to redecorate, it was to measure the thing. So we built a lexicon: 60 AI-cliché terms, 26 startup-template phrases, one paragraph-length rule. The deployed page would have failed all three. The replacement copy passes all three — 0 clichés, 0 template phrases, 4 flagged paragraphs that are all honest disclosures.</p>
+
+    <div class="pull">"AI style" isn't a vibe. It's a checklist. Now it's ours.</div>
+
+    <h2>Why this piece exists</h2>
+    <p>Honest-eval is a series about measuring instead of promising. That applies to our own work too — especially our own work. When Braa rejected the Option A redesign on 2026-10-06, the team could have done the usual thing: argued about taste, restyled the same words, shipped a prettier version of the same template. Instead the content side asked: what, exactly, reads as "AI style"? If we can't name it, we can't fix it, and we'll ship it again.</p>
+
+    <p>This piece is the answer we gave ourselves. It's not a defense of the new design. It's the measurement instrument, published so anyone can run it on their own copy.</p>
+
+    <h2>The three checks</h2>
+    <p><strong>Check 1: the cliché lexicon (60 terms).</strong> We collected the words that mark generated copy the way a watermark marks an image: <em>delve, unlock, unleash, revolutionize, game-changer, supercharge, elevate, harness, empower, seamless, cutting-edge, state-of-the-art, next-generation, leverage, robust, furthermore, tapestry, landscape, navigate, journey, testament, pivotal, realm, transformative, paradigm, synergy, disrupt</em> — and thirty more in the same family. A human writer reaching for a word reaches past these. A generator reaches for them first.</p>
+
+    <p><strong>Check 2: the template phrases (26 patterns).</strong> Beyond single words, there are sentence skeletons: <em>built for, designed to, we believe, our mission, say goodbye to X, say hello to Y, unlike traditional [thing], everything you need, look no further, what sets us apart.</em> These are the load-bearing phrases of the startup landing page. They survive every restyle because they're structural, not decorative — which is why the first redesign failed: it changed the fonts and kept the skeleton.</p>
+
+    <p><strong>Check 3: the paragraph rule.</strong> No paragraph over 25 words. This one isn't about AI specifically — it's about the "lot of text" half of the complaint. If an idea needs more than 25 words, it's a visual with a caption, not a paragraph. (Exception, stated in the brief: honest disclosures — privacy, latency warnings, limitations — are allowed to run long. Cutting a privacy paragraph to hit a word count would be dishonest, which defeats the entire point.)</p>
+
+    <h2>What was measured</h2>
+    <p>We extracted all visible text from the staged Option-C pages (scripts and styles stripped) and ran all three checks:</p>
+    <p><strong>Cliché lexicon:</strong> 0 hits on <code>index.html</code>, 0 hits on <code>try-it.html</code>.</p>
+    <p><strong>Template phrases:</strong> 0 substantive hits. ("Talk to us" appears, but only as a navigation link label — that's wayfinding, not copy.)</p>
+    <p><strong>Paragraph rule:</strong> the main page passes outright (the one flagged <code>&lt;p&gt;</code> was an empty structural tag). The demo page has 4 paragraphs over the limit — and all four are honest disclosures: the demo shows pre-computed outputs, sarcasm still fools the model, your API key stays in your browser tab, the first request after idle takes ~90 seconds while the container boots.</p>
+    <p>Two of the four got trim suggestions. The privacy paragraph stays long on purpose.</p>
+
+    <h2>What this doesn't prove</h2>
+    <p>It doesn't prove the new design is good. A page can pass every language check and still be ugly, confusing, or wrong — the visuals are Rami's department, and Braa's eye is the final judge, not a lexicon. What the checks prove is narrower: the <em>words</em> no longer carry the signature of generated copy. That's a floor, not a ceiling.</p>
+
+    <p>It also doesn't prove the old page failed for language reasons alone. It failed structurally — hero, numbered sections, stat cards, zero visuals. The language checks are necessary, not sufficient. We say this because the honest-eval rule is that a measurement's limits are part of the measurement.</p>
+
+    <h2>The uncomfortable part</h2>
+    <p>The deployed page — the one Braa killed — was reviewed by multiple people before it shipped. It passed a 17-point predeploy checklist. Nobody flagged the template skeleton, because checklists check what they're told to check, and nobody had told the checklist to check for "looks like everything else." The CEO's eye caught in five seconds what the process missed in a week.</p>
+
+    <p>The lesson isn't "add an AI-style check to the checklist," though we did. The lesson is that the person with the least patience for process theater is sometimes the best QA instrument you have. We'd rather he said it before the deploy than after — but we'll take after over never.</p>
+
+    <div class="lesson">
+      <div class="label">The lesson</div>
+      <p>Taste is not measurable. But its absence is — count the clichés, and you'll find where the taste went.</p>
+    </div>
+
+    <div class="footnotes">
+      <div class="label">Chain of custody</div>
+      <ul>
+        <li>AI-slop audit: <code>marketing/option_c_ai_slop_audit_2026-10-06.md</code> — 60-term lexicon, 26-phrase templates, paragraph-length check; 0/0/4-flagged, 2026-10-06.</li>
+        <li>Staged copy: <code>site/deploy-staging/option-c/index.html</code> + <code>try-it.html</code> — "lab journal" redesign v2, staging only, awaiting Braa.</li>
+        <li>Braa's feedback (verbatim): "Lot of text 0 visuals and A LOT OF AI STYLE" — 2026-10-06, after the Option A deploy was verified live.</li>
+        <li>Numbers used: 60 clichés checked (0 found), 26 templates checked (0 found), 25-word limit (4 over, all disclosures), 43% word-count cut A→C (718→412).</li>
+        <li>Banned claims: none in this piece — no zero-FP, no multipliers, no guarantees, no "validated" framing.</li>
+      </ul>
+    </div>
+
+    <div class="blockers">
+      <div class="label">Pre-publish blockers</div>
+      <ol>
+        <li>Braa approval of the piece's framing (it quotes his verbatim feedback — confirm he's comfortable with the quote in print).</li>
+        <li>Sara (Legal): review for any implication that competitors' copy is AI-generated; the piece names patterns, not companies — confirm that's sufficient.</li>
+        <li>Re-verify the 0/0 audit result against the final approved v2 copy (if Rami edits copy before approval, re-run the lexicon).</li>
+        <li>Series-order check: does part 36 flow after part 35 (#52, invented work) without repeating the meta-honesty beat?</li>
+        <li>Series does not publish while any earlier part has unresolved blockers — check parts 33–35 state.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-52-invented-work.html"><span class="dir">← Previous</span>Part 35: The queue ran dry.</a>
+      <span></span>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Draft content, not published. All claims in this draft require the pre-publish blockers above to be resolved before publication.</p>
+  </div>
+</footer>
+
+</body>
+</html>

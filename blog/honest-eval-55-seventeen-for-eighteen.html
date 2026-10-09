@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The checklist went 17-for-18. — Honest eval, part 38 — Fronesa</title>
+<meta name="description" content="The pre-deploy checklist ran green before the 13:17 deploy. The runbook recorded 17/17 PASS. Forty minutes later someone counted the script and found 18. The checklist never printed its own denominator.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-55-seventeen-for-eighteen.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The checklist went 17-for-18. — Honest eval, part 38 — Fronesa">
+<meta property="og:description" content="The pre-deploy checklist ran green before the 13:17 deploy. The runbook recorded 17/17 PASS. Forty minutes later someone counted the script and found 18. The checklist never printed its own denominator.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-55-seventeen-for-eighteen.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 38</p>
+  <h1>The checklist went 17-for-18.</h1>
+  <p class="standfirst">The pre-deploy checklist ran green before the 13:17 deploy. The runbook recorded "17/17 PASS." Forty minutes later, someone counted the script's check invocations and found 18. The checklist never printed its own denominator — a human invented it, and invented it wrong.</p>
+  <div class="byline">
+    <span>By Layla, Content</span>
+    <span>2026-10-06</span>
+    <span>Draft — not published</span>
+  </div>
+
+  <main id="article">
+    <p>At 13:57 on 2026-10-06, while drafting the newsletter that was going to cite the checklist as evidence, the count got checked. The deploy runbook said <code>predeploy_checklist.sh</code>: <strong>17/17 PASS</strong>. The script itself contains 18 check invocations: eight file-existence checks in a loop, one banned-claims check, one third-party-requests check, three HTML tag-balance checks in a loop, three accessibility checks, one JS-syntax check, one live-site baseline check. Eight plus one plus one plus three plus three plus one plus one is eighteen. The script passed all of them — every invocation printed PASS — and then the runbook recorded a denominator the script never stated.</p>
+
+    <div class="pull">The checklist counted the files. Nobody counted the checklist.</div>
+
+    <h2>The defect</h2>
+    <p>There were two, one real and one structural. The real one: the runbook's "17/17 PASS" line is wrong. If the script runs 18 checks, the honest claim is 18/18, and "17/17" undercounts a green run — which sounds harmless until you realize it means nobody actually enumerated what the checklist covered. A checklist whose coverage isn't enumerated is a ritual, not a measurement. We could have been running 17 checks or 18 and the runbook would have said the same thing, because the runbook's number didn't come from the script.</p>
+
+    <p>The structural defect: the script doesn't print its own count. It ends with <code>RESULT: ALL CHECKS PASS</code>. The denominator in the runbook had to come from somewhere, and the only available source was a human reading the script and counting. The human counted 17. The loops hide the real number — two <code>for</code> loops expand into 11 invocations that look like 2 lines — so the miscount is understandable and also the entire point. Any checklist that requires a human to count its checks will be miscounted.</p>
+
+    <h2>How we found it</h2>
+    <p>The newsletter outline for #51 — "The checklist that passed and the site that failed" — was going to cite "17/17" as its lead number. Before writing the lead around it, the script got counted directly: every <code>check</code> invocation enumerated, loops expanded. Eighteen. The runbook's claim was then re-read at <code>DEPLOY_RUNBOOK_FOR_BRAA_2026-10-06.md:62</code> — "17/17 PASS" — and the two didn't match. The newsletter draft got a blocker instead of a lead: <em>do not publish "17/17" until reconciled.</em></p>
+
+    <h2>What we can't reconstruct</h2>
+    <p>Whether the script had 17 checks when it ran, or always had 18. The file carries no version history — it's a workspace script, not committed to a repo. Its modification time (Oct 6, 10:01) predates the pre-deploy run, which suggests it wasn't edited between the run and the count. But a timestamp is evidence, not proof, and this series has a rule about unresolved mysteries: say so. The honest statement: the file as it exists now runs 18 checks; the runbook claims 17 were counted. One of those is wrong, and we can't determine which after the fact.</p>
+
+    <h2>The fix</h2>
+    <p>Two parts. The immediate one: the runbook line gets corrected to match the script as it exists now, or the script gets verified to have had 17 at run time and the correction goes the other way. The blocker list below gates which.</p>
+
+    <p>The durable one: the checklist prints its own denominator. A counter incremented inside <code>check()</code> and a final line that reads <code>RESULT: N/N checks pass</code> — the number comes from the script, never from a human reading it. No future runbook author counts loops by hand.</p>
+
+    <div class="lesson">
+      <div class="label">The lesson</div>
+      <p>If the checklist doesn't state its own denominator, the denominator is whoever counted last — and they miscounted.</p>
+    </div>
+
+    <h2>Current state</h2>
+    <p>As of writing: the discrepancy is flagged, not resolved. The runbook still says 17/17. The script still prints no count. The newsletter #51 lead is blocked on reconciliation. The Web lane has been notified. Nothing here changes the deploy outcome — all checks passed under either denominator — which is precisely why it matters: a green run that nobody can enumerate is trust without evidence.</p>
+
+    <div class="footnotes">
+      <div class="label">Chain of custody</div>
+      <ul>
+        <li>Runbook claim: <code>site/deploy-staging/DEPLOY_RUNBOOK_FOR_BRAA_2026-10-06.md:62</code> — "<code>predeploy_checklist.sh</code>: <strong>17/17 PASS</strong>."</li>
+        <li>Script: <code>site/deploy-staging/predeploy_checklist.sh</code> — 18 <code>check</code> invocations by direct count (lines 18, 23, 27, 44, 49, 50, 51, 55, 64; lines 18 and 44 inside <code>for</code> loops expanding to 8 and 3 invocations).</li>
+        <li>Count performed 2026-10-06 ~13:57 +03 by Layla (content30) while drafting newsletter #51; re-verified 2026-10-06 ~14:05 +03 (content31).</li>
+        <li>File mtime: Oct 6, 10:01 — predates the 13:17 +03 deploy approval. Evidence, not proof.</li>
+        <li>No version history exists for the script (not committed to a repo).</li>
+        <li>Newsletter #51 blocker recorded in <code>marketing/content_index.md</code> (content30, 2026-10-06 13:57 +03).</li>
+        <li>Numbers used: 18 invocations (8+1+1+3+3+1+1); claimed 17/17. Banned claims: none — no zero-FP, no multipliers, no guarantees, no "validated" framing, no entity implications.</li>
+      </ul>
+    </div>
+
+    <div class="blockers">
+      <div class="label">Pre-publish blockers</div>
+      <ol>
+        <li>Reconcile the direction: verify whether the script had 17 checks at run time (check backups, shell history, earlier drafts) or always had 18 — the runbook correction depends on the answer.</li>
+        <li>Apply the correction: runbook line updated to the verified denominator, or the script's history documented.</li>
+        <li>The self-counting fix (counter + <code>RESULT: N/N checks pass</code>) must actually land in <code>predeploy_checklist.sh</code> before publication — the draft's "fix" section must describe a real change, not a proposal.</li>
+        <li>Re-run the checklist after the self-counting change and record the printed denominator as the new canonical figure.</li>
+        <li>Newsletter #51's lead depends on this reconciliation — check its blocker state before publishing either.</li>
+        <li>Sara (Legal): confirm the "trust without evidence" framing doesn't overstate — it refers to the count, not the checks, and all checks passed under either denominator.</li>
+        <li>Series does not publish while any earlier part has unresolved blockers — check parts 33–37 state.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-54-five-for-eight.html"><span class="dir">← Previous</span>Part 37: The deploy went 5-for-8.</a>
+      <a href="honest-eval-56-taste-gate.html"><span class="dir">Next →</span>Part 39: The checklist can&rsquo;t taste.</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Draft content, not published. All claims in this draft require the pre-publish blockers above to be resolved before publication.</p>
+  </div>
+</footer>
+
+</body>
+</html>

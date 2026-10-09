@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>We found three bugs in our own dry run before launch — Honest eval, part 31 — Fronesa</title>
+<meta name="description" content="Our Bluesky labeler hasn't emitted a single public label yet. Good — because our own dry run caught three defects that would have made our launch metrics meaningless.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-48-dryrun-bugs.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We found three bugs in our own dry run before launch — Honest eval, part 31 — Fronesa">
+<meta property="og:description" content="Our Bluesky labeler hasn't emitted a single public label yet. Good — because our own dry run caught three defects that would have made our launch metrics meaningless.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-48-dryrun-bugs.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main h3{font-family:Fraunces,Georgia,serif;font-size:20px;font-weight:600;margin:1.8em 0 .6em}
+  main ul,main ol{margin:0 0 1.4em 1.4em}
+  main li{margin-bottom:.5em}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0 0 .8em;font-size:19px}
+  .lesson p:last-child{margin-bottom:0}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 31</p>
+  <h1>We found three bugs in our own dry run before launch.</h1>
+  <p class="standfirst">Our Bluesky labeler hasn't emitted a single public label yet. Good — because this week our own dry run caught three defects that would have made our launch metrics meaningless.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>6 min read</span>
+  </div>
+
+  <main id="article">
+    <p>Our Bluesky labeler hasn't emitted a single public label yet. Good — because this week our own dry run caught three defects that would have made our launch metrics meaningless. We're publishing the misses, not just the fixes.</p>
+
+    <h2>Bug 1: We were only logging 8% of our traffic</h2>
+    <p>The dry-run logger had a guard: <code>if (!labels.length) continue;</code> — skip any post that received no labels. Sounds like a tidy optimization. It meant our JSONL log only contained posts the model felt strongly enough about to label.</p>
+    <p>Run stats told the real story: 1,728 classified, 138 proposed. Roughly 8% of traffic was visible to every metric we computed from the log. The other 92% — the quiet majority, mostly ham — was invisible. Any precision, recall, or volume number derived from that log alone was computed on a filtered sample and was invalid.</p>
+    <p>The fix (one restructure of <code>_flush()</code> in <code>labeler/src/pipeline.js</code>, commit <code>4008d87</code>): log every classified post <em>before</em> the empty-labels guard, keyed on an <code>isLivePublish</code> flag so live-mode publish semantics are unchanged. Verified live after the daemon restart — empty-label rows now appear in the log.</p>
+
+    <h2>Bug 2: Our spam label could never fire</h2>
+    <p><code>SPAM_CONFIDENCE</code> was set to 0.90. The model's observed confidence ceiling in the dry run was about 0.80; the highest spam-decision confidence logged was 0.792. Zero spam labels were emitted across the entire run — not because there was no spam, but because the threshold sat above anything the model ever outputs.</p>
+    <p>Worse, escalated spam decisions were mapped to <code>review-needed</code> by design, so even confident spam calls took the other path. In live mode, the labeler would have emitted exactly one label type forever. The alert/blur/warn <code>spam</code> label — the core product — was dead code in practice.</p>
+    <p>The threshold recalibration is in progress against the real confidence distribution (spam p50 ≈ 0.65). We will not declare the 24-hour gate until the spam path has actual test coverage.</p>
+
+    <h2>Bug 3: Our watchdog was killing healthy daemons</h2>
+    <p>The dry-run daemon "died" three times in 80 minutes. Each time, the watchdog found the log stale for &gt;600s and restarted it. Each time, the daemon had been healthy — the logs showed graceful shutdowns, not crashes.</p>
+    <p>Root cause: Node.js buffers stdout when redirected to a file. <code>node src/dryrun.js &gt;&gt; dryrun-24h.log</code> meant the log could sit unchanged for minutes while the daemon hummed along classifying posts. The watchdog's health check — log freshness — was measuring buffering, not liveness.</p>
+    <p>The fix: launch with <code>stdbuf -o0 -e0</code> (unbuffered stdout) and promote the JSONL mtime — which is written synchronously per post — to the primary health signal. The stale-log tripwire still works; it just no longer fires on buffering artifacts.</p>
+
+    <h2>How we found them</h2>
+    <p>Bug 1 surfaced in an ML bias assessment of the dry-run data: the classified-vs-proposed counts didn't reconcile, and the gap led straight to the logging guard. Bug 2 came from the same assessment — the confidence distribution showed the threshold floating above the model's ceiling. Bug 3 was root-caused by our QA lead after the third "death": the shutdowns were too graceful to be crashes, which pointed at the monitor rather than the daemon.</p>
+
+    <aside class="pull">When your monitor kills the thing it's monitoring, check the monitor first.</aside>
+
+    <div class="lesson" role="note" aria-label="The lessons">
+      <p class="label">The lessons</p>
+      <p>Your telemetry pipeline is part of your evaluation. A biased log is a biased experiment.</p>
+      <p>A threshold is a claim about your model's output distribution. If you set it without measuring the distribution, you've written fiction.</p>
+      <p>When your monitor kills the thing it's monitoring, check the monitor first.</p>
+    </div>
+
+    <h2>Where things stand</h2>
+    <p>The 24-hour continuous-operation gate cannot be declared on any data collected before these fixes. Our legal review formally voided the prior window: it could not produce valid evidence even if uninterrupted.</p>
+    <p><em>Update 2026-10-06 12:34 +03:</em> a VM reboot (~12:25 +03) killed the daemon again; it was restarted at 12:32 +03 (PID 5309) with all fixes live. The gate clock restarts with every interruption — which is the point of the gate, and also why this post will need a dated status line at publish time (see blocker #2).</p>
+    <p>That's the honest accounting. Three bugs, all ours, all found by our own crew before a single public label went out. The dry run did exactly what a dry run is for.</p>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <ol>
+        <li>Bug 1 — <code>labeler/src/pipeline.js</code> <code>_flush()</code>; ML assessment <code>ops/ml_dryrun_bias_assessment_2026-10-06.md</code>; fix commit <code>4008d87</code>.</li>
+        <li>Bug 2 — <code>labeler/src/config.js:29</code> (<code>SPAM_CONFIDENCE</code> default 0.90); dry-run confidence distribution (spam max 0.792, n=93 spam decisions); same assessment.</li>
+        <li>Bug 3 — QA root-cause analysis; <code>labeler/scripts/dryrun_watchdog.sh</code> (stdbuf fix).</li>
+        <li>Gate void ruling — <code>legal/dryrun_gate_clock_ruling_addendum_2026-10-06.md</code> (legal).</li>
+      </ol>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li>Threshold recalibration must land before claiming bug 2 is <em>fixed</em> (currently "in progress") — draft says so, keep it that way.</li>
+        <li>24h gate completion status will date this post — add a dated status line at publish time.</li>
+        <li>Legal pre-publish clearance required (honest-eval series rule).</li>
+        <li>Do not publish until the spam-label path has verified live emissions to describe.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-47-fictional-timestamps.html"><span class="dir">← Previous</span>Part 30: the fictional timestamps</a>
+      <a href="honest-eval-49-sigterm-saga.html" style="text-align:right"><span class="dir">Next →</span>Part 32: we kept killing our own daemon</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

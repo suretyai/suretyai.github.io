@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The sellers who SAR'd the algorithm — Fronesa notes</title>
+<meta name="description" content="Vinted's banned sellers didn't just complain — they built a legal playbook to extract the automation's logic, one Subject Access Request at a time.">
+<link rel="canonical" href="https://suretyai.github.io/blog/vinted-sar-playbook.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The sellers who SAR'd the algorithm — Fronesa notes">
+<meta property="og:description" content="Vinted's banned sellers didn't just complain — they built a legal playbook to extract the automation's logic, one Subject Access Request at a time.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/vinted-sar-playbook.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Field notes · Not in the honest-eval series</p>
+  <h1>The sellers who SAR'd the algorithm.</h1>
+  <p class="standfirst">Vinted's banned sellers didn't just complain about automated bans. They built a legal playbook to extract the automation's logic — one Subject Access Request at a time.</p>
+  <div class="byline">
+    <span>By Layla, Content</span>
+    <span>2026-10-06</span>
+    <span>Draft — not published</span>
+  </div>
+
+  <main id="article">
+    <p>When Vinted's automated systems ban a seller, the seller gets a decision with no evidence. So the sellers built their own evidence pipeline — out of data-protection law. The Sad Vinted Faces campaign, now logging thousands of ban stories, teaches every banned seller the same first move: file a Subject Access Request demanding "the automated-decision logic" under Article 15(1)(h) of UK GDPR. Then escalate: ICO for the Article 22 right to human review, Citizens Advice to Trading Standards, and the Financial Ombudsman — because Vinted Pay is FCA-licensed, which opens a second front.</p>
+
+    <div class="pull">When the platform won't show its work, the sellers bring the law.</div>
+
+    <h2>The playbook</h2>
+    <p>It runs like this. Step one: the SAR. Article 15(1)(h) gives data subjects the right to know about "the existence of automated decision-making, including profiling" and "meaningful information about the logic involved." The campaign's escalation ladder turns that paragraph into a form letter. Step two: when the SAR comes back thin — and it usually does — the ICO complaint, invoking Article 22's right not to be subject to purely automated decisions with legal or similarly significant effect. Step three: the parallel tracks. Citizens Advice to Trading Standards for the consumer-protection angle. The Financial Ombudsman for anything touching Vinted Pay, which the FCA licenses.</p>
+
+    <p>The most telling detail isn't the ladder. It's the Pro Account Trap the campaign documents: Vinted's own rules say commercial selling is only allowed for Pro sellers — and then Pro sellers get banned against thresholds that, the campaign says, appear nowhere in the written terms. The decision exists. The evidence doesn't. The sellers noticed before the regulators did.</p>
+
+    <h2>The press as appeal mechanism</h2>
+    <p>Two sellers' accounts were reinstated only after a national newspaper intervened. The formal appeal failed; the press worked. That's not a story about bad customer service. It's a story about what happens when there is no evidence layer: the only appeal that works is the one with an audience. A system where the newspaper is the court of last resort is a system where the decision log doesn't exist — or exists where the affected person can't see it.</p>
+
+    <h2>Why we're writing this</h2>
+    <p>This is the demand side of the thesis, organizing itself. Nobody pitched these sellers "decision evidence." They invented the demand because the platform wouldn't volunteer the logic. The campaign's 6,600+ logged stories are 6,600+ people doing manually, with lawyers and forms and months of waiting, what an evidence field on the decision itself would have done instantly.</p>
+
+    <p>The question our product answers is the one the sellers are already asking: what if the evidence came with the decision, instead of requiring a legal campaign to extract it?</p>
+
+    <div class="lesson">
+      <div class="label">The note</div>
+      <p>The SAR playbook is what demand for decision evidence looks like before the product exists: slow, legal, and angry.</p>
+    </div>
+
+    <h2>What this piece is not</h2>
+    <p>It is not legal advice — it describes the playbook; it doesn't recommend it. It does not present the campaign's claims as adjudicated facts; they are the sellers' account, and the piece says so. It does not tie the story to our product beyond the final question; the story is the demand signal, not the pitch. And the numbers below are as-reported by the campaign and press, not our measurements.</p>
+
+    <div class="footnotes">
+      <div class="label">Chain of custody</div>
+      <ul>
+        <li>Brief: <code>growth/content_brief_vinted_sar_playbook_2026-10-06.md</code> (Tariq, growth23, 2026-10-06).</li>
+        <li>Campaign: Sad Vinted Faces — sadvintedfaces.com/help (escalation ladder), sadvintedfaces.com/vinted-new-terms (Oct 8 T&Cs).</li>
+        <li>Press: The Sun on the ban complaints and press-intervention reinstatements; Vinted's response ("all appeals ARE reviewed by humans") as reported.</li>
+        <li>Oct 8 context: new Vinted T&Cs go live (US/UK/Australia); the sweep will show whether "right to appeal" language changes anything in practice.</li>
+        <li>Standalone piece — not numbered in the honest-eval series (market story, not an internal miss). Adaptable if the series arc calls for it.</li>
+        <li>Banned claims: none — no zero-FP, no multipliers, no guarantees, no entity implications, no legal advice.</li>
+      </ul>
+    </div>
+
+    <div class="blockers">
+      <div class="label">Pre-publish blockers</div>
+      <ol>
+        <li>Sara (Legal): review for defamation risk — the piece describes Vinted's practices via the campaign's account; confirm the attribution framing ("the campaign says") is sufficient.</li>
+        <li>Confirm no legal-advice language slipped in — the piece must describe, not recommend.</li>
+        <li>Re-verify campaign URLs and the Oct 8 T&Cs state at publish time.</li>
+        <li>Braa: confirm comfort with publishing a piece about another company's enforcement practices.</li>
+        <li>Series decision: standalone or adapted into honest-eval? Decide before publish; don't do both.</li>
+      </ol>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Draft content, not published. All claims in this draft require the pre-publish blockers above to be resolved before publication.</p>
+  </div>
+</footer>
+
+</body>
+</html>

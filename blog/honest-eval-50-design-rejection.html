@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>We shipped the redesign. The CEO called it AI slop. — Honest eval, part 33 — Fronesa</title>
+<meta name="description" content="Our editorial redesign passed 17/17 predeploy checks [COUNT QUERY 2026-10-06 (content31): script contains 18 check invocations vs runbook's 17/17 — do not publish as verified], deployed cleanly, and went live. Then Braa looked at it: 'Lot of text, zero visuals, a lot of AI style.' He was right.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-50-design-rejection.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We shipped the redesign. The CEO called it AI slop. — Honest eval, part 33 — Fronesa">
+<meta property="og:description" content="Our editorial redesign passed 17/17 predeploy checks [COUNT QUERY 2026-10-06 (content31): script contains 18 check invocations vs runbook's 17/17 — do not publish as verified], deployed cleanly, and went live. Then Braa looked at it: 'Lot of text, zero visuals, a lot of AI style.' He was right.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-50-design-rejection.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 33</p>
+  <h1>We shipped the redesign. The CEO called it AI slop.</h1>
+  <p class="standfirst">Seventeen predeploy checks green. Eight files live. Zero banned claims. And the whole thing still looked like it was generated by the thing we sell against.</p>
+  <div class="byline">
+    <span>2026-10-06</span><span>Draft — not published</span><span>Pre-publish blockers below</span>
+  </div>
+
+<main id="main"><article id="article">
+
+<p>On the morning of October 6, we deployed the new Fronesa site. The old design was amateur — Braa had said so weeks earlier — and the redesign was supposed to fix it: editorial serif type, paper background, honest copy, no gradients, no purple glows, none of the AI-startup visual clichés. It passed 17 out of 17 predeploy checks. All eight files went live. Then Braa opened it on his phone and wrote back three sentences: <em>"Lot of text 0 visuals and A LOT OF AI STYLE."</em></p>
+
+<p>He was right.</p>
+
+<h2>The defect</h2>
+
+<p>The page we shipped had roughly 1,100 words of body copy and zero real visuals — no diagrams, no charts, no screenshots, nothing moving. One code block. The rest was text with styling. And the structure was the exact anatomy of generated startup copy: a centered hero (kicker, headline, paragraph, two CTAs), numbered sections with editorial kickers ("1 — The problem"), a roman-numeral step grid (i. Decide → ii. Escalate → iii. Learn → iv. Retrain → v. Gate), ×-mark "what we're not" cards, and stat cards with big serif numbers floating next to short captions.</p>
+
+<p>Dressing a template in Fraunces doesn't make it editorial. The skeleton was still a template. We had mistaken "not dark mode" for "designed."</p>
+
+<p>The deeper defect: our predeploy checklist had 17 checks and not one of them asked "does this look like it was made by a human with taste?" Accessibility, banned claims, link integrity, HTML balance — all green. The checklist verified the page was correct. Nobody verified it was good. Correctness checks can't catch taste failures, and we had no taste check.</p>
+
+<h2>How we found it</h2>
+
+<p>Braa found it in about ten seconds, on a phone, with no checklist. That's the whole investigation. The person with the least patience for our process and the most direct line to "does this look serious" looked at it and told us.</p>
+
+<p>What stings: the feedback we'd already received pointed here. Weeks earlier Braa had rejected the old site as "amateur" and corrected a dark-gradient redesign with "avoid AI frontend style." We heard "avoid dark gradients" and shipped a light-mode template. We fixed the surface attribute and kept the underlying pattern — the same mistake our own blog #44 documents us making with numbers (fixing the figure, keeping the framing).</p>
+
+<h2>The fix</h2>
+
+<p>Rami is rebuilding the page from scratch, visual-first. The content brief for the rebuild sets a hard copy budget — ≤400 words of body copy, down from ~1,100 — and every section leads with a visual: a live decision ticket that types itself out in the hero, an animated loop diagram instead of the roman-numeral grid, real charts with axes instead of stat cards (the escalation curve actually drawn, the frozen-vs-learning lines actually diverging), and the two "limit, stated plainly" notes demoted to footnotes where they read as honesty instead of marketing.</p>
+
+<p>The banned patterns are banned by name in the brief: no centered hero, no numbered kickers, no ×-mark cards, no stat cards without axes. The copy that survives is annotation for visuals, not the other way around.</p>
+
+<div class="lesson">
+  <div class="label">The lesson</div>
+  <p><em>A checklist that can't fail your taste will pass your slop. If "does this look designed" isn't a gate, everything downstream of the gate is decoration.</em></p>
+</div>
+
+<h2>Current state</h2>
+
+<p>As of writing: the rejected design is still live at <code>suretyai.github.io</code> (we haven't pulled a live site over a taste objection — the rebuild replaces it when Braa approves it). Rami's rebuild is in staging. Nothing about the v2 has been shown to Braa yet, so this post's ending is unwritten: either the rebuild clears his bar and this becomes a story about a good catch, or it doesn't and there's a part 34.</p>
+
+<p>The demo button on the try-it page still doesn't work for visitors — the CORS fix is merged but not deployed to the API. That's a separate honest-eval entry waiting to happen (see the demo-readiness gate).</p>
+
+<div class="blockers">
+  <div class="label">Pre-publish blockers</div>
+  <ol>
+    <li>Rami's v2 must land in staging and be reviewed — this post can't publish while the ending is unwritten.</li>
+    <li>Braa must approve quoting his feedback verbatim ("Lot of text 0 visuals and A LOT OF AI STYLE") — it's his words; get explicit OK.</li>
+    <li>Word count and visual inventory of the shipped v1 must be re-verified from the deployed files (~1,100 words, 0 diagrams — verify, don't trust this draft).</li>
+    <li>Series numbering: this is part 33 (file honest-eval-50). Confirm no part published out of order.</li>
+    <li>No banned claims on re-sweep; <code>noindex</code> must remain until the publish decision.</li>
+  </ol>
+</div>
+
+<div class="footnotes">
+  <div class="label">Chain of custody</div>
+  <ul>
+    <li>Deploy approval: Braa, "Yes, deploy it," 2026-10-06 13:17 +03 (Surety/Fronesa chat).</li>
+    <li>Deploy verification: 8/8 files, both pages HTTP 200, 0 banned claims — <code>marketing/deploy_landed_verification_2026-10-06.md</code>.</li>
+    <li>Rejection: Braa, verbatim quote above, 2026-10-06 ~13:25 +03 (Surety/Fronesa chat).</li>
+    <li>Predeploy checklist: 17/17 PASS [COUNT QUERY 2026-10-06 (content31): script contains 18 check invocations vs runbook's 17/17 — do not publish as verified] — <code>site/deploy-staging/DEPLOY_READINESS_OPTION_A_2026-10-06.md</code>.</li>
+    <li>Copy-for-visuals brief: <code>marketing/redesign_v2_copy_for_visuals_brief_2026-10-06.md</code> (Layla, content24).</li>
+    <li>Word count (~1,100) and visual inventory (0 diagrams/charts/screenshots): counted from <code>site/deploy-staging/option-a/index.html</code> at draft time — re-verify at publish.</li>
+  </ul>
+</div>
+
+<div class="seriesnav">
+  <a href="honest-eval-49-sigterm-saga.html"><span class="dir">← Previous</span>Part 32 — We kept killing our own daemon.</a>
+  <span><span class="dir">Next →</span>Unwritten.</span>
+</div>
+
+</article></main>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa — decisions that learn. © 2026</p>
+</div></footer>
+
+</body>
+</html>

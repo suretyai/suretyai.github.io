@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>We caught ourselves writing fictional timestamps — Honest eval, part 30 — Fronesa</title>
+<meta name="description" content="Two shifts caught themselves logging timestamps that hadn't happened yet. The honesty machinery is supposed to catch the small things too.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-47-fictional-timestamps.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We caught ourselves writing fictional timestamps — Honest eval, part 30 — Fronesa">
+<meta property="og:description" content="Two shifts caught themselves logging timestamps that hadn't happened yet. The honesty machinery is supposed to catch the small things too.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-47-fictional-timestamps.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes p{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 30</p>
+  <h1>We caught ourselves writing fictional timestamps.</h1>
+  <p class="standfirst">Two shifts logged timestamps that hadn't happened yet. The honesty machinery is supposed to catch the small things too.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>4 min read</span>
+  </div>
+
+  <main id="article">
+    <h2>The news</h2>
+    <p>This morning, two of our shifts caught themselves doing something small and embarrassing: writing timestamps in the activity log that hadn't happened yet.</p>
+    <p>The legal shift logged entries as 09:28–10:12. The actual time was 09:21–09:25. The content shift logged entries as 09:38–10:18. The actual time was 09:30–09:34. In both cases the worker incremented timestamps manually, assuming time was passing at a normal pace while they worked. It wasn't — the work was fast, the clock was slow, and the log drifted into fiction.</p>
+    <p>Both shifts did the same thing when they noticed: logged a public timestamp correction, fixed the entries, and kept working. The corrections are in the log, right next to the errors.</p>
+
+    <h2>Why this is a blog post and not a footnote</h2>
+    <p>Because the honesty machinery is supposed to catch the small things too. It's easy to be honest about the big misses — the contaminated eval, the 58 bad numbers — when there's a formal audit forcing the issue. The test of the system is what happens with the small, invisible, nobody-would-ever-check kind of wrongness. A timestamp in an internal log. Nobody reads those except us.</p>
+    <p>Here's what our system did with it: the worker noticed, corrected it in the same log where the error lived, and didn't hide the correction. No manager asked. No audit flagged it. The person who made the error fixed the error, in public, within the same document.</p>
+    <aside class="pull">The log is append-only, corrections are corrections (not deletions), and "the work is real, the timestamps were wrong" is a complete and sufficient disclosure.</aside>
+    <p>That's the whole philosophy in miniature: the log is append-only, corrections are corrections (not deletions), and "the work is real, the timestamps were wrong" is a complete and sufficient disclosure.</p>
+
+    <h2>What we didn't do</h2>
+    <p>We didn't rewrite history — the original entries keep their corrected timestamps alongside the correction note, so anyone reading can see both the error and the fix. We didn't treat it as a non-issue because "it's just timestamps" — the activity log is the source of truth for crew verification, and fictional timestamps in it are exactly the kind of small rot that makes the big claims unverifiable later. And we didn't punish it — the correction is the desired behavior, and punishing it would teach people to hide the next one.</p>
+
+    <h2>The uncomfortable part</h2>
+    <p>Two shifts made the same error independently within ten minutes of each other. That means it's not a personal mistake — it's a process gap. Workers are estimating time instead of reading the clock. The fix isn't "be more careful," it's structural: read <code>date</code> before logging, or have the logging command stamp the time itself. We're fixing the process, not the people.</p>
+    <p>We'll report back on whether the fix holds.</p>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>Don't punish the correction — punish the cover-up. The error that gets logged and fixed in public is the system working.</p>
+    </div>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <p><code>ops/shifts/activity.log.md</code> — timestamp corrections logged 2026-10-06 (legal and content shifts). This draft's own writing process.</p>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li>Sara/legal: confirm no issue with publishing internal process details (operational transparency — her call).</li>
+        <li>Braa: this piece is self-deprecating by design — confirm he's comfortable with the tone.</li>
+        <li>Verify the correction entries are actually in the log as described (cite line numbers at publish time).</li>
+        <li>If the structural fix (timestamp stamping) lands before publication, update the ending.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="index.html"><span class="dir">← Series</span>All honest-eval parts</a>
+      <a href="honest-eval-48-dryrun-bugs.html" style="text-align:right"><span class="dir">Next →</span>Part 31: three bugs in our dry run</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The checklist can&rsquo;t taste. — Honest eval, part 39 — Fronesa</title>
+<meta name="description" content="Deploy checklist passed every check; Braa failed the site on taste eight minutes later. Verification vs judgment.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-56-taste-gate.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The checklist can&rsquo;t taste. — Honest eval, part 39 — Fronesa">
+<meta property="og:description" content="Deploy checklist passed every check; Braa failed the site on taste eight minutes later. Verification vs judgment.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-56-taste-gate.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 39</p>
+  <h1>The checklist can&rsquo;t taste.</h1>
+  <p class="standfirst">The deploy checklist passed every check. Eight minutes later Braa failed the site on taste: &ldquo;Lot of text 0 visuals and A LOT OF AI STYLE.&rdquo; Verification answered &ldquo;is it correct?&rdquo; — judgment answered &ldquo;is it good?&rdquo; We only asked the first question.</p>
+  <div class="byline">
+    <span>By Layla, Content</span>
+    <span>2026-10-06</span>
+    <span>Draft — not published</span>
+  </div>
+
+  <main id="article">
+<p>At 13:17 +03 on 2026-10-06, Braa approved the site redesign deploy. At 13:25 +03, eight minutes after the deploy verified live, he failed it: &ldquo;Lot of text 0 visuals and A LOT OF AI STYLE.&rdquo; The same checklist that recorded a clean pass had nothing to say about the verdict &mdash; because the verdict was about taste, and the checklist never claimed to measure taste. That&rsquo;s the honest part: the process worked exactly as designed, and the product was still wrong.</p>
+<p>The deploy pipeline did its job. The pre-deploy checklist ran green &mdash; every check passed, the runbook recorded the pass, the live site returned 200, the redesign rendered. Nobody cut corners. The failure wasn&rsquo;t in the verification; it was in what the verification covered. The checklist asked: are the files present? Are the links intact? Are there banned claims? Is the markup valid? Is it accessible? All yes. All true. And the site was still, in the CEO&rsquo;s words, AI slop &mdash; a wall of text with no visuals, wearing the generic startup patterns we&rsquo;d explicitly set out to avoid.</p>
+<div class="pull">The checklist answered &ldquo;is it correct?&rdquo; Braa answered &ldquo;is it good?&rdquo; We only asked the first question.</div>
+<h2>The defect</h2>
+<p>Not in the checklist &mdash; in the gap between what we verified and what we shipped. A checklist is a contract with reality: it enumerates the properties a thing must have. Ours enumerated correctness properties (files, links, claims, markup, accessibility) and zero judgment properties (does this look distinctive? does it show rather than tell? would a human designer sign it?). That wasn&rsquo;t an oversight in the script; it was an oversight in the brief. We told the checklist to verify the deploy was safe. We never told anyone to verify the deploy was <em>good</em> &mdash; because &ldquo;good&rdquo; isn&rsquo;t a check, it&rsquo;s a person with taste, and the person with taste was only scheduled into the loop after the deploy.</p>
+<p>The eight minutes matter. Approval at 13:17, verdict at 13:25. The fastest review cycle in the company&rsquo;s history produced its bluntest rejection. The process didn&rsquo;t fail slowly; it failed at the exact seam where verification ended and judgment began. Which means the process boundary was in the wrong place: the CEO&rsquo;s eyes should have been a gate <em>before</em> the deploy, not a verdict <em>after</em> it.</p>
+<h2>What part 36 already measured</h2>
+<p>This isn&rsquo;t the first time the series circled &ldquo;AI style.&rdquo; Part 36 (#53), &ldquo;What &lsquo;AI style&rsquo; actually means, measured,&rdquo; built a 60-term clich&eacute; lexicon and a 26-phrase template list and audited the Option-C copy against them. That piece measured the <em>words</em>. This piece is about the <em>object</em>: the deployed site passed every check including the clich&eacute; audit&rsquo;s spirit &mdash; no purple gradients, no glassmorphism, no banned multipliers &mdash; and still read as AI-generated to the one reader whose taste decides. The lexicon caught the words. Nothing caught the gestalt. A page can contain zero clich&eacute; terms and still be a template with the serial numbers filed off.</p>
+<h2>How we found it</h2>
+<p>There was no detection work. The CEO opened the live site and typed one sentence. That&rsquo;s the whole detection story, and it&rsquo;s the point: the defect was invisible to every instrument we had and obvious to the first human who looked. The checklist can&rsquo;t taste. We could run it a thousand times and it would pass a thousand times, because taste was never in its contract.</p>
+<h2>What we can&rsquo;t reconstruct</h2>
+<p>Whether the redesign would have survived a pre-deploy taste review. Braa approved the <em>plan</em> (&ldquo;Yes, deploy it&rdquo;) at 13:17 without seeing the rendered pages &mdash; the approval was for the deploy decision, informed by the checklist&rsquo;s green run, not for the design itself. We can&rsquo;t know if showing him the staging render first would have changed the outcome; the honest statement is that we never gave him the chance.</p>
+<h2>The fix</h2>
+<p>Two parts. The immediate one: the redesign is being reworked from staging (Option-C / Rami&rsquo;s v2), and nothing goes live until Braa has <em>seen</em> the rendered pages &mdash; the CEO&rsquo;s eyes move inside the gate, before the deploy, not after. The checklist keeps its correctness contract; it gains a final line that isn&rsquo;t a check at all: &ldquo;rendered pages shown to Braa; approval recorded.&rdquo; A human gate, named and dated, not a script invocation.</p>
+<p>The durable one: the pre-deploy process gets two phases with different owners. Phase one is verification (the script): is it correct, safe, honest? Phase two is judgment (a person): is it good? Phase two doesn&rsquo;t get automated, counted, or optimized &mdash; it gets scheduled. The lesson of the eight minutes is that skipping phase two doesn&rsquo;t save time; it borrows it at high interest and repays it in rework.</p>
+<div class="lesson"><div class="label">The lesson</div><p><em>Every checklist has a taste-shaped hole. Name it, or the CEO will find it for you &mdash; live, in eight minutes.</em></p></div>
+<h2>Current state</h2>
+<p>As of writing: the redesign v2 is staged and awaiting Braa&rsquo;s approval (nothing deployed since the 13:17 push). The 17/18 checklist-count discrepancy from part 38 remains unresolved. This draft&rsquo;s claims are bounded to the 13:17&ndash;13:25 window and the verbatim CEO feedback; it does not evaluate the v2 rework, which hasn&rsquo;t been seen.</p>
+<div class="footnotes"><div class="label">Chain of custody</div><ul>
+<li>Deploy approval: Braa, 2026-10-06 13:17 +03 (chat).</li>
+<li>Deploy verified live: ~13:24 +03 (both <code>/</code> and <code>/try-it.html</code> returning 200 with redesign).</li>
+<li>CEO verdict: Braa, 2026-10-06 13:25 +03 (chat), verbatim: &ldquo;Lot of text 0 visuals and A LOT OF AI STYLE.&rdquo;</li>
+<li>Response: redesign rework dispatched to Rami (staging only, no deploy until Braa sees rendered pages).</li>
+<li>Numbers used: 8 minutes (13:17&ndash;13:25); 17/17 or 18/18 checklist pass (direction unresolved per part 38). No multipliers, no zero-FP, no entity implications.</li>
+</ul></div>
+<div class="blockers"><div class="label">Pre-publish blockers</div><ol>
+<li>The 17/18 discrepancy (part 38, blocker #1) must be resolved or explicitly carried &mdash; this draft cites &ldquo;the checklist&rsquo;s green run&rdquo; and must not lock in a denominator.</li>
+<li>Redesign v2 outcome must be recorded: if Braa approves v2, this draft&rsquo;s &ldquo;current state&rdquo; gets a dated addendum; if he rejects it, the lesson stands but the narrative needs the second data point.</li>
+<li>The &ldquo;rendered pages shown to Braa; approval recorded&rdquo; gate must actually be added to the deploy process (docs or runbook) before this draft claims it as the fix &mdash; same rule as part 38&rsquo;s blocker #3: describe real changes, not proposals.</li>
+<li>Newsletter #51 (&ldquo;The checklist that passed and the site that failed&rdquo;) overlaps this draft&rsquo;s territory &mdash; coordinate so the two don&rsquo;t publish the same beat twice; one of them should cite the other.</li>
+<li>Sara (Legal): confirm the &ldquo;AI slop&rdquo; / &ldquo;template with the serial numbers filed off&rdquo; phrasing is fair comment on our own product and doesn&rsquo;t read as disparaging a third party.</li>
+<li>Series does not publish while any earlier part has unresolved blockers &mdash; check parts 33&ndash;38 state.</li>
+</ol></div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-55-seventeen-for-eighteen.html"><span class="dir">&larr; Previous</span>Part 38: The checklist went 17-for-18.</a>
+      <a href="honest-eval-57-figure-gate.html"><span class="dir">Next &rarr;</span>Part 40: The diagram showed a decision the gate wouldn&rsquo;t make.</a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Draft content, not published. All claims in this draft require the pre-publish blockers above to be resolved before publication.</p>
+  </div>
+</footer>
+
+</body>
+</html>

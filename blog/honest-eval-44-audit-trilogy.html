@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>We found 58 instances of our own bad number — Honest eval, part 27 — Fronesa</title>
+<meta name="description" content="We mapped every place our company asserts &quot;zero false positives&quot; or &quot;0.9875 accuracy.&quot; The count: 58 occurrences across 33 files. We're publishing the map before the fixes.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-44-audit-trilogy.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We found 58 instances of our own bad number — Honest eval, part 27 — Fronesa">
+<meta property="og:description" content="We mapped every place our company asserts &quot;zero false positives&quot; or &quot;0.9875 accuracy.&quot; The count: 58 occurrences across 33 files. We're publishing the map before the fixes.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-44-audit-trilogy.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main ul,main ol{margin:0 0 1.4em 1.4em}
+  main li{margin-bottom:.5em}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 27</p>
+  <h1>We found 58 instances of our own bad number.</h1>
+  <p class="standfirst">We finished mapping every place our company asserts &ldquo;zero false positives&rdquo; or &ldquo;0.9875 accuracy.&rdquo; The count: 58 occurrences across 33 files — in marketing drafts, growth materials, and live site HTML. We are not publishing the fixes yet. We are publishing the map.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>7 min read</span>
+  </div>
+
+  <main id="article">
+    <p>We finished mapping every place our company asserts &ldquo;zero false positives&rdquo; or &ldquo;0.9875 accuracy.&rdquo; The count: <strong>58 occurrences across 33 files</strong> <em>[Update 2026-10-06: count revised to 60 occurrences / 35 files per Sara/legal re-audit.]</em> — in marketing drafts, growth materials, and live site HTML.</p>
+    <p>We are not publishing the fixes yet. We are publishing the map.</p>
+
+    <h2>What the three audits found</h2>
+    <p><strong>Marketing (10 occurrences).</strong> Drafts, press-kit boilerplate, case-study templates, benchmark pages. The press-kit boilerplate is highest risk — it&rsquo;s the copy most likely to be quoted verbatim.</p>
+    <p><strong>Growth (38 occurrences across 20 files).</strong> Sales deck, battlecards, pilot pitch script, outreach sequences, buyer dossiers. The pitch script has a scripted spoken line: &ldquo;zero false positives. Fourteen missed spam, but zero wrongly-flagged legit messages. We chose that tradeoff deliberately.&rdquo; That tradeoff was real. The number supporting it wasn&rsquo;t.</p>
+    <p><strong>Site (10 occurrences across 5 HTML files).</strong> This is the one that stung. Two integration guides — Discord and tickets — convert the number into operational instructions: &ldquo;Lab-measured zero false positives on spam — safe to act.&rdquo; &ldquo;The lab-measured zero false positives on spam make confident closes safe.&rdquo; We told integrators it was safe to auto-delete messages and auto-close customer tickets on the basis of a contaminated lab number. That copy has to go first, before anything else.</p>
+
+    <h2>Why the number is bad (the short version)</h2>
+    <p>Two layers, both independently fatal:</p>
+    <ol>
+      <li>Our clean gate — 32 items, blind-reviewed, no training overlap — shows <strong>2 false positives</strong>. &ldquo;Zero&rdquo; is wrong on the clean measurement.</li>
+      <li>The SMS eval that produced 0.9875/0-FP is contaminated: the model saw the test data during training. It measures memorization, not generalization.</li>
+    </ol>
+    <p>&ldquo;Lab measurement, not production traffic&rdquo; — the qualifier on about a third of the instances — addresses neither layer.</p>
+
+    <h2>What we&rsquo;re doing instead</h2>
+    <p>We&rsquo;ve drafted four replacement templates (full form, short form, operational form, spoken form), all anchored on the clean-gate numbers: recall 0.5625, 2 false positives on 32 blind-reviewed items. The operational template does something the others don&rsquo;t: it deletes the safety instructions entirely. A lab FP count — even a clean one — is not a safety basis for auto-deleting someone&rsquo;s messages. The replacement copy says so explicitly: gate auto-actions on <em>your</em> queue&rsquo;s measured rate, not ours.</p>
+    <p>Nothing is applied yet. The templates are a proposal sitting with legal. We will not rewrite 58 instances on our own authority — the &ldquo;we contaminated our own eval&rdquo; admission is going into customer-facing copy, and that&rsquo;s a CEO-level call.</p>
+
+    <aside class="pull">The audit trail is the content. When the fixes land, that&rsquo;ll be part 28.</aside>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>Find every instance, map them, write the replacements, and don&rsquo;t apply a single one until the people responsible for the words sign off.</p>
+    </div>
+
+    <h2>Still standing corrections</h2>
+    <ul>
+      <li>The clean-gate numbers (recall 0.5625, 2 FPs, n=32) are lab numbers, not customer-traffic promises. The templates say this; so do we.</li>
+      <li>The 270 paired labels remain at 0 collected. The numbers above are the ceiling until collection + retrain.</li>
+      <li>The company state is unchanged: $0 revenue, 0 customers, no legal entity. Nothing in this post changes that.</li>
+    </ul>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <ol>
+        <li>Counting rule: 58 is the occurrence count; 33 is the distinct-file count with versioned drafts collapsed (marketing 10 + growth 20 + site 5 = 35 raw files, minus 2 version-duplicates = 33). Full per-file maps in <code>marketing/zero_fp_claims_audit_2026-10-06.md</code>, <code>marketing/zero_fp_claims_audit_growth_2026-10-06.md</code>, <code>marketing/zero_fp_claims_audit_site_2026-10-06.md</code>.</li>
+        <li>Replacement templates: <code>marketing/contamination_aware_rewording_templates_2026-10-06.md</code> (content26).</li>
+        <li>Prior multiplier retirement: blog #42.</li>
+      </ol>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li>Sara/legal: approve the &ldquo;58 instances&rdquo; framing and the per-surface breakdown before this leaves draft. Confirm no privileged material in the audit reports.</li>
+        <li>Braa: approve the &ldquo;we told integrators it was safe to auto-delete&rdquo; admission — it&rsquo;s the sharpest sentence in the post and it needs to be his call.</li>
+        <li>Legal: the rewording templates must be approved before this post publishes, or the post promises fixes that don&rsquo;t exist yet.</li>
+        <li>Growth: the sales deck, battlecards, and pitch script are live internal tools — this post must not go out while they still contain the old numbers without a dated remediation plan in-file.</li>
+        <li>Content: do not publish while the 24h dry-run gate is still incomplete.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-43-tighten-first.html"><span class="dir">← Previous</span>Part 26: stricter instead of smarter</a>
+      <a href="honest-eval-46-templates-approved.html" style="text-align:right"><span class="dir">Next →</span>Part 29: the templates are approved</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

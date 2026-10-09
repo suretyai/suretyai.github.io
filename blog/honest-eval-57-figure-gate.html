@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The diagram showed a decision the gate wouldn&rsquo;t make. — Honest eval, part 40 — Fronesa</title>
+<meta name="description" content="Two figures showed 0.80 confidence with a decided SPAM label against a 0.90 gate. Caught before shipping; fixed to 0.95. Visual claims are claims.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-57-figure-gate.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The diagram showed a decision the gate wouldn&rsquo;t make. — Honest eval, part 40 — Fronesa">
+<meta property="og:description" content="Two figures showed 0.80 confidence with a decided SPAM label against a 0.90 gate. Caught before shipping; fixed to 0.95. Visual claims are claims.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-57-figure-gate.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 40</p>
+  <h1>The diagram showed a decision the gate wouldn&rsquo;t make.</h1>
+  <p class="standfirst">Two marketing figures showed 0.80 confidence with a decided SPAM label. The gate is 0.90. The drawing depicted a decision the system wouldn&rsquo;t make — caught before shipping, fixed to 0.95.</p>
+  <div class="byline">
+    <span>By Layla, Content</span>
+    <span>2026-10-06</span>
+    <span>Draft — not published</span>
+  </div>
+
+  <main id="article">
+<p>Two of our own marketing figures showed a spam decision at 0.80 confidence &mdash; labeled &ldquo;above the gate: decide,&rdquo; stamped SPAM. Our gate is 0.90. At 0.80, the real system holds the item; the diagram decided it. The figures depicted a decision Fronesa wouldn&rsquo;t make. A graphic worker caught it at 14:05 +03, changed both to 0.95, regenerated the PNGs. The defect never shipped. That&rsquo;s the story: our visual claims needed the same honesty discipline as our numbers, and for a while they didn&rsquo;t have it.</p>
+<p>The numbers got the audit. The 60/35 contamination count, the multiplier retirement, the banned-claim sweeps &mdash; every textual claim about the system&rsquo;s behavior goes through verification now. But the figures were drawn by hand, and the hand drew what looked right: a confident-looking 0.80 with a decisive label, because 0.80 <em>looks</em> decisive. Nobody checked the drawing against the config. The config says <code>SPAM_CONFIDENCE=0.90</code> (<code>labeler/src/config.js:29</code>). The drawing said 0.80 decides. Both can&rsquo;t be true, and the one with the company&rsquo;s logo on it was the false one.</p>
+<div class="pull">A diagram that disobeys the system&rsquo;s thresholds isn&rsquo;t an illustration. It&rsquo;s fiction with our logo on it.</div>
+<h2>The defect</h2>
+<p>Category error: we treated figures as decoration and copy as claims. But a figure showing &ldquo;0.80 &rarr; SPAM, above the gate&rdquo; <em>is</em> a claim &mdash; it&rsquo;s a claim about how the gate behaves, made in a medium where no banned-claim regex can catch it. The text sweeps scan for &ldquo;zero false positives&rdquo; and multipliers; they don&rsquo;t parse SVG text nodes for threshold consistency. The figure pipeline had no equivalent of the checklist. It had a designer&rsquo;s eye, and the designer&rsquo;s eye approved a confident-looking number that the system would have held.</p>
+<p>This is the visual sibling of the contamination story. The contaminated &ldquo;0.9875 / zero false positives&rdquo; came from an eval nobody audited; the 0.80-decides figure came from a drawing nobody checked against the config. Same failure mode &mdash; an unverified artifact presented as the system&rsquo;s behavior &mdash; different medium. The series has spent 39 parts on the numbers. This is the first part about the pictures, and the pictures were guilty too.</p>
+<h2>How we found it</h2>
+<p>The graphic lane found it, not the content lane. During the asset-staging pass for the redesign (shift-1200-graphic12, 2026-10-06 ~14:05 +03), the worker checked the figure values against the live config and noticed the mismatch: 0.80 with a decided label against a 0.90 gate. The fix was immediate &mdash; both figures changed to 0.95 (above the gate under any reading), PNGs regenerated, XML re-verified, staged copies updated. Verified independently for this draft: the staged SVGs contain 0.95 and no 0.80 remains.</p>
+<p>Note the direction of the fix. The worker didn&rsquo;t lower the gate to match the drawing &mdash; the drawing was changed to match the gate. The system is the source of truth; the illustration conforms to it, never the reverse. That&rsquo;s the rule, stated plainly, because the temptation runs the other way: the drawing is what visitors see, so the drawing feels like the product. It isn&rsquo;t. The gate is the product. The drawing is a report on the gate, and reports must be accurate.</p>
+<h2>What we can&rsquo;t reconstruct</h2>
+<p>Whether any earlier figure, in any earlier draft or deck, showed a sub-threshold decision. The wiring audit (graphic11) verified which figures are referenced in the redesign; the confidence-value check covered the two figures being staged. A full historical sweep of every SVG/PNG in the workspace for threshold consistency hasn&rsquo;t been done. This draft claims only the two caught figures, not a clean bill for the archive.</p>
+<h2>The fix</h2>
+<p>Two parts. The immediate one is done: 0.95 in both figures, PNGs regenerated, staged copies consistent (verified for this draft). The durable one is a rule for the graphic lane: every figure that depicts a system behavior gets a config-consistency check &mdash; the depicted threshold, the depicted decision, and the depicted label must all be producible by the system as configured. The check belongs in the figure workflow the way the banned-claim sweep belongs in the copy workflow. Visual claims are claims.</p>
+<div class="lesson"><div class="label">The lesson</div><p><em>If the copy goes through the honesty pipeline, the pictures ride in the same truck.</em></p></div>
+<h2>Current state</h2>
+<p>As of writing: both figures corrected and verified in staging. The redesign they belong to is still awaiting Braa&rsquo;s approval (nothing deployed). <code>SPAM_CONFIDENCE</code> remains 0.90 &mdash; the figures now show 0.95, which clears the gate under the current config and under any plausible recalibration below 0.95. If the threshold ever moves above 0.95, the figures need re-checking &mdash; noted as a blocker.</p>
+<div class="footnotes"><div class="label">Chain of custody</div><ul>
+<li>Figures: <code>tryit-header-instrument</code> and <code>decision-receipt</code> (SVG + 1200x630 PNG), staged in <code>site/deploy-staging/option-c/assets/</code>.</li>
+<li>Defect: both showed confidence 0.80 with decided labels (&ldquo;above the gate: decide&rdquo; / SPAM); live config <code>SPAM_CONFIDENCE=0.90</code> (<code>labeler/src/config.js:29</code>) &mdash; 0.80 would be HELD.</li>
+<li>Found and fixed: shift-1200-graphic12, 2026-10-06 ~14:05 +03 (WORK_QUEUE.md:2527) &mdash; changed to 0.95, PNGs regenerated, XML re-verified.</li>
+<li>Independently verified for this draft: staged SVGs contain 0.95; no 0.80 remains in either file.</li>
+<li>Numbers used: 0.80 (defect), 0.90 (gate), 0.95 (fix). No multipliers, no zero-FP, no entity implications.</li>
+</ul></div>
+<div class="blockers"><div class="label">Pre-publish blockers</div><ol>
+<li>Full historical sweep: check every SVG/PNG in the workspace depicting system behavior for threshold consistency &mdash; this draft claims only the two fixed figures.</li>
+<li>If <code>SPAM_CONFIDENCE</code> moves above 0.95 (Yasmin&rsquo;s recalibration is pending), the 0.95 figures need re-checking &mdash; the fix is config-relative, not absolute.</li>
+<li>The config-consistency check must actually exist in the graphic lane&rsquo;s workflow (docs or checklist) before this draft claims it as the durable fix &mdash; same rule as parts 38/39: describe real changes, not proposals.</li>
+<li>Sara (Legal): confirm the &ldquo;fiction with our logo&rdquo; framing is fair comment on our own materials.</li>
+<li>Series does not publish while any earlier part has unresolved blockers &mdash; check parts 33&ndash;39 state.</li>
+</ol></div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-56-taste-gate.html"><span class="dir">&larr; Previous</span>Part 39: The checklist can&rsquo;t taste.</a>
+      <span></span>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Draft content, not published. All claims in this draft require the pre-publish blockers above to be resolved before publication.</p>
+  </div>
+</footer>
+
+</body>
+</html>

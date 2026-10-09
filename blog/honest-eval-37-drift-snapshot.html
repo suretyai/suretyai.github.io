@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The model didn't move. That's the news. — Honest eval, part 20 — Fronesa</title>
+<meta name="description" content="Our phishing test corpora were contaminated. We re-ran the SMS baseline to check what else moved. It didn't move — and 'didn't move' is exactly the result we needed.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-37-drift-snapshot.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The model didn't move. That's the news. — Honest eval, part 20 — Fronesa">
+<meta property="og:description" content="Our phishing test corpora were contaminated. We re-ran the SMS baseline to check what else moved. It didn't move — and 'didn't move' is exactly the result we needed.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-37-drift-snapshot.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main table{width:100%;border-collapse:collapse;margin:1.5em 0;font-size:16px}
+  main th,main td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  main th{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:14px;letter-spacing:.5px;text-transform:uppercase;color:var(--faint)}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes p{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+  @media (max-width:600px){ .sitebar nav{gap:14px} main table{font-size:14px} }
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 20</p>
+  <h1>The model didn't move. That's the news.</h1>
+  <p class="standfirst">Our phishing test corpora were contaminated. We re-ran the SMS baseline to check what else moved. It didn't move — and "didn't move" is exactly the result we needed.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>5 min read</span>
+  </div>
+
+  <main id="article">
+    <h2>The question</h2>
+    <p>Last week we published an uncomfortable finding: our phishing test corpora had been ingested into the training ledger, contaminating the test set. The natural question that follows is: <em>what else moved?</em> If the test set was contaminated, can we trust any of our numbers?</p>
+    <p>This post is the answer to that question, for one specific measurement: the production model's SMS-distribution baseline. We re-ran it. It didn't move. And "didn't move" is exactly the result we needed.</p>
+
+    <h2>What we measured</h2>
+    <p>The learning loop keeps a reference checkpoint: <code>models/spam-v1.pkl</code>, the production model, with registry-recorded metrics on a fixed seed-42 stratified split of the SMS corpus (n=1,116 test items). Yasmin ran the loop's own eval harness against that checkpoint and compared, metric by metric:</p>
+    <table>
+      <thead><tr><th>Metric</th><th>Measured</th><th>Baseline</th><th>Drift</th></tr></thead>
+      <tbody>
+        <tr><td>accuracy</td><td>0.9875</td><td>0.9875</td><td>0 (rounding only)</td></tr>
+        <tr><td>macro F1</td><td>0.9719</td><td>0.9719</td><td>0 (rounding only)</td></tr>
+        <tr><td>false positives</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>false negatives</td><td>14</td><td>14</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p>Per-class: spam precision 1.0000 (136/136), spam recall 0.9067 (136/150); ham precision 0.9857, ham recall 1.0000 [LAB].</p>
+    <p><strong>Verdict: NO DRIFT.</strong> The checkpoint reproduces the registry baseline exactly, to the four-decimal precision the baseline is recorded at. The eval-gate reference point has not moved. No retrain triggered, none needed, none performed — this was a read-only eval.</p>
+    <p><em>Scope note: these figures are SMS-distribution only (n=1,116). They say nothing about phishing performance — see the v4 HELDOUT numbers below.</em></p>
+
+    <aside class="pull">A null result is a promise kept, not a victory claimed. The floor is still the floor.</aside>
+
+    <h2>Why a null result is the result</h2>
+    <p>Drift checks are boring by design. Their job is to say "the floor is still the floor" so that when something <em>does</em> move, you know it's real and not measurement wobble. Three reasons this particular null result matters:</p>
+    <p><strong>1. It bounds the contamination damage.</strong> The seed-corpus contamination affected the phishing corpora (v1/v2/v3, 80 items, ingested as manual labels). This snapshot confirms the SMS-distribution baseline — a different corpus, a different split, recorded before ingestion — is intact. The contamination was scoped, not systemic. We checked; we're telling you the answer.</p>
+    <p><strong>2. It validates the reference point the gate uses.</strong> The eval gate promotes or blocks models by comparing against this baseline. If the baseline had drifted, every future gate decision would be suspect. It hasn't. The gate's ruler is still the right length.</p>
+    <p><strong>3. It separates what we know from what we don't.</strong> The SMS baseline is solid (0.9875 accuracy, 0 FPs on n=1,116 [LAB]). The phishing baseline is a different story — 0.562 recall on the clean v4 HELDOUT [LAB] — and no drift snapshot on SMS changes that. Good news on one distribution is not good news on another. We hold both numbers at once.</p>
+
+    <h2>What this doesn't prove</h2>
+    <p>It doesn't prove the model is good at phishing. It isn't (see the v4 HELDOUT numbers). It doesn't prove the ledger is clean. The 80 contaminated labels are still in there as training data — they're valuable as training data, they just can't validate anything. It doesn't prove future models won't drift. That's what the snapshot is <em>for</em> — it's a standing check, not a one-time clearance.</p>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>A null result is a promise kept, not a victory claimed. The floor is still the floor. Now we can measure what stands on it.</p>
+    </div>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <p>Method + numbers: <code>decivia/docs/loop_drift_snapshot_2026-10-06.md</code> (round205-ml1, Yasmin ml5, 2026-10-06). Model: <code>decivia/models/spam-v1.pkl</code> (registry CURRENT). Harness: <code>scripts/loop/common.py::evaluate()</code>; data: SMSSpamCollection seed42_split, n=1116. Contamination context: <code>decivia/docs/seed_corpus_contamination_2026-10-06.md</code>; v4 HELDOUT recall 0.562: <code>decivia/eval/phishing_seed_template_v4_HELDOUT.jsonl</code>.</p>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li><strong>Engineering review</strong> of the drift-snapshot doc (Yasmin ml5 authored; independent re-run not yet done).</li>
+        <li><strong>Confirm the "0 FP" framing</strong> — 0 false positives on n=1,116 SMS test items [LAB], not a general claim. The v4 HELDOUT has 2 measured FPs on 32 items.</li>
+        <li><strong>Braa approval</strong> required before any publish.</li>
+        <li><strong>Timing note:</strong> if the contamination remediation (v4 guard, ledger hygiene) lands before publish, update the "still in there" line with its status.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="index.html"><span class="dir">← Series</span>All honest-eval parts</a>
+      <a href="honest-eval-38-reviewer-instrument.html" style="text-align:right"><span class="dir">Next →</span>Part 21: judgment needs its own instrument</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

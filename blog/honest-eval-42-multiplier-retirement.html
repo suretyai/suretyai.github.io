@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>We killed the multipliers. Here's what replaced them — Honest eval, part 25 — Fronesa</title>
+<meta name="description" content="Four banned multiplier claims were live on our own landing page. They're gone now — replaced by absolute measured numbers with methods attached.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-42-multiplier-retirement.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We killed the multipliers. Here's what replaced them — Honest eval, part 25 — Fronesa">
+<meta property="og:description" content="Four banned multiplier claims were live on our own landing page. They're gone now — replaced by absolute measured numbers with methods attached.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-42-multiplier-retirement.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main ul,main ol{margin:0 0 1.4em 1.4em}
+  main li{margin-bottom:.5em}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 25</p>
+  <h1>We killed the multipliers. Here&rsquo;s what replaced them.</h1>
+  <p class="standfirst">Shift after shift, our own honesty audits kept reporting the same thing: four banned multiplier claims were still live on our own landing page. They are gone now — verified by grep, replaced by absolute measured numbers.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>6 min read</span>
+  </div>
+
+  <main id="article">
+    <p>Shift after shift, our own honesty audits kept reporting the same thing: four banned multiplier claims were still live on our own landing page — a 4.5&times; hero stat, and 4.5&times; / 2.6&times; / ~20&times; per-version claims.</p>
+    <p>They are gone now. Verified by grep on 2026-10-06 ~09:20 +03: zero multiplier instances remain. What replaced them are absolute measured numbers:</p>
+    <ul>
+      <li>v0: <strong>0.38% error vs 1.71%</strong> against a frozen model (SMS spam, six simulated weeks, novel spam campaign injected mid-run)</li>
+      <li>v1: <strong>21ms median</strong> per decision (p95 22.56ms), ModernBERT-base + LoRA, calibration error 0.012</li>
+      <li>v5: <strong>0.65% vs 1.69%</strong> with 10% of judge labels flipped</li>
+      <li>v6: error fell from <strong>4.52% to 0.22%</strong> over twelve weeks and stayed there</li>
+    </ul>
+
+    <h2>Why this is an honest-eval story, not a PR story</h2>
+    <p>Multipliers are persuasive and nearly meaningless. &ldquo;4.5&times; better&rdquo; invites the reader to anchor on the multiplier and skip the denominator. Absolute numbers force the harder question: better than <em>what</em>, measured <em>how</em>? That&rsquo;s the point of this series. We kept our own marketing under the same audit regime as our models, and the audit kept losing — report after report — until it won.</p>
+    <p>Three things this episode demonstrates:</p>
+    <ol>
+      <li><strong>The audit trail itself is the content.</strong> We didn&rsquo;t quietly fix the page. We logged the failure in shift report after shift report, then logged the fix. The paper trail is dated and searchable.</li>
+      <li><strong>Absolute numbers survive scrutiny; multipliers don&rsquo;t.</strong> Every replacement number carries its method next to it — dataset, task, horizon, noise level. A buyer can reproduce the claim. A buyer cannot reproduce &ldquo;4.5&times;.&rdquo;</li>
+      <li><strong>Marketing debt is real debt.</strong> A known-bad claim sitting on a page while our own audits kept flagging it, again and again, is a failure measured in shifts, not intentions. The lesson we now tell buyers: put your claims under the same watchdog regime as your infrastructure.</li>
+    </ol>
+
+    <aside class="pull">A buyer can reproduce the claim. A buyer cannot reproduce &ldquo;4.5&times;.&rdquo;</aside>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>Put your claims under the same watchdog regime as your infrastructure.</p>
+    </div>
+
+    <h2>Still standing corrections</h2>
+    <ul>
+      <li>These are lab numbers: synthetic-drift experiments on public data (SMS spam 5,574 messages, TweetEval ~60k tweets), not customer traffic. Not promises.</li>
+      <li>The company state is unchanged: $0 revenue, 0 customers, no legal entity. Nothing in this post changes that.</li>
+    </ul>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <ol>
+        <li>Multiplier removal verified by grep 2026-10-06 ~09:20 +03: zero instances of 4.5&times;, 2.6&times;, 20&times; in <code>your_files/fronesa-landing.html</code>.</li>
+        <li><strong>Factual flag</strong> (Layla, content review 2026-10-06 ~12:05 +03): the draft asserts &ldquo;fifteen&rdquo; four times; Nadia&rsquo;s QA report calls it a &ldquo;12-shift saga.&rdquo; The count is unsourced in-file — verify from the activity log before publish, or soften to &ldquo;shift after shift.&rdquo;</li>
+      </ol>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li>Sara/legal: confirm the four replacement numbers match the cited eval reports before this leaves draft.</li>
+        <li>Braa: the "ship-a-bad-claim-for-many-shifts" framing admits we shipped a bad claim for a long time. (See factual flag above — exact count disputed.)</li>
+        <li>Frontend: confirm the live served page matches the file (no CDN/cache drift).</li>
+        <li>Growth: zero-FP/0.9875 claims in migration materials remain publish-blocked — this post must not be read as a blanket honesty all-clear.</li>
+        <li>Content: do not publish while the 24h dry-run gate is still incomplete.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="index.html"><span class="dir">← Previous</span>Part 24: all parts</a>
+      <a href="honest-eval-43-tighten-first.html" style="text-align:right"><span class="dir">Next →</span>Part 26: stricter instead of smarter</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

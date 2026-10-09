@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>Our test suite was green because of import order. — Honest eval, part 24 — Fronesa</title>
+<meta name="description" content="Our 230 tests passed because pytest collects files alphabetically. Change the import order and four tests fail. A green suite is a claim, and every claim needs its own audit.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-41-import-order.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Our test suite was green because of import order. — Honest eval, part 24 — Fronesa">
+<meta property="og:description" content="Our 230 tests passed because pytest collects files alphabetically. Change the import order and four tests fail. A green suite is a claim, and every claim needs its own audit.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-41-import-order.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes p{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+  @media (max-width:600px){ .sitebar nav{gap:14px} }
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 24</p>
+  <h1>Our test suite was green because of import order.</h1>
+  <p class="standfirst">We run 230 tests and they all pass. Except: they pass because pytest collects files alphabetically. Change the order and four tests fail with 401s.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>5 min read</span>
+  </div>
+
+  <main id="article">
+    <h2>The news</h2>
+    <p>We run 230 tests and they all pass. Green badge, clean conscience, move on.</p>
+    <p>Except: our test suite was green <em>because of alphabetical order</em>.</p>
+    <p>Here is what QA found this week. Run the suite the normal way and you get 230/230 PASS. Run it with two files listed first — <code>test_webhook_dlq.py</code> or <code>test_webhook_payload_conformance.py</code> before <code>test_review.py</code> — and four review tests fail with 401s. Not flaky. Not environmental. Deterministic: reproduce it every time, root-cause it, fix it.</p>
+
+    <h2>The root cause</h2>
+    <p>The root cause is a one-line sin repeated in two files. Both modules import <code>decivia.api</code> without setting <code>DECIVIA_ADMIN_KEYS</code> first. The API reads its admin keys from the environment <em>once, at import time</em> — whichever module imports first freezes <code>ADMIN_KEYS</code> for the whole session. If the first import comes from a module that never set the admin key, the key list is empty, and every test authenticating as <code>t-admin</code> gets a 401 instead of the expected result.</p>
+    <p>The suite passed 230/230 for one reason: pytest collects files alphabetically, and <code>test_review.py</code> sorts before <code>test_webhook_*.py</code>. The correct module imported first, every time, by luck of the alphabet. Had anyone named the file <code>test_admin_webhooks.py</code>, we'd have been red for weeks — and would never have known the badge was a coincidence.</p>
+
+    <aside class="pull">A test suite that passes by accident is a machine for manufacturing false confidence.</aside>
+
+    <h2>Why "test-only" is not "harmless"</h2>
+    <p>This is a test-only bug. The product code is unaffected: production loads its keys once, from its own config, and never from a sibling module's import order. But "test-only" is not "harmless." A test suite that passes by accident is a machine for manufacturing false confidence. It told us "230/230" and what it meant was "230/230 in exactly this order." We were reporting the first thing while believing the second.</p>
+    <p>The fix is two lines: set the admin-key default at the top of both modules before the import, matching the convention the other modules already use.</p>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>A green suite is a claim, and every claim needs its own audit. Our honest-eval series exists because we audit our models this way. This week we learned to audit our audits.</p>
+    </div>
+
+    <p>We could have fixed this quietly and kept the badge. We chose to publish the embarrassment instead, because the series has one rule: we write about the misses we catch, not just the ones we prevent. The four tests are fixed. The import order is not luck anymore. And the next time the badge is green, we'll know what the badge actually means.</p>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <p>Verified, reproduced, and bisected by Nadia (QA) 2026-10-06 ~09:15 +03. Failing tests: <code>test_review_customer_pending_isolation</code>, <code>test_review_rejects_oversized_customer_id</code>, <code>test_review_accepts_max_length_metadata</code>, <code>test_review_accepts_valid_reviewed_at</code> — all authenticate with <code>key="t-admin"</code>, all fail <code>401 == 400</code> when <code>test_webhook_dlq.py</code> or <code>test_webhook_payload_conformance.py</code> imports first. Root cause: neither module sets <code>DECIVIA_ADMIN_KEYS</code> before importing <code>decivia.api</code>; <code>ADMIN_KEYS = load_admin_keys()</code> reads the environment once at import. Full suite passes (230/230) only because pytest's alphabetical collection imports <code>test_review.py</code> before <code>test_webhook*.py</code>.</p>
+      <p>Recommended fix from the QA report: add the admin setdefault (<code>DECIVIA_ADMIN_KEYS=t-admin</code>) to the payload and dlq modules' import-time setdefaults, matching the union-comment convention. Product code unaffected.</p>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li><strong>Fix must land first.</strong> Do not publish until the two-line fix is merged and the reordered suite re-run is recorded (230/230 in adversarial import order, not just alphabetical).</li>
+        <li><strong>Verify the four test names</strong> against the final diff — publish the exact names from the merged code, not this draft.</li>
+        <li><strong>No "we test better than everyone" framing.</strong> The piece confesses a testing miss; it must not pivot into a superiority claim about our QA process.</li>
+        <li><strong>Braa review.</strong> Standard for all honest-eval parts before publication.</li>
+        <li><strong>Date-stamp the claim.</strong> "This week" must become a concrete date at publish time; stale embarrassments published late read as PR.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-40-zero-revenue.html"><span class="dir">← Previous</span>Part 23: a scoreboard with zero revenue</a>
+      <a href="honest-eval-42-multiplier-retirement.html" style="text-align:right"><span class="dir">Next →</span>Part 25: we killed the multipliers</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

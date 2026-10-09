@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>The machine can escalate. Judgment needs its own instrument. — Honest eval, part 21 — Fronesa</title>
+<meta name="description" content="Our dry-run daemon escalates everything it isn't sure about. The human verdict count stands at exactly zero — and the human side of the system is still a blueprint.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-38-reviewer-instrument.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The machine can escalate. Judgment needs its own instrument. — Honest eval, part 21 — Fronesa">
+<meta property="og:description" content="Our dry-run daemon escalates everything it isn't sure about. The human verdict count stands at exactly zero — and the human side of the system is still a blueprint.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-38-reviewer-instrument.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes p{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+  @media (max-width:600px){ .sitebar nav{gap:14px} }
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 21</p>
+  <h1>The machine can escalate. Judgment needs its own instrument.</h1>
+  <p class="standfirst">Our dry-run daemon escalates everything it isn't sure about. The human verdict count stands at exactly zero — and the human side of the system is still a blueprint.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>5 min read</span>
+  </div>
+
+  <main id="article">
+    <h2>The other side of the screen</h2>
+    <p>Every post in this series has been about the machine: its recall, its calibration, its false positives, its dry run. This one is about the other side of the screen — the reviewer.</p>
+    <p>Our dry-run daemon has now spent ~8.5 hours classifying Bluesky firehose traffic and escalating everything it isn't sure about. Every decision so far is <code>review-needed</code>. The pipeline is alive, the escalation mapping holds. And the human verdict count stands at exactly zero.</p>
+    <p>That zero is honest. The human side of the system is still a blueprint, and we are saying so instead of implying otherwise.</p>
+
+    <h2>What exists</h2>
+    <p>A reviewer-trust instrument, built in four parts: a survey and task protocol, a feasibility check against our ledger, a survey-store design, and an onboarding protocol for the pilot that runs it.</p>
+    <p>The instrument measures trust in a decision-support system along three dimensions: perceived reliability, escalation judgment, and dependence stance. It is not a vibe check. It is a survey plus a task protocol, with the analysis specified before any data is collected.</p>
+    <p>The onboarding protocol includes the exact words a reviewer hears when they sit down — and the words they never hear. The framing is decision support, always. Not moderation. Not an algorithm to agree with. The script says: your job is to catch the system's mistakes, not to confirm its verdicts. Sometimes you will see what the system decided; sometimes you will not. Your scores measure how the system is doing at supporting you, not how you are doing. You can stop at any time.</p>
+    <p>There is even a stop rule for the framing itself: if any reviewer reports the items feel "like a test they can fail," the sessions halt and consent is repaired before anything resumes.</p>
+
+    <aside class="pull">The measurement comes before the result, and the measurement has to be built right, or the result means nothing.</aside>
+
+    <h2>Why it has to exist before the first session</h2>
+    <p>The ledger needs four new fields before a single reviewer sits down: <code>display_condition</code>, <code>gold_label</code>, <code>review_started_at</code>, <code>session_id</code>. The protocol is explicit about why: instrument data collected on the old schema cannot be retro-fitted. A session run without these fields permanently loses the automation-bias and latency analyses.</p>
+    <p>This is the same honesty discipline as the rest of the series: the measurement comes before the result, and the measurement has to be built right, or the result means nothing.</p>
+
+    <h2>What does not exist yet</h2>
+    <p>No sessions. No survey responses. No trust scores. The legal companion drafts (participant privacy notice, DSAR coverage) are written by non-lawyers and carry counsel-must-review banners. Nothing runs until the ledger fields land, the survey store exists, and counsel clears the consent text.</p>
+    <p>The machine side of the dry run is producing data every second. The human side is producing drafts. Both are reported here as exactly what they are.</p>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>Build the instrument before the first session — data collected on the wrong schema cannot be retro-fitted, and a blueprint reported as a blueprint is honest.</p>
+    </div>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <p>Every claim above traces to <code>intel/pilot_reviewer_onboarding_protocol_2026-10-06.md</code> (DRAFT, 2026-10-06) and the live dry-run stats noted in the header. No numbers in this draft come from any other source.</p>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li>The reviewer-trust instrument trilogy + onboarding protocol remain DRAFT — do not describe them as deployed, piloted, or validated.</li>
+        <li>Do not imply any reviewer has seen Fronesa output or given feedback. The honest number today is 0 human verdicts.</li>
+        <li>The TCQ-12 dimensions (perceived reliability / escalation judgment / dependence stance) must be named exactly as in the instrument design; do not rephrase into marketing language.</li>
+        <li>Counsel must clear the consent/withdrawal material before the protocol is described as "ready."</li>
+        <li>The four ledger-extension fields are a precondition, not a footnote — keep them in the piece; dropping them makes the instrument sound easier than it is.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="index.html"><span class="dir">← Series</span>All honest-eval parts</a>
+      <a href="honest-eval-39-paired-labels.html" style="text-align:right"><span class="dir">Next →</span>Part 22: what 270 paired labels buys</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>

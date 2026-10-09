@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>We kept killing our own daemon — Honest eval, part 32 — Fronesa</title>
+<meta name="description" content="Our dry-run daemon restarted nine times in one day. No crashes. We were killing it ourselves — with our own watchdog, our own supervisors, and our own workers.">
+<link rel="canonical" href="https://suretyai.github.io/blog/honest-eval-49-sigterm-saga.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We kept killing our own daemon — Honest eval, part 32 — Fronesa">
+<meta property="og:description" content="Our dry-run daemon restarted nine times in one day. No crashes. We were killing it ourselves — with our own watchdog, our own supervisors, and our own workers.">
+<meta property="og:image" content="https://suretyai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://suretyai.github.io/blog/honest-eval-49-sigterm-saga.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#16150f; --faint:#6f6c60; --line:#e3e0d5;
+    --green:#0f5132; --green-soft:#f2f7f3; --amber-soft:#faf6ec; --amber-line:#e0d5b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--green);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 6px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  .sitebar{border-bottom:1px solid var(--line);background:var(--paper)}
+  .sitebar .wrap{display:flex;align-items:center;justify-content:space-between;max-width:960px;padding:14px 24px}
+  .brand{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+  .brand .tick{color:var(--green)}
+  .sitebar nav{display:flex;gap:22px;font-size:14px}
+  .sitebar nav a{color:var(--faint);text-decoration:none}
+  .sitebar nav a:hover{color:var(--ink);text-decoration:underline}
+  .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:56px 0 12px}
+  h1{font-family:Fraunces,Georgia,serif;font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+  .standfirst{font-size:20px;color:var(--faint);line-height:1.5;margin-bottom:20px}
+  .byline{font-size:14px;color:var(--faint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:40px;display:flex;gap:16px;flex-wrap:wrap}
+  main p{margin-bottom:1.4em}
+  main h2{font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:2.2em 0 .7em;line-height:1.25}
+  main code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#f1efe8;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}
+  a{color:var(--green)}
+  .pull{border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:2em 0;font-family:Fraunces,Georgia,serif;font-size:22px;line-height:1.4}
+  .lesson{background:var(--green-soft);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .lesson .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lesson p{font-style:italic;margin:0;font-size:19px}
+  .blockers{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:20px 24px;margin:2.2em 0}
+  .blockers .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#755a16;margin-bottom:8px}
+  .blockers ol{margin:0 0 0 1.2em}
+  .blockers li{margin-bottom:.5em}
+  .footnotes{border-top:1px solid var(--line);margin-top:3em;padding-top:1.5em;font-size:15px;color:var(--faint)}
+  .footnotes .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .footnotes ul{margin:0 0 0 1.2em}
+  .footnotes li{margin-bottom:.6em}
+  .footnotes code{font-size:.8em}
+  .seriesnav{border-top:1px solid var(--line);margin-top:3em;padding:24px 0 8px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px}
+  .seriesnav a{text-decoration:none}
+  .seriesnav a:hover{text-decoration:underline}
+  .seriesnav .dir{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 64px;color:var(--faint);font-size:14px}
+  footer .wrap{max-width:960px}
+</style><style>.skip-link{position:absolute;left:-9999px;top:0;background:#0f5132;color:#fff;padding:8px 16px;z-index:100}.skip-link:focus{left:0}</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#article">Skip to article</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Fronesa<span class="tick">↗</span></a>
+    <nav aria-label="Site"><a href="../index.html">Home</a><a href="../try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="kicker">Honest eval · Part 32</p>
+  <h1>We kept killing our own daemon.</h1>
+  <p class="standfirst">Blog #48 covered three defects in our dry run. Since writing it, we found a fourth problem — and this one was us.</p>
+  <div class="byline">
+    <span>Fronesa engineering</span>
+    <span><time datetime="2026-10-06">October 6, 2026</time></span>
+    <span>5 min read</span>
+  </div>
+
+  <main id="article">
+    <h2>The symptom: nine restarts in one day</h2>
+    <p>On 2026-10-06, our Bluesky labeler dry-run daemon restarted nine times. Each time, the log showed the same graceful line: <code>[main] shutting down...</code>. No crash. No error. The daemon was politely terminating itself — or being terminated — and the watchdog was dutifully restarting it.</p>
+    <p>Each restart reset our 24-hour gate clock. Four windows opened and closed before any of them could complete. The gate is simple: run uninterrupted for 24 hours, logging every decision. We couldn't get past a few hours.</p>
+
+    <h2>Root cause 1: the watchdog killed healthy daemons</h2>
+    <p>The watchdog's job is to restart the daemon if it dies. Its health check: if the JSONL log hasn't been written to in 600 seconds, assume the daemon is dead and kill it.</p>
+    <p>The problem: when the upstream API rate-limits us (HTTP 429), a perfectly healthy daemon can't classify anything — so it writes nothing — so the JSONL goes stale — so the watchdog kills it. Five 429s in five minutes were enough to trigger a SIGTERM on a working process.</p>
+    <p>The health check couldn't distinguish "dead" from "alive but waiting on rate limits." We were killing our own daemon for being patient.</p>
+    <p><em>Fix options on the table:</em> check whether the Jetstream receive counter is still increasing (alive + receiving, even if not classifying), extend the staleness threshold during 429 episodes, or simply never SIGTERM a process that passes a liveness check — only restart it if it's actually gone.</p>
+
+    <h2>Root cause 2: three supervisors in sixty seconds</h2>
+    <p>After a VM reboot, three supervisor instances started within a minute of each other (PIDs 2112, 2320, 2408). Each one saw the others as conflicting, and they sent each other SIGTERM in turn. Mutual assured shutdown, automated.</p>
+    <p><em>Fix:</em> file locking on the pidfile so only one supervisor can hold it.</p>
+
+    <h2>Root cause 3: our own workers</h2>
+    <p>At least one daemon death traces to a crew worker's <code>process.kill</code> hitting the wrong process tree. We have a standing rule about this — killing a session tears down its whole descendant tree, including detached daemons — and it bit us anyway. A security advisory went out to the crew the same day: verify with <code>ps</code> before killing anything.</p>
+
+    <h2>What this means for the gate</h2>
+    <p>The 24-hour gate exists to prove the labeler can run continuously without intervention. Every one of these restarts was an intervention — by our own tooling, against our own healthy process. The gate didn't fail because the labeler is unstable. It failed because our supervision was too aggressive.</p>
+    <p>That's arguably worse. An unstable labeler is a product bug you fix. An overzealous watchdog is an operational blind spot — the kind that only shows up under real conditions, which is exactly what the dry run is for.</p>
+
+    <aside class="pull">An overzealous watchdog is an operational blind spot — the kind that only shows up under real conditions.</aside>
+
+    <div class="lesson" role="note" aria-label="The lesson">
+      <p class="label">The lesson</p>
+      <p>Never SIGTERM a process that passes a liveness check. "Stale output" and "dead process" are different claims — the monitor must tell them apart before it kills anything.</p>
+    </div>
+
+    <h2>Current state</h2>
+    <p>As of this writing: the daemon is running (restarted 12:32 +03 after the supervisor-churn fix), the logging-bias fix from #48 is live (empty-label rows are being recorded), and the spam-threshold recalibration is still in progress. The gate clock is on its fourth window.</p>
+    <p>We will not declare the gate until the daemon survives 24 hours without us killing it ourselves.</p>
+
+    <div class="footnotes">
+      <p class="label">Chain of custody</p>
+      <ul>
+        <li>Nine restarts on 2026-10-06: <code>ops/daemon_restart_timeline_2026-10-06.md</code></li>
+        <li>Watchdog 429-kill confirmation: <code>ops/daemon_shutdown_investigation_2026-10-06.md</code> ("5x 429s in 5min → JSONL stale → SIGTERM to healthy daemon")</li>
+        <li>Supervisor churn (3 instances, 60s): WORK_QUEUE.md [sre] item, resolved with flock fix</li>
+        <li>Worker process.kill advisory: WORK_QUEUE.md [sre] SECURITY ADVISORY, 2026-10-06</li>
+        <li>Daemon restart 12:32:35 +03: dryrun-watchdog.log ("Started dry run PID 5309")</li>
+        <li>SPAM_CONFIDENCE still 0.90: <code>labeler/src/config.js</code> line 29 (threshold fix pending)</li>
+      </ul>
+    </div>
+
+    <div class="blockers" role="note" aria-label="Pre-publish blockers">
+      <p class="label">Pre-publish blockers</p>
+      <ol>
+        <li><strong>Threshold fix pending</strong> — blog #48's blocker #1 still open; this piece inherits it.</li>
+        <li><strong>Gate not complete</strong> — do not publish until a 24h window actually completes.</li>
+        <li><strong>Sara/legal clearance required</strong> — operational-failure narratives need pre-publish review.</li>
+        <li><strong>Numbers need re-verification at publish time</strong> — restart counts and PIDs are point-in-time.</li>
+      </ol>
+    </div>
+
+    <nav class="seriesnav" aria-label="Series navigation">
+      <a href="honest-eval-48-dryrun-bugs.html"><span class="dir">← Previous</span>Part 31: three bugs in our dry run</a>
+      <a href="index.html" style="text-align:right"><span class="dir">Series →</span>All honest-eval parts</a>
+    </nav>
+    <p style="margin-top:24px;font-size:15px"><a href="index.html">← All honest-eval parts</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Fronesa — Decisions that learn. Every number on this page is measured; nothing is promised.</p>
+    <p style="margin-top:8px;font-size:13px">DRAFT — staging only. Not published. Blockers above must clear first.</p>
+  </div>
+</footer>
+</body>
+</html>
