@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Discord bot moderation — Fronesa integration guide (DRAFT)</title>
-<meta name="description" content="DRAFT: Filter spam and scam messages in a Discord server with the Fronesa decision API and discord.py.">
+<title>Support ticket triage — Fronesa integration guide (DRAFT)</title>
+<meta name="description" content="DRAFT: Keep spam out of your support queue automatically — spam tickets close themselves, real ones reach agents.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fronesa">
-<meta property="og:title" content="Discord bot moderation — Fronesa integration guide (DRAFT)">
-<meta property="og:description" content="DRAFT: Filter spam and scam messages in a Discord server with the Fronesa decision API and discord.py.">
-<meta property="og:url" content="https://suretyai.github.io/fronesa/integrations/discord.html">
+<meta property="og:title" content="Support ticket triage — Fronesa integration guide (DRAFT)">
+<meta property="og:description" content="DRAFT: Keep spam out of your support queue automatically — spam tickets close themselves, real ones reach agents.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/integrations/tickets.html">
 <meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,6 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
   .wrap{max-width:720px;margin:0 auto;padding:0 28px}
-  .serif{font-family:'Fraunces',Georgia,serif}
   .mono{font-family:'JetBrains Mono',monospace}
   nav{border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
@@ -91,69 +90,65 @@ pre{overflow-x:auto;max-width:100%}
 <div class="wrap">
 <div class="hero">
   <div class="kicker">Integration guide</div>
-  <h1>Discord bot <em>moderation</em></h1>
-  <p>Filter spam and scam messages in a Discord server with the Fronesa decision API and <code class="mono">discord.py</code>. Confident spam gets deleted; uncertain messages go to your mods — never auto-banned.</p>
+  <h1>Support ticket <em>triage</em></h1>
+  <p>Keep spam out of your support queue automatically. Spam tickets close themselves; real tickets reach agents faster — with the uncertain ones flagged, never auto-closed.</p>
 </div>
 
 <h2>The problem</h2>
-<p>Public Discord servers attract crypto-scam DMs-by-proxy, phishing links, and spam floods. Human mods can't watch every channel at 3am. A keyword list either misses everything or bans your most active members.</p>
+<p>Support inboxes drown in SEO pitches, phishing, and bot-submitted junk. Every spam ticket an agent opens is a minute stolen from a real customer. You don't need a smarter router — you need the junk gone before triage starts.</p>
+
+<div class="warn"><strong>What this guide is — and isn't:</strong> this is <strong>spam filtering for the ticket queue</strong>, not topic routing. The production model classifies spam vs. legitimate text; it does not sort tickets into billing/technical/sales. If a vendor promises full auto-routing, ask what their false-positive rate is on real customer tickets.</div>
 
 <h2>How it fits together</h2>
-<div class="codeblock"><div class="cap"><span>architecture</span></div><pre>Discord channel
-      │  on_message
+<div class="codeblock"><div class="cap"><span>architecture</span></div><pre>New ticket (Zendesk / Freshdesk / custom)
+      │  webhook: subject + body
       ▼
-  discord.py bot ──POST /decide──▶ Fronesa API
-      │                               │
-      │            ┌──────────────────┴──────────────────┐
-      │            │ decision        │ confidence         │
-      ▼            ▼                 ▼                    ▼
-  delete + log   "spam", sure    "ham", sure          escalated
-                  → delete        → allow              → #mod-review
+ Your triage service ──POST /decide──▶ Fronesa API
+      │  {"action": ...}
+      ▼
+  close_as_spam / route to agents (+ tag)
 </pre></div>
 
 <h2>The code</h2>
-<div class="codeblock"><div class="cap"><span>bot.py</span><span>27 lines</span></div><pre>import os
-import discord
+<div class="codeblock"><div class="cap"><span>triage.py</span><span>26 lines</span></div><pre>import os
+from flask import Flask, request, jsonify
 from fronesa import Client, APIError
 
+app = Flask(__name__)
 fronesa = Client(api_key=os.environ["FRONESA_API_KEY"])
-MOD_CHANNEL_ID = 123456789  <span class="c"># your #mod-review channel</span>
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = discord.Client(intents=intents)
-
-@bot.event
-async def on_message(message):
-    if message.author.bot or not message.content.strip():
-        return
+@app.post("/tickets/incoming")
+def incoming():
+    body = request.json or {}
+    text = f"{body.get('subject', '')}\n{body.get('body', '')}".strip()
+    if not text:
+        return jsonify({"action": "route", "queue": "general"}), 400
     try:
-        result = fronesa.decide(message.content)
+        result = fronesa.decide(text)
     except APIError:
-        return  <span class="c"># API down: let the message through, mods handle it</span>
-    if result.escalated:
-        mod = bot.get_channel(MOD_CHANNEL_ID)
-        await mod.send(f"Review: {message.jump_url} "
-                       f"(confidence {result.confidence:.2f})")
-    elif result.decision == "spam":
-        await message.delete()
-        await message.channel.send(
-            f"{message.author.mention}, that looked like spam and was removed.",
-            delete_after=10)
+        <span class="c"># API down: route to agents, never drop a ticket.</span>
+        return jsonify({"action": "route", "queue": "general",
+                        "note": "fronesa_unreachable"})
+    if result.decision == "spam" and not result.escalated:
+        return jsonify({"action": "close_as_spam"})
+    tag = "needs_review" if result.escalated else None
+    return jsonify({"action": "route", "queue": "general", "tag": tag,
+                    "confidence": result.confidence})
 
-bot.run(os.environ["DISCORD_TOKEN"])</pre></div>
+app.run(port=8000)</pre></div>
 
-<div class="limit-note"><strong>Note on async:</strong> <code class="mono">decide()</code> is synchronous and blocks the event loop for a few milliseconds per call on a warm container. For busy servers, call it in an executor or use the SDK's <code class="mono">AsyncClient</code> (same <code class="mono">decide()</code> API, <code class="mono">await</code>-able). <strong>Cold-start caveat:</strong> the free tier sleeps after ~15 idle minutes, and the first call after idle can block for up to ~90&nbsp;s (or trip the SDK's 10&nbsp;s default timeout) — warm the service or run the first call off the event loop.</div>
+<div class="limit-note"><strong>Why only confident spam auto-closes:</strong> closing a real customer's ticket as spam is the most expensive mistake in support. The lab-measured zero false positives on spam make confident closes safe; anything uncertain gets a human. Your agents see a <code class="mono">needs_review</code> tag and a confidence score — not a black box.</div>
 
 <h2>What escalation looks like here</h2>
 <table>
-  <tr><th>API says</th><th>Bot does</th><th>Why</th></tr>
-  <tr><td>spam, confident</td><td>Deletes the message, logs it</td><td>Lab-measured zero false positives on spam — safe to act</td></tr>
-  <tr><td>ham, confident</td><td>Nothing — message stays</td><td>No reason to touch it</td></tr>
-  <tr><td>escalated</td><td>Posts a link + confidence score to #mod-review</td><td>The model isn't sure — a human decides, never auto-ban</td></tr>
+  <tr><th>API says</th><th>Service returns</th><th>What happens</th></tr>
+  <tr><td>spam, confident</td><td><code class="mono">{"action":"close_as_spam"}</code></td><td>Ticket auto-closed, logged — agent never sees it</td></tr>
+  <tr><td>ham, confident</td><td><code class="mono">{"action":"route"}</code></td><td>Normal queue, no tag</td></tr>
+  <tr><td>escalated</td><td><code class="mono">{"action":"route","tag":"needs_review"}</code></td><td>Agent sees it with the score — prioritizes the review</td></tr>
 </table>
+<p>Agents' decisions on <code class="mono">needs_review</code> tickets — real spam they close, real customers they help — are the feedback the <strong>learning loop</strong> retrains on. The filter gets better at <em>your</em> spam, not generic spam.</p>
 
-<div class="warn"><strong>Honest scope:</strong> this guide filters spam/scam text — that's what the production model is trained for (lab accuracy 0.9875 on spam vs. legitimate messages). It is not a harassment or hate-speech detector. Don't promise your members coverage it doesn't have.</div>
+<div class="warn"><strong>Honest scope:</strong> this guide filters spam/scam text — that's what the production model is trained for (lab accuracy 0.9875 on spam vs. legitimate messages). It does not detect angry customers, urgent tickets, or VIPs. Don't promise your support team coverage it doesn't have.</div>
 
 <p style="margin-top:48px">SDK reference: <code class="mono">Client(api_key, ...)</code> · <code class="mono">client.decide(text)</code> → <code class="mono">Decision(decision, confidence, escalated, version)</code> · exceptions: <code class="mono">APIError</code> and subclasses.</p>
 </div>
