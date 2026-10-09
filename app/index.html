@@ -267,7 +267,7 @@ const V=[
 const bCls={ham:'b-green',spam:'b-ink',escalated:'b-line'};
 function vcard(x){const t2=x.tier===2;
 return `<div class="verdict"><div class="vrow"><div class="grow"><span class="vv">${x.v}</span> <span class="badge ${bCls[x.v]}">${x.v}</span>${x.unc?' <span class="badge b-line">uncertain</span>':''}</div></div>
- <p class="vc">confidence ${x.c} · calibrated, seed 7 · 41ms${t2?" · reviewed by distilbert-spam-int8-v1 · tier 2":""}</p>
+ <p class="vc">confidence ${x.c} · calibrated, seed 7 · 41ms${t2?" · reviewed by FD-1 · tier 2":""}</p>
  <p class="mono" style="font-size:.85rem;color:var(--ink-3)">${x.t}</p>
  <p class="ve"><b>Why:</b> ${x.r}. Falsifiable — check the headers.</p>
  <p style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s esc" style="min-height:44px;font-size:.88rem">Flag this verdict</button><button class="btn btn-s ok" style="min-height:44px;font-size:.88rem;border:none;color:var(--g900)">Confirm ✓</button></p></div>`;}
