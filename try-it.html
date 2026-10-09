@@ -24,7 +24,7 @@
 <main id="main">
 <main class="wrap" id="main">
   <h1>Try the <em>model.</em></h1>
-  <p class="sub">Tap any message to explore genuine pre-computed outputs from the v3 sentiment model (ModernBERT + LoRA, trained by the compounding loop) &mdash; decision + confidence + escalation &mdash; while the live <span class="mono">/decide</span> endpoint serves the production spam-v1 model, which may return a different label set (spam/ham); per-model measured performance is documented in our lab notes &mdash; ask us for the full writeup.</p>
+  <p class="sub">Tap any message to explore genuine pre-computed outputs from the v3 sentiment model (our latest model, trained by the compounding loop) &mdash; decision + confidence + escalation &mdash; while the live <span class="mono">/decide</span> endpoint serves the production spam-v1 model, which may return a different label set (spam/ham); per-model measured performance is documented in our lab notes &mdash; ask us for the full writeup.</p>
   <div class="note"><strong>How to read this.</strong> Confidence is the model's self-reported certainty &mdash; 0.99 means &ldquo;I'm sure&rdquo;, 0.41 means &ldquo;I'm guessing&rdquo;. It is not a calibrated probability: well-calibrated on SMS-style inputs (ECE &asymp; 0.05), less reliable on phishing-style inputs (ECE &asymp; 0.21), and overconfident on sarcastic or adversarial text. Calls below the <strong>0.49 line</strong> are <strong>escalated</strong> &mdash; in the pilot flow, a human reviewer decides, and the reviewer's answer becomes training data. That's the loop.</div>
 
   <div class="group-label">Clear calls &mdash; the model is sure</div>

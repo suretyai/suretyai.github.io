@@ -38,7 +38,7 @@
       <li><strong>Uncertainty:</strong> Error and F1 figures carry 95% bootstrap confidence intervals unless noted otherwise.</li>
       <li><strong>Calibration:</strong> ECE (Expected Calibration Error) reported alongside accuracy &mdash; a confident model that is wrong is worse than an uncertain one.</li>
       <li><strong>What &ldquo;error&rdquo; means:</strong> Wrong automatic decisions on the test set. Escalated items (routed to human review) are reported separately, not hidden inside the error rate.</li>
-      <li><strong>Date of measurement:</strong> The headline numbers below were measured 2026-10-05 (rebuilt from the production model artifact with 2,000 bootstrap resamples). The DistilBERT head-to-head was measured 2026-10-05 on the same seed-42 split.</li>
+      <li><strong>Date of measurement:</strong> The headline numbers below were measured 2026-10-05 (rebuilt from the production model artifact with 2,000 bootstrap resamples). The a transformer baseline head-to-head was measured 2026-10-05 on the same seed-42 split.</li>
     </ul>
     <div class="caveat"><strong>All figures on this page are lab measurements.</strong> They describe how the models behaved on these datasets, not how they will behave on your data.</div>
   </section>
@@ -57,19 +57,19 @@
     </table></div>
     <p class="tbl-note">SMSSpamCollection, stratified split, seed 42 (n=1,116 held out). 95% bootstrap CIs (2,000 resamples). This is the model currently serving the API.</p>
 
-    <h3 class="sub">SMS spam &mdash; DistilBERT <em>head-to-head</em></h3>
-    <p class="lede">We trained a DistilBERT-based spam classifier (distilbert-base-uncased, 3 epochs) and measured it against the production model on the identical 1,116-message held-out set (966 ham, 150 spam).</p>
+    <h3 class="sub">SMS spam &mdash; a transformer baseline <em>head-to-head</em></h3>
+    <p class="lede">We trained a a transformer baseline-based spam classifier (a standard transformer, 3 epochs) and measured it against the production model on the identical 1,116-message held-out set (966 ham, 150 spam).</p>
     <div class="specwrap"><table>
-      <tr><th>Metric</th><th>Production <span style="font-weight:400">(TF-IDF + logistic regression)</span></th><th>DistilBERT</th><th>Delta</th></tr>
+      <tr><th>Metric</th><th>Production <span style="font-weight:400">(TF-IDF + logistic regression)</span></th><th>a transformer baseline</th><th>Delta</th></tr>
       <tr><td class="model">Accuracy</td><td class="num">0.9875</td><td class="num">0.9901</td><td class="num">+0.0026</td></tr>
       <tr><td class="model">Macro-F1</td><td class="num">0.9719</td><td class="num">0.9789</td><td class="num">+0.0070</td></tr>
       <tr><td class="model">Ham F1</td><td class="num">0.9928</td><td class="num">0.9943</td><td class="num">+0.0015</td></tr>
       <tr><td class="model">Spam F1</td><td class="num">0.9510</td><td class="num">0.9635</td><td class="num">+0.0125</td></tr>
     </table></div>
-    <p class="lede">DistilBERT wins on every metric. But the confusion matrices tell the fuller story:</p>
-    <div class="nums">Production: 966/966 ham correct (zero false positives) &nbsp;&middot;&nbsp; 136/150 spam caught (14 missed)<br>DistilBERT: 960/966 ham correct (6 false positives) &nbsp;&middot;&nbsp; 145/150 spam caught (5 missed)</div>
-    <p class="lede">DistilBERT catches 9 more spam messages but newly misflags 6 legitimate ones. Whether that trade is acceptable depends on the cost of a false positive in your use case &mdash; for some, a wrongly flagged legitimate message is worse than a missed spam. We publish both matrices so you can make that call yourself.</p>
-    <div class="caveat"><strong>Deployment status:</strong> DistilBERT is evaluated, not deployed. The int8-quantized model is a 67.4&nbsp;MB file, uses ~269&nbsp;MB of RAM at inference time, and answers in ~5.5&nbsp;ms (p50) instead of the production model's ~2&nbsp;ms. The production API still serves the TF-IDF model.</div>
+    <p class="lede">a transformer baseline wins on every metric. But the confusion matrices tell the fuller story:</p>
+    <div class="nums">Production: 966/966 ham correct (zero false positives) &nbsp;&middot;&nbsp; 136/150 spam caught (14 missed)<br>a transformer baseline: 960/966 ham correct (6 false positives) &nbsp;&middot;&nbsp; 145/150 spam caught (5 missed)</div>
+    <p class="lede">a transformer baseline catches 9 more spam messages but newly misflags 6 legitimate ones. Whether that trade is acceptable depends on the cost of a false positive in your use case &mdash; for some, a wrongly flagged legitimate message is worse than a missed spam. We publish both matrices so you can make that call yourself.</p>
+    <div class="caveat"><strong>Deployment status:</strong> a transformer baseline is evaluated, not deployed. The int8-quantized model is a 67.4&nbsp;MB file, uses ~269&nbsp;MB of RAM at inference time, and answers in ~5.5&nbsp;ms (p50) instead of the production model's ~2&nbsp;ms. The production API still serves the TF-IDF model.</div>
 
     <h3 class="sub">Latency</h3>
     <p class="lede">The production model answers in about <strong>1&ndash;2&nbsp;ms</strong> on commodity CPU (p95 ~1.5&nbsp;ms, measured on the same machine as the accuracy runs). Every API response includes a <span style="font-family:'JetBrains Mono',monospace;font-size:14px">latency_ms</span> field so you can verify this yourself on every call. These are <strong>warm-container</strong> numbers &mdash; the free tier sleeps after ~15 idle minutes, and a cold start can take up to ~90&nbsp;s before the model even runs, which <span style="font-family:'JetBrains Mono',monospace;font-size:14px">latency_ms</span> does not measure. Exclude the first call after idle when comparing.</p>
@@ -105,7 +105,7 @@
       <p>Because a wrong automatic decision is usually more expensive than a review. The API returns a confidence score with every decision and sets <span style="font-family:'JetBrains Mono',monospace">escalated: true</span> when confidence falls below the bar. We would rather tell you &ldquo;I don't know&rdquo; than guess.</p>
 
       <h3>Can I reproduce these numbers?</h3>
-      <p>The datasets are public (SMSSpamCollection, TweetEval), the splits use seed 42, and the methodology is described above. The DistilBERT training used distilbert-base-uncased for 3 epochs.</p>
+      <p>The datasets are public (SMSSpamCollection, TweetEval), the splits use seed 42, and the methodology is described above. The a transformer baseline training used a standard transformer for 3 epochs.</p>
 
       <h3>Do you train on customer data?</h3>
       <p>Not without written consent. Ever. See the <a href="data-handling.html" style="color:var(--green)">data-handling page</a>.</p>
