@@ -135,7 +135,7 @@ footer p{font-family:var(--fm);font-size:.72rem;color:var(--ink-4);line-height:2
   <div class="stats">
     <div class="stat"><div class="n">0.38%</div><div class="l">Loop error</div><div class="c">vs 1.71% baseline · n=2,400 · seed 7</div></div>
     <div class="stat"><div class="n">2,400</div><div class="l">Decisions</div><div class="c">last 7 days · production</div></div>
-    <div class="stat"><div class="n">3</div><div class="l">Escalated</div><div class="c">to human review · avg 41ms</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">Escalated</div><div class="c">to larger model · avg 41ms</div></div>
     <div class="stat"><div class="n">99.2%</div><div class="l">Uptime</div><div class="c">90 days · /health</div></div>
   </div>
   <div class="grid2">
@@ -164,7 +164,8 @@ footer p{font-family:var(--fm);font-size:.72rem;color:var(--ink-4);line-height:2
     <button class="chip on" data-f="all">all</button>
     <button class="chip" data-f="ham">ham</button>
     <button class="chip" data-f="spam">spam</button>
-    <button class="chip" data-f="escalated">escalated</button>
+    <button class="chip" data-f="uncertain">uncertain</button>
+
   </div>
   <div id="verdictList"></div>
 </section>
@@ -219,7 +220,7 @@ footer p{font-family:var(--fm);font-size:.72rem;color:var(--ink-4);line-height:2
   <p class="sub">Binary choices as toggles. Everything else is a form.</p>
   <div class="card"><h2>Model</h2>
     <label class="switch"><input type="checkbox" checked><span class="trk"></span>Nightly retrain from my labels</label>
-    <label class="switch"><input type="checkbox"><span class="trk"></span>Require human review under 0.80 confidence</label>
+    <label class="switch"><input type="checkbox"><span class="trk"></span>Route to larger model under 0.80 confidence</label>
     <label class="switch"><input type="checkbox" checked><span class="trk"></span>Weekly proof digest</label>
   </div>
   <div class="card"><h2>Workspace</h2>
@@ -254,18 +255,19 @@ const V=[
  {v:'ham',c:'0.962',r:'sender reputation + header structure match legitimate mail',t:'Re: invoice #1042 — thanks, paid this morning'},
  {v:'spam',c:'0.988',r:'bulk headers + URL shortener + prize language',t:'WINNER!! claim your prize now — click here'},
  {v:'ham',c:'0.914',r:'known correspondent, consistent thread',t:'Can we move standup to 10:30?'},
- {v:'escalated',c:'0.512',r:'conflicting signals — needs a human',t:'Your account needs verification (suspicious link)'},
+ {v:'ham',c:'0.512',tier:2,unc:true,r:'conflicting signals — both models uncertain',t:'Your account needs verification (suspicious link)'},
  {v:'spam',c:'0.971',r:'template fingerprint matches known campaign',t:'You have (1) unread security alert'},
  {v:'ham',c:'0.945',r:'calendar invite from verified domain',t:'Invite: Q3 planning — Thu 14:00'},
 ];
 const bCls={ham:'b-green',spam:'b-ink',escalated:'b-line'};
-function vcard(x){return `<div class="verdict"><div class="vrow"><div class="grow"><span class="vv">${x.v}</span> <span class="badge ${bCls[x.v]}">${x.v}</span></div></div>
- <p class="vc">confidence ${x.c} · calibrated, seed 7 · 41ms</p>
+function vcard(x){const t2=x.tier===2;
+return `<div class="verdict"><div class="vrow"><div class="grow"><span class="vv">${x.v}</span> <span class="badge ${bCls[x.v]}">${x.v}</span>${x.unc?' <span class="badge b-line">uncertain</span>':''}</div></div>
+ <p class="vc">confidence ${x.c} · calibrated, seed 7 · 41ms${t2?" · reviewed by distilbert-spam-int8-v1 · tier 2":""}</p>
  <p class="mono" style="font-size:.85rem;color:var(--ink-3)">${x.t}</p>
  <p class="ve"><b>Why:</b> ${x.r}. Falsifiable — check the headers.</p>
- <p style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s esc" style="min-height:44px;font-size:.88rem">Escalate to human</button><button class="btn btn-s ok" style="min-height:44px;font-size:.88rem;border:none;color:var(--g900)">Confirm ✓</button></p></div>`;}
-function renderVerdicts(f='all'){$('#verdictList').innerHTML=V.filter(x=>f==='all'||x.v===f).map(vcard).join('')||'<p style="color:var(--ink-3)">No verdicts in this bucket.</p>';bindV();}
-function bindV(){$$('.esc').forEach(b=>b.onclick=()=>toast('Escalated — a human will review within the hour.'));
+ <p style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s esc" style="min-height:44px;font-size:.88rem">Flag this verdict</button><button class="btn btn-s ok" style="min-height:44px;font-size:.88rem;border:none;color:var(--g900)">Confirm ✓</button></p></div>`;}
+function renderVerdicts(f='all'){$('#verdictList').innerHTML=V.filter(x=>f==='all'||(f==='uncertain'?x.unc:x.v===f)).map(vcard).join('')||'<p style="color:var(--ink-3)">No verdicts in this bucket.</p>';bindV();}
+function bindV(){$$('.esc').forEach(b=>b.onclick=()=>toast('Flagged — feeds the learning loop.'));
  $$('.ok').forEach(b=>b.onclick=()=>toast('Confirmed — the loop learns from this label.'));}
 $('#dashVerdicts').innerHTML=V.slice(0,3).map(vcard).join('');bindV();renderVerdicts();
 $$('#vFilters .chip').forEach(c=>c.onclick=()=>{$$('#vFilters .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');renderVerdicts(c.dataset.f);});
