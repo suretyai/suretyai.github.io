@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data handling — Fronesa</title>
+<meta name="description" content="How Fronesa handles pilot customer data: encryption, isolation, no training without consent, deletion on request.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Data handling — Fronesa">
+<meta property="og:description" content="How Fronesa handles pilot customer data: encryption, isolation, no training without consent, deletion on request.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/data-handling.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --ink:#16150f;
+    --mut:#5c5a50;
+    --faint:#8a877a;
+    --line:#e3e0d5;
+    --green:#0f5132;
+    --green-soft:#e8f0ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--paper);color:var(--ink);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
+  .serif{font-family:'Fraunces',Georgia,serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:88px 0 40px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(42px,7vw,68px);line-height:1.08;letter-spacing:-.015em;margin-bottom:20px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:17px;color:var(--mut);max-width:600px;line-height:1.75}
+  .updated{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);
+    letter-spacing:.08em;margin-top:24px}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  section:first-of-type{margin-top:24px}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(24px,3.5vw,32px);line-height:1.2;margin-bottom:14px}
+  p{color:var(--mut);font-size:15.5px;line-height:1.75;margin-bottom:14px;max-width:640px}
+  p strong, li strong{color:var(--ink);font-weight:600}
+  ul{margin:0 0 14px 22px;color:var(--mut);font-size:15.5px;line-height:1.75}
+  li{margin-bottom:8px}
+  a{color:var(--green)}
+
+  .plain{margin-top:8px;padding:18px 22px;border-left:3px solid var(--green);
+    background:#fff;font-size:14.5px;color:var(--mut);line-height:1.7}
+  .plain strong{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:56px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint);margin:0}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:64px 0 32px}
+    section{padding:36px 0}
+    .nav-links a:not(.talk){display:none}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Fronesa &mdash; legal</div>
+    <h1>Your data stays <em>yours.</em></h1>
+    <p>How pilot customer data is handled: encrypted in transit, isolated per pilot, never used for training without your written consent, deleted when you ask.</p>
+    <div class="updated">LAST UPDATED &mdash; OCTOBER 2026</div>
+  </div>
+
+  <section>
+    <h2>1. Encryption &amp; access</h2>
+    <p>All API traffic travels over <strong>HTTPS (TLS)</strong>. Stored pilot data lives on access-controlled infrastructure, reachable only by the small team operating the pilot &mdash; currently the founder and the systems running the service. No shared dashboards, no third-party analytics touching your texts.</p>
+  </section>
+
+  <section>
+    <h2>2. Isolation per pilot</h2>
+    <p>Each pilot customer&rsquo;s data is kept <strong>separate</strong>: separate API keys, separate storage, separate model versions. Your texts never mingle with another customer&rsquo;s, and one pilot&rsquo;s data never improves another pilot&rsquo;s model.</p>
+  </section>
+
+  <section>
+    <h2>3. No training without written consent</h2>
+    <p>This is the rule we hold ourselves to, in writing:</p>
+    <div class="plain"><strong>We do not train any model &mdash; shared or otherwise &mdash; on your data without your explicit written consent.</strong> The learning loop retrains <em>your private version</em> on <em>your resolved escalations</em>, because that&rsquo;s the product you asked for. Nothing of yours flows into anyone else&rsquo;s model, and nothing of yours is used to improve a shared base without you agreeing to it first, in writing.</div>
+    <p style="margin-top:14px">If a pilot arrangement does include shared-model training, it will be spelled out in that pilot&rsquo;s written agreement &mdash; never assumed.</p>
+  </section>
+
+  <section>
+    <h2>4. Human review stays with you</h2>
+    <p>Escalated decisions go to <strong>your own reviewers</strong>, not ours. We don&rsquo;t see the content of your review queue unless the pilot arrangement explicitly says otherwise (for example, a joint debugging session you invite us to).</p>
+  </section>
+
+  <section>
+    <h2>5. Retention &amp; deletion</h2>
+    <ul>
+      <li>Pilot data is kept <strong>only for the duration of the pilot</strong>, plus a short wind-down window for final measurements &mdash; typically 30 days &mdash; unless your agreement says otherwise.</li>
+      <li><strong>Deletion on request, any time:</strong> write to <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a> and we&rsquo;ll delete your pilot data and confirm when it&rsquo;s done.</li>
+      <li>At pilot end, data is deleted unless you explicitly ask us to keep it (for example, to resume later).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>6. What we don&rsquo;t claim</h2>
+    <p>Plainly: we hold <strong>no security certifications</strong> (no SOC 2, no ISO 27001) and make no compliance-certification claims. What&rsquo;s on this page is our operating practice, stated honestly &mdash; not an audited standard. If your procurement needs certifications we don&rsquo;t have, tell us early and we&rsquo;ll say so directly rather than improvising.</p>
+  </section>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>

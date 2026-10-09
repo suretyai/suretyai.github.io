@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — Benchmarks</title>
+<meta name="description" content="Lab-measured benchmarks for Fronesa's decision models: methodology, results, and honest limitations. Public data only, no hype.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Fronesa — Benchmarks">
+<meta property="og:description" content="Lab-measured benchmarks for Fronesa&#x27;s decision models: methodology, results, and honest limitations. Public data only, no hype.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/benchmarks.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;--ink:#16150f;--mut:#5c5a50;--faint:#8a877a;
+    --line:#e3e0d5;--green:#0f5132;--green-soft:#e8f0ea;
+    --red:#b3352b;--amber:#8a5a00;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);
+    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.here{color:var(--ink);font-weight:600}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:88px 0 56px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(42px,7vw,68px);line-height:1.08;letter-spacing:-.015em;margin-bottom:24px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:18px;color:var(--mut);max-width:620px;line-height:1.7}
+  .hero p strong{color:var(--ink)}
+
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .secnum{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    color:var(--faint);margin-bottom:16px;text-transform:uppercase}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(28px,4vw,38px);line-height:1.15;margin-bottom:16px}
+  h2 em{font-style:italic;color:var(--green)}
+  .lede{font-size:16.5px;color:var(--mut);line-height:1.75;max-width:640px;margin-bottom:8px}
+  .lede strong{color:var(--ink)}
+
+  ul.dots{margin:20px 0 8px 18px;color:var(--mut);font-size:15.5px;max-width:680px;line-height:1.7}
+  ul.dots li{margin-bottom:10px}
+  ul.dots strong{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;margin:32px 0 8px;font-size:14px}
+  th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);text-align:left;padding:12px 12px 12px 0;border-bottom:2px solid var(--ink);font-weight:500}
+  td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  td.num{font-family:'JetBrains Mono',monospace;font-size:13px;white-space:nowrap}
+  td.num .ci{font-size:11px;color:var(--faint);font-weight:400}
+  td.model{font-weight:600}
+  tr.us td{background:var(--green-soft)}
+  tr.us td:first-child{border-left:3px solid var(--green);padding-left:10px}
+  .tbl-note{font-size:13px;color:var(--faint);margin:6px 0 24px;line-height:1.6}
+
+  h3.sub{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:500;margin:40px 0 4px}
+  h3.sub em{color:var(--green)}
+  .nums{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:14px 18px;margin:14px 0;display:inline-block;line-height:1.8}
+  .note{font-size:13.5px;color:var(--faint);margin-top:10px;font-style:italic;max-width:640px;line-height:1.65}
+
+  .caveat{margin-top:36px;padding:24px 28px;background:var(--green-soft);
+    border-radius:10px;font-size:14.5px;color:var(--mut);line-height:1.7}
+  .caveat strong{color:var(--ink)}
+  .caveat ul{margin:10px 0 0 18px}
+  .caveat li{margin-bottom:6px}
+
+  .warn{margin-top:36px;padding:24px 28px;background:#faf3e3;border:1px solid #e8d9ae;
+    border-radius:10px;font-size:14.5px;color:var(--mut);line-height:1.7}
+  .warn strong{color:var(--ink)}
+  .warn ul{margin:10px 0 0 18px}
+  .warn li{margin-bottom:6px}
+
+  .faq{margin:30px 0}
+  .faq h3{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:500;margin-bottom:8px}
+  .faq p{color:var(--mut);font-size:15px;line-height:1.7;max-width:660px;margin-bottom:26px}
+  .faq p strong{color:var(--ink)}
+
+  .close{padding:88px 0;text-align:left;border-top:1px solid var(--line)}
+  .close h2{font-size:clamp(32px,5vw,50px);margin-bottom:18px}
+  .close p{color:var(--mut);font-size:17px;margin-bottom:32px;max-width:560px}
+  .btn-solid{background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
+    font-size:15px;border-radius:8px;padding:13px 28px;display:inline-block}
+  .btn-solid:hover{background:var(--green)}
+  .link-arrow{color:var(--green);font-weight:600;font-size:15px;text-decoration:none;margin-left:22px}
+  .link-arrow:hover{text-decoration:underline}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint)}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap;row-gap:10px}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:60px 0 44px}
+    section{padding:48px 0}
+    .nav-links a:not(.talk){display:none}
+    table{font-size:12.5px}
+    td.num{font-size:11.5px}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html" class="here">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Benchmarks</div>
+    <h1>Measured in the lab. Published with the <em>losses.</em></h1>
+    <p>Every number on this page comes from a lab run we did ourselves, on public data, with the methodology written down next to it. Where we're weak, we say so. <strong>Nothing here is a customer result, a production guarantee, or a certification.</strong></p>
+  </div>
+
+  <section id="methodology">
+    <div class="secnum">1 &mdash; Methodology</div>
+    <h2>How we <em>measure.</em></h2>
+    <ul class="dots">
+      <li><strong>Data:</strong> Public datasets only &mdash; SMSSpamCollection for spam, TweetEval subsets for sentiment/hate/offensive. No customer traffic, no private data.</li>
+      <li><strong>Splits:</strong> Stratified train/test splits, fixed seed (42), test sets held out from training.</li>
+      <li><strong>Uncertainty:</strong> Error and F1 figures carry 95% bootstrap confidence intervals unless noted otherwise.</li>
+      <li><strong>Calibration:</strong> ECE (Expected Calibration Error) reported alongside accuracy &mdash; a confident model that is wrong is worse than an uncertain one.</li>
+      <li><strong>What &ldquo;error&rdquo; means:</strong> Wrong automatic decisions on the test set. Escalated items (routed to human review) are reported separately, not hidden inside the error rate.</li>
+      <li><strong>Date of measurement:</strong> The headline numbers below were measured 2026-10-05 (rebuilt from the production model artifact with 2,000 bootstrap resamples). The DistilBERT head-to-head was measured 2026-10-05 on the same seed-42 split.</li>
+    </ul>
+    <div class="caveat"><strong>All figures on this page are lab measurements.</strong> They describe how the models behaved on these datasets, not how they will behave on your data.</div>
+  </section>
+
+  <section id="results">
+    <div class="secnum">2 &mdash; Results</div>
+    <h2>The <em>numbers.</em></h2>
+
+    <h3 class="sub">SMS spam &mdash; production model</h3>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td class="model">Accuracy</td><td class="num">0.9875 <span class="ci">(95% CI 0.9803&ndash;0.9937)</span></td></tr>
+      <tr><td class="model">Error</td><td class="num">1.25% <span class="ci">(95% CI 0.63&ndash;1.97%)</span></td></tr>
+      <tr><td class="model">Macro-F1</td><td class="num">0.9719 <span class="ci">(95% CI 0.9559&ndash;0.9854)</span></td></tr>
+      <tr><td class="model">ECE</td><td class="num">0.046</td></tr>
+    </table>
+    <p class="tbl-note">SMSSpamCollection, stratified split, seed 42 (n=1,116 held out). 95% bootstrap CIs (2,000 resamples). This is the model currently serving the API.</p>
+
+    <h3 class="sub">SMS spam &mdash; DistilBERT <em>head-to-head</em></h3>
+    <p class="lede">We trained a DistilBERT-based spam classifier (distilbert-base-uncased, 3 epochs) and measured it against the production model on the identical 1,116-message held-out set (966 ham, 150 spam).</p>
+    <table>
+      <tr><th>Metric</th><th>Production <span style="font-weight:400">(TF-IDF + logistic regression)</span></th><th>DistilBERT</th><th>Delta</th></tr>
+      <tr><td class="model">Accuracy</td><td class="num">0.9875</td><td class="num">0.9901</td><td class="num">+0.0026</td></tr>
+      <tr><td class="model">Macro-F1</td><td class="num">0.9719</td><td class="num">0.9789</td><td class="num">+0.0070</td></tr>
+      <tr><td class="model">Ham F1</td><td class="num">0.9928</td><td class="num">0.9943</td><td class="num">+0.0015</td></tr>
+      <tr><td class="model">Spam F1</td><td class="num">0.9510</td><td class="num">0.9635</td><td class="num">+0.0125</td></tr>
+    </table>
+    <p class="lede">DistilBERT wins on every metric. But the confusion matrices tell the fuller story:</p>
+    <div class="nums">Production: 966/966 ham correct (zero false positives) &nbsp;&middot;&nbsp; 136/150 spam caught (14 missed)<br>DistilBERT: 960/966 ham correct (6 false positives) &nbsp;&middot;&nbsp; 145/150 spam caught (5 missed)</div>
+    <p class="lede">DistilBERT catches 9 more spam messages but newly misflags 6 legitimate ones. Whether that trade is acceptable depends on the cost of a false positive in your use case &mdash; for some, a wrongly flagged legitimate message is worse than a missed spam. We publish both matrices so you can make that call yourself.</p>
+    <div class="caveat"><strong>Deployment status:</strong> DistilBERT is evaluated, not deployed. The int8-quantized model is a 67.4&nbsp;MB file, uses ~269&nbsp;MB of RAM at inference time, and answers in ~5.5&nbsp;ms (p50) instead of the production model's ~2&nbsp;ms. The production API still serves the TF-IDF model.</div>
+
+    <h3 class="sub">Latency</h3>
+    <p class="lede">The production model answers in about <strong>1&ndash;2&nbsp;ms</strong> on commodity CPU (p95 ~1.5&nbsp;ms, measured on the same machine as the accuracy runs). Every API response includes a <span style="font-family:'JetBrains Mono',monospace;font-size:14px">latency_ms</span> field so you can verify this yourself on every call. These are <strong>warm-container</strong> numbers &mdash; the free tier sleeps after ~15 idle minutes, and a cold start can take up to ~90&nbsp;s before the model even runs, which <span style="font-family:'JetBrains Mono',monospace;font-size:14px">latency_ms</span> does not measure. Exclude the first call after idle when comparing.</p>
+  </section>
+
+  <section id="limitations">
+    <div class="secnum">3 &mdash; Honest limitations</div>
+    <h2>Where we're <em>weak.</em></h2>
+    <div class="warn">
+      <ul>
+        <li><strong>TweetEval hate speech:</strong> Our task-trained classifier performs near chance on the TweetEval hate subset. We do not recommend it for hate-speech detection.</li>
+        <li><strong>TweetEval sentiment:</strong> Below the bar we would ship. Sentiment on short social text is a weak point.</li>
+        <li><strong>TweetEval irony:</strong> Not measured at all. We will not claim coverage we haven't tested.</li>
+        <li><strong>What works:</strong> SMS spam, IMDB reviews, AG News topic classification &mdash; short-to-medium English text with clear class boundaries.</li>
+        <li><strong>Specialists, not generalists:</strong> These models are trained per task. They do not transfer to tasks they weren't trained on. That is a design choice, not a limitation we're hiding: a spam classifier should not be asked to judge sentiment.</li>
+        <li><strong>English only:</strong> All measurements above are on English text. We have no multilingual numbers to show.</li>
+        <li><strong>Lab &ne; your data:</strong> Class balance, slang, and adversarial text all move these numbers. Run your own evaluation &mdash; the API's <span style="font-family:'JetBrains Mono',monospace">escalated</span> flag and confidence scores are there to help you find the boundary.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="secnum">4 &mdash; FAQ</div>
+    <h2>Asked, <em>answered.</em></h2>
+    <div class="faq">
+      <h3>Are these numbers from real customer traffic?</h3>
+      <p>No. All measurements are on public datasets in our lab. We have no customer results to report.</p>
+
+      <h3>Is Fronesa certified for any regulated use?</h3>
+      <p>No. No SOC 2, no ISO 27001, no regulatory certification of any kind. For high-stakes decisions, our API is designed to escalate to human review rather than decide alone &mdash; but the human-review step is your responsibility to staff.</p>
+
+      <h3>Why do you escalate instead of just answering?</h3>
+      <p>Because a wrong automatic decision is usually more expensive than a review. The API returns a confidence score with every decision and sets <span style="font-family:'JetBrains Mono',monospace">escalated: true</span> when confidence falls below the bar. We would rather tell you &ldquo;I don't know&rdquo; than guess.</p>
+
+      <h3>Can I reproduce these numbers?</h3>
+      <p>The datasets are public (SMSSpamCollection, TweetEval), the splits use seed 42, and the methodology is described above. The DistilBERT training used distilbert-base-uncased for 3 epochs.</p>
+
+      <h3>Do you train on customer data?</h3>
+      <p>Not without written consent. Ever. See the <a href="data-handling.html" style="color:var(--green)">data-handling page</a>.</p>
+
+      <h3>Why no competitor comparisons?</h3>
+      <p>We benchmark against our own prior models on identical splits. We don't publish comparisons against other vendors' APIs because we can't control their side of the measurement &mdash; their models, rate limits, and pricing change without notice, and a comparison we can't keep honest isn't worth publishing.</p>
+    </div>
+  </section>
+
+  <section id="how-to-read">
+    <div class="secnum">5 &mdash; How to read this page</div>
+    <div class="caveat">
+      <ul>
+        <li>Figures with &plusmn; are 95% bootstrap confidence intervals.</li>
+        <li>&ldquo;Error&rdquo; means wrong automatic decisions; &ldquo;escalation&rdquo; is the share routed to human review. They are different things and we report both.</li>
+        <li>New claims must meet the multi-seed standard; single-seed results are labeled as such.</li>
+        <li>If a number on this page ever stops reproducing, we want to know &mdash; and we'll correct the page.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="close">
+    <h2 class="serif" style="font-family:'Fraunces',Georgia,serif;font-weight:500">The pitch, <em style="color:var(--green)">honestly.</em></h2>
+    <p>Not the most accurate classifier on day one. The fastest one with a built-in &ldquo;I don't know&rdquo; &mdash; and the only one whose mistakes become training data.</p>
+    <div>
+      <a class="btn-solid" href="mailto:surety.ai@proton.me">Talk to us</a>
+      <a class="link-arrow" href="try-it.html">Try the demo &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>

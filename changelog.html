@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — Changelog</title>
+<meta name="description" content="Every user-visible change to Fronesa, dated and plain.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Fronesa — Changelog">
+<meta property="og:description" content="Every user-visible change to Fronesa, dated and plain.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/changelog.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;--ink:#16150f;--mut:#5c5a50;--faint:#8a877a;
+    --line:#e3e0d5;--green:#0f5132;--green-soft:#e8f0ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);
+    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.here{color:var(--ink);font-weight:600}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:88px 0 48px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(42px,7vw,68px);line-height:1.08;letter-spacing:-.015em;margin-bottom:24px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:18px;color:var(--mut);max-width:620px;line-height:1.7}
+  .hero p code{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 7px}
+
+  .release{padding:56px 0;border-top:1px solid var(--line)}
+  .rel-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+  .rel-head h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(26px,4vw,34px);line-height:1.15}
+  .rel-date{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--faint)}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);border:1px solid var(--green);
+    border-radius:20px;padding:3px 12px}
+  .tag.soon{color:var(--faint);border-color:var(--line)}
+  h3.kind{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--green);margin:28px 0 10px}
+  ul.changes{margin:0 0 0 18px;color:var(--mut);font-size:15.5px;line-height:1.7;max-width:700px}
+  ul.changes li{margin-bottom:9px}
+  ul.changes strong{color:var(--ink)}
+  ul.changes code{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 7px}
+  ul.changes ul{margin:8px 0 4px 18px;font-size:14.5px}
+
+  .note{margin-top:44px;padding:22px 26px;background:var(--green-soft);border-radius:10px;
+    font-size:14px;color:var(--mut);line-height:1.7;max-width:700px}
+  .note strong{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:64px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint)}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap;row-gap:10px}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:60px 0 40px}
+    .release{padding:44px 0}
+    .nav-links a:not(.talk){display:none}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Changelog</div>
+    <h1>Every change, <em>dated and plain.</em></h1>
+    <p>What shipped, when, and what it means for you. Dated entries are live;
+    <code>Unreleased</code> is built but not yet public. No hype, no adjectives —
+    just the record.</p>
+  </div>
+
+  <div class="release">
+    <div class="rel-head">
+      <h2>Unreleased</h2>
+      <span class="tag soon">In progress</span>
+    </div>
+    <h3 class="kind">Added</h3>
+    <ul class="changes">
+      <li><strong><code>fronesa</code> Python SDK 0.1.0</strong> — packaged and tested, pending PyPI publication.</li>
+      <li><strong>Developer Terms</strong>, <strong>Security Policy</strong>, and a <strong>Getting Started</strong> guide — built, pending publish.</li>
+      <li><strong>Public README</strong> for the <code>suretyai/fronesa</code> repository — published.</li>
+    </ul>
+    <h3 class="kind">Changed</h3>
+    <ul class="changes">
+      <li><strong><code>POST /review</code> input hardening</strong> — <code>reviewer_id</code>, <code>decision_id</code> capped at 256 chars, <code>customer_id</code> at 128; <code>reviewed_at</code> must be ISO-8601. Oversized or malformed values get <code>400</code>, not silent truncation.</li>
+      <li><strong>Error responses no longer leak internals</strong> — server exception details replaced with generic messages (details stay in server logs).</li>
+      <li><strong>Try-it demo page: five honesty disclosures added</strong> — the demo page now says what it shows:
+        <ul>
+          <li>the demo model is not the production model;</li>
+          <li>calibration limits stated alongside confidence scores;</li>
+          <li>the human-review loop described as a pilot flow, not present-tense fact;</li>
+          <li>what submitted text is retained, and for how long;</li>
+          <li>that example inputs are curated samples.</li>
+        </ul>
+        All five verified present on the page after the fix.</li>
+      <li><strong>API reference footer cleaned up</strong> — the last stray <code>Developer Terms</code> link was removed from the <code>api-docs.html</code> footer. All 20 site pages now have the same footer links.</li>
+    </ul>
+  </div>
+
+  <div class="release">
+    <div class="rel-head">
+      <h2>1.1.0</h2>
+      <span class="rel-date">2026-10-05</span>
+    </div>
+    <h3 class="kind">Added</h3>
+    <ul class="changes">
+      <li><strong><code>latency_ms</code></strong> in every <code>POST /decide</code> response — measure your own round-trips.</li>
+      <li><strong>Legal pages</strong> — Terms of Service, Privacy Policy, and Data Handling, linked in the site footer.</li>
+    </ul>
+    <h3 class="kind">Changed</h3>
+    <ul class="changes">
+      <li><strong>Benchmarks page rebuilt</strong> — lab-measured numbers only, with honest limitations stated (weak TweetEval sentiment results shown, not hidden).</li>
+    </ul>
+  </div>
+
+  <div class="release">
+    <div class="rel-head">
+      <h2>1.0.0</h2>
+      <span class="rel-date">2026-10-04</span>
+    </div>
+    <h3 class="kind">Added</h3>
+    <ul class="changes">
+      <li><strong>Public launch of the Fronesa decision API</strong> at <code>https://fronsea-api.onrender.com</code>.
+        <ul>
+          <li><code>POST /decide</code> — send text, get back <code>decision</code>, <code>confidence</code>, <code>escalated</code>, <code>version</code>.</li>
+          <li>Bearer-key authentication (<code>401</code> without a valid key).</li>
+          <li><code>GET /health</code>, <code>GET /version</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Public site</strong> at <code>suretyai.github.io/fronesa</code> with a live demo page.</li>
+    </ul>
+    <h3 class="kind">Security</h3>
+    <ul class="changes">
+      <li><strong>100 requests/minute per-key rate limiting</strong> (<code>429</code> + <code>Retry-After</code>).</li>
+      <li><strong>Fail-closed startup</strong> — the API refuses to boot if the model self-check fails.</li>
+      <li>64 KB request body cap; request IDs on every response; uniform JSON errors; no client-facing stack traces.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <strong>A note on dates.</strong> Dated entries shipped that day, verified against
+    commit history and deploy logs. Anything still in flight lives under
+    <em>Unreleased</em> until it actually goes live.
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>

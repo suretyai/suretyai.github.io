@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation — Fronesa</title>
+<meta name="description" content="Every Fronesa doc in one place: getting started, API reference, SDK docs, integration guides, FAQ, changelog, and the Perspective migration guide.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Documentation — Fronesa">
+<meta property="og:description" content="Every Fronesa doc in one place: getting started, API reference, SDK docs, integration guides, FAQ, changelog, and the Perspective migration guide.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/docs.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<!-- DRAFT — not published -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --ink:#16150f;
+    --mut:#5c5a50;
+    --faint:#8a877a;
+    --line:#e3e0d5;
+    --green:#0f5132;
+    --green-soft:#e8f0ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--paper);color:var(--ink);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  a.here{color:var(--ink);font-weight:600}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .draft-banner{background:var(--green-soft);border-bottom:1px solid var(--line);
+    text-align:center;padding:8px 16px;font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.12em;color:var(--green);text-transform:uppercase}
+
+  .hero{padding:88px 0 40px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(42px,7vw,68px);line-height:1.08;letter-spacing:-.015em;margin-bottom:20px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:17px;color:var(--mut);max-width:600px;line-height:1.75}
+  .updated{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);
+    letter-spacing:.08em;margin-top:24px}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  section:first-of-type{margin-top:24px}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(24px,3.5vw,32px);line-height:1.2;margin-bottom:8px}
+  .group-sub{color:var(--faint);font-size:14.5px;margin-bottom:22px}
+  p{color:var(--mut);font-size:15.5px;line-height:1.75;margin-bottom:14px;max-width:640px}
+  p strong{color:var(--ink);font-weight:600}
+  a{color:var(--green)}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .card{border:1px solid var(--line);border-radius:10px;background:#fff;
+    padding:22px;text-decoration:none;display:block;transition:border-color .15s}
+  .card:hover{border-color:var(--green)}
+  .card .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--green);margin-bottom:10px}
+  .card h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:19px;
+    color:var(--ink);letter-spacing:-.01em;margin-bottom:8px}
+  .card p{font-size:14px;color:var(--mut);margin:0;line-height:1.65}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:56px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint);margin:0}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:64px 0 32px}
+    section{padding:36px 0}
+    .cards{grid-template-columns:1fr}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<div class="draft-banner">Draft &mdash; not published</div>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html" class="here">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Docs</div>
+    <h1>Everything, <em>in one place.</em></h1>
+    <p>Guides, references, and migration help. Nine pages, no fluff — start where you are.</p>
+    <div class="updated">UPDATED 2026-10-05</div>
+  </div>
+
+  <section>
+    <h2>Start here</h2>
+    <p class="group-sub">New to Fronesa? These two get you from zero to working.</p>
+    <div class="cards">
+      <a class="card" href="getting-started.html">
+        <div class="tag">Guide</div>
+        <h3>Getting started</h3>
+        <p>From zero to your first API call in five minutes — real requests, real responses.</p>
+      </a>
+      <a class="card" href="migration-perspective.html">
+        <div class="tag">Migration</div>
+        <h3>Perspective migration guide</h3>
+        <p>Orphaned by the Perspective API shutdown? What maps cleanly, and the three gaps to read before you migrate.</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Reference</h2>
+    <p class="group-sub">The full contract, verified against the live spec.</p>
+    <div class="cards">
+      <a class="card" href="api-docs.html">
+        <div class="tag">API</div>
+        <h3>API reference</h3>
+        <p>Interactive reference for <span class="mono">/decide</span>, <span class="mono">/decide/batch</span>, <span class="mono">/review</span>, auth, rate limits, and errors.</p>
+      </a>
+      <a class="card" href="sdk-docs.html">
+        <div class="tag">SDK</div>
+        <h3>Python SDK docs</h3>
+        <p>The <span class="mono">fronesa</span> package: sync and async clients, retries, exception hierarchy — every method verified against the source.</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Integrations</h2>
+    <p class="group-sub">Working code for the three places decisions matter most.</p>
+    <div class="cards">
+      <a class="card" href="integrations/discord.html">
+        <div class="tag">Guide</div>
+        <h3>Discord bot moderation</h3>
+        <p>Score messages in a Discord server with <span class="mono">discord.py</span> — confident spam deleted, gray-area cases sent to your mod queue.</p>
+      </a>
+      <a class="card" href="integrations/forum.html">
+        <div class="tag">Guide</div>
+        <h3>Forum &amp; comment moderation</h3>
+        <p>A generic moderation webhook any CMS can call — the fail-open versus fail-closed decision, documented honestly.</p>
+      </a>
+      <a class="card" href="integrations/tickets.html">
+        <div class="tag">Guide</div>
+        <h3>Support ticket triage</h3>
+        <p>Route support tickets with a decision API — spam filtered, the rest sent to agents with review priority.</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Everything else</h2>
+    <p class="group-sub">Questions, history, and the fine print.</p>
+    <div class="cards">
+      <a class="card" href="faq.html">
+        <div class="tag">FAQ</div>
+        <h3>Frequently asked questions</h3>
+        <p>Twenty-three honest answers: product, technical, pricing, security, and the company. "Not yet" where that's the answer.</p>
+      </a>
+      <a class="card" href="changelog.html">
+        <div class="tag">History</div>
+        <h3>Changelog</h3>
+        <p>What shipped and when — dated entries, traceable numbers, no marketing in the history.</p>
+      </a>
+    </div>
+  </section>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>

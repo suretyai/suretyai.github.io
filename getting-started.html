@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting started — Fronesa</title>
+<meta name="description" content="From zero to your first Fronesa API call in five minutes: API key, /decide, reading the response, handling escalations, rate limits.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Getting started — Fronesa">
+<meta property="og:description" content="From zero to your first Fronesa API call in five minutes: API key, /decide, reading the response, handling escalations, rate limits.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/getting-started.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --ink:#16150f;
+    --mut:#5c5a50;
+    --faint:#8a877a;
+    --line:#e3e0d5;
+    --green:#0f5132;
+    --green-soft:#e8f0ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--paper);color:var(--ink);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
+  .serif{font-family:'Fraunces',Georgia,serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:96px 0 56px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(40px,6.5vw,62px);line-height:1.08;letter-spacing:-.015em;margin-bottom:26px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:18px;color:var(--mut);max-width:560px;line-height:1.7}
+  .hero p strong{color:var(--ink);font-weight:600}
+
+  .codeblock{margin:36px 0;border:1px solid var(--line);border-radius:10px;
+    background:#fff;overflow:hidden}
+  .codeblock .cap{padding:11px 20px;border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);
+    display:flex;justify-content:space-between}
+  .codeblock pre{padding:22px 24px;font-family:'JetBrains Mono',monospace;
+    font-size:13px;line-height:1.8;overflow-x:auto;color:var(--ink)}
+  .codeblock .c{color:var(--faint)}
+  .codeblock .k{color:var(--green)}
+  .codeblock .s{color:#8a5a00}
+
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .secnum{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    color:var(--faint);margin-bottom:16px;text-transform:uppercase}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin-bottom:18px}
+  h2 em{font-style:italic;color:var(--green)}
+  .lede{font-size:17px;color:var(--mut);line-height:1.75;max-width:600px}
+  .lede strong{color:var(--ink);font-weight:600}
+  .lede a, p.body a{color:var(--green);font-weight:600;text-decoration:none}
+  .lede a:hover, p.body a:hover{text-decoration:underline}
+  p.body{font-size:15.5px;color:var(--mut);line-height:1.75;max-width:620px;margin-top:16px}
+  p.body strong{color:var(--ink)}
+  p.body code{font-family:'JetBrains Mono',monospace;font-size:13.5px;background:#fff;
+    border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;margin-top:28px;font-size:14.5px}
+  th{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);text-align:left;
+    padding:10px 14px;border-bottom:1px solid var(--line);font-weight:500}
+  td{padding:13px 14px;border-bottom:1px solid var(--line);color:var(--mut);vertical-align:top}
+  td:first-child{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);white-space:nowrap}
+  td strong{color:var(--ink)}
+
+  .limit-note{margin-top:24px;padding:18px 22px;border-left:3px solid var(--green);
+    background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
+  .limit-note strong{color:var(--ink)}
+  .warn{margin-top:24px;padding:18px 22px;border-left:3px solid #8a5a00;
+    background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
+  .warn strong{color:var(--ink)}
+
+  .close{padding:96px 0;text-align:left;border-top:1px solid var(--line)}
+  .close h2{font-size:clamp(36px,6vw,56px);margin-bottom:20px}
+  .close p{color:var(--mut);font-size:18px;margin-bottom:36px}
+  .hero-ctas{display:flex;gap:22px;margin-top:36px;align-items:center;flex-wrap:wrap}
+  .btn-solid{background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
+    font-size:15px;border-radius:8px;padding:13px 28px}
+  .btn-solid:hover{background:var(--green)}
+  .link-arrow{color:var(--green);font-weight:600;font-size:15px;text-decoration:none}
+  .link-arrow:hover{text-decoration:underline}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint)}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap;row-gap:10px}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:64px 0 44px}
+    section{padding:48px 0}
+    .nav-links a:not(.talk){display:none}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Docs &mdash; getting started</div>
+    <h1>Your first decision<br>in <em>five minutes.</em></h1>
+    <p>One endpoint, one key, one honest contract: every answer carries a confidence and an escalation flag. No SDK to install yet &mdash; plain HTTPS is the whole integration.</p>
+  </div>
+
+  <section id="key">
+    <div class="secnum">Step 1 &mdash; Get an API key</div>
+    <h2>Keys are issued <em>by hand.</em></h2>
+    <p class="lede">There is no self-serve signup yet. Email <strong><a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a></strong> with what you want to decide on, and we will issue you a key. Early access is free; there is no SLA while we build toward paid plans.</p>
+    <div class="limit-note"><strong>Store it like a password.</strong> Put the key in an environment variable (<code class="mono" style="font-size:13px">FRONESA_KEY</code>) or a secrets manager &mdash; never in client-side code, never in a public repo. If a key leaks, tell us and we will rotate it.</div>
+  </section>
+
+  <section id="first-call">
+    <div class="secnum">Step 2 &mdash; Make your first call</div>
+    <h2>One POST, <em>one answer.</em></h2>
+    <p class="lede">Send the text you want judged to <code class="mono" style="font-size:15px">POST /decide</code>. Replace <code class="mono" style="font-size:15px">$FRONESA_KEY</code> with your key.</p>
+
+    <div class="codeblock">
+      <div class="cap"><span>bash — your first decision</span><span></span></div>
+<pre><span class="c">$</span> curl -X POST https://fronsea-api.onrender.com/decide \
+  -H <span class="s">"Authorization: Bearer $FRONESA_KEY"</span> \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -d <span class="s">'{"text": "Free prizes, claim now!"}'</span></pre>
+    </div>
+
+    <div class="codeblock">
+      <div class="cap"><span>200 — what comes back</span><span></span></div>
+<pre>{
+  <span class="k">"decision"</span>: <span class="s">"spam"</span>,
+  <span class="k">"confidence"</span>: <span class="s">0.78</span>,
+  <span class="k">"escalated"</span>: <span class="k">true</span>,
+  <span class="k">"latency_ms"</span>: <span class="s">1.64</span>,
+  <span class="k">"version"</span>: <span class="s">"v1"</span>
+}</pre>
+    </div>
+
+    <p class="body">That is the whole contract. No polling, no callbacks, no sessions &mdash; one request in, one typed answer out.</p>
+  </section>
+
+  <section id="response">
+    <div class="secnum">Step 3 &mdash; Read the response</div>
+    <h2>Five fields. <em>No surprises.</em></h2>
+    <table>
+      <tr><th>Field</th><th>Meaning</th></tr>
+      <tr><td>decision</td><td><strong>The model's answer</strong> &mdash; a label from the model's vocabulary (e.g. <code class="mono" style="font-size:13px">spam</code> / <code class="mono" style="font-size:13px">ham</code>).</td></tr>
+      <tr><td>confidence</td><td><strong>Model confidence</strong>, 0 to 1 — well-calibrated on SMS-style inputs. 0.78 means the model assigns 78% probability to its answer.</td></tr>
+      <tr><td>escalated</td><td><strong>The honest flag.</strong> <code class="mono" style="font-size:13px">true</code> means the model is telling you it is <em>not confident enough to decide</em>. See Step 4.</td></tr>
+      <tr><td>latency_ms</td><td><strong>Server-side time</strong> spent deciding, in milliseconds. Useful for your own latency budgets — but it measures only the model's decision time, <em>not</em> container boot: the first request after ~15 idle minutes can take up to ~90 seconds on the free tier, and that time will not appear in this field.</td></tr>
+      <tr><td>version</td><td><strong>Model version</strong> that answered. It changes when the learning loop ships a better model; log it so you can compare.</td></tr>
+    </table>
+    <p class="body">Every response also carries an <code>X-Request-ID</code> header. Keep it &mdash; if anything looks wrong, send it to us and we can trace exactly what happened.</p>
+  </section>
+
+  <section id="escalations">
+    <div class="secnum">Step 4 &mdash; Handle escalations</div>
+    <h2>When it says <em>&ldquo;I don't know,&rdquo;</em> listen.</h2>
+    <p class="lede"><code class="mono" style="font-size:15px">escalated: true</code> is not an error &mdash; it is the model doing its job. It means confidence fell below the model's threshold, so the answer is a guess you should not act on.</p>
+    <div class="warn"><strong>The rule:</strong> never auto-act on an escalated decision. Route it to a human reviewer (or a stronger model). Acting on an escalated decision as if it were confident defeats the purpose of the flag &mdash; it exists precisely so your system knows when to ask a person.</div>
+    <p class="body">The pattern looks like this: confident decisions flow straight through; escalations land in a review queue. Every resolved escalation is a labeled example &mdash; the same examples the learning loop trains on next week, so your escalation rate should fall over time instead of compounding.</p>
+  </section>
+
+  <section id="limits">
+    <div class="secnum">Step 5 &mdash; Rate limits and errors</div>
+    <h2>100 a minute. <em>Then wait.</em></h2>
+    <p class="lede">Each key gets <strong>100 requests per minute</strong>. Past that you get a <code class="mono" style="font-size:15px">429</code> with a <code class="mono" style="font-size:15px">Retry-After</code> header telling you how many seconds to wait. Back off, don't hammer &mdash; sustained 429s are how keys get reviewed.</p>
+    <table>
+      <tr><th>Status</th><th>Meaning</th></tr>
+      <tr><td>400</td><td>Malformed request &mdash; missing <code class="mono" style="font-size:13px">text</code>, empty string, or not JSON. The body explains.</td></tr>
+      <tr><td>401</td><td>Missing or invalid API key. Check the <code class="mono" style="font-size:13px">Authorization: Bearer</code> header.</td></tr>
+      <tr><td>413</td><td>Request body over the 64&nbsp;KB cap. Shorten the text or split it.</td></tr>
+      <tr><td>429</td><td>Rate limit exceeded. Honor <code class="mono" style="font-size:13px">Retry-After</code> and retry.</td></tr>
+      <tr><td>500</td><td>Our fault, not yours. Bodies never contain stack traces &mdash; send us the <code class="mono" style="font-size:13px">X-Request-ID</code>.</td></tr>
+    </table>
+    <p class="body">Error bodies share one shape &mdash; <code>{"error": "human-readable message", "code": "MACHINE_CODE", "request_id": "..."}</code> &mdash; so one handler covers all of them. <code>text</code> must be 1 to 65,536 characters.</p>
+  </section>
+
+  <section id="python">
+    <div class="secnum">Step 6 &mdash; Python</div>
+    <h2>Ten lines of <em>requests.</em></h2>
+    <p class="lede">No SDK to install yet &mdash; the Python SDK (<code class="mono" style="font-size:15px">pip install fronesa</code>) is packaged but not published. Until then, <code class="mono" style="font-size:15px">requests</code> is the integration.</p>
+
+    <div class="codeblock">
+      <div class="cap"><span>python — decide.py</span><span></span></div>
+<pre><span class="k">import</span> os, time
+<span class="k">import</span> requests
+
+API = <span class="s">"https://fronsea-api.onrender.com"</span>
+KEY = os.environ[<span class="s">"FRONESA_KEY"</span>]  <span class="c"># email surety.ai@proton.me for one</span>
+
+<span class="k">def</span> <span class="s">decide</span>(text):
+    r = requests.post(
+        f<span class="s">"{API}/decide"</span>,
+        headers={<span class="s">"Authorization"</span>: f<span class="s">"Bearer {KEY}"</span>},
+        json={<span class="s">"text"</span>: text},
+        timeout=10,
+    )
+    <span class="k">if</span> r.status_code == <span class="s">401</span>:
+        <span class="k">raise</span> SystemExit(<span class="s">"bad API key — check FRONESA_KEY"</span>)
+    <span class="k">if</span> r.status_code == <span class="s">429</span>:
+        time.sleep(int(r.headers.get(<span class="s">"Retry-After"</span>, <span class="s">60</span>)))
+        <span class="k">return</span> decide(text)  <span class="c"># one polite retry, then back off</span>
+    r.raise_for_status()
+    <span class="k">return</span> r.json()
+
+out = decide(<span class="s">"Free prizes, claim now!"</span>)
+<span class="k">if</span> out[<span class="s">"escalated"</span>]:
+    send_to_human_review(out)   <span class="c"># your queue — never auto-act here</span>
+<span class="k">else</span>:
+    act_on(out[<span class="s">"decision"</span>], out[<span class="s">"confidence"</span>])</pre>
+    </div>
+
+    <div class="limit-note"><strong>Two probes need no key at all.</strong> <code class="mono" style="font-size:13px">GET /health</code> and <code class="mono" style="font-size:13px">GET /version</code> are open &mdash; useful for uptime checks and for seeing which model version is currently serving.</div>
+  </section>
+
+  <div class="close">
+    <h2 class="serif">Stuck? <em>Talk to a human.</em></h2>
+    <p>We issue the keys, so we answer the questions. One inbox, real replies.</p>
+    <div class="hero-ctas">
+      <a class="btn-solid" href="mailto:surety.ai@proton.me">surety.ai@proton.me</a>
+      <a class="link-arrow" href="try-it.html">Or try the demo first &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>

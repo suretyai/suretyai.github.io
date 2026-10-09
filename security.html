@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security policy — Fronesa</title>
+<meta name="description" content="Fronesa's security practices in plain language: API key handling, data protection, vulnerability disclosure, and honest limitations.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Security policy — Fronesa">
+<meta property="og:description" content="Fronesa&#x27;s security practices in plain language: API key handling, data protection, vulnerability disclosure, and honest limitations.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/security.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --ink:#16150f;
+    --mut:#5c5a50;
+    --faint:#8a877a;
+    --line:#e3e0d5;
+    --green:#0f5132;
+    --green-soft:#e8f0ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--paper);color:var(--ink);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
+  .serif{font-family:'Fraunces',Georgia,serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:88px 0 40px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(42px,7vw,68px);line-height:1.08;letter-spacing:-.015em;margin-bottom:20px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:17px;color:var(--mut);max-width:600px;line-height:1.75}
+  .updated{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);
+    letter-spacing:.08em;margin-top:24px}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  section:first-of-type{margin-top:24px}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(24px,3.5vw,32px);line-height:1.2;margin-bottom:14px}
+  p{color:var(--mut);font-size:15.5px;line-height:1.75;margin-bottom:14px;max-width:640px}
+  p strong, li strong{color:var(--ink);font-weight:600}
+  ul{margin:0 0 14px 22px;color:var(--mut);font-size:15.5px;line-height:1.75}
+  li{margin-bottom:8px}
+  a{color:var(--green)}
+  code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--green-soft);
+    padding:1px 6px;border-radius:4px}
+
+  .plain{margin-top:8px;padding:18px 22px;border-left:3px solid var(--green);
+    background:#fff;font-size:14.5px;color:var(--mut);line-height:1.7}
+  .plain strong{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:56px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint);margin:0}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:64px 0 32px}
+    section{padding:36px 0}
+    .nav-links a:not(.talk){display:none}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Fronesa &mdash; legal</div>
+    <h1>Security, <em>stated plainly.</em></h1>
+    <p>How we protect your API keys and your data, what we don&rsquo;t do, and how to tell us if something looks wrong. Written for humans, not auditors &mdash; which also means we say what we <em>haven&rsquo;t</em> done yet.</p>
+    <div class="updated">LAST UPDATED &mdash; OCTOBER 2026</div>
+  </div>
+
+  <section>
+    <h2>1. How API keys work</h2>
+    <p>Every API call carries your key in the <code>Authorization: Bearer</code> header. Requests without a valid key are rejected &mdash; the service <strong>fails closed</strong>: no key, no answer, no partial data.</p>
+    <ul>
+      <li><strong>Rate limited per key:</strong> 100 requests per minute. Over the limit you get HTTP <code>429</code> with a <code>Retry-After</code> header &mdash; back off and retry.</li>
+      <li><strong>Request size capped:</strong> 64 KB maximum body on <code>/decide</code>; oversized requests are rejected before they&rsquo;re read.</li>
+      <li><strong>Keys are isolated:</strong> each pilot gets its own key, and activity is tracked per key so one customer&rsquo;s traffic never affects another&rsquo;s.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>2. If your key leaks</h2>
+    <p>Treat an API key like a password: keep it in server-side environment variables or a secrets manager, never in client-side code, public repos, or chat messages.</p>
+    <div class="plain"><strong>If a key is exposed, write to us immediately</strong> at <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a>. We will revoke the old key and issue a new one &mdash; we add the replacement first and verify it before removing the old one, so there&rsquo;s no downtime. You are responsible for traffic sent with your key until it&rsquo;s revoked, so tell us fast.</div>
+  </section>
+
+  <section>
+    <h2>3. Your data, in brief</h2>
+    <p>The full detail lives on the <a href="data-handling.html">data handling</a> page; the short version for this page:</p>
+    <ul>
+      <li>All API traffic is encrypted in transit over <strong>HTTPS (TLS)</strong>.</li>
+      <li>Stored pilot data sits on access-controlled infrastructure, reachable only by the small team operating the pilot.</li>
+      <li>Each pilot&rsquo;s data is kept <strong>separate</strong> &mdash; separate keys, separate storage, separate model versions.</li>
+      <li><strong>No training on your data without your explicit written consent.</strong> Your private model version retrains on your resolved escalations only; nothing of yours flows into anyone else&rsquo;s model.</li>
+      <li>Deletion on request, any time: <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. What we don&rsquo;t do</h2>
+    <ul>
+      <li><strong>We don&rsquo;t sell your data.</strong> Not to advertisers, not to data brokers, not to anyone.</li>
+      <li><strong>No third-party analytics on your texts.</strong> Your API traffic is never routed through marketing trackers or analytics dashboards.</li>
+      <li><strong>We don&rsquo;t read your review queue.</strong> Escalated decisions go to your own reviewers; we don&rsquo;t see that content unless you explicitly invite us to a joint debugging session.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5. Report a vulnerability</h2>
+    <p>Found something? We want to hear it before anyone else exploits it. Email <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a> with &ldquo;security&rdquo; in the subject line and include:</p>
+    <ul>
+      <li>What you found and where (endpoint, page, or behavior).</li>
+      <li>Steps to reproduce, if you can share them safely.</li>
+      <li>How we can reach you for follow-up questions.</li>
+    </ul>
+    <p>We aim to <strong>acknowledge every report within 2 business days</strong> and keep you updated as we investigate and fix. Please don&rsquo;t publish details before we&rsquo;ve had a chance to fix the issue &mdash; give us a reasonable window and we&rsquo;ll be straight with you about progress.</p>
+    <div class="plain"><strong>Good faith, no retaliation:</strong> we won&rsquo;t pursue legal action against researchers who report vulnerabilities in good faith, stay within the scope of the issue, and don&rsquo;t access, modify, or exfiltrate other customers&rsquo; data. Please don&rsquo;t test against other pilots&rsquo; keys or data &mdash; there&rsquo;s nothing of theirs we want you touching, and nothing of theirs for you to find.</div>
+    <p style="margin-top:14px">We don&rsquo;t run a <strong>bug bounty program</strong> at this stage &mdash; we&rsquo;ll say so plainly rather than imply one. If that changes, this page changes first.</p>
+  </section>
+
+  <section>
+    <h2>6. Infrastructure, honestly</h2>
+    <p>The pilot API runs on <strong>Render&rsquo;s managed platform</strong> (free tier), which handles the underlying OS patching, network isolation, and TLS termination. On top of that we run our own application with the key auth, rate limiting, and request-size caps described above.</p>
+    <p>Honest limitations of the free tier, since they matter to you:</p>
+    <ul>
+      <li>The service can <strong>cold-start</strong> after idle periods &mdash; the first request may take longer.</li>
+      <li>There is <strong>no uptime guarantee</strong> during the pilot (see <a href="terms.html">pilot terms</a>).</li>
+      <li>Resource limits (memory, CPU) are those of the free tier &mdash; which is one reason our pilot limits are set where they are.</li>
+    </ul>
+    <p>Our keys and configuration are stored as <strong>server-side environment variables</strong>, never baked into code or images. Application logs carry request IDs for debugging; they don&rsquo;t carry your API keys or your texts.</p>
+  </section>
+
+  <section>
+    <h2>7. What we don&rsquo;t claim</h2>
+    <p>Plainly, and consistent with our other pages:</p>
+    <ul>
+      <li><strong>No security certifications</strong> &mdash; no SOC 2, no ISO 27001. If your procurement requires them, tell us early and we&rsquo;ll say so directly.</li>
+      <li><strong>No independent penetration test</strong> has been conducted yet. It&rsquo;s on the list as the pilot matures; until then we won&rsquo;t imply otherwise.</li>
+      <li>Everything on this page is our <strong>operating practice, stated honestly</strong> &mdash; not an audited standard. When a practice changes, this page changes with it.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>8. Contact</h2>
+    <p>Security questions or reports: <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a> &mdash; a human reads it, and security mail gets priority.</p>
+  </section>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — Pricing</title>
+<meta name="description" content="Fronesa pricing: pay for decisions, not seats. A free sandbox tier, usage-based growth and scale plans, and custom enterprise terms. Prices in USD.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Fronesa — Pricing">
+<meta property="og:description" content="Fronesa pricing: pay for decisions, not seats. A free sandbox tier, usage-based growth and scale plans, and custom enterprise terms. Prices in USD.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/pricing.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<!-- DRAFT — not published. Pricing is still a draft (see finance/PRICING.md); finalize after first design-partner conversations. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;--ink:#16150f;--mut:#5c5a50;--faint:#8a877a;
+    --line:#e3e0d5;--green:#0f5132;--green-soft:#e8f0ea;
+    --red:#b3352b;--amber:#8a5a00;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);
+    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:960px;margin:0 auto;padding:0 28px}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.here{color:var(--ink);font-weight:600}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:88px 0 48px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(42px,7vw,64px);line-height:1.08;letter-spacing:-.015em;margin-bottom:24px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:18px;color:var(--mut);max-width:640px;line-height:1.7}
+  .hero p strong{color:var(--ink)}
+
+  .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:56px 0 16px}
+  .tier{background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:28px 24px;display:flex;flex-direction:column}
+  .tier.pop{border:2px solid var(--green);position:relative}
+  .tier .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--green);margin-bottom:10px}
+  .tier h3{font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:500;margin-bottom:6px}
+  .tier .price{font-family:'JetBrains Mono',monospace;font-size:15px;margin-bottom:4px;color:var(--ink)}
+  .tier .price .big{font-size:26px;font-weight:500}
+  .tier .per{font-size:13px;color:var(--faint);margin-bottom:18px}
+  .tier ul{list-style:none;margin:0 0 24px;font-size:14px;color:var(--mut);line-height:1.6}
+  .tier ul li{margin-bottom:9px;padding-left:20px;position:relative}
+  .tier ul li::before{content:"–";position:absolute;left:0;color:var(--green)}
+  .tier ul li strong{color:var(--ink);font-weight:500}
+  .tier .cta{margin-top:auto}
+  .tier .cta a{display:block;text-align:center;border:1px solid var(--ink);
+    border-radius:8px;padding:11px 0;font-weight:600;font-size:14px;
+    color:var(--ink);text-decoration:none}
+  .tier .cta a:hover{background:var(--ink);color:var(--paper)}
+  .tier.pop .cta a{background:var(--green);border-color:var(--green);color:#fff}
+  .tier.pop .cta a:hover{background:var(--ink);border-color:var(--ink)}
+  .pop-label{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--green);color:#fff;font-size:11px;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;padding:3px 14px;border-radius:20px}
+
+  .note-line{font-size:13.5px;color:var(--faint);margin:8px 0 40px;font-style:italic;max-width:700px;line-height:1.65}
+
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  .secnum{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    color:var(--faint);margin-bottom:16px;text-transform:uppercase}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(28px,4vw,38px);line-height:1.15;margin-bottom:16px}
+  h2 em{font-style:italic;color:var(--green)}
+  .lede{font-size:16.5px;color:var(--mut);line-height:1.75;max-width:640px;margin-bottom:8px}
+  .lede strong{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;margin:32px 0 8px;font-size:14px}
+  th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);text-align:left;padding:12px 12px 12px 0;border-bottom:2px solid var(--ink);font-weight:500}
+  td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--mut)}
+  td:first-child{color:var(--ink);font-weight:500}
+  .tbl-note{font-size:13px;color:var(--faint);margin:6px 0 24px;line-height:1.6}
+
+  .faq{margin:30px 0}
+  .faq h3{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:500;margin-bottom:8px}
+  .faq p{color:var(--mut);font-size:15px;line-height:1.7;max-width:660px;margin-bottom:26px}
+  .faq p strong{color:var(--ink)}
+  .faq code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#fff;
+    border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--ink)}
+
+  .caveat{margin-top:36px;padding:24px 28px;background:var(--green-soft);
+    border-radius:10px;font-size:14.5px;color:var(--mut);line-height:1.7}
+  .caveat strong{color:var(--ink)}
+  .caveat ul{margin:10px 0 0 18px}
+  .caveat li{margin-bottom:6px}
+
+  .close{padding:88px 0;text-align:left;border-top:1px solid var(--line)}
+  .close h2{font-size:clamp(32px,5vw,50px);margin-bottom:18px}
+  .close p{color:var(--mut);font-size:17px;margin-bottom:32px;max-width:560px}
+  .btn-solid{background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
+    font-size:15px;border-radius:8px;padding:13px 28px;display:inline-block}
+  .btn-solid:hover{background:var(--green)}
+  .link-arrow{color:var(--green);font-weight:600;font-size:15px;text-decoration:none;margin-left:22px}
+  .link-arrow:hover{text-decoration:underline}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px}
+  footer .wrap{display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint)}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap;row-gap:10px}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:900px){
+    .tiers{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:640px){
+    .hero{padding:60px 0 44px}
+    section{padding:48px 0}
+    .nav-links a:not(.talk){display:none}
+    .tiers{grid-template-columns:1fr}
+    table{font-size:12.5px}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html" class="here">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Pricing</div>
+    <h1>Pay for <em>decisions,</em> not seats.</h1>
+    <p>No hidden fees. No per-seat licenses. No usage tiers that punish you for succeeding.
+      One <strong>/decide</strong> call is one decision; the batch endpoint counts per text.
+      Prices in USD.</p>
+  </div>
+
+  <div class="tiers">
+    <div class="tier">
+      <div class="tag">Sandbox</div>
+      <h3>Free</h3>
+      <div class="price"><span class="big">$0</span></div>
+      <div class="per">forever &mdash; but rate-limited. No free lunch.</div>
+      <ul>
+        <li><strong>10,000 decisions</strong> / month</li>
+        <li>1 model version</li>
+        <li>Community support</li>
+        <li>100 req/min rate limit</li>
+      </ul>
+      <div class="cta"><a href="mailto:surety.ai@proton.me">Get a key</a></div>
+    </div>
+
+    <div class="tier">
+      <div class="tag">Growth</div>
+      <h3>Growth</h3>
+      <div class="price"><span class="big">$49</span>/mo + usage</div>
+      <div class="per">$0.50 per 1,000 decisions after the included volume</div>
+      <ul>
+        <li><strong>1M decisions</strong> included / month</li>
+        <li>$0.0005 per decision beyond that</li>
+        <li>Budget-based escalation controls</li>
+        <li>Model version history</li>
+        <li>Email support</li>
+      </ul>
+      <div class="cta"><a href="mailto:surety.ai@proton.me">Talk to us</a></div>
+    </div>
+
+    <div class="tier">
+      <div class="tag">Scale</div>
+      <h3>Scale</h3>
+      <div class="price"><span class="big">$499</span>/mo + usage</div>
+      <div class="per">$0.40 per 1,000 decisions after the included volume</div>
+      <ul>
+        <li><strong>5M decisions</strong> included / month</li>
+        <li>$0.0004 per decision beyond that</li>
+        <li>Per-customer private adapters</li>
+        <li>Audit ledger export</li>
+        <li>SSO</li>
+      </ul>
+      <div class="cta"><a href="mailto:surety.ai@proton.me">Talk to us</a></div>
+    </div>
+
+    <div class="tier">
+      <div class="tag">Enterprise</div>
+      <h3>Custom</h3>
+      <div class="price"><span class="big">Let&rsquo;s talk</span></div>
+      <div class="per">annual contracts</div>
+      <ul>
+        <li>VPC / on-prem deployment</li>
+        <li>Dedicated support</li>
+        <li>Procurement paperwork handled</li>
+      </ul>
+      <div class="cta"><a href="mailto:surety.ai@proton.me">Contact us</a></div>
+    </div>
+  </div>
+
+  <p class="note-line">Paid plans aren&rsquo;t live yet &mdash; there&rsquo;s no self-serve signup.
+    Early access is free while we build toward them; email
+    <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a> for a key.
+    These are our planned rates, finalized after our first design-partner conversations.</p>
+
+  <section>
+    <div class="wrap">
+      <div class="secnum">1 &mdash; What counts</div>
+      <h2>One call, <em>one decision.</em></h2>
+      <p class="lede">Billing follows the API, not a pricing model you have to decode.
+        Escalated decisions cost the same as confident ones &mdash; you pay for the
+        call, not the outcome.</p>
+      <table>
+        <tr><th>Call</th><th>Counts as</th><th>Why</th></tr>
+        <tr><td><strong>POST /decide</strong></td><td>1 decision</td><td>One text in, one decision out.</td></tr>
+        <tr><td><strong>POST /decide/batch</strong></td><td>1 decision per text</td><td>A 100-text batch is 100 decisions &mdash; each text is a full unit of model work.</td></tr>
+        <tr><td><strong>GET /health</strong>, <strong>GET /version</strong></td><td>0 decisions</td><td>Monitoring endpoints are always free.</td></tr>
+      </table>
+      <p class="tbl-note">Rate-limited and rejected calls (401, 429) are never billed.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="secnum">2 &mdash; FAQ</div>
+      <h2>Questions, <em>answered.</em></h2>
+      <div class="faq">
+        <h3>What counts as a decision?</h3>
+        <p>One <code>/decide</code> call is one decision. The batch endpoint
+          (<code>/decide/batch</code>) counts per text &mdash; 100 texts in one
+          batch is 100 decisions. Health and version checks don&rsquo;t count.</p>
+
+        <h3>What happens when I hit a limit?</h3>
+        <p>The API returns <code>429</code> with a <code>Retry-After</code> header &mdash;
+          the same behavior you&rsquo;d see in testing. On paid plans, we&rsquo;ll
+          reach out before your included volume runs dry so you can decide: upgrade,
+          add overage, or wait for the next cycle. Nothing auto-charges.</p>
+
+        <h3>Can I cancel anytime?</h3>
+        <p>Yes. Growth and Scale are month-to-month &mdash; cancel in one email and
+          you&rsquo;re done at the end of the billing cycle. No lock-in, no
+          cancellation fees. Enterprise plans are annual by negotiation.</p>
+
+        <h3>Do escalated decisions cost extra?</h3>
+        <p>No. A decision that goes to human review costs the same as an automatic
+          one. We don&rsquo;t penalize you for the model being honest about uncertainty.</p>
+
+        <h3>Why charge per decision instead of flat?</h3>
+        <p>Because our pitch is that your review queue gets shorter every month as
+          the loop learns. Per-decision pricing means the bill tracks the work we do
+          for you &mdash; and shrinks if the loop does its job well.</p>
+
+        <h3>Is the Sandbox really free?</h3>
+        <p>Yes, but it&rsquo;s genuinely limited: 10,000 decisions a month, one model
+          version, community support, and the standard 100 req/min rate limit.
+          It&rsquo;s for evaluating and prototyping &mdash; production workloads
+          belong on a paid plan.</p>
+      </div>
+
+      <div class="caveat">
+        <strong>The honest fine print.</strong>
+        <ul>
+          <li>These are planned rates while paid plans are still being built &mdash;
+            early access is free, and there&rsquo;s no SLA on any plan &mdash; the API
+            runs on free-tier hosting, and it would be dishonest to sell
+            guarantees on infrastructure we don&rsquo;t control.</li>
+          <li>Willingness to pay per decision is still being validated with design
+            partners; rates may move before launch. We&rsquo;d rather adjust now than
+            surprise you later.</li>
+          <li>No SOC 2, no ISO 27001, no independent pen test yet &mdash; see our
+            security page for what we actually have.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="close">
+    <h2 class="serif" style="font-family:'Fraunces',Georgia,serif;font-weight:500">Start with <em style="color:var(--green)">free.</em></h2>
+    <p>Ten thousand decisions a month, no card required. Email us for a key and
+      see what your own escalation data does.</p>
+    <div>
+      <a class="btn-solid" href="mailto:surety.ai@proton.me">Get a Sandbox key</a>
+      <a class="link-arrow" href="getting-started.html">Read the docs &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>

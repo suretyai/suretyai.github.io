@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perspective API Alternative — Migration Guide | Fronesa</title>
+<meta name="description" content="Migrating from the retiring Perspective API to Fronesa: side-by-side code, what maps cleanly, and the three big mapping gaps — read before you switch.">
+<!-- DRAFT — not published -->
+<!-- PUBLISH GATE: robots flips to "index, follow" at the mid-Oct publish (per marketing/social_tag_spec_2026-10-06.md) -->
+<meta name="robots" content="noindex, nofollow">
+<!-- PUBLISH GATE (robots/datePublished): flip robots to "index, follow", stamp datePublished, and remove the DRAFT marker at publish. Local draft only — nothing published. -->
+
+<!-- SEO / social plumbing — 2026-10-06 spec (gaps 4/5/6: canonical, OG/Twitter, JSON-LD) -->
+<link rel="canonical" href="https://suretyai.github.io/fronesa/migration-perspective.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="From Perspective to Fronesa — Migration Guide">
+<meta property="og:description" content="Migrating from the retiring Perspective API to Fronesa: side-by-side code, what maps cleanly, and the three big mapping gaps — read before you switch.">
+<meta property="og:url" content="https://suretyai.github.io/fronesa/migration-perspective.html">
+<meta property="og:image" content="https://suretyai.github.io/fronesa/og-migration-perspective.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "From Perspective to Fronesa — Migration Guide",
+  "description": "Migrating from the retiring Perspective API to Fronesa: side-by-side code, what maps cleanly, and the three big mapping gaps — read before you switch.",
+  "author": { "@type": "Organization", "name": "Fronesa", "url": "https://suretyai.github.io/fronesa/" },
+  "publisher": { "@type": "Organization", "name": "Fronesa", "url": "https://suretyai.github.io/fronesa/" },
+  "dateModified": "2026-10-06",
+  "datePublished": "[STAMP AT PUBLISH]",
+  "mainEntityOfPage": "https://suretyai.github.io/fronesa/migration-perspective.html",
+  "about": "Migrating from the retiring Perspective API to the Fronesa decision API"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Fronesa return Perspective-style per-attribute toxicity scores?",
+      "acceptedAnswer": { "@type": "Answer",
+        "text": "No. Perspective returned a separate probability for each of 8 attributes; Fronesa returns one decision per text with a confidence score and an escalation flag. Teams migrating must collapse per-attribute rules into a single policy: which attribute outcomes map to block, review, or allow." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Fronesa a drop-in replacement for hate-speech or threat detection?",
+      "acceptedAnswer": { "@type": "Answer",
+        "text": "Not today. Fronesa's production model is a spam/ham text classifier (lab-measured accuracy 0.9875, zero false positives on the held-out split), not a toxicity classifier. IDENTITY_ATTACK, SEVERE_TOXICITY, THREAT, and SEXUALLY_EXPLICIT are not categories it scores." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Fronesa support as many languages as Perspective did?",
+      "acceptedAnswer": { "@type": "Answer",
+        "text": "Not yet. Perspective supported many languages with automatic detection; Fronesa's current model is English-focused." }
+    },
+    {
+      "@type": "Question",
+      "name": "What are Fronesa's rate limits?",
+      "acceptedAnswer": { "@type": "Answer",
+        "text": "100 requests per minute per key on free infrastructure. Perspective's paid tiers served up to 10 requests per second at Google scale." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Fronesa offer an SLA or compliance certifications?",
+      "acceptedAnswer": { "@type": "Answer",
+        "text": "No SLA on free hosting, and Fronesa is not SOC 2 / ISO 27001 certified and has not had an independent penetration test — stated plainly in the developer terms and on the security page." }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --ink:#16150f;
+    --mut:#5c5a50;
+    --faint:#8a877a;
+    --line:#e3e0d5;
+    --green:#0f5132;
+    --green-soft:#e8f0ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--paper);color:var(--ink);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .draft-banner{background:var(--green-soft);border-bottom:1px solid var(--line);
+    text-align:center;padding:8px 16px;font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.12em;color:var(--green);text-transform:uppercase}
+
+  .hero{padding:88px 0 40px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(38px,6.5vw,60px);line-height:1.1;letter-spacing:-.015em;margin-bottom:20px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:17px;color:var(--mut);max-width:600px;line-height:1.75}
+  .updated{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);
+    letter-spacing:.08em;margin-top:24px}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  section:first-of-type{margin-top:24px}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(24px,3.5vw,32px);line-height:1.2;margin-bottom:8px}
+  h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:19px;
+    letter-spacing:-.01em;margin:28px 0 10px}
+  .group-sub{color:var(--faint);font-size:14.5px;margin-bottom:22px}
+  p{color:var(--mut);font-size:15.5px;line-height:1.75;margin-bottom:14px;max-width:640px}
+  p strong, li strong{color:var(--ink);font-weight:600}
+  ul,ol{margin:0 0 14px 22px;color:var(--mut);font-size:15.5px;line-height:1.75}
+  li{margin-bottom:8px}
+  a{color:var(--green)}
+  code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--green-soft);
+    padding:1px 6px;border-radius:4px}
+  pre{background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:18px 20px;overflow-x:auto;margin:0 0 18px}
+  pre code{background:none;padding:0;font-size:13px;line-height:1.7;color:var(--ink)}
+
+  .plain{margin:0 0 18px;padding:18px 22px;border-left:3px solid var(--green);
+    background:#fff;font-size:14.5px;color:var(--mut);line-height:1.7}
+  .plain strong{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;margin:0 0 18px;font-size:14.5px}
+  th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);text-align:left;
+    padding:10px 12px;border-bottom:2px solid var(--line)}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--mut);
+    vertical-align:top;line-height:1.65}
+  td strong{color:var(--ink)}
+
+  .checklist{list-style:none;margin-left:0}
+  .checklist li{padding-left:30px;position:relative;margin-bottom:12px}
+  .checklist li::before{content:"☐";position:absolute;left:2px;color:var(--green);
+    font-size:16px;line-height:1.5}
+
+  .sources{margin-top:24px;padding:18px 22px;background:var(--green-soft);
+    border-radius:8px;font-size:13.5px;color:var(--mut);line-height:1.7}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:56px}
+  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px}
+  footer p{font-size:13px;color:var(--faint);margin:0}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+
+  @media(max-width:640px){
+    .hero{padding:64px 0 32px}
+    section{padding:36px 0}
+    pre{padding:14px}
+  }
+
+  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;min-width:0;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
+</style>
+<style>
+code{overflow-wrap:anywhere}
+pre{overflow-x:auto;max-width:100%}
+@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<div class="draft-banner">Draft &mdash; not published</div>
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Migration guide</div>
+    <h1>From Perspective to <em>Fronesa.</em></h1>
+    <p>Google's Perspective API will no longer be in service after 2026, with no direct migration support and no new signups. (One team's August 2026 setup attempt hit <code>PERMISSION_DENIED</code> on new-project API enablement — see Sources below.) This guide helps former Perspective users evaluate Fronesa as a replacement — including where the mapping breaks, because it does break in places.</p>
+    <div class="updated">DRAFT — LAST UPDATED 2026-10-06</div>
+  </div>
+
+  <div class="plain">
+    <strong>Honest disclaimer up front:</strong> Perspective was a toxicity-scoring API. Fronesa is a decision API with a confidence-scored escalation path. They are not the same shape. This guide shows you exactly where the differences are so you can migrate with your eyes open.
+  </div>
+
+  <section id="what-perspective-gave-you">
+    <h2>1. What Perspective gave you</h2>
+    <p class="group-sub">The shape you're migrating from.</p>
+    <p>Perspective scored comments on toxicity attributes and returned per-attribute probability scores. You set your own thresholds and made your own decisions.</p>
+    <p><strong>Endpoint:</strong> <code>POST https://commentanalysis.googleapis.com/v1alpha1/comments:analyze?key=YOUR_API_KEY</code></p>
+    <p><strong>Request shape:</strong></p>
+<pre><code>{
+  "comment": { "text": "You are terrible" },
+  "requestedAttributes": {
+    "TOXICITY": {},
+    "INSULT": {},
+    "THREAT": {}
+  },
+  "languages": ["en"]
+}</code></pre>
+    <p><strong>Response shape:</strong></p>
+<pre><code>{
+  "attributeScores": {
+    "TOXICITY": {
+      "summaryScore": { "value": 0.87, "type": "PROBABILITY" }
+    },
+    "INSULT": {
+      "summaryScore": { "value": 0.82, "type": "PROBABILITY" }
+    },
+    "THREAT": {
+      "summaryScore": { "value": 0.12, "type": "PROBABILITY" }
+    }
+  },
+  "languages": ["en"]
+}</code></pre>
+    <p><strong>The 8 production attributes</strong> (per public documentation): <code>TOXICITY</code> (rude/disrespectful), <code>SEVERE_TOXICITY</code> (very hateful), <code>IDENTITY_ATTACK</code> (negative toward a group), <code>INSULT</code>, <code>PROFANITY</code>, <code>THREAT</code>, <code>SEXUALLY_EXPLICIT</code>, <code>FLIRTATION</code>.</p>
+    <p><strong>Rate limits (public documentation):</strong> free tier ~1 request/second; paid tier up to ~10 requests/second.</p>
+    <p><strong>What "the score" meant:</strong> a value between 0 and 1 representing the probability that a reader would perceive the comment as having the requested attribute. You decided the threshold (0.7 was a common choice) and the action.</p>
+  </section>
+
+  <section id="what-fronesa-gives-you">
+    <h2>2. What Fronesa gives you instead</h2>
+    <p class="group-sub">The shape you're migrating to.</p>
+    <p>Fronesa makes a <strong>decision</strong> — not a score dump. It returns one verdict plus a confidence and an explicit escalation flag for cases it isn't sure about.</p>
+    <p><strong>Endpoint:</strong> <code>POST https://fronsea-api.onrender.com/decide</code></p>
+    <p><strong>Request shape:</strong></p>
+<pre><code>POST /decide
+Authorization: Bearer &lt;your-key&gt;
+Content-Type: application/json
+
+{"text": "You are terrible"}</code></pre>
+    <p><strong>Response shape:</strong></p>
+<pre><code>{
+  "decision": "spam",
+  "confidence": 0.93,
+  "escalated": false,
+  "version": "spam-v1",
+  "latency_ms": 12
+}</code></pre>
+    <p><strong>Rate limit:</strong> 100 requests/minute per API key (HTTP 429 + <code>Retry-After</code> when exceeded).</p>
+  </section>
+
+  <section id="side-by-side">
+    <h2>3. Side-by-side migration</h2>
+    <p class="group-sub">Python and JavaScript, before and after.</p>
+
+    <h3>Python: threshold on TOXICITY</h3>
+    <p><strong>Before (Perspective):</strong></p>
+<pre><code>import requests
+
+url = "https://commentanalysis.googleapis.com/v1alpha1/comments:analyze"
+payload = {
+    "comment": {"text": text},
+    "requestedAttributes": {"TOXICITY": {}},
+    "languages": ["en"],
+}
+r = requests.post(url, params={"key": API_KEY}, json=payload).json()
+score = r["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
+action = "hide" if score &gt;= 0.7 else "allow"</code></pre>
+    <p><strong>After (Fronesa):</strong></p>
+<pre><code>import requests
+
+r = requests.post(
+    "https://fronsea-api.onrender.com/decide",
+    headers={"Authorization": f"Bearer {FRONESA_KEY}"},
+    json={"text": text},
+).json()
+
+if r["escalated"]:
+    action = "send_to_human_review"
+elif r["decision"] == "spam":
+    action = "hide"
+else:
+    action = "allow"</code></pre>
+    <p><strong>What changed in the logic:</strong> you no longer pick a threshold. Fronesa's model proposes a decision and a confidence; the <code>escalated</code> flag marks items where the model is uncertain, and those go to your human reviewers. Your old threshold logic becomes a routing policy: your policy acts on high-confidence proposals, your reviewers own the escalated ones.</p>
+
+    <h3>JavaScript (comment forms / live chat)</h3>
+    <p><strong>Before (Perspective):</strong> parse <code>attributeScores.TOXICITY.summaryScore.value</code>, compare to your threshold.</p>
+    <p><strong>After (Fronesa):</strong> read <code>decision</code> + <code>escalated</code>. The two-branch pattern:</p>
+<pre><code>const r = await fetch("https://fronsea-api.onrender.com/decide", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${FRONESA_KEY}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ text })
+}).then(x =&gt; x.json());
+
+if (r.escalated) {
+  // show "under review" state, queue for moderator
+} else if (r.decision === "spam") {
+  // hide / reject
+} else {
+  // publish
+}</code></pre>
+  </section>
+
+  <section id="maps-cleanly">
+    <h2>4. What maps cleanly</h2>
+    <p class="group-sub">The parts of the migration that are straightforward.</p>
+    <table>
+      <tr><th>Perspective concept</th><th>Fronesa equivalent</th></tr>
+      <tr><td>One text in, one judgment out</td><td><strong>Same request/response cadence</strong></td></tr>
+      <tr><td>Probabilistic score → your threshold</td><td><strong>Replaced by</strong> <code>decision</code> + <code>confidence</code>; your threshold logic moves to the <code>escalated</code> routing branch</td></tr>
+      <tr><td>"Don't auto-act on uncertain cases"</td><td><strong>First-class:</strong> the <code>escalated</code> flag <em>is</em> the uncertain-cases channel</td></tr>
+      <tr><td>API key auth</td><td><strong>Bearer token auth</strong> (per-key rate limits instead of quota tiers)</td></tr>
+      <tr><td>Batch workloads</td><td><strong><code>POST /decide/batch</code></strong> (up to 100 texts per call)</td></tr>
+      <tr><td>Free to start</td><td><strong>Free tier;</strong> no card required</td></tr>
+    </table>
+  </section>
+
+  <section id="mapping-gaps">
+    <h2>5. The three big mapping gaps</h2>
+    <p class="group-sub">Read this before migrating. Honestly.</p>
+
+    <h3>Gap 1: Per-attribute scores → one decision</h3>
+    <p>Perspective returned a separate probability for each of 8 attributes. If your product logic keys on specific attributes — e.g. auto-block on <code>THREAT ≥ 0.8</code> but only warn on <code>PROFANITY ≥ 0.6</code> — <strong>there is no equivalent in Fronesa today.</strong> We return one <code>decision</code> per text. You will need to collapse your per-attribute rules into a single policy: which attribute outcomes map to "block", which to "review", which to "allow". For some teams this is a simplification; for others it's a real loss of granularity.</p>
+
+    <h3>Gap 2: Toxicity categories ≠ our current model</h3>
+    <p>Our production model is a spam/ham text classifier with measured lab performance (accuracy 0.9875, zero false positives on the held-out split). It is <strong>not</strong> a toxicity classifier. <code>IDENTITY_ATTACK</code>, <code>SEVERE_TOXICITY</code>, <code>THREAT</code>, <code>SEXUALLY_EXPLICIT</code> and friends are not categories we score. If your core use case is hate-speech or threat detection rather than spam/abuse triage, Fronesa is not a drop-in replacement today — and we won't pretend it is.</p>
+
+    <h3>Gap 3: Languages and scale</h3>
+    <p>Perspective supported many languages with automatic detection. Fronesa's current model is English-focused. Perspective also served at Google scale with paid tiers up to 10 req/s; our rate limit is 100 requests/minute per key on free infrastructure. If you need many languages or thousands of requests per second, we are not there yet.</p>
+  </section>
+
+  <section id="checklist">
+    <h2>6. Migration checklist</h2>
+    <p class="group-sub">Eight steps, in order.</p>
+    <ul class="checklist">
+      <li><strong>Inventory your Perspective usage.</strong> List every <code>requestedAttributes</code> value you use and the threshold + action for each. (You can't map what you haven't listed.)</li>
+      <li><strong>Collapse per-attribute rules to one policy.</strong> Decide which attribute outcomes = block, which = human review, which = allow. The gray-area ones map to Fronesa's <code>escalated</code> path.</li>
+      <li><strong>Audit your language mix.</strong> If non-English traffic is material, Fronesa is not ready for you yet — check back or talk to us.</li>
+      <li><strong>Rewire the decision branch.</strong> Replace <code>score &gt;= threshold</code> with the three-way <code>escalated / decision</code> routing shown above.</li>
+      <li><strong>Wire up the review queue.</strong> The <code>escalated</code> flag only helps if someone reads the queue. Assign reviewers before you switch traffic.</li>
+      <li><strong>Run shadow mode for 2 weeks.</strong> Send the same traffic to Fronesa and log decisions alongside your existing logic. Compare disagreement rates before cutting over.</li>
+      <li><strong>Update your own users' copy.</strong> If your UI said "checked by Perspective" or showed toxicity scores, update it. Don't present Fronesa decisions as Perspective scores.</li>
+      <li><strong>Check your rate-limit headroom.</strong> 100 req/min per key; request more keys or talk to us if you're above that.</li>
+    </ul>
+  </section>
+
+  <section id="honest-limitations">
+    <h2>7. Honest limitations</h2>
+    <p class="group-sub">What we don't claim.</p>
+    <ul>
+      <li>We don't cover as many languages as Perspective did — <strong>English-focused today</strong>.</li>
+      <li>We don't return per-attribute toxicity scores — <strong>one decision, one confidence, one escalation flag</strong>.</li>
+      <li>We don't have a decade of production history — <strong>our numbers are lab-measured, clearly labeled as such</strong>, on a held-out spam dataset.</li>
+      <li>We don't offer an <strong>SLA on free hosting</strong> — and we say so plainly in our developer terms.</li>
+      <li>We are <strong>not SOC 2 / ISO 27001 certified</strong> and have not had an independent pen test — documented on our security page.</li>
+    </ul>
+    <p>What we do offer: a decision API designed to learn from your reviewers' corrections over time, an escalation path that keeps humans in the loop for the hard cases, and honest numbers about what the model can and can't do.</p>
+  </section>
+
+  <section id="who-this-is-for">
+    <h2>8. Who this is for</h2>
+    <p class="group-sub">Is this guide for you?</p>
+    <p>This guide is aimed at teams orphaned by the Perspective shutdown: publishers, community platforms, comment-section operators, and researchers who used the API's free tier for toxicity scoring. If your workload was "score this comment, apply my threshold," sections 3–4 get you migrated. If your workload depended on specific attributes or non-English languages, section 5 tells you honestly whether to wait.</p>
+    <h3>Also migrating from Azure?</h3>
+    <p>If you're coming from Azure rather than Perspective, watch out: Azure's Content Safety <em>custom categories (standard)</em> API is being retired, and Microsoft's recommended replacement — Foundry's "custom text classification" (Azure Language) — is itself scheduled for retirement on <strong>March 31, 2029</strong>. The Azure Language Studio portal retires even sooner, on <strong>March 20, 2027</strong>. So the official path is a forced migration now followed by a second forced migration within ~2.5 years. We cover both Azure retirements — and what actually replaces the dead-simple "define your own categories" workflow — in an upcoming deep-dive (week of December 15). If you want a custom-policy classifier without a studio project to babysit and no 2029 re-migration, <a href="mailto:surety.ai@proton.me">talk to us</a>.</p>
+    <div class="sources">
+      <strong>Sources:</strong> Perspective API public documentation (endpoint shape, attribute list, rate limits); the <a href="https://perspectiveapi.com/">official sunset announcement</a> (&ldquo;The API will no longer be in service after 2026&rdquo; — no direct migration support; service active until December 31, 2026; usage and quota requests until February 2026); the <a href="https://github.com/virtuamakers/virtuamakers.github.io/commit/8fead0375879c260d8a20eb9498495f4ddde525c">virtuamakers commit</a> (Aug 2026) documenting a <code>PERMISSION_DENIED</code> on new-project API enablement even under project-Owner credentials; the Tisane Labs write-up; Fronesa OpenAPI spec and lab eval artifacts.
+    </div>
+  </section>
+</div>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
+</body>
+</html>
