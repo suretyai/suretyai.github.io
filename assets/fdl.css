@@ -85,6 +85,9 @@ p:last-child{margin-bottom:0}
 
 /* ---------- 6. Hero ---------- */
 .hero{padding-block:clamp(4rem,10vw,7rem) clamp(3rem,6vw,4.5rem)}
+.hero h1{font-family:var(--font-display);font-weight:700;
+  font-size:clamp(2.6rem,11vw,5.5rem);overflow-wrap:break-word;line-height:1;
+  letter-spacing:-0.02em;text-wrap:balance}
 .hero .meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
 .tag{font-family:var(--font-mono);font-size:.74rem;font-weight:600;
   padding:8px 14px;border:1px solid var(--paper-300);border-radius:var(--r-full);
