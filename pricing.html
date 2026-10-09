@@ -12,150 +12,16 @@
 <meta property="og:url" content="https://suretyai.github.io/fronesa/pricing.html">
 <meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
 <meta name="twitter:card" content="summary">
-<!-- DRAFT — not published. Pricing is still a draft (see finance/PRICING.md); finalize after first design-partner conversations. -->
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#fbfaf7;--ink:#16150f;--mut:#5c5a50;--faint:#8a877a;
-    --line:#e3e0d5;--green:#0f5132;--green-soft:#e8f0ea;
-    --red:#b3352b;--amber:#8a5a00;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);
-    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
-  ::selection{background:#d9e8dd}
-  .wrap{max-width:960px;margin:0 auto;padding:0 28px}
-
-  nav{border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
-  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
-    text-decoration:none;color:var(--ink)}
-  .nav-links{display:flex;gap:26px;align-items:center}
-  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a.here{color:var(--ink);font-weight:600}
-  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
-    border-radius:7px;padding:7px 16px}
-  .nav-links a.talk:hover{background:var(--green);color:#fff}
-
-  .hero{padding:88px 0 48px}
-  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--green);margin-bottom:28px}
-  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
-    font-size:clamp(42px,7vw,64px);line-height:1.08;letter-spacing:-.015em;margin-bottom:24px}
-  .hero h1 em{font-style:italic;color:var(--green)}
-  .hero p{font-size:18px;color:var(--mut);max-width:640px;line-height:1.7}
-  .hero p strong{color:var(--ink)}
-
-  .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:56px 0 16px}
-  .tier{background:#fff;border:1px solid var(--line);border-radius:12px;
-    padding:28px 24px;display:flex;flex-direction:column}
-  .tier.pop{border:2px solid var(--green);position:relative}
-  .tier .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--green);margin-bottom:10px}
-  .tier h3{font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:500;margin-bottom:6px}
-  .tier .price{font-family:'JetBrains Mono',monospace;font-size:15px;margin-bottom:4px;color:var(--ink)}
-  .tier .price .big{font-size:26px;font-weight:500}
-  .tier .per{font-size:13px;color:var(--faint);margin-bottom:18px}
-  .tier ul{list-style:none;margin:0 0 24px;font-size:14px;color:var(--mut);line-height:1.6}
-  .tier ul li{margin-bottom:9px;padding-left:20px;position:relative}
-  .tier ul li::before{content:"–";position:absolute;left:0;color:var(--green)}
-  .tier ul li strong{color:var(--ink);font-weight:500}
-  .tier .cta{margin-top:auto}
-  .tier .cta a{display:block;text-align:center;border:1px solid var(--ink);
-    border-radius:8px;padding:11px 0;font-weight:600;font-size:14px;
-    color:var(--ink);text-decoration:none}
-  .tier .cta a:hover{background:var(--ink);color:var(--paper)}
-  .tier.pop .cta a{background:var(--green);border-color:var(--green);color:#fff}
-  .tier.pop .cta a:hover{background:var(--ink);border-color:var(--ink)}
-  .pop-label{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
-    background:var(--green);color:#fff;font-size:11px;font-weight:600;
-    letter-spacing:.08em;text-transform:uppercase;padding:3px 14px;border-radius:20px}
-
-  .note-line{font-size:13.5px;color:var(--faint);margin:8px 0 40px;font-style:italic;max-width:700px;line-height:1.65}
-
-  section{padding:56px 0;border-top:1px solid var(--line)}
-  .secnum{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
-    color:var(--faint);margin-bottom:16px;text-transform:uppercase}
-  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
-    font-size:clamp(28px,4vw,38px);line-height:1.15;margin-bottom:16px}
-  h2 em{font-style:italic;color:var(--green)}
-  .lede{font-size:16.5px;color:var(--mut);line-height:1.75;max-width:640px;margin-bottom:8px}
-  .lede strong{color:var(--ink)}
-
-  table{width:100%;border-collapse:collapse;margin:32px 0 8px;font-size:14px}
-  th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--faint);text-align:left;padding:12px 12px 12px 0;border-bottom:2px solid var(--ink);font-weight:500}
-  td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--mut)}
-  td:first-child{color:var(--ink);font-weight:500}
-  .tbl-note{font-size:13px;color:var(--faint);margin:6px 0 24px;line-height:1.6}
-
-  .faq{margin:30px 0}
-  .faq h3{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:500;margin-bottom:8px}
-  .faq p{color:var(--mut);font-size:15px;line-height:1.7;max-width:660px;margin-bottom:26px}
-  .faq p strong{color:var(--ink)}
-  .faq code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#fff;
-    border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--ink)}
-
-  .caveat{margin-top:36px;padding:24px 28px;background:var(--green-soft);
-    border-radius:10px;font-size:14.5px;color:var(--mut);line-height:1.7}
-  .caveat strong{color:var(--ink)}
-  .caveat ul{margin:10px 0 0 18px}
-  .caveat li{margin-bottom:6px}
-
-  .close{padding:88px 0;text-align:left;border-top:1px solid var(--line)}
-  .close h2{font-size:clamp(32px,5vw,50px);margin-bottom:18px}
-  .close p{color:var(--mut);font-size:17px;margin-bottom:32px;max-width:560px}
-  .btn-solid{background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
-    font-size:15px;border-radius:8px;padding:13px 28px;display:inline-block}
-  .btn-solid:hover{background:var(--green)}
-  .link-arrow{color:var(--green);font-weight:600;font-size:15px;text-decoration:none;margin-left:22px}
-  .link-arrow:hover{text-decoration:underline}
-
-  footer{border-top:1px solid var(--line);padding:32px 0 48px}
-  footer .wrap{display:flex;justify-content:space-between;
-    align-items:center;flex-wrap:wrap;gap:14px}
-  footer p{font-size:13px;color:var(--faint)}
-  footer .fl{display:flex;gap:22px;flex-wrap:wrap;row-gap:10px}
-  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
-  footer .fl a:hover{color:var(--ink)}
-
-  @media(max-width:900px){
-    .tiers{grid-template-columns:repeat(2,1fr)}
-  }
-  @media(max-width:640px){
-    .hero{padding:60px 0 44px}
-    section{padding:48px 0}
-    .nav-links a:not(.talk){display:none}
-    .tiers{grid-template-columns:1fr}
-    table{font-size:12.5px}
-  }
-
-  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
-</style>
-<style>
-code{overflow-wrap:anywhere}
-pre{overflow-x:auto;max-width:100%}
-@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fdl.css">
 </head>
 <body>
-
-<nav><div class="wrap">
-  <a class="wordmark" href="index.html">Fronesa</a>
-  <div class="nav-links">
-    <a href="try-it.html">Demo</a>
-    <a href="benchmarks.html">Benchmarks</a>
-    <a href="docs.html">Docs</a>
-    <a href="pricing.html" class="here">Pricing</a>
-    <a href="about.html">About</a>
-    <a class="talk" href="getting-started.html">Get started</a>
-  </div>
-</div></nav>
-
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="brandmark" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><a class="nl" href="/try-it.html">Demo</a><a class="nl" href="/benchmarks.html">Benchmarks</a><a class="nl" href="/docs.html">Docs</a><a class="nl" href="/pricing.html">Pricing</a><a class="nl" href="/blog/">Blog</a><a class="nl" href="/about.html">About</a></div></header>
+<main id="main">
 <div class="wrap">
 
   <div class="hero">
@@ -237,12 +103,12 @@ pre{overflow-x:auto;max-width:100%}
       <p class="lede">Billing follows the API, not a pricing model you have to decode.
         Escalated decisions cost the same as confident ones &mdash; you pay for the
         call, not the outcome.</p>
-      <table>
+      <div class="specwrap"><table>
         <tr><th>Call</th><th>Counts as</th><th>Why</th></tr>
         <tr><td><strong>POST /decide</strong></td><td>1 decision</td><td>One text in, one decision out.</td></tr>
         <tr><td><strong>POST /decide/batch</strong></td><td>1 decision per text</td><td>A 100-text batch is 100 decisions &mdash; each text is a full unit of model work.</td></tr>
         <tr><td><strong>GET /health</strong>, <strong>GET /version</strong></td><td>0 decisions</td><td>Monitoring endpoints are always free.</td></tr>
-      </table>
+      </table></div>
       <p class="tbl-note">Rate-limited and rejected calls (401, 429) are never billed.</p>
     </div>
   </section>
@@ -311,11 +177,7 @@ pre{overflow-x:auto;max-width:100%}
     </div>
   </div>
 </div>
-
-<footer><div class="wrap">
-  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
-  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
-</div></footer>
-
+</main>
+<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.<br>Every number on this site is measured; nothing is promised.</p></div></footer>
 </body>
 </html>

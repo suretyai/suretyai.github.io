@@ -12,150 +12,16 @@
 <meta property="og:url" content="https://suretyai.github.io/fronesa/sdk-docs.html">
 <meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
 <meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#fbfaf7;
-    --ink:#16150f;
-    --mut:#5c5a50;
-    --faint:#8a877a;
-    --line:#e3e0d5;
-    --green:#0f5132;
-    --green-soft:#e8f0ea;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Inter',-apple-system,sans-serif;
-    background:var(--paper);color:var(--ink);
-    line-height:1.65;-webkit-font-smoothing:antialiased;
-  }
-  ::selection{background:#d9e8dd}
-  .wrap{max-width:720px;margin:0 auto;padding:0 28px}
-  .serif{font-family:'Fraunces',Georgia,serif}
-  .mono{font-family:'JetBrains Mono',monospace}
-
-  nav{border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:960px}
-  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
-    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
-  .nav-links{display:flex;gap:26px;align-items:center}
-  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
-    border-radius:7px;padding:7px 16px}
-  .nav-links a.talk:hover{background:var(--green);color:#fff}
-
-  .hero{padding:96px 0 56px}
-  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--green);margin-bottom:28px}
-  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
-    font-size:clamp(40px,6.5vw,62px);line-height:1.08;letter-spacing:-.015em;margin-bottom:26px}
-  .hero h1 em{font-style:italic;color:var(--green)}
-  .hero p{font-size:18px;color:var(--mut);max-width:560px;line-height:1.7}
-  .hero p strong{color:var(--ink);font-weight:600}
-
-  .codeblock{margin:36px 0;border:1px solid var(--line);border-radius:10px;
-    background:#fff;overflow:hidden}
-  .codeblock .cap{padding:11px 20px;border-bottom:1px solid var(--line);
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);
-    display:flex;justify-content:space-between}
-  .codeblock pre{padding:22px 24px;font-family:'JetBrains Mono',monospace;
-    font-size:13px;line-height:1.8;overflow-x:auto;color:var(--ink)}
-  .codeblock .c{color:var(--faint)}
-  .codeblock .k{color:var(--green)}
-  .codeblock .s{color:#8a5a00}
-
-  section{padding:64px 0;border-top:1px solid var(--line)}
-  .secnum{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
-    color:var(--faint);margin-bottom:16px;text-transform:uppercase}
-  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
-    font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin-bottom:18px}
-  h2 em{font-style:italic;color:var(--green)}
-  h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:22px;
-    letter-spacing:-.01em;margin:36px 0 12px}
-  .lede{font-size:17px;color:var(--mut);line-height:1.75;max-width:600px}
-  .lede strong{color:var(--ink);font-weight:600}
-  .lede a, p.body a{color:var(--green);font-weight:600;text-decoration:none}
-  .lede a:hover, p.body a:hover{text-decoration:underline}
-  p.body{font-size:15.5px;color:var(--mut);line-height:1.75;max-width:620px;margin-top:16px}
-  p.body strong{color:var(--ink)}
-  p.body code, td code, li code{font-family:'JetBrains Mono',monospace;font-size:13.5px;background:#fff;
-    border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--ink)}
-  .wrap li{font-size:15.5px;color:var(--mut);line-height:1.75;max-width:620px;margin-top:10px;margin-left:20px}
-  .wrap li strong{color:var(--ink)}
-
-  table{width:100%;border-collapse:collapse;margin-top:28px;font-size:14.5px}
-  th{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--faint);text-align:left;
-    padding:10px 14px;border-bottom:1px solid var(--line);font-weight:500}
-  td{padding:13px 14px;border-bottom:1px solid var(--line);color:var(--mut);vertical-align:top}
-  td:first-child{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);white-space:nowrap}
-  td strong{color:var(--ink)}
-
-  .limit-note{margin-top:24px;padding:18px 22px;border-left:3px solid var(--green);
-    background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
-  .limit-note strong{color:var(--ink)}
-  .warn{margin-top:24px;padding:18px 22px;border-left:3px solid #8a5a00;
-    background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
-  .warn strong{color:var(--ink)}
-  .soon{margin-top:24px;padding:18px 22px;border:1px dashed var(--faint);
-    border-radius:10px;background:#fff;font-size:14px;color:var(--mut);line-height:1.7}
-  .soon strong{color:var(--ink)}
-
-  .tree{margin:28px 0;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
-  .tree pre{padding:22px 24px;font-family:'JetBrains Mono',monospace;font-size:13px;
-    line-height:1.9;overflow-x:auto;color:var(--ink)}
-  .tree .b{color:var(--green);font-weight:500}
-
-  .close{padding:96px 0;text-align:left;border-top:1px solid var(--line)}
-  .close h2{font-size:clamp(36px,6vw,56px);margin-bottom:20px}
-  .close p{color:var(--mut);font-size:18px;margin-bottom:36px}
-  .hero-ctas{display:flex;gap:22px;margin-top:36px;align-items:center;flex-wrap:wrap}
-  .btn-solid{background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
-    font-size:15px;border-radius:8px;padding:13px 28px}
-  .btn-solid:hover{background:var(--green)}
-  .link-arrow{color:var(--green);font-weight:600;font-size:15px;text-decoration:none}
-  .link-arrow:hover{text-decoration:underline}
-
-  footer{border-top:1px solid var(--line);padding:32px 0 48px}
-  footer .wrap{max-width:960px;display:flex;justify-content:space-between;
-    align-items:center;flex-wrap:wrap;gap:14px}
-  footer p{font-size:13px;color:var(--faint)}
-  footer .fl{display:flex;gap:22px;flex-wrap:wrap;row-gap:10px}
-  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
-  footer .fl a:hover{color:var(--ink)}
-
-  @media(max-width:640px){
-    .hero{padding:64px 0 44px}
-    section{padding:48px 0}
-    .nav-links a:not(.talk){display:none}
-  }
-
-  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
-</style>
-<style>
-code{overflow-wrap:anywhere}
-pre{overflow-x:auto;max-width:100%}
-@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fdl.css">
 </head>
 <body>
-
-<nav><div class="wrap">
-  <a class="wordmark" href="index.html">Fronesa</a>
-  <div class="nav-links">
-    <a href="try-it.html">Demo</a>
-    <a href="benchmarks.html">Benchmarks</a>
-    <a href="docs.html">Docs</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="about.html">About</a>
-    <a class="talk" href="getting-started.html">Get started</a>
-  </div>
-</div></nav>
-
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="brandmark" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><a class="nl" href="/try-it.html">Demo</a><a class="nl" href="/benchmarks.html">Benchmarks</a><a class="nl" href="/docs.html">Docs</a><a class="nl" href="/pricing.html">Pricing</a><a class="nl" href="/blog/">Blog</a><a class="nl" href="/about.html">About</a></div></header>
+<main id="main">
 <div class="wrap">
   <div class="hero">
     <div class="kicker">Docs &mdash; Python SDK 0.2.0</div>
@@ -204,7 +70,7 @@ result = client.decide(<span class="s">"Free prizes, claim now!"</span>)
 
     <h3><code class="mono">Client</code></h3>
     <p class="body"><code class="mono" style="font-size:14px">Client(api_key, base_url=..., timeout=..., max_retries=..., backoff_base=..., backoff_max=..., pool_connections=..., pool_maxsize=...)</code>. Constructor arguments:</p>
-    <table>
+    <div class="specwrap"><table>
       <tr><th>Parameter</th><th>Meaning</th></tr>
       <tr><td>api_key</td><td><strong>Required.</strong> Your Fronesa API key, sent as <code>Authorization: Bearer</code>. Empty or missing raises <code>ValueError</code> immediately &mdash; no request is made.</td></tr>
       <tr><td>base_url</td><td>API base URL. Default <code>https://fronsea-api.onrender.com</code>. A trailing slash is stripped for you.</td></tr>
@@ -214,7 +80,7 @@ result = client.decide(<span class="s">"Free prizes, claim now!"</span>)
       <tr><td>backoff_max</td><td>Upper bound for any single backoff sleep, including a server-sent <code>Retry-After</code> (default <code>30.0</code>). Protects against a mistaken or malicious huge <code>Retry-After</code> header. Must be positive.</td></tr>
       <tr><td>pool_connections</td><td>Number of connection pools cached by the underlying session (default <code>10</code>).</td></tr>
       <tr><td>pool_maxsize</td><td>Max connections per pool &mdash; raise for threaded workloads (default <code>10</code>).</td></tr>
-    </table>
+    </table></div>
 
     <h3><code class="mono">Client.decide(text)</code></h3>
     <p class="body">Posts to <code>POST /decide</code> and returns a <code>Decision</code>. <code>text</code> must be a non-empty string &mdash; an empty string raises <code>ValueError</code> locally without touching the network. If the server's response is malformed (missing fields, wrong types), the client raises <code>APIError</code> instead of handing you a half-built object.</p>
@@ -224,13 +90,13 @@ result = client.decide(<span class="s">"Free prizes, claim now!"</span>)
 
     <h3><code class="mono">Decision</code></h3>
     <p class="body">A frozen dataclass &mdash; one typed answer. Fields:</p>
-    <table>
+    <div class="specwrap"><table>
       <tr><th>Field</th><th>Meaning</th></tr>
       <tr><td>decision</td><td><strong>The model's answer</strong> &mdash; a label string (e.g. <code>spam</code> / <code>ham</code>).</td></tr>
       <tr><td>confidence</td><td><strong>Model confidence</strong>, a float in [0, 1] — well-calibrated on SMS-style inputs. 0.78 means the model assigns 78% probability to its answer.</td></tr>
       <tr><td>escalated</td><td><strong>The honest flag.</strong> <code>True</code> means the model is not confident enough to decide &mdash; do not auto-act; route to human review.</td></tr>
       <tr><td>version</td><td><strong>Model version</strong> that answered. Log it so you can compare behavior across versions.</td></tr>
-    </table>
+    </table></div>
     <p class="body"><code>Decision.requires_review</code> is a read-only property, an exact alias for <code>escalated</code> &mdash; <code>True</code> means the item needs a human, never automatic action.</p>
   </section>
 
@@ -250,7 +116,7 @@ result = client.decide(<span class="s">"Free prizes, claim now!"</span>)
     └── <span class="b">RequestTimeoutError</span>  the request exceeded your timeout</pre>
     </div>
 
-    <table>
+    <div class="specwrap"><table>
       <tr><th>Situation</th><th>Raised</th></tr>
       <tr><td>401 or 403 from the API</td><td><strong>AuthError</strong> &mdash; check the key in <code>FRONESA_KEY</code>.</td></tr>
       <tr><td>429 persists after all retries</td><td><strong>RateLimitError</strong> &mdash; read <code>.retry_after</code> for the server's hint.</td></tr>
@@ -261,7 +127,7 @@ result = client.decide(<span class="s">"Free prizes, claim now!"</span>)
       <tr><td>Unexpected status code</td><td><strong>APIError</strong> with the status and body in the message.</td></tr>
       <tr><td>Malformed <code>/decide</code> response</td><td><strong>APIError</strong> &mdash; the raw payload is included for diagnosis.</td></tr>
       <tr><td>Empty <code>api_key</code> / empty <code>text</code> / invalid timeout or retry config</td><td><strong>ValueError</strong> &mdash; raised locally, before any request. Not an <code>APIError</code>.</td></tr>
-    </table>
+    </table></div>
 
     <div class="codeblock">
       <div class="cap"><span>python — handling errors</span><span></span></div>
@@ -284,12 +150,12 @@ client = Client(api_key=<span class="s">"sk-..."</span>)
     <div class="secnum">5 &mdash; Rate limits and retries</div>
     <h2>100 a minute, <em>politely.</em></h2>
     <p class="lede">Each key gets <strong>100 requests per minute</strong>. The client handles 429s for you: it retries with exponential backoff and full jitter, honors the server's <code class="mono" style="font-size:15px">Retry-After</code> header (capped at <code class="mono" style="font-size:15px">backoff_max</code>), and only raises <code class="mono" style="font-size:15px">RateLimitError</code> when every retry is exhausted. 5xx responses get the same treatment and become <code class="mono" style="font-size:15px">ServerError</code> if they persist.</p>
-    <table>
+    <div class="specwrap"><table>
       <tr><th>Knob</th><th>Default</th><th>Effect</th></tr>
       <tr><td>max_retries</td><td><code>3</code></td><td>Retries on 429 and 5xx. Set to <code>0</code> to disable retries entirely &mdash; the first 429 then raises <code>RateLimitError</code> immediately.</td></tr>
       <tr><td>backoff_base</td><td><code>1.0</code>s</td><td>Attempt <em>n</em> waits roughly <code>backoff_base &times; 2**n</code> (1s, 2s, 4s &hellip;) before jitter.</td></tr>
       <tr><td>backoff_max</td><td><code>30.0</code>s</td><td>No single wait ever exceeds this &mdash; including a server-sent <code>Retry-After</code>.</td></tr>
-    </table>
+    </table></div>
     <div class="limit-note"><strong>Jitter is full, not decorative.</strong> Each wait is <code class="mono" style="font-size:13px">uniform(0, wait)</code>, so a fleet of clients hitting the limit does not retry in lockstep and stampede the server. If you raise <code class="mono" style="font-size:13px">pool_maxsize</code> for threaded workloads, keep <code class="mono" style="font-size:13px">max_retries</code> at its default &mdash; the backoff is per request, and a stampede of threads each retrying aggressively is how keys get reviewed.</div>
     <p class="body">Timeouts are enforced per request by <code class="mono" style="font-size:13px">timeout</code> (default 10s, or a <code class="mono" style="font-size:13px">(connect, read)</code> tuple). A timed-out request raises <code class="mono" style="font-size:13px">RequestTimeoutError</code> &mdash; it is <em>not</em> retried, because the server may already be working on it. A cold start (first request after ~15 idle minutes, up to ~90 s) therefore raises <code class="mono" style="font-size:13px">RequestTimeoutError</code> at the 10 s default &mdash; it does <em>not</em> get retried, so the call fails instead of waiting out the boot. Plan for it: <code class="mono" style="font-size:13px">timeout=(10.0, 120.0)</code> or pre-warm via <code class="mono" style="font-size:13px">GET /health</code>.</p>
   </section>
@@ -303,11 +169,7 @@ client = Client(api_key=<span class="s">"sk-..."</span>)
     </div>
   </div>
 </div>
-
-<footer><div class="wrap">
-  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
-  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
-</div></footer>
-
+</main>
+<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.<br>Every number on this site is measured; nothing is promised.</p></div></footer>
 </body>
 </html>

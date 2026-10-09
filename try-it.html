@@ -3,262 +3,71 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f4f1e8">
-<meta name="description" content="Try Fronesa's decision API — pre-computed outputs from the v3 sentiment model, or call the live /decide endpoint with your API key.">
+<title>Fronesa — try the model</title>
+<meta name="description" content="Try Fronesa's decision API — a demo of the v3 sentiment model, or call the live /decide endpoint with your API key. Decisions, confidence, escalation.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fronesa">
 <meta property="og:title" content="Fronesa — try the model">
-<meta property="og:description" content="Try Fronesa's decision API — pre-computed outputs from the v3 sentiment model, or call the live /decide endpoint with your API key.">
+<meta property="og:description" content="Try Fronesa&#x27;s decision API — a demo of the v3 sentiment model, or call the live /decide endpoint with your API key. Decisions, confidence, escalation.">
 <meta property="og:url" content="https://suretyai.github.io/try-it.html">
-<link rel="canonical" href="https://suretyai.github.io/try-it.html">
-<meta property="og:image" content="assets/og-fronesa.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="assets/og-fronesa.png">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="apple-touch-icon" href="assets/favicon-180.png">
-<title>Fronesa — try the model</title>
-<style>
-  @font-face{
-    font-family:'Fraunces';font-style:normal;font-weight:500 700;font-display:swap;
-    src:url('assets/fonts/fraunces-latin.woff2') format('woff2');
-  }
-  :root{
-    --paper:#f4f1e8;--paper-2:#efeadd;--card:#faf8f2;--ink:#1b1813;
-    --mut:#57534a;--faint:#7d7869;--line:#d9d3bf;--line-soft:#e5e0d0;
-    --green:#0f5132;--green-deep:#0b3d26;--brick:#a83c24;--amber:#8a5a00;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);
-    padding:10px 18px;font-size:14px;font-weight:600;text-decoration:none;z-index:100;font-family:-apple-system,sans-serif}
-  .skip:focus{left:0}
-  @media (prefers-reduced-motion:reduce){.chip{transition:none}}
-  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);
-    line-height:1.6;-webkit-font-smoothing:antialiased}
-  ::selection{background:#d9e8dd}
-  a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:3px}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
-  .serif{font-family:'Fraunces',Georgia,serif}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-  .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
-
-  .masthead{border-bottom:3px double var(--ink);padding:18px 0 14px}
-  .masthead .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
-  .masthead .brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:26px;letter-spacing:-.01em}
-  .masthead .brand a{color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:10px}
-  .masthead .brand img{display:block}
-  .masthead .meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--faint)}
-  .masthead .meta a{color:var(--green);text-decoration:none;font-weight:600}
-  .dateline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-    border-bottom:1px solid var(--line);padding:8px 0 22px;margin-bottom:6px;
-    font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--faint)}
-
-  h1{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
-    font-size:clamp(34px,5vw,50px);line-height:1.1;margin:40px 0 10px}
-  h1 em{font-style:italic;color:var(--green)}
-  .sub{color:var(--mut);font-size:16px;max-width:62ch;font-style:italic}
-  .note{margin:24px 0 8px;padding:18px 22px;background:var(--card);border:1px solid var(--line);
-    border-left:3px solid var(--green);border-radius:0 6px 6px 0;font-size:14px;color:var(--mut);line-height:1.7}
-  .note strong{color:var(--ink)}
-
-  .plate{border-top:3px double var(--ink);margin:48px 0 0;padding:24px 0 8px}
-  .figno{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--green);font-weight:600}
-  .plate h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(22px,3vw,30px);
-    letter-spacing:-.01em;margin:8px 0 4px}
-  .plate .deck{color:var(--mut);font-size:15px;max-width:62ch;font-style:italic}
-
-  .group-label{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:600;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--faint);margin:26px 0 4px}
-  .group-note{font-size:13.5px;color:var(--mut);margin:8px 0 0;max-width:62ch}
-  .chips{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0 8px}
-  .chip{background:var(--card);border:1px solid var(--line);border-radius:100px;
-    padding:9px 18px;font-size:13.5px;color:var(--mut);cursor:pointer;font-family:Georgia,serif;
-    transition:border-color .2s,color .2s}
-  .chip:hover{border-color:var(--green);color:var(--ink)}
-  .chip.on{border-color:var(--green);color:var(--green);background:#fff;font-weight:700}
-
-  .card{background:#fff;border:1px solid var(--line);border-radius:6px;
-    padding:34px;margin:26px 0;display:none;position:relative}
-  .card.show{display:block}
-  .tweet{font-family:'Fraunces',Georgia,serif;font-size:22px;line-height:1.5;margin-bottom:24px}
-  .row{display:flex;gap:16px;align-items:baseline;margin:14px 0 4px;flex-wrap:wrap}
-  .pill{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;font-weight:700;
-    letter-spacing:.14em;text-transform:uppercase;padding:6px 0;border-bottom:2px solid}
-  .neg{color:var(--brick);border-color:var(--brick)}
-  .neu{color:var(--mut);border-color:var(--faint)}
-  .pos{color:var(--green);border-color:var(--green)}
-  .conf{font-size:14px;color:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace}
-  .confplain{font-size:13.5px;color:var(--mut);margin:2px 0 6px;max-width:60ch}
-  .prow{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);
-    font-family:ui-monospace,Menlo,Consolas,monospace;margin-top:14px}
-  .bar{height:8px;background:var(--paper-2);border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;margin:8px 0 4px}
-  .bar i{display:block;height:100%}
-  .esc{border-radius:6px;padding:18px 22px;font-size:14.5px;margin-top:26px;line-height:1.7}
-  .esc.yes{background:#faf3e3;color:#6b4e0c;border:1px solid #e8d9ae}
-  .esc.no{background:#eef3ee;color:var(--green);border:1px solid #cfe0d4}
-  .esc-head{font-weight:700;margin-bottom:6px;font-family:-apple-system,sans-serif;font-size:14px}
-  .thr{font-size:12px;color:var(--faint);margin-top:20px;font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em}
-
-  .live{background:#fff;border:1px solid var(--line);border-radius:6px;padding:30px;margin:26px 0}
-  .live label{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:600;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--faint);display:block;margin:0 0 8px}
-  .live textarea{width:100%;border:1px solid var(--line);border-radius:6px;
-    font-family:Georgia,serif;font-size:15px;color:var(--ink);
-    padding:14px 16px;line-height:1.6;resize:vertical;background:var(--paper)}
-  .live textarea:focus{outline:none;border-color:var(--green)}
-  .live-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-  .live-row input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:6px;
-    font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;padding:12px 16px;
-    background:var(--paper);color:var(--ink)}
-  .live-row input:focus{outline:none;border-color:var(--green)}
-  .btn-inline{background:var(--ink);color:var(--paper);border:none;border-radius:6px;
-    padding:12px 26px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:-apple-system,sans-serif}
-  .btn-inline:hover{background:var(--green)}
-  .btn-inline:disabled{opacity:.55;cursor:default}
-  .live-note{font-size:12.5px;color:var(--faint);margin:10px 0 0;font-family:-apple-system,sans-serif}
-  .live-status{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--mut);margin:16px 0 0}
-  .live-status.err{color:var(--brick)}
-  .live-result{border-top:1px solid var(--line);margin-top:18px;padding-top:18px}
-  .coldnote{font-size:13px;color:var(--mut);margin-top:12px;max-width:62ch;font-family:-apple-system,sans-serif}
-  .wake{background:#faf3e3;border:1px solid #e8d9ae;border-radius:6px;
-    padding:20px 22px;margin-top:18px;color:#6b4e0c;font-size:14.5px;line-height:1.7}
-  .wake-head{font-weight:700;margin-bottom:8px;font-size:15.5px;font-family:-apple-system,sans-serif}
-  .wake p{margin:0 0 8px}
-  .wake strong{color:#4a3706}
-  .wake-meta{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:#755a16;margin:12px 0 0 !important}
-  .live a{color:var(--green)}
-  details{border:1px solid var(--line);border-radius:6px;margin:14px 0;background:var(--card);max-width:70ch}
-  details summary{cursor:pointer;padding:13px 18px;font-family:-apple-system,sans-serif;
-    font-size:14px;font-weight:600;color:var(--green);list-style:none}
-  details summary::-webkit-details-marker{display:none}
-  details summary::before{content:"+ ";font-weight:700}
-  details[open] summary::before{content:"– "}
-  details .body{padding:0 18px 16px;font-size:14px;color:var(--mut);line-height:1.7}
-
-  footer{border-top:3px double var(--ink);margin-top:64px;padding:26px 0 54px}
-  footer .frow{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:baseline}
-  footer .wordmark{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
-  footer p,footer a{font-size:13px;color:var(--faint);font-family:-apple-system,sans-serif}
-  footer a{text-decoration:none;margin-left:20px}
-  footer a:hover{color:var(--ink)}
-</style>
+<meta property="og:image" content="https://suretyai.github.io/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fdl.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="masthead"><div class="wrap">
-  <div class="row">
-    <div class="brand"><a href="index.html"><img src="assets/brand/fronesa-mark.svg" alt="Fronesa mark" width="26" height="26"><span>Fronesa</span></a></div>
-    <div class="meta">Lab notes · Vol. 1 · <a href="index.html">The paper</a> · <a href="mailto:surety.ai@proton.me">Talk to us</a></div>
-  </div>
-</div></header>
-<div class="wrap"><div class="dateline">
-  <span>October 2026 — Bench № 2</span><span>The working demo</span>
-</div></div>
-
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="brandmark" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><a class="nl" href="/try-it.html">Demo</a><a class="nl" href="/benchmarks.html">Benchmarks</a><a class="nl" href="/docs.html">Docs</a><a class="nl" href="/pricing.html">Pricing</a><a class="nl" href="/blog/">Blog</a><a class="nl" href="/about.html">About</a></div></header>
+<main id="main">
 <main class="wrap" id="main">
   <h1>Try the <em>model.</em></h1>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/tryit-header-instrument.svg" alt="The decision instrument: a message goes in, the confidence meter fills, a stamp marks the call" width="1200" height="420" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> The instrument. Message in, confidence meter, stamp. Pick a message below and watch it work.</figcaption>
-  </figure>
-  <p class="sub">Real, pre-computed outputs from the v3 sentiment model. Tap any message — the card below shows the call, the confidence, and whether a human had to step in.</p>
-  <details><summary>What am I looking at, exactly?</summary><div class="body">
-    Pre-computed outputs from the v3 sentiment model (ModernBERT + LoRA, trained by the compounding loop). The demo illustrates the mechanism — decision + confidence + escalation. The live <span class="mono">/decide</span> endpoint serves the production spam-v1 model, which may return a different label set (spam/ham). Per-model measured performance is in our lab notes — ask us for the full writeup.<br><br>
-    <strong>Confidence</strong> is the model's self-reported certainty — 0.99 means &ldquo;I'm sure&rdquo;, 0.41 means &ldquo;I'm guessing&rdquo;. It is not a calibrated probability: well-calibrated on SMS-style inputs (ECE &asymp; 0.05), less reliable on phishing-style inputs (ECE &asymp; 0.21), and overconfident on sarcastic or adversarial text. Calls below the <strong>0.49 line</strong> are <strong>escalated</strong> — in the pilot flow, a human reviewer decides, and the reviewer's answer becomes training data. That's the loop.
-  </div></details>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/decision-flow.svg" alt="The core decision pipeline, end to end" width="1200" height="680" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> The pipeline behind every call.</figcaption>
-  </figure>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/bench-method.svg" alt="Bench methodology: frozen versus learning-loop panels" width="1200" height="700" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> How the benches are built. Endpoints only, no invented curves.</figcaption>
-  </figure>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/threshold-dial.svg" alt="The threshold dial at 0.90: held below, labeled at and above" width="1200" height="660" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> The only dial. Below 0.90 the call is held — abstaining is a first-class path.</figcaption>
-  </figure>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/threshold-sweep.svg" alt="Recall versus threshold: the threshold is a kill switch" width="1200" height="680" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> The threshold is a kill switch. Measured, not assumed.</figcaption>
-  </figure>
+  <p class="sub">Tap any message to explore genuine pre-computed outputs from the v3 sentiment model (ModernBERT + LoRA, trained by the compounding loop) &mdash; decision + confidence + escalation &mdash; while the live <span class="mono">/decide</span> endpoint serves the production spam-v1 model, which may return a different label set (spam/ham); per-model measured performance is documented in our lab notes &mdash; ask us for the full writeup.</p>
+  <div class="note"><strong>How to read this.</strong> Confidence is the model's self-reported certainty &mdash; 0.99 means &ldquo;I'm sure&rdquo;, 0.41 means &ldquo;I'm guessing&rdquo;. It is not a calibrated probability: well-calibrated on SMS-style inputs (ECE &asymp; 0.05), less reliable on phishing-style inputs (ECE &asymp; 0.21), and overconfident on sarcastic or adversarial text. Calls below the <strong>0.49 line</strong> are <strong>escalated</strong> &mdash; in the pilot flow, a human reviewer decides, and the reviewer's answer becomes training data. That's the loop.</div>
 
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/ten-messages-map.svg" alt="Ten messages, ten calls: dot plot of the ten real pre-computed confidences" width="1200" height="760" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> Ten messages. Ten calls. Exactly what the chips below do.</figcaption>
-  </figure>
+  <div class="group-label">Clear calls &mdash; the model is sure</div>
+  <div class="chips" id="chips-clear"></div>
 
-  <section class="plate" aria-label="Pre-computed demo">
-    <span class="figno">Bench A — pre-computed</span>
-    <h2>Ten messages. Ten calls.</h2>
+  <div class="group-label">Borderline &mdash; below the line, escalated to a human</div>
+  <div class="chips" id="chips-border"></div>
 
-    <div class="group-label">Clear calls — the model is sure</div>
-    <div class="chips" id="chips-clear"></div>
+  <div class="group-label">Confident &mdash; and wrong</div>
+  <div class="chips" id="chips-wrong"></div>
+  <p class="group-note">Sarcasm still fools it. Reviewers spot-check confident calls too &mdash; every correction becomes training data for the next version. These are 10 hand-picked examples &mdash; measured performance figures are in our lab notes, available on request.</p>
 
-    <div class="group-label">Borderline — below the line, escalated to a human</div>
-    <div class="chips" id="chips-border"></div>
+  <div class="card" id="card" aria-live="polite">
+    <div class="tweet" id="tweet"></div>
+    <div class="row"><span class="pill" id="pill"></span><span class="conf" id="conf"></span></div>
+    <div class="confplain" id="confplain"></div>
+    <div id="probs"></div>
+    <div class="esc" id="esc"></div>
+    <div class="esc yes" id="wrongnote" style="display:none;margin-top:14px"></div>
+    <div class="thr">escalation threshold 0.49 &mdash; tuned once for a 15% budget, then fixed</div>
+  </div>
 
-    <div class="group-label">Confident — and wrong</div>
-    <div class="chips" id="chips-wrong"></div>
-    <p class="group-note">Sarcasm still fools it. Reviewers spot-check confident calls too — every correction becomes training data. Ten hand-picked examples; measured performance figures are in our lab notes, available on request.</p>
+  <div class="group-label">Live &mdash; call the real API</div>
+  <p class="group-note">Send your own text to the live <span class="mono">/decide</span> endpoint and get a real decision back. It needs your API key (write to <a href="mailto:surety.ai@proton.me">surety.ai@proton.me</a> for access). First request after idle can take up to ~90&thinsp;s &mdash; the page will tell you honestly instead of pretending it's broken.</p>
 
-    <div class="card" id="card">
-      <div class="tweet" id="tweet"></div>
-      <div class="row"><span class="pill" id="pill"></span><span class="conf" id="conf"></span></div>
-      <div class="confplain" id="confplain"></div>
-      <div id="probs"></div>
-      <div class="esc" id="esc"></div>
-      <div class="esc yes" id="wrongnote" style="display:none;margin-top:14px"></div>
-      <div class="thr">escalation threshold 0.49 — tuned once for a 15% budget, then fixed</div>
+  <div class="live" id="live">
+    <label for="live-text">Message to decide on</label>
+    <textarea id="live-text" rows="3" placeholder="Absolutely loved it &mdash; best night ever!"></textarea>
+    <div class="live-row">
+      <input id="live-key" type="password" placeholder="API key (fr_&hellip;)" autocomplete="off" aria-label="API key">
+      <button id="live-btn" class="btn-inline">Decide</button>
     </div>
-  </section>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/how-to-read-decision.svg" alt="Annotated decision receipt explaining each field in plain English" width="1200" height="660" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> How to read your decision. Every field on the receipt, in plain English.</figcaption>
-  </figure>
-
-  <section class="plate" aria-label="Live API">
-    <span class="figno">Bench B — live</span>
-    <h2>Call the real endpoint.</h2>
-    <p class="deck" style="color:var(--mut);font-style:italic;max-width:62ch">Send your own text to <span class="mono">/decide</span> and get a real decision back. No API key needed — just type and hit Decide.</p>
-
-    <div class="live" id="live">
-      <label for="live-text">Message to decide on</label>
-      <textarea id="live-text" rows="3" placeholder="Absolutely loved it — best night ever!"></textarea>
-      <div class="live-row">
-        <button id="live-btn" class="btn-inline">Decide</button>
-      </div>
-      <p class="live-note">No key, no signup. Text you submit is covered by our data-handling policy — never used for training without your written consent (full policy available on request). The demo lane is rate-limited to 20 calls/minute per visitor.</p>
-      <div class="live-status" id="live-status" aria-live="polite"></div>
-      <div class="wake" id="live-wake" hidden>
-        <div class="wake-head">The free tier is waking up.</div>
-        <p>First request after idle can take up to ~90&thinsp;s — the container is booting. Nothing is broken and nothing is lost; it just takes the time it takes. <strong>This is exactly the constraint the paid tiers remove.</strong></p>
-        <p class="wake-meta">waiting <span id="wake-elapsed">0</span>&thinsp;s · tip: <a class="mono" href="https://fronsea-api.onrender.com/health" target="_blank" rel="noopener">GET /health</a> is a free, unauthenticated way to check whether the service is awake</p>
-      </div>
-      <div class="live-result" id="live-result" hidden aria-live="polite"></div>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/escalation-path.svg" alt="Below the 0.90 dial the call is held for human review; corrections feed the next retrain" width="1200" height="660" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> When the model isn't sure: the call is held, a human decides, the correction becomes training data.</figcaption>
-  </figure>
-  <figure class="plate-fig" style="margin: 24px 0">
-    <img src="assets/api-call.svg" alt="Calling POST /decide: request shape and the escalated branch" width="900" height="640" style="width:100%;height:auto">
-    <figcaption><span class="fig-no">FIG. —</span> One POST. The call, the confidence, whether a human stepped in.</figcaption>
-  </figure>
+    <p class="live-note">Your key stays in this tab. It's sent only to the API, never stored. Text you submit is covered by our data-handling policy &mdash; never used for training without your written consent (full policy available on request).</p>
+    <div class="live-status" id="live-status" aria-live="polite"></div>
+    <div class="wake" id="live-wake" hidden>
+      <div class="wake-head">The free tier is waking up.</div>
+      <p>First request after idle can take up to ~90&thinsp;s &mdash; the container is booting. Nothing is broken and nothing is lost; it just takes the time it takes. <strong>This is exactly the constraint the paid tiers remove.</strong></p>
+      <p class="wake-meta">waiting <span id="wake-elapsed">0</span>&thinsp;s &middot; tip: <a class="mono" href="https://fronsea-api.onrender.com/health" target="_blank" rel="noopener">GET /health</a> is a free, unauthenticated way to check whether the service is awake</p>
     </div>
-  </section>
-</main>
+    <div class="live-result" id="live-result" hidden aria-live="polite"></div>
+  </div>
 
-<footer><div class="wrap"><div class="frow">
-  <div><span class="wordmark"><img src="assets/brand/fronesa-mark.svg" alt="Fronesa mark" width="20" height="20"><span>Fronesa</span></span><p style="margin-top:6px">Decisions that learn. &copy; 2026</p></div>
-  <div><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
-</div></div></footer>
+  <div class="cta-row"><a class="btn-solid" href="mailto:surety.ai@proton.me">Talk to us</a></div>
 
 <script>
 const DATA = [
@@ -305,7 +114,7 @@ function show(i) {
   pill.className = 'pill ' + (d.decision === 'positive' ? 'pos' : d.decision === 'negative' ? 'neg' : 'neu');
   document.getElementById('conf').textContent = d.confidence.toFixed(3) + ' confidence';
   document.getElementById('confplain').textContent = 'In plain English: ' + gloss(d.confidence) + '.';
-  const colors = {negative: '#a83c24', neutral: '#7d7869', positive: '#0f5132'};
+  const colors = {negative: '#b3352b', neutral: '#6f6c60', positive: '#0f5132'};
   document.getElementById('probs').innerHTML = Object.entries(d.probs).map(([k, v]) =>
     `<div class="prow"><span>${k}</span><span>${v.toFixed(3)}</span></div>
      <div class="bar"><i style="width:${(v * 100).toFixed(0)}%;background:${colors[k]}"></i></div>`).join('');
@@ -330,11 +139,12 @@ if (DATA.length) show(0);
 /* --- Live API call with honest cold-start state --- */
 (function () {
   const API = 'https://fronsea-api.onrender.com';
-  const WARMUP_THRESHOLD_MS = 5000;
-  const HARD_TIMEOUT_MS = 120000;
-  const COLD_START_CLAIM_S = 45;
+  const WARMUP_THRESHOLD_MS = 5000;   // after this long, say so honestly
+  const HARD_TIMEOUT_MS = 120000;     // runbook guidance: >=120s first-request timeout
+  const COLD_START_CLAIM_S = 45;      // requests slower than this get the cold-start note
 
   const txt = document.getElementById('live-text');
+  const key = document.getElementById('live-key');
   const btn = document.getElementById('live-btn');
   const status = document.getElementById('live-status');
   const wake = document.getElementById('live-wake');
@@ -377,12 +187,14 @@ if (DATA.length) show(0);
 
   btn.addEventListener('click', async () => {
     const text = txt.value.trim();
+    const apiKey = key.value.trim();
     if (!text) { setStatus('Type or paste a message first.', true); return; }
+    if (!apiKey) { setStatus('Paste your API key first \u2014 see \u201Cgetting started\u201D.', true); return; }
 
     btn.disabled = true;
     result.hidden = true;
     wake.hidden = true;
-    setStatus('Sending…');
+    setStatus('Sending\u2026');
 
     const t0 = performance.now();
     let done = false;
@@ -402,7 +214,7 @@ if (DATA.length) show(0);
     try {
       const res = await fetch(API + '/decide', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
         body: JSON.stringify({ text }),
         signal: ctrl.signal
       });
@@ -414,7 +226,7 @@ if (DATA.length) show(0);
         try { msg = JSON.parse(body).message || body; } catch (e) {}
         setStatus('The API answered with HTTP ' + res.status + ': ' + msg, true);
       } else {
-        setStatus('Answered in ' + (ms / 1000).toFixed(1) + ' s.');
+        setStatus('Answered in ' + (ms / 1000).toFixed(1) + '\u2009s.');
         let parsed;
         try { parsed = JSON.parse(body); }
         catch (pe) {
@@ -427,7 +239,7 @@ if (DATA.length) show(0);
       done = true;
       const waited = Math.round((performance.now() - t0) / 1000);
       if (e.name === 'AbortError') {
-        setStatus('No answer in 120 s.', true);
+        setStatus('No answer in 120\u2009s.', true);
       } else if (e instanceof TypeError) {
         setStatus('The browser blocked the request — usually a network problem or the API not allowing this site yet (CORS).', true);
       } else {
@@ -435,9 +247,9 @@ if (DATA.length) show(0);
       }
       result.hidden = false;
       result.innerHTML =
-        '<p class="coldnote">After ' + waited + ' s with no answer, this is most likely the ' +
-        'free tier still booting — or a network problem between you and Render. The request ' +
-        'body is held by the host’s proxy during boot, so nothing is lost; the page just ' +
+        '<p class="coldnote">After ' + waited + '\u2009s with no answer, this is most likely the ' +
+        'free tier still booting &mdash; or a network problem between you and Render. The request ' +
+        'body is held by the host\u2019s proxy during boot, so nothing is lost; the page just ' +
         'stopped waiting. Check <a class="mono" href="' + API + '/health" target="_blank" rel="noopener">GET /health</a> (free, no key needed) ' +
         'and retry.</p>';
     } finally {
@@ -451,5 +263,8 @@ if (DATA.length) show(0);
   });
 })();
 </script>
+</main>
+</main>
+<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.<br>Every number on this site is measured; nothing is promised.</p></div></footer>
 </body>
 </html>

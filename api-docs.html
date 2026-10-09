@@ -10,210 +10,16 @@
 <meta property="og:image" content="https://suretyai.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#fbfaf7; --ink:#16150f; --mut:#5c5a50; --faint:#8a877a;
-    --line:#e3e0d5; --green:#0f5132; --green-soft:#e8f0ea;
-    --red:#9b2c2c; --red-soft:#f7e9e9; --card:#ffffff;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);
-    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
-  ::selection{background:#d9e8dd}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
-  .mono{font-family:'JetBrains Mono',monospace}
-
-  nav{border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
-  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
-    text-decoration:none;color:var(--ink);letter-spacing:-.01em}
-  .nav-links{display:flex;gap:22px;align-items:center}
-  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a.here{color:var(--green);font-weight:600}
-  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
-    border-radius:7px;padding:7px 16px}
-  .nav-links a.talk:hover{background:var(--green);color:#fff}
-
-  .hero{padding:72px 0 40px}
-  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--green);margin-bottom:22px}
-  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
-    font-size:clamp(38px,6vw,58px);line-height:1.08;letter-spacing:-.015em;margin-bottom:20px}
-  .hero h1 em{font-style:italic;color:var(--green)}
-  .hero p{font-size:17px;color:var(--mut);max-width:640px;line-height:1.7}
-  .hero p code{font-family:'JetBrains Mono',monospace;font-size:14px;background:#fff;
-    border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--ink)}
-  .specver{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--faint)}
-  .specver span{background:#fff;border:1px solid var(--line);border-radius:5px;padding:2px 8px;margin-right:8px}
-
-  .callout{border:1px solid var(--line);border-left:4px solid var(--green);
-    background:var(--green-soft);border-radius:8px;padding:18px 22px;margin:28px 0;
-    font-size:14.5px;color:var(--ink);max-width:1120px}
-  .callout strong{font-weight:600}
-  .callout code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#fff;
-    border:1px solid var(--line);border-radius:5px;padding:1px 6px}
-
-  .toc{margin:24px 0 8px}
-  .toc .kicker{margin-bottom:12px}
-  .toc ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
-  .toc a{display:inline-block;background:#fff;border:1px solid var(--line);
-    border-radius:8px;padding:9px 15px;text-decoration:none;font-size:13.5px;
-    color:var(--ink);font-family:'JetBrains Mono',monospace}
-  .toc a:hover{border-color:var(--green);color:var(--green)}
-  .toc a b{font-weight:600}
-
-  .endpoint{border-top:1px solid var(--line);padding:52px 0}
-  .ep-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:10px}
-  .method{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;
-    letter-spacing:.08em;border-radius:6px;padding:5px 12px;color:#fff}
-  .method.post{background:var(--green)}
-  .method.get{background:#3d5a80}
-  .ep-path{font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:500}
-  .ep-sum{font-size:16px;color:var(--mut);margin-bottom:6px}
-  .authline{font-size:13px;color:var(--faint);margin-bottom:4px}
-  .authline .mono{font-size:12.5px;color:var(--green);font-weight:500}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:26px}
-  @media(max-width:920px){.grid{grid-template-columns:1fr}}
-
-  .docs h3{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:600;
-    letter-spacing:-.01em;margin:26px 0 10px}
-  .docs h3:first-child{margin-top:0}
-  .docs p,.docs .desc{font-size:14.5px;color:var(--mut);line-height:1.75;margin-bottom:10px}
-  .docs .desc code,.docs p code,.resp code,.callout code,.ex code
-    {font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#fff;
-     border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--ink)}
-  .resp{margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--card)}
-  .resp .rh{padding:12px 18px;border-bottom:1px solid var(--line);display:flex;
-    gap:12px;align-items:center;flex-wrap:wrap}
-  .code{font-size:12.5px;font-weight:600;border-radius:6px;padding:3px 10px;color:#fff}
-  .code.g{background:var(--green)} .code.y{background:#8a5a00} .code.r{background:var(--red)}
-  .resp .rd{padding:14px 18px;font-size:14px;color:var(--mut)}
-  .hdrs{margin:10px 0 0;font-size:13px;color:var(--mut)}
-  .hdrs .mono{font-size:12px;color:var(--green);font-weight:500}
-
-  table.schema{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:13.5px;
-    background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  table.schema th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 14px;
-    border-bottom:1px solid var(--line);background:var(--paper)}
-  table.schema td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
-  table.schema tr:last-child td{border-bottom:none}
-  table.schema td.f{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;white-space:nowrap}
-  table.schema td.t{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--green);white-space:nowrap}
-  table.schema td.d{color:var(--mut);font-size:13.5px;line-height:1.6}
-  .req{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
-    letter-spacing:.06em;color:var(--red);border:1px solid var(--red);border-radius:4px;
-    padding:1px 6px;margin-left:8px;vertical-align:1px}
-  .ex{margin-top:6px;font-size:12.5px;color:var(--faint)}
-  .cons{margin-top:4px;font-size:12px;color:var(--faint);font-family:'JetBrains Mono',monospace}
-
-  .console{border:1px solid var(--line);border-radius:12px;background:var(--card);
-    overflow:hidden;height:fit-content;position:sticky;top:24px}
-  .console .ch{padding:14px 20px;border-bottom:1px solid var(--line);
-    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--green);font-weight:600;
-    display:flex;justify-content:space-between;align-items:center}
-  .console .cb{padding:20px}
-  .console label{display:block;font-size:12.5px;font-weight:600;color:var(--mut);
-    margin:14px 0 6px}
-  .console label:first-child{margin-top:0}
-  .console input[type=text],.console input[type=password],.console textarea{
-    width:100%;font-family:'JetBrains Mono',monospace;font-size:13px;
-    border:1px solid var(--line);border-radius:8px;padding:10px 12px;
-    background:var(--paper);color:var(--ink)}
-  .console textarea{min-height:96px;resize:vertical;line-height:1.6}
-  .console input:focus,.console textarea:focus{outline:2px solid var(--green);outline-offset:-1px}
-  .hint{font-size:12px;color:var(--faint);margin-top:6px;line-height:1.5}
-  .btnrow{display:flex;gap:10px;margin-top:18px}
-  button.send{flex:1;background:var(--green);color:#fff;border:none;border-radius:8px;
-    font-size:14px;font-weight:600;padding:12px;cursor:pointer;font-family:'Inter',sans-serif}
-  button.send:hover{background:#0b3d26}
-  button.send:disabled{opacity:.55;cursor:wait}
-  button.ghost{background:#fff;border:1px solid var(--line);border-radius:8px;
-    font-size:13px;font-weight:600;padding:12px 16px;cursor:pointer;color:var(--mut);
-    font-family:'Inter',sans-serif}
-  button.ghost:hover{border-color:var(--green);color:var(--green)}
-  .curlbox{margin-top:16px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .curlbox .cap{padding:8px 14px;background:var(--paper);border-bottom:1px solid var(--line);
-    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);
-    display:flex;justify-content:space-between;align-items:center}
-  .curlbox .cap button{border:none;background:none;color:var(--green);cursor:pointer;
-    font-size:11.5px;font-weight:600;font-family:'Inter',sans-serif}
-  .curlbox pre{padding:14px;font-family:'JetBrains Mono',monospace;font-size:12px;
-    line-height:1.7;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
-  .result{margin-top:16px;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:none}
-  .result.show{display:block}
-  .result .rh{padding:10px 14px;background:var(--paper);border-bottom:1px solid var(--line);
-    display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12.5px}
-  .result .rh .mono{font-size:12px}
-  .result pre{padding:14px;font-family:'JetBrains Mono',monospace;font-size:12.5px;
-    line-height:1.7;overflow-x:auto;max-height:420px;overflow-y:auto}
-  .result .err{padding:14px;font-size:13.5px;color:var(--red);background:var(--red-soft)}
-  .st{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;border-radius:6px;
-    padding:3px 10px;color:#fff}
-  .st.ok{background:var(--green)} .st.bad{background:var(--red)} .st.warn{background:#8a5a00}
-
-  .errtable{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px;
-    background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .errtable th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 16px;
-    border-bottom:1px solid var(--line);background:var(--paper)}
-  .errtable td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--mut)}
-  .errtable tr:last-child td{border-bottom:none}
-  .errtable td .mono{font-size:13px;color:var(--ink)}
-
-  .codeblock{margin:24px 0;border:1px solid var(--line);border-radius:10px;
-    background:#fff;overflow:hidden}
-  .codeblock .cap{padding:11px 20px;border-bottom:1px solid var(--line);
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);
-    display:flex;justify-content:space-between}
-  .codeblock pre{padding:22px 24px;font-family:'JetBrains Mono',monospace;
-    font-size:13px;line-height:1.8;overflow-x:auto;color:var(--ink)}
-
-  section.block{padding:52px 0;border-top:1px solid var(--line)}
-  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
-    font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin-bottom:16px}
-  h2 em{font-style:italic;color:var(--green)}
-  .lede{font-size:16px;color:var(--mut);line-height:1.75;max-width:680px}
-  .lede a{color:var(--green);font-weight:600;text-decoration:none}
-  .lede a:hover{text-decoration:underline}
-  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:24px}
-  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
-  footer p{font-size:13px;color:var(--faint);margin:0}
-  footer .fl{display:flex;gap:20px;flex-wrap:wrap}
-  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
-  footer .fl a:hover{color:var(--ink)}
-  .localnote{margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:12px;
-    color:var(--faint);border:1px dashed var(--line);border-radius:8px;padding:12px 16px}
-
-  @media(max-width:640px){.nav-links{overflow-x:auto;max-width:62vw;min-width:0;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{white-space:nowrap;flex:none}}
-</style>
-<style>
-code{overflow-wrap:anywhere}
-pre{overflow-x:auto;max-width:100%}
-@media(max-width:640px){table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
-.grid>*{min-width:0}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fdl.css">
 </head>
 <body>
-
-<nav><div class="wrap">
-  <a class="wordmark" href="index.html">Fronesa</a>
-  <div class="nav-links">
-    <a href="index.html#how">Method</a>
-    <a href="getting-started.html">Getting started</a>
-    <a href="sdk-docs.html">SDK docs</a>
-    <a href="api-docs.html" class="here">API reference</a>
-    <a href="benchmarks.html">Benchmarks</a>
-    <a class="talk" href="mailto:surety.ai@proton.me">Talk to us</a>
-  </div>
-</div></nav>
-
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="brandmark" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><a class="nl" href="/try-it.html">Demo</a><a class="nl" href="/benchmarks.html">Benchmarks</a><a class="nl" href="/docs.html">Docs</a><a class="nl" href="/pricing.html">Pricing</a><a class="nl" href="/blog/">Blog</a><a class="nl" href="/about.html">About</a></div></header>
+<main id="main">
 <div class="wrap">
   <div class="hero">
     <div class="kicker">API reference</div>
@@ -293,11 +99,6 @@ pre{overflow-x:auto;max-width:100%}
   tools/build_api_docs.py. Not published. Regenerate after any spec change.</div>
 </div>
 
-<footer><div class="wrap">
-  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
-  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="developer_terms.html">Developer terms</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
-</div></footer>
-
 <script>
 const SPEC = {"openapi": "3.0.3", "info": {"title": "Fronesa Decision API", "version": "v6", "description": "Typed text decisions with confidence scores and explicit escalation.\n\nPOST /decide with {\"text\": \"...\"} returns a decision (e.g. \"spam\" | \"ham\"),\na confidence in [0, 1], and an escalation flag. When `escalated` is true,\nthe caller MUST NOT auto-act on the decision — route it to human review\ninstead. Confidence below the model's escalation\nthreshold means the model is explicitly saying \"I don't know.\"\n\nPOST /decide/batch scores up to 100 texts in one request. Results are\npositional: results[i] corresponds to texts[i]. A text that cannot be\ndecided gets {\"decision\": \"error\", \"escalated\": true} for its slot — the\nbatch as a whole still returns 200.\n\nPOST /review submits a human review decision (text, correct label,\nreviewer id) into the learning-loop ledger — the \"decisions that learn\"\nflywheel. Accepted reviews accumulate until 50 unused labels trigger a\nretrain candidate, gated by eval before any promotion. See\ndocs/learning_loop.md.\n\nAuthentication: Bearer API key in the Authorization header.\nRate limit: 100 requests/minute per key (429 + Retry-After when exceeded).\nPOST /review is more generous at 600 requests/minute per key, on its own\nbucket — review traffic can never starve decision traffic.\nA batch of N texts counts as N requests — each text is one unit of model\ncompute, so a 100-text batch consumes the full minute's budget.\nRequest bodies are capped at 64KB for /decide and 512KB for /decide/batch\n(413 beyond that).\n\nWebhooks (opt-in, config file): escalated decisions fire a signed POST to\nthe customer's URL — event `decision.escalated` with decision_id (the\nX-Request-ID namespaced per API key: `<key_id>:<request_id>`), text_sha256,\ndecision, confidence, and an HMAC-SHA256\nsignature header. See docs/webhooks.md.\n"}, "servers": [{"url": "https://api.example.fronesa.dev", "description": "Illustrative — the public demo runs on a pilot endpoint; ask us for access."}], "paths": {"/decide": {"post": {"summary": "Make a typed decision on a text", "operationId": "decide", "security": [{"bearerAuth": []}], "parameters": [{"name": "model", "in": "query", "required": false, "schema": {"type": "string"}, "description": "Registered model version to decide with (e.g. ?model=spam-v2,\n?model=@production). Only registry version ids are accepted —\nnever file paths. Omit to use the current production model.\nThe serving version is echoed in the response's `model` field.\nOn-demand versions are cached under a byte budget\n(DECIVIA_MODEL_CACHE_MB, default 256MB); a version whose\nestimated footprint exceeds the budget is refused with\n400 MODEL_TOO_LARGE. An unregistered version id is refused\nwith 400 UNKNOWN_MODEL_VERSION.\n"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["text"], "properties": {"text": {"type": "string", "minLength": 1, "maxLength": 65536, "description": "The raw text to decide on.", "example": "Free prizes, claim now!"}}}}}}, "responses": {"200": {"description": "Decision made.", "headers": {"X-Request-ID": {"schema": {"type": "string"}, "description": "Echoes the request id, or a server-generated one."}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Decision"}}}}, "400": {"$ref": "#/components/responses/BadRequest"}, "401": {"$ref": "#/components/responses/Unauthorized"}, "413": {"$ref": "#/components/responses/PayloadTooLarge"}, "429": {"$ref": "#/components/responses/RateLimited"}, "500": {"$ref": "#/components/responses/InternalError"}}}}, "/decide/batch": {"post": {"summary": "Make typed decisions on up to 100 texts", "operationId": "decideBatch", "security": [{"bearerAuth": []}], "parameters": [{"name": "model", "in": "query", "required": false, "schema": {"type": "string"}, "description": "Registered model version to decide with (e.g. ?model=spam-v2).\nSame rules as /decide: registry version ids only, omit for the\ncurrent production model. On-demand versions are cached under\na byte budget (DECIVIA_MODEL_CACHE_MB, default 256MB); a version\nwhose estimated footprint exceeds the budget is refused with\n400 MODEL_TOO_LARGE. An unregistered version id is refused\nwith 400 UNKNOWN_MODEL_VERSION.\n"}], "description": "Scores a batch of texts in one request. Results are positional:\nresults[i] corresponds to texts[i]. A text that is not a non-empty\nstring, or that the model cannot score, yields\n{\"decision\": \"error\", \"confidence\": 0.0, \"escalated\": true, \"error\": \"<code>\"}\nfor its slot — route error items to human review; the batch still\nreturns 200. A batch of N texts counts as N requests against the\nper-key rate limit.\n", "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["texts"], "properties": {"texts": {"type": "array", "minItems": 1, "maxItems": 100, "items": {"type": "string"}, "description": "Texts to decide on, in order.", "example": ["Free prizes, claim now!", "See you at lunch"]}}}}}}, "responses": {"200": {"description": "Batch decided.", "headers": {"X-Request-ID": {"schema": {"type": "string"}, "description": "Echoes the request id, or a server-generated one."}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/BatchDecision"}}}}, "400": {"$ref": "#/components/responses/BadRequest"}, "401": {"$ref": "#/components/responses/Unauthorized"}, "413": {"$ref": "#/components/responses/PayloadTooLarge"}, "429": {"$ref": "#/components/responses/RateLimited"}, "500": {"$ref": "#/components/responses/InternalError"}}}}, "/review": {"post": {"summary": "Submit a human review decision to the learning loop", "operationId": "submitReview", "security": [{"bearerAuth": []}], "description": "Accepts one human review decision into the learning-loop ledger\n(loop/review_ledger.db) — the \"decisions that learn\" flywheel.\nAccepted reviews accumulate as unused labels; once 50 accumulate,\nthe next loop cycle retrains a candidate model and promotes it only\nif the eval gate passes (see docs/learning_loop.md). A duplicate\n(same text + correct_label) is accepted but not double-counted.\nRate limit: 600 requests/minute per key.\nTenant attribution: customer_id is server-attributed from the key's\nregistered tenant. Omit customer_id to have it bound automatically;\npass your issued tenant slug to have it echoed (a different slug is\nrejected with 400 CUSTOMER_ID_MISMATCH — fail loud, never silent).\nA key with no registered tenant cannot write reviews (400\nTENANT_UNBOUND); /decide and other endpoints are unaffected.\nOperator (admin) keys may write any customer_id and are audit-logged.\nMetadata field caps (anti ledger-bloat): reviewer_id max 256 chars,\ndecision_id max 256 chars, customer_id max 128 chars — oversized\nvalues are rejected with 400.\nEscalation-flow instrumentation: source 'escalation'/'audit'\nrequires a non-empty decision_id (the raw X-Request-ID of the original\n/decide call; batch form '<batch_id>:<item_index>' — the server\nnamespaces it per API key, I5) — 400\nDECISION_ID_REQUIRED otherwise. 'manual' + omitted decision_id stays\nthe default for seed/lab rows.\n", "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ReviewSubmission"}}}}, "responses": {"200": {"description": "Review accepted into the ledger.", "headers": {"X-Request-ID": {"schema": {"type": "string"}, "description": "Echoes the request id, or a server-generated one."}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ReviewAccepted"}}}}, "400": {"$ref": "#/components/responses/BadRequest"}, "401": {"$ref": "#/components/responses/Unauthorized"}, "413": {"$ref": "#/components/responses/PayloadTooLarge"}, "429": {"$ref": "#/components/responses/RateLimited"}, "500": {"$ref": "#/components/responses/InternalError"}}}}, "/health": {"get": {"summary": "Liveness check (no auth required)", "operationId": "health", "responses": {"200": {"description": "Service is up.", "content": {"application/json": {"schema": {"type": "object", "required": ["ok"], "properties": {"ok": {"type": "boolean", "example": true}, "version": {"type": "string", "nullable": true, "description": "Loaded model version, null if not loaded."}, "webhooks_dlq_pending": {"type": "integer", "nullable": true, "description": "Pending rows in the webhook dead-letter queue. 0 = clear; > 0 = investigate per docs/webhooks.md §9; null = DLQ database unreadable (fail-soft, /health stays 200)."}}}}}}}}}, "/version": {"get": {"summary": "API code version and loaded model version (no auth required)", "operationId": "version", "description": "Useful for the learning-loop story: the model version changes as the\nloop retrains, while the code version changes only on API changes.\n", "responses": {"200": {"description": "Version info.", "content": {"application/json": {"schema": {"type": "object", "required": ["code"], "properties": {"code": {"type": "string", "description": "API code version.", "example": "v1"}, "model": {"type": "string", "nullable": true, "description": "Loaded model version, null if not loaded.", "example": "spam-v1"}}}}}}}}}, "/models": {"get": {"summary": "List registered model versions", "operationId": "listModels", "security": [{"bearerAuth": []}], "description": "The read side of the model version registry\n(docs/model_versioning.md): every registered version with its\nstatus, parent, metrics and registration time, plus the current\nproduction pointer. Server-local file paths are not exposed.\n", "responses": {"200": {"description": "Registry listing.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ModelList"}}}}, "401": {"$ref": "#/components/responses/Unauthorized"}, "429": {"$ref": "#/components/responses/RateLimited"}}}}, "/models/promote": {"post": {"summary": "Promote a version to production", "operationId": "promoteModel", "security": [{"bearerAuth": []}], "description": "Moves the production pointer to the given registered version and\nhot-swaps the default model serving new requests — no restart.\nThe candidate is loaded and self-checked before the pointer moves,\nso a broken artifact can never become production. Retired versions\ncannot be promoted.\nADMIN ONLY: requires a key from DECIVIA_ADMIN_KEYS (403 otherwise).\n", "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["version"], "properties": {"version": {"type": "string", "description": "Registered version id to promote.", "example": "spam-v2"}}}}}}, "responses": {"200": {"description": "Promoted.", "content": {"application/json": {"schema": {"type": "object", "required": ["production", "model_version"], "properties": {"production": {"type": "string", "description": "Registry version id now in production."}, "model_version": {"type": "string", "description": "The promoted model's own version string."}}}}}}, "400": {"$ref": "#/components/responses/BadRequest"}, "401": {"$ref": "#/components/responses/Unauthorized"}, "403": {"$ref": "#/components/responses/Forbidden"}, "429": {"$ref": "#/components/responses/RateLimited"}, "500": {"$ref": "#/components/responses/InternalError"}}}}, "/models/rollback": {"post": {"summary": "Roll back to the previously promoted version", "operationId": "rollbackModel", "security": [{"bearerAuth": []}], "description": "Restores the most recently promoted earlier version (hot-swap\nincluded) — the one-command recovery path if a promoted model\nmisbehaves. Retired versions and versions whose files are gone are\nskipped; fails with 400 ROLLBACK_UNAVAILABLE when no rollback\ntarget exists.\nADMIN ONLY: requires a key from DECIVIA_ADMIN_KEYS (403 otherwise).\n", "responses": {"200": {"description": "Rolled back.", "content": {"application/json": {"schema": {"type": "object", "required": ["production", "model_version"], "properties": {"production": {"type": "string", "description": "Registry version id restored to production."}, "model_version": {"type": "string", "description": "The restored model's own version string."}}}}}}, "400": {"$ref": "#/components/responses/BadRequest"}, "401": {"$ref": "#/components/responses/Unauthorized"}, "403": {"$ref": "#/components/responses/Forbidden"}, "429": {"$ref": "#/components/responses/RateLimited"}, "500": {"$ref": "#/components/responses/InternalError"}}}}}, "components": {"securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "description": "API key issued for your account."}}, "schemas": {"Decision": {"type": "object", "required": ["decision", "confidence", "escalated", "model", "version"], "properties": {"decision": {"type": "string", "description": "The typed decision label (model-specific vocabulary).", "example": "spam"}, "confidence": {"type": "number", "format": "float", "minimum": 0, "maximum": 1, "description": "Model confidence in [0, 1]. Well-calibrated on SMS-style inputs (ECE ≈ 0.05); less reliable on phishing-style inputs (ECE ≈ 0.21 as of 2026-10-06) — treat high-confidence decisions on unfamiliar text with caution and prefer the `escalated` flag for routing.", "example": 0.952}, "escalated": {"type": "boolean", "description": "True when confidence is below the model's escalation threshold.\nDo NOT auto-act on escalated decisions — route to human review.\n", "example": false}, "model": {"type": "string", "nullable": true, "description": "Registry version id that served this request (e.g. \"spam-v2\"\nwhen ?model=spam-v2 was given, otherwise the current production\nid). Null when no registry pointer exists.\n", "example": "spam-v1"}, "version": {"type": "string", "description": "Model version that produced this decision.", "example": "v1"}, "latency_ms": {"type": "number", "description": "Server-side decision processing time in milliseconds.", "example": 1.2}}}, "BatchItem": {"type": "object", "required": ["decision", "confidence", "escalated"], "properties": {"decision": {"type": "string", "description": "The typed decision label, or \"error\" when this text could not be\ndecided (invalid input or model failure for this item).\n", "example": "spam"}, "confidence": {"type": "number", "format": "float", "minimum": 0, "maximum": 1, "example": 0.952}, "escalated": {"type": "boolean", "description": "True below the escalation threshold — and always true for\n\"error\" items. Do NOT auto-act; route to human review.\n", "example": false}, "error": {"type": "string", "description": "Present only on \"error\" items. INVALID_TEXT (not a non-empty\nstring) or MODEL_ERROR (model failed on this item).\n", "example": "INVALID_TEXT"}}}, "BatchDecision": {"type": "object", "required": ["results", "model", "version"], "properties": {"results": {"type": "array", "description": "Positional decisions — results[i] matches texts[i].", "items": {"$ref": "#/components/schemas/BatchItem"}}, "model": {"type": "string", "nullable": true, "description": "Registry version id that served this batch.", "example": "spam-v1"}, "version": {"type": "string", "description": "Model version that produced these decisions.", "example": "v1"}, "latency_ms": {"type": "number", "description": "Server-side batch processing time in milliseconds.", "example": 2.81}}}, "ModelVersion": {"type": "object", "required": ["version", "status", "metrics", "registered_at"], "properties": {"version": {"type": "string", "description": "Registry version id.", "example": "spam-v2"}, "status": {"type": "string", "enum": ["staging", "production", "retired"], "description": "Lifecycle status."}, "parent": {"type": "string", "nullable": true, "description": "Parent version id, if this was retrained from one."}, "metrics": {"type": "object", "additionalProperties": {"type": "number"}, "description": "Eval metrics recorded at registration.", "example": {"accuracy": 0.9892, "macro_f1": 0.9719, "fp": 0}}, "registered_at": {"type": "string", "format": "date-time"}, "note": {"type": "string"}}}, "ModelList": {"type": "object", "required": ["production", "versions"], "properties": {"production": {"type": "string", "nullable": true, "description": "Version id the CURRENT pointer resolves to."}, "versions": {"type": "array", "items": {"$ref": "#/components/schemas/ModelVersion"}}}}, "ReviewSubmission": {"type": "object", "required": ["text", "correct_label", "reviewer_id"], "properties": {"text": {"type": "string", "minLength": 1, "maxLength": 65536, "description": "The reviewed message.", "example": "Congratulations, you won a free cruise!"}, "correct_label": {"type": "string", "enum": ["ham", "spam"], "description": "The reviewer's verdict — the ground-truth label.", "example": "spam"}, "reviewer_id": {"type": "string", "minLength": 1, "maxLength": 256, "description": "Who labeled it (audit trail). Max 256 characters.", "example": "reviewer-007"}, "decision_id": {"type": "string", "maxLength": 256, "description": "Optional. Links this correction to the original /decide call:\npass the raw request id from its X-Request-ID header, or the\ndecision_id from the escalation webhook payload verbatim. The\nserver namespaces it per API key (\"<key_id>:<request_id>\", I5)\nbefore it touches the ledger, so a review can only join\ndecisions made under the same key. REQUIRED and\nnon-empty when source is 'escalation' or 'audit' (400\nDECISION_ID_REQUIRED otherwise) — a verdict claiming queue\nbehavior without the join key would silently pollute the\nfatigue queries. For /decide/batch items use the batch form\n'<batch_id>:<item_index>'. 'manual' rows (seeds/lab) omit it (NULL).\n", "example": "a1b2c3d4e5f60718"}, "customer_id": {"type": "string", "minLength": 1, "maxLength": 128, "description": "Optional tenant label for multi-customer ledgers. Stored with\nthe review; retrain can be scoped per customer with\n--customer. Server-attributed from the key's registered tenant\n(key→tenant registry): omit it to bind automatically; passing a\nslug that does not match the key's tenant is rejected (400\nCUSTOMER_ID_MISMATCH). Operator (admin) keys may write any\ncustomer_id.\n", "example": "acme"}, "source": {"type": "string", "enum": ["escalation", "audit", "manual", "synthetic"], "default": "manual", "description": "Where the review came from. Vocabulary is fixed at four values\n(schema CHECK): 'escalation' = verdict from the escalation queue;\n'audit' = human re-verdict on a non-escalated decision; 'manual' =\nseed-corpus/lab labels (rows described elsewhere as 'review' or\n'seed' map to 'manual'); 'synthetic' = machine-generated rows.\n'escalation'/'audit' require a non-empty decision_id (400\nDECISION_ID_REQUIRED otherwise); 'manual' rows may omit it.\n"}, "model_decision": {"type": "string", "enum": ["ham", "spam"], "description": "What the model said (for disagreement analysis)."}, "model_confidence": {"type": "number", "format": "float", "minimum": 0, "maximum": 1, "description": "Model confidence at decision time."}, "reviewed_at": {"type": "string", "format": "date-time", "maxLength": 64, "description": "When the review happened; defaults to now (UTC). Must be ISO 8601; max 64 characters."}}}, "ReviewAccepted": {"type": "object", "required": ["accepted", "review_id", "reviews_pending"], "properties": {"accepted": {"type": "boolean", "example": true}, "review_id": {"type": "string", "description": "Ledger id of the stored review."}, "reviews_pending": {"type": "integer", "minimum": 0, "description": "Unused labels currently in the ledger. A retrain candidate is\nbuilt once this reaches 50. When the request carried a\ncustomer_id, this count is scoped to that tenant; otherwise\nit is the global count.\n", "example": 7}}}, "Error": {"type": "object", "required": ["error", "code", "request_id"], "properties": {"error": {"type": "string", "description": "Human-readable message.", "example": "missing or invalid API key"}, "code": {"type": "string", "description": "Machine-readable error code.", "example": "UNAUTHORIZED", "enum": ["BAD_REQUEST", "UNAUTHORIZED", "FORBIDDEN", "NOT_FOUND", "METHOD_NOT_ALLOWED", "PAYLOAD_TOO_LARGE", "RATE_LIMITED", "TENANT_UNBOUND", "CUSTOMER_ID_MISMATCH", "DECISION_ID_REQUIRED", "UNKNOWN_MODEL_VERSION", "MODEL_TOO_LARGE", "MODEL_LOAD_FAILED", "ROLLBACK_UNAVAILABLE", "HTTP_ERROR", "INTERNAL_ERROR"]}, "request_id": {"type": "string", "description": "Echo for support/debugging; matches X-Request-ID."}}}}, "responses": {"BadRequest": {"description": "Malformed request.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}}, "Unauthorized": {"description": "Missing or invalid API key.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}}, "Forbidden": {"description": "Valid API key, but the endpoint requires an admin key\n(DECIVIA_ADMIN_KEYS). Applies to POST /models/promote and\nPOST /models/rollback.\n", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}}, "PayloadTooLarge": {"description": "Request body exceeds the endpoint cap (64KB for /decide, 512KB for /decide/batch).", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}}, "RateLimited": {"description": "Per-key rate limit (100 req/min) exceeded. A batch of N texts counts\nas N requests. The 429 body includes batch_size for batch requests.\nPOST /review has its own 600 req/min bucket and never shares the\ndecision budget.\n", "headers": {"Retry-After": {"schema": {"type": "integer"}, "description": "Seconds to wait before retrying."}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}}, "InternalError": {"description": "Server error. Bodies never contain stack traces.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}}}}};
 
@@ -375,8 +176,8 @@ function schemaRows(schema, depth){
 function schemaTable(schema, title){
   const body = schemaRows(schema, 0);
   if(!body) return "";
-  return "<table class='schema'><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>" +
-    "<tbody>" + body + "</tbody></table>";
+  return "<div class=\'specwrap\'><table class='schema'><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>" +
+    "<tbody>" + body + "</tbody></table></div>";
 }
 
 /* ------------------------------- endpoints ------------------------------- */
@@ -610,16 +411,18 @@ async function sendReq(opId, path, method, idx){
   const codes = {"BadRequest":"400","Unauthorized":"401","Forbidden":"403","PayloadTooLarge":"413",
                  "RateLimited":"429","InternalError":"500"};
   document.getElementById("errorTable").innerHTML =
-    "<table class='errtable'><thead><tr><th>Status</th><th>Code</th><th>Meaning</th></tr></thead><tbody>" +
+    "<div class=\'specwrap\'><table class='errtable'><thead><tr><th>Status</th><th>Code</th><th>Meaning</th></tr></thead><tbody>" +
     order.filter(function(n){return er[n];}).map(function(n){
       const cls = n === "InternalError" ? "r" : "y";
       return "<tr><td><span class='code mono " + cls + "'>" + codes[n] + "</span></td>" +
         "<td><span class='mono'>" + esc(n) + "</span></td>" +
         "<td>" + md(er[n].description || "") + "</td></tr>";
-    }).join("") + "</tbody></table>" +
+    }).join("") + "</tbody></table></div>" +
     "<h3 class='mono' style='font-size:17px;margin-top:28px'>Error body</h3>" +
     schemaTable(schemas["Error"]);
 })();
 </script>
+</main>
+<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.<br>Every number on this site is measured; nothing is promised.</p></div></footer>
 </body>
 </html>
