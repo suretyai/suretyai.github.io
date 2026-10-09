@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fronesa — Benchmarks</title>
+<meta name="description" content="Lab-measured benchmarks for Fronesa's decision API: methodology, results, and honest limitations.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fronesa">
+<meta property="og:title" content="Fronesa — Benchmarks">
+<meta property="og:description" content="Lab-measured benchmarks for Fronesa's decision API.">
+<meta property="og:url" content="https://suretyai.github.io/benchmarks.html">
+<meta property="og:image" content="https://suretyai.github.io/assets/og-fronesa.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fdl.css">
+<style>
+.specwrap{overflow-x:auto;margin:20px 0;border:1px solid var(--paper-200);border-radius:var(--r-12)}
+.specwrap table{width:100%;border-collapse:collapse;min-width:480px}
+.specwrap th,.specwrap td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--paper-200);font-size:.9rem}
+.specwrap th{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-500);background:var(--paper-100)}
+.specwrap tr:last-child td{border-bottom:none}
+.specwrap .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.ci{color:var(--ink-500);font-size:.8rem}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="brandmark" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><a class="nl" href="/try-it.html">Demo</a><a class="nl active" href="/benchmarks.html">Benchmarks</a><a class="nl" href="/docs.html">Docs</a><a class="nl" href="/pricing.html">Pricing</a><a class="nl" href="/blog/">Blog</a><a class="nl" href="/about.html">About</a></div></header>
+<main id="main">
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Benchmarks</div>
+    <h1>Measured in the lab. Published with the <em>losses.</em></h1>
+    <p>Every number here comes from a lab run on public data, with the method written down next to it. Where we're weak, we say so.</p>
+  </div>
+
+  <section>
+    <div class="sec-index">1 &mdash; WHAT WE MEASURE</div>
+    <h2 class="display-2">Decision quality, not just accuracy.</h2>
+    <p>Fronesa answers three kinds of questions: yes/no, multiple choice, and scored. We measure each on public benchmarks:</p>
+    <ul class="rules">
+      <li><strong>Accuracy</strong> — how often the top answer is right</li>
+      <li><strong>Calibration (ECE)</strong> — whether 80% confidence means 80% right</li>
+      <li><strong>Latency</strong> — p50 and p95 response time</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-index">2 &mdash; RESULTS</div>
+    <h2 class="display-2">The numbers.</h2>
+
+    <h3>Zero-shot decision benchmarks</h3>
+    <div class="specwrap"><table>
+      <tr><th>Benchmark</th><th>Accuracy</th><th>ECE</th></tr>
+      <tr><td>MNLI</td><td class="num">0.940</td><td class="num">0.038</td></tr>
+      <tr><td>Banking77</td><td class="num">0.383</td><td class="num">0.092</td></tr>
+      <tr><td>AG News</td><td class="num">0.653</td><td class="num">0.187</td></tr>
+      <tr><td>BoolQ</td><td class="num">0.600</td><td class="num">0.203</td></tr>
+    </table></div>
+    <p class="caveat">Seed 7. Strong on straightforward decisions, weaker on hard reasoning. We're honest about that.</p>
+
+    <h3>Latency</h3>
+    <p>The API answers in <strong>21ms</strong> median on production. Every response includes latency_ms so you can verify.</p>
+  </section>
+
+  <section>
+    <div class="sec-index">3 &mdash; LIMITS</div>
+    <h2 class="display-2">Where we're weak.</h2>
+    <ul class="rules">
+      <li>Hard zero-shot reasoning (MMLU, TruthfulQA) — below 40% accuracy</li>
+      <li>These are lab numbers, not your data</li>
+      <li>English only for now</li>
+    </ul>
+  </section>
+
+  <div class="fl" style="margin:48px 0">
+    <a class="btn btn-primary" href="/try-it.html">Try the demo</a>
+    <a class="link-arrow" href="/docs.html">Read the docs &rarr;</a>
+  </div>
+</div>
+</main>
+<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.</p></div></footer>
+</body>
+</html>
