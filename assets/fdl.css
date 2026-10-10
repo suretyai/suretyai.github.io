@@ -233,7 +233,7 @@ code{font-family:var(--font-mono);font-size:.85em;background:var(--paper-100);
 .bignum .unit{font-size:.4em;color:var(--ink-500);letter-spacing:0}
 .numgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:32px;margin:40px 0}
-.numgrid .cap{font-size:.88rem;color:var(--ink-500);margin-top:8px}
+.numgrid .cap{font-family:var(--font-ui);font-size:.88rem;color:var(--ink-500);margin-top:8px;display:block;border-bottom:none;padding:0}
 
 /* ---------- 16. Footer ---------- */
 footer.sitefoot{border-top:1px solid var(--paper-200);padding-block:64px 48px;margin-top:96px}
