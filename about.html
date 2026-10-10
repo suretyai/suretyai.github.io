@@ -12,16 +12,107 @@
 <meta property="og:url" content="https://suretyai.github.io/fronesa/about.html">
 <meta property="og:image" content="https://suretyai.github.io/fronesa/assets/og-fronesa.png">
 <meta name="twitter:card" content="summary">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<!-- DRAFT — not published. Team section and any factual claims need final internal approval before this page goes live. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/fdl.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;--ink:#16150f;--mut:#5c5a50;--faint:#8a877a;
+    --line:#e3e0d5;--green:#0f5132;--green-soft:#e8f0ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);
+    color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:#d9e8dd}
+  .wrap{max-width:960px;margin:0 auto;padding:0 28px}
+  .narrow{max-width:680px}
+
+  nav{border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+  .wordmark{font-family:'Fraunces',Georgia,serif;font-size:21px;font-weight:600;
+    text-decoration:none;color:var(--ink)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.here{color:var(--ink);font-weight:600}
+  .nav-links a.talk{color:var(--green);font-weight:600;border:1px solid var(--green);
+    border-radius:7px;padding:7px 16px}
+  .nav-links a.talk:hover{background:var(--green);color:#fff}
+
+  .hero{padding:88px 0 56px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);margin-bottom:28px}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(42px,7vw,64px);line-height:1.08;letter-spacing:-.015em;margin-bottom:28px}
+  .hero h1 em{font-style:italic;color:var(--green)}
+  .hero p{font-size:19px;color:var(--mut);max-width:640px;line-height:1.75}
+  .hero p strong{color:var(--ink);font-weight:600}
+
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .secnum{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;
+    color:var(--faint);margin-bottom:16px;text-transform:uppercase}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em;
+    font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin-bottom:20px}
+  h2 em{font-style:italic;color:var(--green)}
+  .lede{font-size:17px;color:var(--mut);line-height:1.75;max-width:640px}
+
+  .belief{padding:32px 0;border-bottom:1px solid var(--line)}
+  .belief:first-of-type{border-top:1px solid var(--line);margin-top:36px}
+  .belief h3{font-family:'Fraunces',Georgia,serif;font-size:23px;font-weight:500;
+    margin-bottom:8px;letter-spacing:-.01em}
+  .belief h3 .n{font-style:italic;color:var(--green);margin-right:10px}
+  .belief p{color:var(--mut);font-size:16px;max-width:640px;line-height:1.75}
+  .belief p strong{color:var(--ink);font-weight:600}
+  .belief p a{color:var(--green);text-decoration:none}
+  .belief p a:hover{text-decoration:underline}
+
+  .not-list{margin-top:36px;list-style:none}
+  .not-list li{padding:20px 0;border-bottom:1px solid var(--line);font-size:16px;
+    color:var(--mut);line-height:1.7;max-width:640px}
+  .not-list li:first-child{border-top:1px solid var(--line)}
+  .not-list li strong{color:var(--ink);font-weight:600}
+  .not-list li .no{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green);
+    display:block;margin-bottom:6px;letter-spacing:.06em}
+
+  .tbd{margin-top:36px;padding:28px 30px;background:#fff;border:1px dashed var(--line);
+    border-radius:10px;max-width:640px}
+  .tbd .tag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+  .tbd p{font-size:15px;color:var(--mut);line-height:1.7}
+
+  .contact-box{margin-top:36px;padding:32px 30px;background:var(--green-soft);
+    border-radius:12px;max-width:640px}
+  .contact-box h3{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:500;
+    margin-bottom:8px}
+  .contact-box p{color:var(--mut);font-size:15px;margin-bottom:18px;line-height:1.7}
+  .contact-box a.mail{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--green);
+    text-decoration:none;font-weight:500}
+  .contact-box a.mail:hover{text-decoration:underline}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;margin-top:72px}
+  footer .wrap{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap}
+  footer p{font-size:13px;color:var(--faint)}
+  footer .fl{display:flex;gap:22px;flex-wrap:wrap;max-width:640px}
+  footer .fl a{font-size:13px;color:var(--faint);text-decoration:none}
+  footer .fl a:hover{color:var(--ink)}
+</style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="topbar"><div class="wrap"><a class="brandmark" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><a class="nl" href="/try-it.html">Demo</a><a class="nl" href="/benchmarks.html">Benchmarks</a><a class="nl" href="/docs.html">Docs</a><a class="nl" href="/pricing.html">Pricing</a><a class="nl" href="/blog/">Blog</a><a class="nl" href="/about.html">About</a></div></header>
-<main id="main">
+
+<nav><div class="wrap">
+  <a class="wordmark" href="index.html">Fronesa</a>
+  <div class="nav-links">
+    <a href="try-it.html">Demo</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html" class="here">About</a>
+    <a class="talk" href="getting-started.html">Get started</a>
+  </div>
+</div></nav>
+
 <div class="wrap"><div class="hero narrow">
   <div class="kicker">About</div>
   <h1>A decision API that <em>gets smarter</em> from your reviewers.</h1>
@@ -99,8 +190,8 @@
   <div class="secnum">03 &mdash; Team</div>
   <h2>Who's <em>behind</em> this.</h2>
   <div class="tbd">
-    <div class="tag">To be written &mdash; needs Braa's approval</div>
-    <p>This section will introduce the team once Braa approves the bios. Nothing here
+    <div class="tag">To be written &mdash; pending internal approval</div>
+    <p>This section will introduce the team once the bios are approved internally. Nothing here
     will be invented: real names, real roles, no stock-photo "team."</p>
   </div>
 </div></section>
@@ -116,7 +207,11 @@
     <a class="mail" href="mailto:surety.ai@proton.me">surety.ai@proton.me</a>
   </div>
 </div></section>
-</main>
-<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.<br>Every number on this site is measured; nothing is promised.</p></div></footer>
+
+<footer><div class="wrap">
+  <p>Fronesa &mdash; decisions that learn. &copy; 2026</p>
+  <div class="fl"><a href="index.html">Home</a><a href="try-it.html">Demo</a><a href="getting-started.html">Getting started</a><a href="api-docs.html">API reference</a><a href="sdk-docs.html">SDK docs</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="data-handling.html">Data handling</a><a href="mailto:surety.ai@proton.me">Contact</a></div>
+</div></footer>
+
 </body>
 </html>
