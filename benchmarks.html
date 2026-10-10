@@ -3,29 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fronesa — Benchmarks</title>
-<meta name="description" content="Lab-measured benchmarks for Fronesa's decision API: methodology, results, and honest limitations.">
+<title>Fronesa — FD-1 Benchmarks</title>
+<meta name="description" content="FD-1 decision benchmarks, measured in the lab: accuracy and calibration across seven public decision benchmarks. Infographics first, no hype.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fronesa">
-<meta property="og:title" content="Fronesa — Benchmarks">
-<meta property="og:description" content="Lab-measured benchmarks for Fronesa's decision API.">
+<meta property="og:title" content="Fronesa — FD-1 Benchmarks">
+<meta property="og:description" content="FD-1, measured: accuracy and calibration across seven public decision benchmarks.">
 <meta property="og:url" content="https://suretyai.github.io/benchmarks.html">
 <meta property="og:image" content="https://suretyai.github.io/assets/og-fronesa.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/fdl.css">
-<style>
-.specwrap{overflow-x:auto;margin:20px 0;border:1px solid var(--paper-200);border-radius:var(--r-12)}
-.specwrap table{width:100%;border-collapse:collapse;min-width:480px}
-.specwrap th,.specwrap td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--paper-200);font-size:.9rem}
-.specwrap th{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-500);background:var(--paper-100)}
-.specwrap tr:last-child td{border-bottom:none}
-.specwrap .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
-.ci{color:var(--ink-500);font-size:.8rem}
-</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -33,56 +26,170 @@
 <main id="main">
 <div class="wrap">
   <div class="hero">
-    <div class="kicker">Benchmarks</div>
-    <h1>Measured in the lab. Published with the <em>losses.</em></h1>
-    <p>Every number here comes from a lab run on public data, with the method written down next to it. Where we're weak, we say so.</p>
+    <div class="kicker">FD-1 &middot; Benchmarks</div>
+    <h1 class="display-1">Measured, not promised.</h1>
+    <p class="lede">Seven decision benchmarks &middot; seed 7 &middot; public data. Lab numbers, not promises.</p>
   </div>
 
-  <section>
-    <div class="sec-index">1 &mdash; WHAT WE MEASURE</div>
-    <h2 class="display-2">Decision quality, not just accuracy.</h2>
-    <p>Fronesa answers three kinds of questions: yes/no, multiple choice, and scored. We measure each on public benchmarks:</p>
-    <ul class="rules">
-      <li><strong>Accuracy</strong> — how often the top answer is right</li>
-      <li><strong>Calibration (ECE)</strong> — whether 80% confidence means 80% right</li>
-      <li><strong>Latency</strong> — p50 and p95 response time</li>
-    </ul>
+  <section id="accuracy">
+    <div class="secnum">01 &mdash; Decision quality</div>
+    <h2 class="display-2">Accuracy, <em>by benchmark.</em></h2>
+    <div class="narrow">
+    <svg viewBox="0 0 400 470" width="100%" role="img" aria-label="Bar chart of FD-1 accuracy across seven benchmarks: MNLI 0.94, AG News 0.653, BoolQ 0.60, Banking77 0.383, HellaSwag 0.36, TruthfulQA 0.347, MMLU 0.320. Dashed ticks mark chance baselines.">
+      <title>FD-1 accuracy per benchmark</title>
+      <g stroke="#EAE4D2" stroke-width="1">
+        <line x1="126" y1="8" x2="126" y2="446"/>
+        <line x1="189.5" y1="8" x2="189.5" y2="446"/>
+        <line x1="253" y1="8" x2="253" y2="446"/>
+        <line x1="316.5" y1="8" x2="316.5" y2="446"/>
+        <line x1="380" y1="8" x2="380" y2="446"/>
+      </g>
+      <g font-family="'JetBrains Mono',ui-monospace,monospace" font-size="10" fill="#8A8474" text-anchor="middle">
+        <text x="126" y="462">0</text><text x="189.5" y="462">.25</text><text x="253" y="462">.50</text><text x="316.5" y="462">.75</text><text x="380" y="462">1.0</text>
+      </g>
+      <!-- MNLI -->
+      <text x="118" y="34" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MNLI</text>
+      <text x="118" y="51" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">entailment</text>
+      <rect x="126" y="24" width="238.8" height="22" fill="#0F5132"/>
+      <line x1="210.6" y1="20" x2="210.6" y2="60" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="370.8" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.94</text>
+      <!-- AG News -->
+      <text x="118" y="96" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">AG News</text>
+      <text x="118" y="113" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="86" width="166" height="22" fill="#0F5132"/>
+      <line x1="189.5" y1="82" x2="189.5" y2="122" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="298" y="102" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.653</text>
+      <!-- BoolQ -->
+      <text x="118" y="158" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">BoolQ</text>
+      <text x="118" y="175" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">yes/no</text>
+      <rect x="126" y="148" width="152.4" height="22" fill="#0F5132"/>
+      <line x1="253" y1="144" x2="253" y2="184" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="284.4" y="164" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.60</text>
+      <!-- Banking77 -->
+      <text x="118" y="220" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">Banking77</text>
+      <text x="118" y="237" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="210" width="97.4" height="22" fill="#7A1F1A"/>
+      <line x1="129.3" y1="206" x2="129.3" y2="246" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="229.4" y="226" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.383</text>
+      <!-- HellaSwag -->
+      <text x="118" y="282" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">HellaSwag</text>
+      <text x="118" y="299" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="272" width="91.4" height="22" fill="#7A1F1A"/>
+      <line x1="189.5" y1="268" x2="189.5" y2="308" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="223.4" y="288" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.36</text>
+      <!-- TruthfulQA -->
+      <text x="118" y="344" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">TruthfulQA</text>
+      <text x="118" y="361" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="334" width="88.1" height="22" fill="#7A1F1A"/>
+      <line x1="189.5" y1="330" x2="189.5" y2="370" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="220.1" y="350" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.347</text>
+      <!-- MMLU -->
+      <text x="118" y="406" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MMLU</text>
+      <text x="118" y="423" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="396" width="81.3" height="22" fill="#7A1F1A"/>
+      <line x1="189.5" y1="392" x2="189.5" y2="432" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="213.3" y="412" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.320</text>
+    </svg>
+    </div>
+    <p class="caveat">Solid bar = FD-1 accuracy. Dashed tick = chance. Green &ge; 0.50. n=300, MMLU 228.</p>
   </section>
 
-  <section>
-    <div class="sec-index">2 &mdash; RESULTS</div>
-    <h2 class="display-2">The numbers.</h2>
-
-    <h3>Zero-shot decision benchmarks</h3>
-    <div class="specwrap"><table>
-      <tr><th>Benchmark</th><th>Accuracy</th><th>ECE</th></tr>
-      <tr><td>MNLI</td><td class="num">0.940</td><td class="num">0.038</td></tr>
-      <tr><td>Banking77</td><td class="num">0.383</td><td class="num">0.092</td></tr>
-      <tr><td>AG News</td><td class="num">0.653</td><td class="num">0.187</td></tr>
-      <tr><td>BoolQ</td><td class="num">0.600</td><td class="num">0.203</td></tr>
-    </table></div>
-    <p class="caveat">Seed 7. Strong on straightforward decisions, weaker on hard reasoning. We're honest about that.</p>
-
-    <h3>Latency</h3>
-    <p>The API answers in <strong>21ms</strong> median on production. Every response includes latency_ms so you can verify.</p>
+  <section id="calibration">
+    <div class="secnum">02 &mdash; Calibration</div>
+    <h2 class="display-2">Does 80% mean <em>80%?</em></h2>
+    <div class="narrow">
+    <svg viewBox="0 0 400 470" width="100%" role="img" aria-label="Bar chart of expected calibration error per benchmark: MNLI 0.038, Banking77 0.092, AG News 0.187, BoolQ 0.203, MMLU 0.266, HellaSwag 0.284, TruthfulQA 0.292. Lower is better.">
+      <title>FD-1 expected calibration error per benchmark</title>
+      <g stroke="#EAE4D2" stroke-width="1">
+        <line x1="126" y1="8" x2="126" y2="446"/>
+        <line x1="189.5" y1="8" x2="189.5" y2="446"/>
+        <line x1="253" y1="8" x2="253" y2="446"/>
+        <line x1="316.5" y1="8" x2="316.5" y2="446"/>
+        <line x1="380" y1="8" x2="380" y2="446"/>
+      </g>
+      <g font-family="'JetBrains Mono',ui-monospace,monospace" font-size="10" fill="#8A8474" text-anchor="middle">
+        <text x="126" y="462">0</text><text x="189.5" y="462">.08</text><text x="253" y="462">.16</text><text x="316.5" y="462">.24</text><text x="380" y="462">.32</text>
+      </g>
+      <!-- MNLI -->
+      <text x="118" y="34" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MNLI</text>
+      <text x="118" y="51" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.038</text>
+      <rect x="126" y="24" width="30.4" height="22" fill="#2A2820"/>
+      <text x="162.4" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.038</text>
+      <!-- Banking77 -->
+      <text x="118" y="96" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">Banking77</text>
+      <text x="118" y="113" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.092</text>
+      <rect x="126" y="86" width="72.9" height="22" fill="#2A2820"/>
+      <text x="204.9" y="102" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.092</text>
+      <!-- AG News -->
+      <text x="118" y="158" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">AG News</text>
+      <text x="118" y="175" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.187</text>
+      <rect x="126" y="148" width="148.5" height="22" fill="#2A2820"/>
+      <text x="280.5" y="164" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.187</text>
+      <!-- BoolQ -->
+      <text x="118" y="220" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">BoolQ</text>
+      <text x="118" y="237" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.203</text>
+      <rect x="126" y="210" width="161.2" height="22" fill="#2A2820"/>
+      <text x="293.2" y="226" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.203</text>
+      <!-- MMLU -->
+      <text x="118" y="282" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MMLU</text>
+      <text x="118" y="299" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.266</text>
+      <rect x="126" y="272" width="211.2" height="22" fill="#2A2820"/>
+      <text x="343.2" y="288" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.266</text>
+      <!-- HellaSwag -->
+      <text x="118" y="344" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">HellaSwag</text>
+      <text x="118" y="361" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.284</text>
+      <rect x="126" y="334" width="225.7" height="22" fill="#2A2820"/>
+      <text x="357.7" y="350" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.284</text>
+      <!-- TruthfulQA -->
+      <text x="118" y="406" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">TruthfulQA</text>
+      <text x="118" y="423" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.292</text>
+      <rect x="126" y="396" width="231.7" height="22" fill="#2A2820"/>
+      <text x="363.7" y="412" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.292</text>
+    </svg>
+    </div>
+    <p class="caveat">ECE &mdash; expected calibration error. Lower is better.</p>
   </section>
 
-  <section>
-    <div class="sec-index">3 &mdash; LIMITS</div>
-    <h2 class="display-2">Where we're weak.</h2>
-    <ul class="rules">
-      <li>Hard zero-shot reasoning (MMLU, TruthfulQA) — below 40% accuracy</li>
-      <li>These are lab numbers, not your data</li>
-      <li>English only for now</li>
-    </ul>
+  <section id="seven">
+    <div class="secnum">03 &mdash; The seven</div>
+    <h2 class="display-2">One card <em>each.</em></h2>
+    <div class="cards">
+      <div class="card"><div class="ct">MNLI</div><div class="bignum">0.94</div><div class="cd">accuracy &middot; entailment<br><span>ECE 0.038 &middot; n=300</span></div></div>
+      <div class="card"><div class="ct">AG News</div><div class="bignum">0.653</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.187 &middot; n=300 &middot; 4 topics</span></div></div>
+      <div class="card"><div class="ct">BoolQ</div><div class="bignum">0.60</div><div class="cd">accuracy &middot; yes/no<br><span>ECE 0.203 &middot; n=300</span></div></div>
+      <div class="card"><div class="ct">Banking77</div><div class="bignum">0.383</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.092 &middot; n=300 &middot; 77 intents</span></div></div>
+      <div class="card"><div class="ct">HellaSwag</div><div class="bignum">0.36</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.284 &middot; n=300 &middot; 4 endings</span></div></div>
+      <div class="card"><div class="ct">TruthfulQA</div><div class="bignum">0.347</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.292 &middot; n=300 &middot; best of 4</span></div></div>
+      <div class="card"><div class="ct">MMLU</div><div class="bignum">0.320</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.266 &middot; n=228 &middot; 6-subject subset</span></div></div>
+    </div>
   </section>
 
-  <div class="fl" style="margin:48px 0">
-    <a class="btn btn-primary" href="/try-it.html">Try the demo</a>
-    <a class="link-arrow" href="/docs.html">Read the docs &rarr;</a>
+  <section id="speed">
+    <div class="secnum">04 &mdash; Speed &amp; demo vertical</div>
+    <h2 class="display-2">Fast. <em>One demo vertical.</em></h2>
+    <div class="numgrid">
+      <div><div class="bignum">21<span class="unit">ms</span></div><div class="cap">median latency &middot; p95 22.6<br>GPU &middot; lab &middot; n=200, batch 1, warmup</div></div>
+      <div><div class="bignum">1.25<span class="unit">%</span></div><div class="cap">spam demo-vertical error &middot; macro-F1 0.972 &middot; ECE 0.046<br>n=1,116 held out &middot; seed 42 &middot; 2026-10-05 &middot; task-trained classifier</div></div>
+    </div>
+    <p class="caveat">Spam is one demo vertical, not the product.</p>
+  </section>
+
+  <section id="limits">
+    <div class="secnum">05 &mdash; Limits</div>
+    <h2 class="display-2">Where we&rsquo;re <em>weak.</em></h2>
+    <div class="alert alert-warn"><b>Honest limits</b>MMLU 0.32 &middot; TruthfulQA 0.35 &middot; Banking77 0.38 &mdash; below what we&rsquo;d ship for those tasks.<br>English only. Lab numbers, not your data. No certifications.</div>
+  </section>
+
+  <div class="close">
+    <h2 class="display-2">Test it <em>yourself.</em></h2>
+    <p class="lede">The demo runs the real model &mdash; verify our numbers on your own text.</p>
+    <div>
+      <a class="btn-solid" href="try-it.html">Try the demo</a>
+      <a class="link-arrow" href="mailto:surety.ai@proton.me">Talk to us &rarr;</a>
+    </div>
   </div>
 </div>
 </main>
-<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.</p></div></footer>
+<footer class="sitefoot"><div class="wrap"><a class="fbrand" href="/index.html">Fronesa<span class="sq">&#9632;</span></a><div class="flinks"><a href="/try-it.html">Demo</a><a href="/benchmarks.html">Benchmarks</a><a href="/docs.html">Docs</a><a href="/api-docs.html">API reference</a><a href="/pricing.html">Pricing</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div><p class="fine">Fronesa &mdash; decisions that learn. &copy; 2026.<br>Every number on this site is measured; nothing is promised.</p></div></footer>
 </body>
 </html>
