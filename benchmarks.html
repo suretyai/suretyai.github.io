@@ -29,13 +29,14 @@
     <div class="kicker">FD-1 &middot; Benchmarks</div>
     <h1 class="display-1">Measured, not promised.</h1>
     <p class="lede">Seven decision benchmarks &middot; seed 7 &middot; public data. Lab numbers, not promises.</p>
+    <p class="caveat">FD-1 &middot; Tier-1 (internal bundle tier1/ettinx-nli-xs-v1), seed 7, lab measurement &mdash; ECE is the measured uncalibrated value (T=1.0).</p>
   </div>
 
   <section id="accuracy">
     <div class="secnum">01 &mdash; Decision quality</div>
     <h2 class="display-2">Accuracy, <em>by benchmark.</em></h2>
     <div class="narrow">
-    <svg viewBox="0 0 400 470" width="100%" role="img" aria-label="Bar chart of FD-1 accuracy across seven benchmarks: MNLI 0.94, AG News 0.653, BoolQ 0.60, Banking77 0.383, HellaSwag 0.36, TruthfulQA 0.347, MMLU 0.320. Dashed ticks mark chance baselines.">
+    <svg viewBox="0 0 400 470" width="100%" role="img" aria-label="Bar chart of FD-1 accuracy across seven benchmarks: MNLI 0.920, AG News 0.543, BoolQ 0.530, HellaSwag 0.333, TruthfulQA 0.317, MMLU 0.241, Banking77 0.213. Dashed ticks mark chance baselines.">
       <title>FD-1 accuracy per benchmark</title>
       <g stroke="#EAE4D2" stroke-width="1">
         <line x1="126" y1="8" x2="126" y2="446"/>
@@ -50,45 +51,45 @@
       <!-- MNLI -->
       <text x="118" y="34" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MNLI</text>
       <text x="118" y="51" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">entailment</text>
-      <rect x="126" y="24" width="238.8" height="22" fill="#0F5132"/>
-      <line x1="210.6" y1="20" x2="210.6" y2="60" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <text x="370.8" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.94</text>
+      <rect x="126" y="24" width="233.7" height="22" fill="#0F5132"/>
+      <line x1="253" y1="20" x2="253" y2="60" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="365.7" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.920</text>
       <!-- AG News -->
       <text x="118" y="96" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">AG News</text>
       <text x="118" y="113" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
-      <rect x="126" y="86" width="166" height="22" fill="#0F5132"/>
+      <rect x="126" y="86" width="137.9" height="22" fill="#0F5132"/>
       <line x1="189.5" y1="82" x2="189.5" y2="122" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <text x="298" y="102" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.653</text>
+      <text x="269.9" y="102" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.543</text>
       <!-- BoolQ -->
       <text x="118" y="158" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">BoolQ</text>
       <text x="118" y="175" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">yes/no</text>
-      <rect x="126" y="148" width="152.4" height="22" fill="#0F5132"/>
+      <rect x="126" y="148" width="134.6" height="22" fill="#0F5132"/>
       <line x1="253" y1="144" x2="253" y2="184" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <text x="284.4" y="164" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.60</text>
-      <!-- Banking77 -->
-      <text x="118" y="220" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">Banking77</text>
-      <text x="118" y="237" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
-      <rect x="126" y="210" width="97.4" height="22" fill="#7A1F1A"/>
-      <line x1="129.3" y1="206" x2="129.3" y2="246" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <text x="229.4" y="226" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.383</text>
+      <text x="266.6" y="164" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.530</text>
       <!-- HellaSwag -->
-      <text x="118" y="282" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">HellaSwag</text>
-      <text x="118" y="299" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
-      <rect x="126" y="272" width="91.4" height="22" fill="#7A1F1A"/>
-      <line x1="189.5" y1="268" x2="189.5" y2="308" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <text x="223.4" y="288" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.36</text>
+      <text x="118" y="220" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">HellaSwag</text>
+      <text x="118" y="237" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="210" width="84.6" height="22" fill="#7A1F1A"/>
+      <line x1="189.5" y1="206" x2="189.5" y2="246" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="216.6" y="226" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.333</text>
       <!-- TruthfulQA -->
-      <text x="118" y="344" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">TruthfulQA</text>
-      <text x="118" y="361" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
-      <rect x="126" y="334" width="88.1" height="22" fill="#7A1F1A"/>
-      <line x1="189.5" y1="330" x2="189.5" y2="370" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <text x="220.1" y="350" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.347</text>
+      <text x="118" y="282" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">TruthfulQA</text>
+      <text x="118" y="299" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="272" width="80.5" height="22" fill="#7A1F1A"/>
+      <line x1="189.5" y1="268" x2="189.5" y2="308" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="212.5" y="288" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.317</text>
       <!-- MMLU -->
-      <text x="118" y="406" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MMLU</text>
+      <text x="118" y="344" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MMLU</text>
+      <text x="118" y="361" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
+      <rect x="126" y="334" width="61.2" height="22" fill="#7A1F1A"/>
+      <line x1="189.5" y1="330" x2="189.5" y2="370" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="193.2" y="350" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.241</text>
+      <!-- Banking77 -->
+      <text x="118" y="406" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">Banking77</text>
       <text x="118" y="423" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">multiple-choice</text>
-      <rect x="126" y="396" width="81.3" height="22" fill="#7A1F1A"/>
-      <line x1="189.5" y1="392" x2="189.5" y2="432" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <text x="213.3" y="412" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.320</text>
+      <rect x="126" y="396" width="54.1" height="22" fill="#7A1F1A"/>
+      <line x1="129.3" y1="392" x2="129.3" y2="432" stroke="#8A8474" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="186.1" y="412" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.213</text>
     </svg>
     </div>
     <p class="caveat">Solid bar = FD-1 accuracy. Dashed tick = chance. Green &ge; 0.50. n=300, MMLU 228.</p>
@@ -98,69 +99,70 @@
     <div class="secnum">02 &mdash; Calibration</div>
     <h2 class="display-2">Does 80% mean <em>80%?</em></h2>
     <div class="narrow">
-    <svg viewBox="0 0 400 470" width="100%" role="img" aria-label="Bar chart of expected calibration error per benchmark: MNLI 0.038, Banking77 0.092, AG News 0.187, BoolQ 0.203, MMLU 0.266, HellaSwag 0.284, TruthfulQA 0.292. Lower is better.">
+    <svg viewBox="0 0 400 470" width="100%" role="img" aria-label="Bar chart of expected calibration error per benchmark: MNLI 0.057, Banking77 0.100, AG News 0.300, BoolQ 0.307, TruthfulQA 0.494, MMLU 0.505, HellaSwag 0.516. Lower is better. ECE measured uncalibrated (T=1.0).">
       <title>FD-1 expected calibration error per benchmark</title>
       <g stroke="#EAE4D2" stroke-width="1">
         <line x1="126" y1="8" x2="126" y2="446"/>
-        <line x1="189.5" y1="8" x2="189.5" y2="446"/>
-        <line x1="253" y1="8" x2="253" y2="446"/>
-        <line x1="316.5" y1="8" x2="316.5" y2="446"/>
+        <line x1="176.8" y1="8" x2="176.8" y2="446"/>
+        <line x1="227.6" y1="8" x2="227.6" y2="446"/>
+        <line x1="278.4" y1="8" x2="278.4" y2="446"/>
+        <line x1="329.2" y1="8" x2="329.2" y2="446"/>
         <line x1="380" y1="8" x2="380" y2="446"/>
       </g>
       <g font-family="'JetBrains Mono',ui-monospace,monospace" font-size="10" fill="#8A8474" text-anchor="middle">
-        <text x="126" y="462">0</text><text x="189.5" y="462">.08</text><text x="253" y="462">.16</text><text x="316.5" y="462">.24</text><text x="380" y="462">.32</text>
+        <text x="126" y="462">0</text><text x="176.8" y="462">.12</text><text x="227.6" y="462">.24</text><text x="278.4" y="462">.36</text><text x="329.2" y="462">.48</text><text x="380" y="462">.60</text>
       </g>
       <!-- MNLI -->
       <text x="118" y="34" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MNLI</text>
-      <text x="118" y="51" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.038</text>
-      <rect x="126" y="24" width="30.4" height="22" fill="#2A2820"/>
-      <text x="162.4" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.038</text>
+      <text x="118" y="51" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.057</text>
+      <rect x="126" y="24" width="24.1" height="22" fill="#2A2820"/>
+      <text x="156.1" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.057</text>
       <!-- Banking77 -->
       <text x="118" y="96" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">Banking77</text>
-      <text x="118" y="113" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.092</text>
-      <rect x="126" y="86" width="72.9" height="22" fill="#2A2820"/>
-      <text x="204.9" y="102" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.092</text>
+      <text x="118" y="113" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.100</text>
+      <rect x="126" y="86" width="42.3" height="22" fill="#2A2820"/>
+      <text x="174.3" y="102" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.100</text>
       <!-- AG News -->
       <text x="118" y="158" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">AG News</text>
-      <text x="118" y="175" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.187</text>
-      <rect x="126" y="148" width="148.5" height="22" fill="#2A2820"/>
-      <text x="280.5" y="164" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.187</text>
+      <text x="118" y="175" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.300</text>
+      <rect x="126" y="148" width="127.0" height="22" fill="#2A2820"/>
+      <text x="259.0" y="164" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.300</text>
       <!-- BoolQ -->
       <text x="118" y="220" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">BoolQ</text>
-      <text x="118" y="237" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.203</text>
-      <rect x="126" y="210" width="161.2" height="22" fill="#2A2820"/>
-      <text x="293.2" y="226" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.203</text>
-      <!-- MMLU -->
-      <text x="118" y="282" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MMLU</text>
-      <text x="118" y="299" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.266</text>
-      <rect x="126" y="272" width="211.2" height="22" fill="#2A2820"/>
-      <text x="343.2" y="288" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.266</text>
-      <!-- HellaSwag -->
-      <text x="118" y="344" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">HellaSwag</text>
-      <text x="118" y="361" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.284</text>
-      <rect x="126" y="334" width="225.7" height="22" fill="#2A2820"/>
-      <text x="357.7" y="350" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.284</text>
+      <text x="118" y="237" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.307</text>
+      <rect x="126" y="210" width="130.0" height="22" fill="#2A2820"/>
+      <text x="262.0" y="226" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.307</text>
       <!-- TruthfulQA -->
-      <text x="118" y="406" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">TruthfulQA</text>
-      <text x="118" y="423" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.292</text>
-      <rect x="126" y="396" width="231.7" height="22" fill="#2A2820"/>
-      <text x="363.7" y="412" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.292</text>
+      <text x="118" y="282" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">TruthfulQA</text>
+      <text x="118" y="299" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.494</text>
+      <rect x="126" y="272" width="209.1" height="22" fill="#2A2820"/>
+      <text x="341.1" y="288" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.494</text>
+      <!-- MMLU -->
+      <text x="118" y="344" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">MMLU</text>
+      <text x="118" y="361" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.505</text>
+      <rect x="126" y="334" width="213.8" height="22" fill="#2A2820"/>
+      <text x="345.8" y="350" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.505</text>
+      <!-- HellaSwag -->
+      <text x="118" y="406" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="14" font-weight="600" fill="#16150F">HellaSwag</text>
+      <text x="118" y="423" text-anchor="end" font-family="'Inter',-apple-system,sans-serif" font-size="10.5" fill="#8A8474">ECE 0.516</text>
+      <rect x="126" y="396" width="218.4" height="22" fill="#2A2820"/>
+      <text x="350.4" y="412" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#16150F">0.516</text>
     </svg>
     </div>
-    <p class="caveat">ECE &mdash; expected calibration error. Lower is better.</p>
+    <p class="caveat">ECE &mdash; expected calibration error, measured uncalibrated (T=1.0). Lower is better.</p>
   </section>
 
   <section id="seven">
     <div class="secnum">03 &mdash; The seven</div>
     <h2 class="display-2">One card <em>each.</em></h2>
     <div class="cards">
-      <div class="card"><div class="ct">MNLI</div><div class="bignum">0.94</div><div class="cd">accuracy &middot; entailment<br><span>ECE 0.038 &middot; n=300</span></div></div>
-      <div class="card"><div class="ct">AG News</div><div class="bignum">0.653</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.187 &middot; n=300 &middot; 4 topics</span></div></div>
-      <div class="card"><div class="ct">BoolQ</div><div class="bignum">0.60</div><div class="cd">accuracy &middot; yes/no<br><span>ECE 0.203 &middot; n=300</span></div></div>
-      <div class="card"><div class="ct">Banking77</div><div class="bignum">0.383</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.092 &middot; n=300 &middot; 77 intents</span></div></div>
-      <div class="card"><div class="ct">HellaSwag</div><div class="bignum">0.36</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.284 &middot; n=300 &middot; 4 endings</span></div></div>
-      <div class="card"><div class="ct">TruthfulQA</div><div class="bignum">0.347</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.292 &middot; n=300 &middot; best of 4</span></div></div>
-      <div class="card"><div class="ct">MMLU</div><div class="bignum">0.320</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.266 &middot; n=228 &middot; 6-subject subset</span></div></div>
+      <div class="card"><div class="ct">MNLI</div><div class="bignum">0.920</div><div class="cd">accuracy &middot; entailment<br><span>ECE 0.057 &middot; n=300</span></div></div>
+      <div class="card"><div class="ct">AG News</div><div class="bignum">0.543</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.300 &middot; n=300 &middot; 4 topics</span></div></div>
+      <div class="card"><div class="ct">BoolQ</div><div class="bignum">0.530</div><div class="cd">accuracy &middot; yes/no<br><span>ECE 0.307 &middot; n=300</span></div></div>
+      <div class="card"><div class="ct">Banking77</div><div class="bignum">0.213</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.100 &middot; n=300 &middot; 77 intents</span></div></div>
+      <div class="card"><div class="ct">HellaSwag</div><div class="bignum">0.333</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.516 &middot; n=300 &middot; 4 endings</span></div></div>
+      <div class="card"><div class="ct">TruthfulQA</div><div class="bignum">0.317</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.494 &middot; n=300 &middot; best of 4</span></div></div>
+      <div class="card"><div class="ct">MMLU</div><div class="bignum">0.241</div><div class="cd">accuracy &middot; multiple-choice<br><span>ECE 0.505 &middot; n=228 &middot; 6-subject subset</span></div></div>
     </div>
   </section>
 
@@ -177,7 +179,7 @@
   <section id="limits">
     <div class="secnum">05 &mdash; Limits</div>
     <h2 class="display-2">Where we&rsquo;re <em>weak.</em></h2>
-    <div class="alert alert-warn"><b>Honest limits</b>MMLU 0.32 &middot; TruthfulQA 0.35 &middot; Banking77 0.38 &mdash; below what we&rsquo;d ship for those tasks.<br>English only. Lab numbers, not your data. No certifications.</div>
+    <div class="alert alert-warn"><b>Honest limits</b>MMLU 0.24 &middot; TruthfulQA 0.32 &middot; Banking77 0.21 &mdash; below what we&rsquo;d ship for those tasks.<br>English only. Lab numbers, not your data. No certifications.</div>
   </section>
 
   <div class="close">
